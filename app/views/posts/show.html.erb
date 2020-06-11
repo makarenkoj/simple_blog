@@ -1,18 +1,17 @@
 <div class="event">
   <div class="event-info row">
     <div class="col-md-12">
-      <%= content_tag 'div', '',
-                      class: 'event-background',
-                      style: "background-image: url(#{post_photo(@post)})"
-      %>
-
       <div class="event-info-inner row">
         <div class="col-md-6">
           <div class="event-description">
             <h1><%= @post.title %></h1>
           </div>
 
-          <% if current_user_can_edit?(@post) %>
+          <div class="event-description">
+            <p><%= @post.body %></p>
+          </div>
+
+
             <div class="buffer-both">
               <%= link_to I18n.t('post.change'), edit_post_path(@post),
                           class: 'btn btn-primary buffer-right' %>
@@ -21,7 +20,7 @@
                           data: {confirm: "Вы действительно хотите удалить пост?"},
                           method: :delete, class: "btn btn-danger" %>
             </div>
-          <% end %>
+
         </div>
       </div>
     </div>
