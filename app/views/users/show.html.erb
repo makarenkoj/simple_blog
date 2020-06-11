@@ -1,0 +1,24 @@
+<div class="text-center">
+  <h1><%= @user.name %></h1>
+
+  <%= image_tag user_avatar(@user) %>
+
+  <% if @user == current_user %>
+    <p class="buffer-top"><%= link_to 'Редактировать профиль',
+                                      edit_user_path(@user), class: 'btn btn-default' %></p>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @user.posts.any? %>
+      <h3>Написал:</h3>
+      <div class="row">
+        <%= render partial: 'posts/post', collection: @user.posts %>
+      </div>
+    <% else %>
+      <p class="buffer-top">Пользователь пока не написал ни одного
+        поста</p>
+    <% end %>
+  </div>
+</div>

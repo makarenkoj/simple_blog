@@ -1,6 +1,8 @@
-<h1>Editing Post</h1>
+<h1>Редактирование поста</h1>
 
-<%= render 'form', post: @post %>
+<div class="row">
+  <div class="col-md-6 buffer-top">
 
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', posts_path %>
+    <%= render 'form' %>
+  </div>
+</div>

@@ -12,6 +12,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rails_admin'
 gem 'devise'
 gem 'devise-i18n'
+gem 'twitter-bootstrap-rails', '~> 3.2', '>= 3.2.2'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.4'
