@@ -51,12 +51,13 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <% if user_signed_in? %>
-            <li><%= link_to "Профиль", current_user %></li>
-            <li><%= link_to "Выйти", destroy_user_session_path,
-                            method: :delete %></li>
-              <% else %>
-            <li><%= link_to "Войти", new_user_sesion_path  %></li>
-            <li><%= link_to "Зарегрстрироваться", new_user_registration_path  %></li>
+              <li><%= link_to 'Профиль', current_user %></li>
+              <li><%= link_to 'Выйти', destroy_user_session_path,
+                              method: :delete %></li>
+            <% else %>
+              <li><%= link_to 'Войти', new_user_session_path %></li>
+              <li><%= link_to 'Зарегистрироваться',
+                              new_user_registration_path %></li>
             <% end %>
           </ul>
         </div>
@@ -74,7 +75,7 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2020</p>
+        <p>&copy; <%= t 'app.company' %> 2020</p>
       </footer>
 
     </div> <!-- /container -->
