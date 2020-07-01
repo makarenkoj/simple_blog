@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   resources :posts
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: %i[show edit update]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,28 +1,26 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :set_current_user_post, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: %i[show index]
+  before_action :set_post, only: %i[show edit update destroy]
+  before_action :set_current_user_post, only: %i[edit update destroy]
 
   def index
     @posts = Post.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @post = current_user.posts.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
-    @post = current_user.posts.build.(post_params)
+    @post = current_user.posts.build.call(post_params)
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice:  I18n.t('controllers.posts.created') }
+        format.html { redirect_to @post, notice: I18n.t('controllers.posts.created') }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -52,15 +50,16 @@ class PostsController < ApplicationController
   end
 
   private
-    def set_current_user_post
-      @post = current_user.post.find(params[:id])
-    end
+
+  def set_current_user_post
+    @post = current_user.post.find(params[:id])
+  end
 
   def set_post
     @post = Post.find(params[:id])
   end
 
-    def post_params
-      params.require(:post).permit(:title, :body)
-    end
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
 end
