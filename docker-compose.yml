@@ -5,28 +5,6 @@ volumes:
   postgres:
 
 services:
-  db:
-    image: postgres:10
-    expose:
-      - 5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: simple_blog
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
-
-  in_memory_store:
-    image: redis:4-alpine
-    expose:
-      - 6379
-    volumes:
-      - redis:/var/lib/redis/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "-h", "localhost", "ping"]
-
   server_app: &server_app
     build: .
     command: bundle exec rails server -b 0.0.0.0
@@ -50,20 +28,24 @@ services:
       DEVISE_SECRET_KEY: STUB
     depends_on:
       - db
-      - in_memory_store
     ports:
       - 3000:3000
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
 
-  server_worker_app:
-    <<: *server_app
-    command: bundle exec sidekiq -C config/sidekiq.yml
-    entrypoint: ''
-    ports: []
-    depends_on:
-      - db
-      - server_app
-      - in_memory_store
+  db:
+    image: postgres:10
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: simple_blog
     healthcheck:
-      test: ["CMD-SHELL", "ps ax | grep -v grep | grep sidekiq || exit 1"]
+      timeout: 5s
+      interval: 5s
+      retries: 5
+      test: ["CMD-SHELL", "pg_isready --dbname=postgres --host=localhost --username=postgres"]
