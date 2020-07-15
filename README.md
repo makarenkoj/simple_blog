@@ -4,4 +4,6 @@ Start application:
 
 * `docker-compose up`
 
+* `sudo service postgresql stop`
+
 * open in your browser http://localhost:3000/
