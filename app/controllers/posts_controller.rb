@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   def edit; end
 
   def create
-    @post = current_user.posts.build.call(post_params)
+    @post = Post.create(post_params.merge(user: current_user))
 
     respond_to do |format|
       if @post.save
