@@ -10,17 +10,16 @@
           <div class="event-description">
             <p><%= @post.body %></p>
           </div>
-
-
-            <div class="buffer-both">
-              <%= link_to I18n.t('post.change'), edit_post_path(@post),
+          <div class="buffer-both">
+            <%if current_user_can_edit?(@post) %>
+              <%= link_to I18n.t('activerecord.post.change'), edit_post_path(@post),
                           class: 'btn btn-primary buffer-right' %>
 
-              <%= link_to I18n.t('post.destroy'), post_path(@post),
+              <%= link_to I18n.t('activerecord.post.destroy'), post_path(@post),
                           data: {confirm: "Вы действительно хотите удалить пост?"},
                           method: :delete, class: "btn btn-danger" %>
-            </div>
-
+            <%end %>
+          </div>
         </div>
       </div>
     </div>

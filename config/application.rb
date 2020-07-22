@@ -29,6 +29,9 @@ module SimpleBlog
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+    config.i18n.default_locale = :ru
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end
