@@ -7,7 +7,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     respond_to do |format|
@@ -22,6 +23,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
 
   def set_current_user
     @user = current_user
