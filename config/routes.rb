@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+  devise_scope :user do
+    get 'users/sign_out', to: "devise/sessions#destroy", as: "logout"
+  end
   devise_for :users
+  # devise_for :users, skip: :all
   root 'posts#index'
 
   resources :posts

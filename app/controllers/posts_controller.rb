@@ -7,20 +7,22 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
-  def show; end
+  def show
+  end
 
   def new
     @post = current_user.posts.build
   end
 
-  def edit; end
+  def edit
+  end
 
   def create
-    @post = current_user.posts.build.call(post_params)
+    @post = Post.create(post_params.merge(user: current_user))
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: I18n.t('controllers.posts.created') }
+        format.html { redirect_to @post, notice: I18n.t('activerecord.controllers.posts.created') }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -32,7 +34,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: I18n.t('controllers.posts.updated') }
+        format.html { redirect_to @post, notice: I18n.t('activerecord.controllers.posts.updated') }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -44,7 +46,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: I18n.t('controllers.posts.destroyed') }
+      format.html { redirect_to posts_url, notice: I18n.t('activerecord.controllers.posts.destroyed') }
       format.json { head :no_content }
     end
   end
@@ -52,7 +54,7 @@ class PostsController < ApplicationController
   private
 
   def set_current_user_post
-    @post = current_user.post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
   end
 
   def set_post
