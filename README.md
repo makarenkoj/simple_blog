@@ -1,24 +1,23 @@
-# README
+Simple Blog
+=
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Technologies used:
+-
 
-Things you may want to cover:
+* Ruby 2.6.4
 
-* Ruby version
+* PostgreSQL 
 
-* System dependencies
+* Docker-compose
 
-* Configuration
+* The gems used can be found in Gemfile
 
-* Database creation
+Start application:
+-
 
-* Database initialization
+* Further in the terminal in the application folder run the following commands: `docker-compose build`
 
-* How to run the test suite
+* To get started: `docker-compose up`
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
-
-* ...
+* Open in your browser http://localhost:3000/

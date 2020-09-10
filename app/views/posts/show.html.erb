@@ -1,19 +1,27 @@
-<p id="notice"><%= notice %></p>
+<div class="event">
+  <div class="event-info row">
+    <div class="col-md-12">
+      <div class="event-info-inner row">
+        <div class="col-md-6">
+          <div class="event-description">
+            <h1><%= @post.title %></h1>
+          </div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+          <div class="event-description">
+            <p><%= @post.body %></p>
+          </div>
+          <div class="buffer-both">
+            <%if current_user_can_edit?(@post) %>
+              <%= link_to I18n.t('activerecord.post.change'), edit_post_path(@post),
+                          class: 'btn btn-primary buffer-right' %>
 
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @post.user.email %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+              <%= link_to I18n.t('activerecord.post.destroy'), post_path(@post),
+                          data: {confirm: "Вы действительно хотите удалить пост?"},
+                          method: :delete, class: "btn btn-danger" %>
+            <%end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
