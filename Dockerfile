@@ -1,12 +1,21 @@
 FROM ruby:2.6.4
 
 USER root
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update -qq && apt-get install -y nodejs postgresql-client vim && \
+    apt-get install -y yarn && \
+    apt-get install -y imagemagick && \
+    apt-get install -y libvips-tools && \
+    apt-get install -y locales
+
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
-RUN bundle install
+RUN bundle check || bundle install
+COPY package.json yarn.lock ./
 COPY . /myapp
 
 COPY entrypoint.sh /usr/bin/
