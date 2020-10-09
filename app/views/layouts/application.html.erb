@@ -9,7 +9,6 @@
 
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </head>
   <body>
@@ -21,9 +20,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-
         <%= link_to I18n.t('activerecord.app.name'), root_path, class: 'navbar-brand' %>
-
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <% if user_signed_in? %>
@@ -39,7 +36,6 @@
         </div>
       </div>
     </div>
-
     <div class="container">
       <div class="row">
         <div class="col-lg-9">
@@ -49,12 +45,13 @@
         <div class="col-lg-3">
         </div><!--/span-->
       </div><!--/row-->
-
-      <footer>
-        <p>&copy; <%=I18n.t('activerecord.app.company') %> 2020</p>
-      </footer>
-
     </div> <!-- /container -->
-
+    <footer>
+      <div class="container">
+      <p class="text-center">&copy; <%=I18n.t('activerecord.app.company') %> 2020</p>
+      </div>
+    </footer>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'bootstrap', 'main', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>

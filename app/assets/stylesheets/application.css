@@ -54,3 +54,19 @@
 .thumbnail-inner {
   padding: 20px 4px 4px;
 }
+
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+}
