@@ -18,13 +18,13 @@
 
   filter: blur(5px);
   -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
+  //-moz-filter: blur(5px);
+  //-o-filter: blur(5px);
   -ms-filter: blur(5px);
 }
 
 .event-description * {
-  color: white;
+  color: #0c0b0b;
 }
 
 .event-description a {
@@ -36,7 +36,7 @@
 }
 
 .event-info-inner {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgb(241, 245, 246);
 }
 
 .event-map {
