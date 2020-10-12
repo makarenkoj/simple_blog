@@ -10,6 +10,9 @@
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'main', 'data-turbolinks-track': 'reload' %>
+
   </head>
   <body>
 
@@ -52,7 +55,5 @@
       <p class="text-center">&copy; <%=I18n.t('activerecord.app.company') %> 2020</p>
       </div>
     </footer>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'bootstrap', 'main', 'data-turbolinks-track': 'reload' %>
-  </body>
+    </body>
 </html>

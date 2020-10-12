@@ -8,6 +8,14 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
+var jQuery = require("jquery")
+
+// import jQuery from "jquery";
+global.$ = global.jQuery = jQuery
+window.$ = window.jQuery = jQuery
+
+require("bootstrap")
+
 console.log('Hello from application.js')
 
 // Uncomment to copy all static images under ../images to the output folder and reference
