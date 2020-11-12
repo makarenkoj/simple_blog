@@ -42,7 +42,6 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-9">
-          <%= bootstrap_flash %>
           <%= yield %>
         </div>
         <!-- Sidebar Widgets Column -->
@@ -52,7 +51,8 @@
     </div> <!-- /container -->
     <footer>
       <div class="container">
-      <p class="text-center">&copy; <%=I18n.t('activerecord.app.company') %> 2020</p>
+      <p class="text-center">&copy; <%=I18n.t('activerecord.app.company') %></p>
+      <p class="text-center"><%= (DateTime.now).strftime('%Y') %></p>
       </div>
     </footer>
     </body>
