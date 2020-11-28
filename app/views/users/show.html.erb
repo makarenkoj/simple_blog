@@ -1,6 +1,8 @@
 <div class="text-center">
   <% if @user == current_user %>
     <%= link_to 'User Edit', edit_user_path(@user), class: 'btn btn-primary buffer-right' %>
+    <%= link_to 'User Destroy', @user, method: :delete,
+              data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
   <% else %>
     <p>You no current user</p>
   <% end %>

@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
-
-  before_action :set_current_user, except: [:show]
+  before_action :authenticate_user!, only: %i[show edit update destroy]
+  before_action :set_current_user, only: %i[show edit update destroy]
 
   def show
     @user = User.find(params[:id])
@@ -11,25 +10,22 @@ class UsersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: I18n.t('controllers.users.updated') }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.update(user_params)
+      redirect_to @user, notice: I18n.t('controllers.users.updated')
+    else
+      render :edit
     end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to posts_url, notice: I18n.t('controllers.users.destroyed')
   end
 
   private
 
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
-  end
-
   def set_current_user
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   def user_params
