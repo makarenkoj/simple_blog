@@ -19,36 +19,24 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.create(post_params.merge(user: current_user))
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: I18n.t('activerecord.controllers.posts.created') }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.save
+      redirect_to @post, notice: I18n.t('activerecord.controllers.posts.created')
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: I18n.t('activerecord.controllers.posts.updated') }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.update(post_params)
+      redirect_to @post, notice: I18n.t('activerecord.controllers.posts.updated')
+    else
+      render :edit
     end
   end
 
   def destroy
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: I18n.t('activerecord.controllers.posts.destroyed') }
-      format.json { head :no_content }
-    end
+    redirect_to posts_url, notice: I18n.t('activerecord.controllers.posts.destroyed')
   end
 
   private

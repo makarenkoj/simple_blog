@@ -10,20 +10,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: I18n.t('controllers.users.updated') }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.update(user_params)
+      redirect_to @user, notice: I18n.t('controllers.users.updated')
+    else
+      render :edit
     end
   end
 
   def destroy
     @user.destroy
-      redirect_to posts_url, notice: I18n.t('controllers.users.destroyed')
+    redirect_to posts_url, notice: I18n.t('controllers.users.destroyed')
   end
 
   private
