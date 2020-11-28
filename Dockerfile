@@ -14,6 +14,8 @@ RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
+RUN gem update
+RUN gem install bundler
 RUN bundle check || bundle install
 COPY package.json yarn.lock ./
 COPY . /myapp

@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   resources :posts
-  resources :users, only: %i[show edit update]
+  resources :users
 end
