@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :edit, :update, :destroy]
-  before_action :set_current_user, except: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: %i[show edit update destroy]
+  before_action :set_current_user, only: %i[show edit update destroy]
 
   def show
     @user = User.find(params[:id])
@@ -21,7 +21,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+      redirect_to posts_url, notice: I18n.t('controllers.users.destroyed')
+  end
+
   private
+
   def set_current_user
     @user = User.find(params[:id])
   end
