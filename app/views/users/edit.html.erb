@@ -1,4 +1,4 @@
-<h1>Редактирование профиля</h1>
+<h1><%=I18n.t('activerecord.attributes.user.edit_profile')%></h1>
 
 <div class="row">
   <div class="col-md-6 buffer-top">
@@ -6,7 +6,7 @@
     <%= render 'form' %>
 
     <p class="buffer-top">
-      <%= link_to 'Сменить пароль', edit_user_registration_path %>
+      <%= link_to I18n.t('activerecord.attributes.user.change_password'), edit_user_registration_path %>
     </p>
   </div>
 </div>

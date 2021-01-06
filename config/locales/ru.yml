@@ -12,6 +12,18 @@ ru:
         avatar: 'Аватарочка'
         password: 'Пароль'
         password_confirmation: 'Подтверждение пароля'
+        sign_in: 'Войти'
+        sign_out: 'Выйти'
+        sign_up: 'Зарегистрироватся'
+        save: 'Сохранить'
+        back: 'Вернутся'
+        or: 'или'
+        edit_profile: 'Редактирование профиля'
+        delete_profile: 'Удалить профиль'
+        change_password: 'Сменить пароль'
+        current_user: 'Вы не являетесь текущим пользователем'
+        my_posts: 'Мои посты:'
+        writen_posts: 'Пользователь пока не написал ни одного поста'
       post:
         title: 'Название'
         address: 'Место проведения'
@@ -29,6 +41,7 @@ ru:
         created: 'Вы создали новый пост :)'
         updated: 'Вы обновили пост'
         destroyed: 'Вы удалили пост :('
+        changed: ' Редактирование поста'
         wrong_pincode: 'НЕ верный пин-код!'
       users:
         updated: 'Вы обновили свой профиль'
@@ -54,6 +67,12 @@ ru:
     post:
       change: 'Изменить'
       destroy: 'Удалить пост'
+      create: 'Создать пост'
+      save: 'Сохранить'
+      back: 'Вернутся'
+      or: 'или'
+      new: 'Новый пост'
+      destroy_confirm: 'Вы уверены, что хотите удалить пост?'
       errors:
         messages:
           not_saved:

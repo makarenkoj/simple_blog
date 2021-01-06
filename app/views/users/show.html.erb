@@ -1,17 +1,18 @@
 <div class="text-center">
   <% if @user == current_user %>
-    <%= link_to 'User Edit', edit_user_path(@user), class: 'btn btn-primary buffer-right' %>
-    <%= link_to 'User Destroy', @user, method: :delete,
+    <%= link_to I18n.t('activerecord.attributes.user.edit_profile'), edit_user_path(@user), class: 'btn btn-primary buffer-right' %>
+    <%= link_to I18n.t('activerecord.attributes.user.delete_profile'), @user, method: :delete,
               data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
   <% else %>
-    <p>You no current user</p>
+    <p><%=I18n.t('activerecord.attributes.user.current_user')%></p>
   <% end %>
 </div>
 
 <% if @user.posts.any? %>
-  <h3>Мои посты:</h3>
+  <h3><%=I18n.t('activerecord.attributes.user.my_posts')%></h3>
   <%= render partial: 'posts/post', collection: @user.posts %>
 <% else %>
-  <p class="buffer-top">Пользователь пока не написал ни одного
-    поста</p>
+  <p class="buffer-top">
+    <%=I18n.t('activerecord.attributes.user.writen_posts')%>
+  </p>
 <% end %>

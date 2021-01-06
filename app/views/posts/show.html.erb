@@ -15,7 +15,7 @@
                           class: 'btn btn-primary buffer-right' %>
 
               <%= link_to I18n.t('activerecord.post.destroy'), post_path(@post),
-                          data: {confirm: "Вы действительно хотите удалить пост?"},
+                          data: {confirm: I18n.t('activerecord.post.destroy_confirm')},
                           method: :delete, class: "btn btn-danger" %>
             <%end %>
           </div>
