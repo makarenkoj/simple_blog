@@ -1,18 +1,18 @@
 <div class="text-center">
   <% if @user == current_user %>
-    <%= link_to I18n.t('activerecord.attributes.user.edit_profile'), edit_user_path(@user), class: 'btn btn-primary buffer-right' %>
-    <%= link_to I18n.t('activerecord.attributes.user.delete_profile'), @user, method: :delete,
+    <%= link_to t('activerecord.attributes.user.edit_profile'), edit_user_path(@user), class: 'btn btn-primary buffer-right' %>
+    <%= link_to t('activerecord.attributes.user.delete_profile'), @user, method: :delete,
               data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
   <% else %>
-    <p><%=I18n.t('activerecord.attributes.user.current_user')%></p>
+    <p><%= t('activerecord.attributes.user.current_user')%></p>
   <% end %>
 </div>
 
 <% if @user.posts.any? %>
-  <h3><%=I18n.t('activerecord.attributes.user.my_posts')%></h3>
+  <h3><%= t('activerecord.attributes.user.my_posts')%></h3>
   <%= render partial: 'posts/post', collection: @user.posts %>
 <% else %>
   <p class="buffer-top">
-    <%=I18n.t('activerecord.attributes.user.writen_posts')%>
+    <%= t('activerecord.attributes.user.writen_posts')%>
   </p>
 <% end %>

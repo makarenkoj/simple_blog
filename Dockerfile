@@ -19,6 +19,7 @@ RUN gem install bundler
 RUN bundle check || bundle install
 COPY package.json yarn.lock ./
 COPY . /myapp
+RUN yarn add bootstrap jquery popper.js
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh

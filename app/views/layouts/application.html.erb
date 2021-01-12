@@ -19,7 +19,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <div class="container">
-      <a><%= link_to I18n.t('activerecord.app.name'), root_path, class: 'navbar-brand' %></a>
+      <a><%= link_to t('activerecord.app.name'), root_path, class: 'navbar-brand' %></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,7 +29,7 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <a>
-                <%= link_to  I18n.t('activerecord.post.create'), new_post_path, class: 'btn btn-success' %>
+                <%= link_to  t('activerecord.post.create'), new_post_path, class: 'btn btn-success' %>
                 <span class="sr-only">
               (current)
             </span>
@@ -45,7 +45,7 @@
             </li>
             <li class="nav-item active">
               <a>
-                <%= link_to I18n.t('activerecord.attributes.user.sign_out'), destroy_user_session_path, method: :delete, class: "nav-link" %>
+                <%= link_to t('activerecord.attributes.user.sign_out'), destroy_user_session_path, method: :delete, class: "nav-link" %>
                 <span class="sr-only">
               (current)
             </span>
@@ -58,7 +58,7 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <a>
-                <%= link_to I18n.t('activerecord.attributes.user.sign_in'), new_user_session_path, class: "nav-link" %>
+                <%= link_to t('activerecord.attributes.user.sign_in'), new_user_session_path, class: "nav-link" %>
                 <span class="sr-only">v
               (current)
             </span>
@@ -66,7 +66,7 @@
             </li>
             <li class="nav-item active">
               <a>
-                <%= link_to I18n.t('activerecord.attributes.user.sign_up'), new_user_registration_path, class: "nav-link" %>
+                <%= link_to t('activerecord.attributes.user.sign_up'), new_user_registration_path, class: "nav-link" %>
                 <span class="sr-only">
               (current)
             </span>
@@ -84,20 +84,19 @@
         <p id="notice"><%= notice %></p>
         <%= yield %>
       </div>
-      <!-- Sidebar Widgets Column -->
       <div class="col-md-3">
       </div>
-    </div><!--/row-->
-  </div> <!-- /container -->
+    </div>
+  </div>
 </div>
 
 <footer class="footer page-footer font-small mdb-color darken-3 pt-4">
   <div class="footer-copyright text-center py-3 container">
     <p class="text-center">
-      &copy; <%= I18n.t('activerecord.app.company') %>
-      <%= (DateTime.now).strftime('%Y') %>
+      &copy; <%= t('activerecord.app.company') %>
+      <%= l Time.now, format: :year %>
     </p>
-    <a href="https://blogasik.herokuapp.com/"><%= I18n.t('activerecord.app.url') %></a>
+    <a href="https://blogasik.herokuapp.com/"><%= t('activerecord.app.url') %></a>
   </div>
 </footer>
 </body>
