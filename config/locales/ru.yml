@@ -1,4 +1,6 @@
 ru:
+  hello: 'Привет Мир!'
+
   activerecord:
     models:
       user: 'Пользователь'
@@ -12,6 +14,18 @@ ru:
         avatar: 'Аватарочка'
         password: 'Пароль'
         password_confirmation: 'Подтверждение пароля'
+        sign_in: 'Войти'
+        sign_out: 'Выйти'
+        sign_up: 'Зарегистрироватся'
+        save: 'Сохранить'
+        back: 'Вернутся'
+        or: 'или'
+        edit_profile: 'Редактирование профиля'
+        delete_profile: 'Удалить профиль'
+        change_password: 'Сменить пароль'
+        current_user: 'Вы не являетесь текущим пользователем'
+        my_posts: 'Мои посты:'
+        writen_posts: 'Пользователь пока не написал ни одного поста'
       post:
         title: 'Название'
         address: 'Место проведения'
@@ -29,6 +43,7 @@ ru:
         created: 'Вы создали новый пост :)'
         updated: 'Вы обновили пост'
         destroyed: 'Вы удалили пост :('
+        changed: ' Редактирование поста'
         wrong_pincode: 'НЕ верный пин-код!'
       users:
         updated: 'Вы обновили свой профиль'
@@ -54,6 +69,12 @@ ru:
     post:
       change: 'Изменить'
       destroy: 'Удалить пост'
+      create: 'Создать пост'
+      save: 'Сохранить'
+      back: 'Вернутся'
+      or: 'или'
+      new: 'Новый пост'
+      destroy_confirm: 'Вы уверены, что хотите удалить пост?'
       errors:
         messages:
           not_saved:
@@ -98,3 +119,199 @@ ru:
       user_email: 'Этот почтовый адрес уже зарегестрирован!'
     alert_destroy:
       photo: 'Точно удалить фото?'
+
+  date:
+    abbr_day_names:
+      - Вс
+      - Пн
+      - Вт
+      - Ср
+      - Чт
+      - Пт
+      - Сб
+    abbr_month_names:
+      -
+      - янв.
+      - февр.
+      - марта
+      - апр.
+      - мая
+      - июня
+      - июля
+      - авг.
+      - сент.
+      - окт.
+      - нояб.
+      - дек.
+    day_names:
+      - воскресенье
+      - понедельник
+      - вторник
+      - среда
+      - четверг
+      - пятница
+      - суббота
+    formats:
+      default: "%d.%m.%Y"
+      long: "%-d %B %Y"
+      short: "%-d %b"
+    month_names:
+      -
+      - января
+      - февраля
+      - марта
+      - апреля
+      - мая
+      - июня
+      - июля
+      - августа
+      - сентября
+      - октября
+      - ноября
+      - декабря
+    order:
+      - :day
+      - :month
+      - :year
+    datetime:
+      distance_in_words:
+        about_x_hours:
+          one: около %{count} часа
+          few: около %{count} часов
+          many: около %{count} часов
+          other: около %{count} часа
+        about_x_months:
+          one: около %{count} месяца
+          few: около %{count} месяцев
+          many: около %{count} месяцев
+          other: около %{count} месяца
+        about_x_years:
+          one: около %{count} года
+          few: около %{count} лет
+          many: около %{count} лет
+          other: около %{count} лет
+        almost_x_years:
+          one: почти 1 год
+          few: почти %{count} года
+          many: почти %{count} лет
+          other: почти %{count} лет
+        half_a_minute: полминуты
+        less_than_x_seconds:
+          one: меньше %{count} секунды
+          few: меньше %{count} секунд
+          many: меньше %{count} секунд
+          other: меньше %{count} секунды
+        less_than_x_minutes:
+          one: меньше %{count} минуты
+          few: меньше %{count} минут
+          many: меньше %{count} минут
+          other: меньше %{count} минуты
+        over_x_years:
+          one: больше %{count} года
+          few: больше %{count} лет
+          many: больше %{count} лет
+          other: больше %{count} лет
+        x_seconds:
+          one: "%{count} секунду"
+          few: "%{count} секунды"
+          many: "%{count} секунд"
+          other: "%{count} секунды"
+        x_minutes:
+          one: "%{count} минуту"
+          few: "%{count} минуты"
+          many: "%{count} минут"
+          other: "%{count} минуты"
+        x_days:
+          one: "%{count} день"
+          few: "%{count} дня"
+          many: "%{count} дней"
+          other: "%{count} дня"
+        x_months:
+          one: "%{count} месяц"
+          few: "%{count} месяца"
+          many: "%{count} месяцев"
+          other: "%{count} месяца"
+        x_years:
+          one: "%{count} год"
+          few: "%{count} года"
+          many: "%{count} лет"
+          other: "%{count} года"
+      prompts:
+        second: Секунд
+        minute: Минут
+        hour: Часов
+        day: День
+        month: Месяц
+        year: Год
+
+  human:
+    decimal_units:
+      format: "%n %u"
+      units:
+        billion:
+          one: миллиард
+          few: миллиардов
+          many: миллиардов
+          other: миллиардов
+        million:
+          one: миллион
+          few: миллионов
+          many: миллионов
+          other: миллионов
+        quadrillion:
+          one: квадриллион
+          few: квадриллионов
+          many: квадриллионов
+          other: квадриллионов
+        thousand:
+          one: тысяча
+          few: тысяч
+          many: тысяч
+          other: тысяч
+        trillion:
+          one: триллион
+          few: триллионов
+          many: триллионов
+          other: триллионов
+        unit: ''
+    format:
+      delimiter: ''
+      precision: 1
+      significant: false
+      strip_insignificant_zeros: false
+    storage_units:
+      format: "%n %u"
+      units:
+        byte:
+          one: байт
+          few: байта
+          many: байт
+          other: байта
+        eb: ЭБ
+        gb: ГБ
+        kb: КБ
+        mb: МБ
+        pb: ПБ
+        tb: ТБ
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+    support:
+      array:
+        last_word_connector: " и "
+        two_words_connector: " и "
+        words_connector: ", "
+  time:
+    am: утра
+    formats:
+      default: "%a, %d %b %Y, %H:%M:%S %z"
+      long: "%d %B %Y, %H:%M"
+      short: "%d %b, %H:%M"
+      year: "%Y"
+    pm: вечера
+  views:
+    switch_locale: Русский
