@@ -30,7 +30,9 @@ module SimpleBlog
     # the framework and any gems in your application.
 
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+    config.i18n.available_locales = %i[en ru]
     config.i18n.default_locale = :ru
+    config.i18n.fallbacks = true
 
     # Don't generate system test files.
     config.generators.system_tests = nil

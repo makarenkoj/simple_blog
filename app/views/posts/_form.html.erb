@@ -12,6 +12,8 @@
   </div>
 
   <div class="actions">
-    <%= f.submit 'Сохранить', class: 'btn btn-primary' %> или <%= link_to 'вернуться', :back %>
+    <%= f.submit t('activerecord.post.save'), class: 'btn btn-primary' %>
+    <%= t('activerecord.post.or') %>
+    <%= link_to t('activerecord.post.back'), :back %>
   </div>
 <% end %>
