@@ -6,8 +6,8 @@ module ApplicationHelper
     country_code = next_locale.to_s.split('-').last.downcase
     country_code = 'us' if country_code == 'en'
 
-    link_to %{<span class="flag-icon-background flag-icon-#{country_code} nav-link"></span>}.html_safe,
-            {locale: next_locale},
+    link_to %(<span class="flag-icon-background flag-icon-#{country_code} nav-link"></span>).html_safe,
+            { locale: next_locale },
             title: t('views.switch_locale', locale: next_locale)
   end
 end
