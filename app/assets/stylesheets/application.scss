@@ -16,3 +16,14 @@ body {
 .footer {
   flex-shrink: 0;
 }
+
+.lokale {
+  display: flex;
+  flex-direction: column;
+
+}
+.swich {
+  color: #BBBBBB;
+  font-size: 10px;
+  line-height: 2px;
+}

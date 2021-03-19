@@ -1,0 +1,113 @@
+ru:
+  hello: 'Привет Мир!'
+  activerecord:
+    models:
+      user: 'Пользователь'
+      post: 'Пост'
+      photo: 'Фотография'
+    attributes:
+      user:
+        email: 'Email'
+        name: 'Имя'
+        avatar: 'Аватарочка'
+        password: 'Пароль'
+        password_confirmation: 'Подтверждение пароля'
+        sign_in: 'Войти'
+        sign_out: 'Выйти'
+        sign_up: 'Зарегистрироватся'
+        save: 'Сохранить'
+        back: 'Вернутся'
+        or: 'или'
+        edit_profile: 'Редактирование профиля'
+        delete_profile: 'Удалить профиль'
+        change_password: 'Сменить пароль'
+        current_user: 'Вы не являетесь текущим пользователем'
+        my_posts: 'Мои посты:'
+        writen_posts: 'Пользователь пока не написал ни одного поста'
+      post:
+        title: 'Название'
+        address: 'Место проведения'
+        datetime: 'Дата и время'
+        description: 'Описание'
+        pincode: 'Пин-код доступа'
+      comment:
+        user_name: 'Ваше имя'
+        body: 'Комментарий'
+      photo:
+        photo: 'Фотография'
+    controllers:
+      posts:
+        created: 'Вы создали новый пост :)'
+        updated: 'Вы обновили пост'
+        destroyed: 'Вы удалили пост :('
+        changed: ' Редактирование поста'
+        wrong_pincode: 'НЕ верный пин-код!'
+      users:
+        updated: 'Вы обновили свой профиль'
+        destroyed: 'Пользователь успешно удалён :('
+      comments:
+        destroyed: 'Комментарий удален'
+        created: 'Ваш комментарий добавлен'
+        error: 'Ошибка с комментарием'
+      subscriptions:
+        created: 'Вы подписаны на это событие'
+        destroyed: 'Участник отписан'
+        error: 'Подписка/отписка не сработала'
+      photos:
+        error: 'Что-то не так с фоткой'
+        created: 'Вы добавили фотографию к событию'
+        destroyed: 'Вы удалили фотку'
+    app:
+      name: 'Пост'
+      company: 'Просто Блог'
+      url: 'blogasik.com'
+    post:
+      change: 'Изменить'
+      destroy: 'Удалить пост'
+      create: 'Создать пост'
+      save: 'Сохранить'
+      back: 'Вернутся'
+      or: 'или'
+      new: 'Новый пост'
+      destroy_confirm: 'Вы уверены, что хотите удалить пост?'
+      errors:
+        messages:
+          not_saved:
+            one: "Cохранение не удалось из-за %{count} ошибки"
+            few: "Cохранение не удалось из-за %{count} ошибок"
+            many: "Cохранение не удалось из-за %{count} ошибок"
+            other: "Cохранение не удалось из-за %{count} ошибки"
+    comments:
+      comment:
+        destroy_confirm: 'Вы уверены, что хотите удалить этот комменатрий?'
+    subscriptions:
+      subscription:
+        destroy_confirm: 'Вы уверены, что хотите удалить эту подписку?'
+    post_mailer:
+      comment:
+        title: 'Новый комментарий'
+        author: 'Автор'
+        event: 'Событие'
+        datetime: 'Состоится'
+        owner: 'Организатор'
+      subscription:
+        title: 'Новая подписка'
+        name: 'Имя'
+        email: 'Email'
+        author: 'Автор'
+        post: 'Событие'
+        datetime: 'Состоится'
+        owner: 'Организатор'
+      photo:
+        title: 'Новая фотография'
+        name: 'Имя'
+        email: 'Почта'
+        post: 'Событие'
+        author: 'Автор'
+        owner: 'Организатор'
+        datetime: 'Состоится'
+    errors:
+      organize_subscribe: 'Вы не можете подписатся на своё событие!'
+      user_email: 'Этот почтовый адрес уже зарегестрирован!'
+    alert_destroy:
+      photo: 'Точно удалить фото?'
