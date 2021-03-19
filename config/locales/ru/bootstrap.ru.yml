@@ -1,11 +1,11 @@
-en:
+ru:
   breadcrumbs:
     application:
       root: "Индекс"
     pages:
       pages: "Страница"
   helpers:
-    actions: "Actions"
+    actions: "Действия"
     links:
       back: "Назад"
       cancel: "Отмена"
