@@ -77,9 +77,9 @@
       <% end %>
       <div class="navbar-brand">
         <div class="lokale">
-          <a><%= link_to 'English', root_path(locale: :en), class: 'btn swich' %></a>
-          <a><%= link_to 'Русский', root_path(locale: :ru), class: 'btn swich' %></a>
-          <a><%= link_to 'Українська', root_path(locale: :uk), class: 'btn swich' %></a>
+          <a><%= link_to emoji_flag("gb"), root_path(locale: :en), class: 'btn swich' %></a>
+          <a><%= link_to emoji_flag("ru"), root_path(locale: :ru), class: 'btn swich' %></a>
+          <a><%= link_to emoji_flag("ua"), root_path(locale: :uk), class: 'btn swich' %></a>
         </div>
       </div>
     </div>
