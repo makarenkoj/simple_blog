@@ -1,0 +1,31 @@
+ru:
+  simple_form:
+    "Yes": "Так"
+    "No": "ні"
+    required:
+      text: "потрібно"
+      mark: "*"
+      # Ви можете розкоментувати рядок нижче, якщо вам потрібно перезаписати весь необхідний html.
+      # При використанні html текст і мітка використовуватися не будуть.
+      # Html: '<abbr title = "required"> * </ abbr>'
+    error_notification:
+      default_message: "Подивіться проблеми, зазначені нижче:"
+      # Examples
+#      labels:
+#        defaults:
+#          password: "Пароль"
+#        user:
+#          new:
+#            email: "Електронна пошта для входу."
+#          edit:
+#            email: "Електронна пошта."
+#      hints:
+#        defaults:
+#          username: "Ім'я користувача для входу."
+#          password: "Будь ласка, не використовуйте спеціальні символи."
+#      include_blanks:
+#      defaults:
+#        age: "Краще не говорити"
+#      prompts:
+#        defaults:
+#          age: "Виберіть свій вік"
