@@ -1,0 +1,36 @@
+<!--<h2>Edit <%#= resource_name.to_s.humanize %></h2>-->
+<h2><%= t('activerecord.attributes.user.edit_profile') %></h2>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :email, required: true, autofocus: true %>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+    <% end %>
+
+    <%= f.input :password,
+                hint: t('simple_form.labels.defaults.comment'),
+                required: false,
+                input_html: { autocomplete: "new-password" } %>
+    <%= f.input :password_confirmation,
+                required: false,
+                input_html: { autocomplete: "new-password" } %>
+    <%= f.input :current_password,
+                hint: t('simple_form.labels.defaults.comment_password'),
+                required: true,
+                input_html: { autocomplete: "current-password" } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, t("simple_form.button.update"), class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+
+
+<p><%= t("simple_form.labels.defaults.unhappy") %> <%= link_to t("simple_form.labels.defaults.cancel"), registration_path(resource_name), data: { confirm: t("simple_form.labels.defaults.confirm") }, method: :delete %></p>
+
+<%= link_to t("simple_form.button.back"), :back, class: 'btn btn-primary' %>

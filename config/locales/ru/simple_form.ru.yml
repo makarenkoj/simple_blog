@@ -8,24 +8,31 @@ ru:
       # Вы можете раскомментировать строку ниже, если вам нужно перезаписать весь требуемый html.
       # При использовании html текст и метка использоваться не будут.
       # html: '<abbr title = "required"> * </abbr>'
+    button:
+      update: "Обновить"
+      back: "Назад"
     error_notification:
       default_message: "Просмотрите проблемы, указанные ниже:"
-      #     Examples
-#      labels:
-#        defaults:
-#          password: "Пароль"
-#        user:
-#          new:
-#            email: "Электронная почта для входа."
-#          edit:
-#            email: "Электронная почта."
-#      hints:
-#        defaults:
-#          username: "Имя пользователя для входа."
-#          password: "Пожалуйста, не используйте специальные символы."
-#      include_blanks:
-#      defaults:
-#        age: "Лучше не говорить"
-#      prompts:
-#        defaults:
-#          age: "Выберите свой возраст"
+    labels:
+      defaults:
+        password: "Пароль"
+        comment: "оставьте поле пустым, если не хотите его менять"
+        comment_password: "нам нужен ваш текущий пароль, чтобы подтвердить ваши изменения"
+        cancel: "Аннулировать мою учетную запись"
+        unhappy: "Недовольны?"
+        confirm: "Вы уверены?"
+      user:
+        new:
+          email: "Электронная почта для входа."
+        edit:
+          email: "Электронная почта."
+    hints:
+      defaults:
+        username: "Имя пользователя для входа."
+        password: "Пожалуйста, не используйте специальные символы."
+    include_blanks:
+      defaults:
+        age: "Лучше не говорить"
+    prompts:
+      defaults:
+        age: "Выберите свой возраст"
