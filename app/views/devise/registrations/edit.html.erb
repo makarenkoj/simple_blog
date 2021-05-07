@@ -1,4 +1,3 @@
-<!--<h2>Edit <%#= resource_name.to_s.humanize %></h2>-->
 <h2><%= t('activerecord.attributes.user.edit_profile') %></h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -31,6 +30,8 @@
 
 
 
-<p><%= t("simple_form.labels.defaults.unhappy") %> <%= link_to t("simple_form.labels.defaults.cancel"), registration_path(resource_name), data: { confirm: t("simple_form.labels.defaults.confirm") }, method: :delete %></p>
+<p><%= t("simple_form.labels.defaults.unhappy") %>
+  <%= link_to t("simple_form.labels.defaults.cancel"), registration_path(resource_name),
+              data: { confirm: t("simple_form.labels.defaults.confirm") }, method: :delete %></p>
 
 <%= link_to t("simple_form.button.back"), :back, class: 'btn btn-primary' %>

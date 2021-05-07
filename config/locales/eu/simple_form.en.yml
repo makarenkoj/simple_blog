@@ -21,6 +21,8 @@ en:
         cancel: "Cancel my account"
         unhappy: "Unhappy?"
         confirm: "Are you sure?"
+        sign_up: "Sign up"
+        characters: "characters minimum"
       user:
         new:
           email: 'E-mail to sign in.'
