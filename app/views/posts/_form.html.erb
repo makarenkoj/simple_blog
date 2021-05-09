@@ -1,19 +1,46 @@
-<%= form_for(@post) do |f| %>
+<%= simple_form_for @post, wrapper: :vertical_multi_select do |f| %>
+
   <%= render partial: 'partials/form_errors', locals: {model: @post} %>
 
   <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.input :title %>
   </div>
-
   <div class="form-group">
-    <%= f.label :body %>
-    <%= f.text_area :body, class: 'form-control', rows: '20' %>
+    <%= f.input :body, as: :text, input_html: {rows: 23, cols: 150 }%>
   </div>
-
   <div class="actions">
-    <%= f.submit t('activerecord.post.save'), class: 'btn btn-primary' %>
+    <%= f.button :submit, t('activerecord.post.save'), class: 'btn btn-primary' %>
     <%= t('activerecord.post.or') %>
-    <%= link_to t('activerecord.post.back'), :back %>
+    <%= link_to t('activerecord.post.back'), :back, class: 'btn btn-primary' %>
   </div>
 <% end %>
+
+<%#= simple_form_for @post, html: {class: 'js-toast-form'} do |f| %>
+
+  <%#= render partial: 'partials/form_errors', locals: {model: @post} %>
+
+<!--  <div class="form-group">-->
+    <%#= f.input :title %>
+<!--  </div>-->
+<!--  <div class="form-group">-->
+    <%#= f.input :body, as: :markdown%>
+<!--  </div>-->
+<!--  <div class="actions">-->
+    <%#= f.button :submit, t('activerecord.post.save'), class: 'btn-light' %>
+    <%#= t('activerecord.post.or') %>
+    <%#= link_to t('activerecord.post.back'), :back, class: 'btn-light' %>
+<!--  </div>-->
+<%# end %>
+
+<%#= render 'markdown_modal_window' %>
+
+<!--<script>-->
+<!--        $(document).on('turbolinks:load', function () {-->
+<!--        hotkeys.activate('form');-->
+<!--    });-->
+
+<!--        $(document).ready(function(){-->
+<!--        $('button').attr("tabindex", "-1");-->
+<!--        $('.tui-toolbar-icons').attr("tabindex", "-1");-->
+<!--    });-->
+<!--</script>-->

@@ -11,6 +11,7 @@ gem 'rails_admin'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5.2.0'
 gem 'webpacker', '~> 5.x'
+gem 'simple_form'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

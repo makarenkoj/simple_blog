@@ -5,8 +5,10 @@
 
     <%= render 'form' %>
 
+    <%= t('activerecord.attributes.user.or') %>
+
     <p class="buffer-top">
-      <%= link_to t('activerecord.attributes.user.change_password'), edit_user_registration_path %>
+      <%= link_to t('activerecord.attributes.user.change_password'), edit_user_registration_path, class: 'btn btn-danger' %>
     </p>
   </div>
 </div>
