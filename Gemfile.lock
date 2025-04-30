@@ -167,6 +167,10 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    phlex (1.11.0)
+    phlex-rails (1.2.2)
+      phlex (>= 1.10, < 2)
+      railties (>= 6.1, < 9)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -178,8 +182,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.13)
-    rack-proxy (0.7.7)
-      rack
     rack-session (2.1.0)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -244,6 +246,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
+    rouge (4.2.1)
     rubocop (1.75.3)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -258,9 +261,20 @@ GEM
     rubocop-ast (1.44.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
+    rubocop-rails (2.31.0)
+      activesupport (>= 4.2.0)
+      lint_roller (~> 1.1)
+      rack (>= 1.1)
+      rubocop (>= 1.75.0, < 2.0)
+      rubocop-ast (>= 1.38.0, < 2.0)
+    rubocop-rspec (3.6.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
+    ruby_ui (1.0.0.pre.alpha.4)
+      phlex (~> 1.10)
+      rouge (~> 4.2.0)
+      tailwind_merge (~> 0.12)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -270,10 +284,10 @@ GEM
       sprockets-rails
       tilt
     securerandom (0.4.1)
-    semantic_range (3.1.0)
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
+    sin_lru_redux (2.5.2)
     spring (4.3.0)
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
@@ -287,6 +301,13 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     stringio (3.1.7)
+    tailwind_merge (0.16.0)
+      sin_lru_redux (~> 2.5)
+    tailwindcss-rails (4.2.2)
+      railties (>= 7.0.0)
+      tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.1.4)
+    tailwindcss-ruby (4.1.4-x86_64-linux-gnu)
     thor (1.3.2)
     tilt (2.6.0)
     timeout (0.4.3)
@@ -310,11 +331,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webpacker (5.4.4)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.7.7)
       base64
       websocket-extensions (>= 0.1.0)
@@ -332,18 +348,23 @@ DEPENDENCIES
   devise-i18n
   listen
   pg
+  phlex-rails (~> 1.2)
   puma
   rails (~> 8.0)
   rails_12factor
   rails_admin
   rubocop
-  sass-rails
+  rubocop-rails
+  rubocop-rspec
+  ruby_ui
+  sassc-rails
   simple_form
   spring
   spring-watcher-listen
+  tailwind_merge (~> 0.16.0)
+  tailwindcss-rails
   turbolinks
   web-console
-  webpacker
 
 BUNDLED WITH
-   2.6.8
+   2.5.4
