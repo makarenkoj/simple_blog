@@ -21,6 +21,9 @@ Bundler.require(*Rails.groups)
 
 module SimpleBlog
   class Application < Rails::Application
+    config.autoload_paths << "#{root}/app/views"
+    config.autoload_paths << "#{root}/app/views/layouts"
+    config.autoload_paths << "#{root}/app/views/components"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
@@ -29,12 +32,14 @@ module SimpleBlog
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.i18n.load_path += Dir["#{Rails.root.to_s}/config/locales/**/*.{rb,yml}"]
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb,yml}').to_s]
     config.i18n.available_locales = %i[en ru uk]
     config.i18n.default_locale = :ru
     config.i18n.fallbacks = true
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators.template_engine :ruby_ui
   end
 end

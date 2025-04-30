@@ -15,6 +15,6 @@ module ApplicationHelper
     cc = country_code.to_s.upcase
     return unless cc =~ /\A[A-Z]{2}\z/
 
-    cc.codepoints.map { |c| (c + 127397).chr(Encoding::UTF_8) }.join
+    cc.codepoints.map { |c| (c + 127_397).chr(Encoding::UTF_8) }.join
   end
 end
