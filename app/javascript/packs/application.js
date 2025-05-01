@@ -1,5 +1,5 @@
-import 'rubyui';
-import '../../assets/stylesheets/application.scss'
+// import 'rubyui';
+// import '../../assets/stylesheets/application.scss'
 
 require("@rails/ujs").start()
 require("turbolinks").start()

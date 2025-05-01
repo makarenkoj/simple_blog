@@ -10,17 +10,17 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    render Posts::ShowView.new(post: @post, view_context: view_context)
+    render Posts::ShowView.new(view_context: view_context, post: @post)
   end
 
   def new
     @post = current_user.posts.build
-    render Posts::NewView, post: @post
+    render Posts::NewView.new(view_context: view_context, post: @post)
   end
 
   def edit
     @post = Post.find(params[:id])
-    render Posts::EditView, post: @post
+    render Posts::EditView.new(view_context: view_context, post: @post)
   end
 
   def create

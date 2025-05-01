@@ -2,7 +2,7 @@ class Navbar < RubyUI::Base
   def view_template
     nav(class: 'bg-gray-800 text-white p-4 shadow-md') do
       div(class: 'container mx-auto flex items-center justify-between') do
-        link_to t('activerecord.app.name'), root_path, class: 'text-lg font-bold'
+        logo
         toggle_button
         menu_links
         locale_switcher
@@ -25,7 +25,7 @@ class Navbar < RubyUI::Base
 
   def menu_links
     div(class: 'hidden w-full lg:flex lg:items-center lg:w-auto', id: 'navbarNav') do
-      ul(class: 'flex flex-col lg:flex-row lg:space-x-8 mt-4 lg:mt-0') do
+      ul(class: 'flex flex-col lg:flex-row lg:space-x-8 mt-4 lg:mt-0 lg:ml-4') do
         if user_signed_in?
           signed_in_links
         else
@@ -57,10 +57,25 @@ class Navbar < RubyUI::Base
   end
 
   def locale_switcher
-    div(class: 'ml-4 flex flex-col space-y-1') do
-      link_to emoji_flag('gb'), root_path(locale: :en), class: 'text-gray-400 text-xs no-underline hover:text-white'
-      link_to emoji_flag('ru'), root_path(locale: :ru), class: 'text-gray-400 text-xs no-underline hover:text-white'
-      link_to emoji_flag('ua'), root_path(locale: :uk), class: 'text-gray-400 text-xs no-underline hover:text-white'
+    div(class: 'hidden w-full lg:flex lg:items-center lg:w-auto', id: 'navbarNav') do
+      ul(class: 'flex flex-col lg:flex-row space-x-2 mt-2 lg:mt-2') do
+        nav_item emoji_flag('gb'), root_path(locale: :en)
+        nav_item emoji_flag('ua'), root_path(locale: :uk)
+      end
+    end
+  end
+
+  def root_logo(text, path, method: nil)
+    li do
+      link_to text, path, class: 'text-lg font-bold', method: method
+    end
+  end
+
+  def logo
+    div(class: 'hidden w-full lg:flex lg:items-center lg:w-auto', id: 'navbarNav') do
+      ul(class: 'flex flex-col lg:flex-row lg:space-x-8 mt-4 lg:mt-0 lg:ml-4') do
+        root_logo t('activerecord.app.name'), root_path
+      end
     end
   end
 end

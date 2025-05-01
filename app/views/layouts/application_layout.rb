@@ -5,14 +5,21 @@ class ApplicationLayout < RubyUI::Base
     super(view_context: view_context, **args)
   end
 
-  def view_template(&block)
+  def view_template(&block) # rubocop:disable Metrics/AbcSize
     doctype
     html(lang: 'ua') do
       head_section
-      body do
+      body(class: 'flex flex-col min-h-screen') do
         render Navbar.new(view_context: @view_context)
-        render Container.new(view_context: @view_context, &block)
+        div(class: 'content flex-grow') do
+          div(class: 'container mx-auto mt-4 px-4 py-3 bg-green-100 border border-green-400 text-green-700 rounded') { view_context.flash[:notice] } if view_context.flash[:notice]
+          div(class: 'container mx-auto mt-4 px-4 py-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded') { view_context.flash[:alert] } if view_context.flash[:alert]
+          div(class: 'container mx-auto mt-4 px-4 py-3 bg-red-100 border border-red-400 text-red-700 rounded') { view_context.flash[:error] } if view_context.flash[:error]
+          render Container.new(view_context: @view_context, &block)
+        end
+
         render Footer.new(view_context: @view_context)
+        unsafe_raw view_context.javascript_importmap_tags
       end
     end
   end
@@ -25,8 +32,10 @@ class ApplicationLayout < RubyUI::Base
       meta "http-equiv": 'X-UA-Compatible', content: 'IE=Edge,chrome=1'
       meta name: 'viewport', content: 'width=device-width, initial-scale=1.0'
       title { content_for?(:title) ? yield(:title) : 'SimpleBlog' }
-      csrf_meta_tags
-      view_context.stylesheet_link_tag 'application', media: 'all', "data-turbo-track": 'reload'
+      unsafe_raw csrf_meta_tags
+      unsafe_raw view_context.stylesheet_link_tag 'application', media: 'all', "data-turbo-track": 'reload'
+      # unsafe_raw view_context.javascript_include_tag 'application', "data-turbo-track": 'reload', defer: true
+      # unsafe_raw view_context.javascript_importmap_tags
     end
   end
 end

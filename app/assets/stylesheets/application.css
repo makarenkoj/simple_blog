@@ -1,0 +1,39 @@
+/*
+ * This is your standard application.css file.
+ * It should contain your own custom CSS rules.
+ * DO NOT include Tailwind directives (@tailwind) here.
+ * DO NOT use Sprockets directives (*= require) to include application.tailwind.css.
+ * Tailwind CSS is compiled separately by the Tailwind CLI process
+ * and made available to the asset pipeline automatically by tailwindcss-rails.
+ *= require tailwind.css
+ */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui;
+  background-color: whitesmoke;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+.lokale {
+  display: flex;
+  flex-direction: column;
+
+}
+.swich {
+  color: #BBBBBB;
+  font-size: 10px;
+  line-height: 2px;
+}

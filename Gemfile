@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'bootsnap'
 gem 'devise'
 gem 'devise-i18n'
+gem 'importmap-rails', '~> 2.1'
+gem 'jquery-rails', '~> 4.6'
 gem 'pg'
 gem 'phlex-rails', '~> 1.2'
 gem 'puma'
@@ -14,7 +16,6 @@ gem 'sassc-rails'
 gem 'simple_form'
 gem 'tailwindcss-rails'
 gem 'tailwind_merge', '~> 0.16.0'
-gem 'turbolinks'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
