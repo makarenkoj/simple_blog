@@ -4,7 +4,7 @@ module RubyUI
       include RubyUI
       include Phlex::Rails::Helpers::ContentFor
 
-      delegate :link_to, :content_for, :csrf_meta_tags, :t, :l, :safe_join, :html_safe,
+      delegate :link_to, :content_for, :csrf_meta_tags, :t, :l, :safe_join, :html_safe, :button_to, :form_with,
                :user_signed_in?, :current_user, :current_user_can_edit?,
                :root_path, :new_post_path, :destroy_user_session_path, :new_user_session_path, :new_user_registration_path,
                :post_path, :edit_post_path, :posts_path, :user_path,
