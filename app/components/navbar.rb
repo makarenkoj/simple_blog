@@ -1,4 +1,6 @@
 class Navbar < RubyUI::Base
+  TARGET_ID = 'navbarNav'.freeze
+
   def view_template
     nav(class: 'bg-gray-800 text-white p-4 shadow-md') do
       div(class: 'container mx-auto flex items-center justify-between') do
@@ -14,8 +16,8 @@ class Navbar < RubyUI::Base
 
   def toggle_button
     button class: 'block lg:hidden px-3 py-2 rounded text-gray-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white', type: 'button',
-           data: { toggle: 'collapse', target: '#navbarSupportedContent' },
-           aria: { controls: 'navbarSupportedContent', expanded: 'false', label: 'Toggle navigation' } do
+           data: { toggle: 'collapse', target: "##{TARGET_ID}" },
+           aria: { controls: TARGET_ID, expanded: 'false', label: 'Toggle navigation' } do
       span(class: 'sr-only') { 'Toggle navigation' }
       span(class: 'block w-6 h-px bg-white mb-1')
       span(class: 'block w-6 h-px bg-white mb-1')
@@ -24,7 +26,7 @@ class Navbar < RubyUI::Base
   end
 
   def menu_links
-    div(class: 'hidden w-full lg:flex lg:items-center lg:w-auto', id: 'navbarNav') do
+    div(class: 'hidden w-full lg:flex lg:items-center lg:w-auto', id: TARGET_ID) do
       ul(class: 'flex flex-col lg:flex-row lg:space-x-8 mt-4 lg:mt-0 lg:ml-4') do
         if user_signed_in?
           signed_in_links

@@ -108,6 +108,9 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
+      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -149,6 +152,9 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    mini_magick (5.2.0)
+      benchmark
+      logger
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
     minitest (5.25.5)
@@ -279,6 +285,9 @@ GEM
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
+    ruby-vips (2.2.3)
+      ffi (~> 1.12)
+      logger
     ruby_ui (1.0.0.pre.alpha.4)
       phlex (~> 1.10)
       rouge (~> 4.2.0)
@@ -351,6 +360,7 @@ DEPENDENCIES
   byebug
   devise
   devise-i18n
+  image_processing (~> 1.14)
   importmap-rails (~> 2.1)
   jquery-rails (~> 4.6)
   listen

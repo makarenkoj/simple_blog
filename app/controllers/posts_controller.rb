@@ -28,15 +28,15 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: I18n.t('activerecord.controllers.posts.created')
     else
-      render :new
+      render Posts::NewView.new(view_context: view_context, post: @post), status: :unprocessable_entity
     end
   end
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: I18n.t('activerecord.controllers.posts.updated')
+      redirect_to @post, notice: t('activerecord.controllers.posts.updated')
     else
-      render :edit
+      render Posts::EditView.new(view_context: view_context, post: @post), status: :unprocessable_entity
     end
   end
 

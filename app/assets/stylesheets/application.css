@@ -6,6 +6,7 @@
  * Tailwind CSS is compiled separately by the Tailwind CLI process
  * and made available to the asset pipeline automatically by tailwindcss-rails.
  *= require tailwind.css
+ *= require actiontext.css
  */
 
 html, body {

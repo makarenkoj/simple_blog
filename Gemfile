@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'bootsnap'
 gem 'devise'
 gem 'devise-i18n'
+gem 'image_processing', '~> 1.14'
 gem 'importmap-rails', '~> 2.1'
 gem 'jquery-rails', '~> 4.6'
 gem 'pg'

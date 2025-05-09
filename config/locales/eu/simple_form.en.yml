@@ -38,3 +38,9 @@ en:
     prompts:
       defaults:
         age: 'Select your age'
+    edit_form:
+      post:
+        title:
+          placeholder: 'Title of your post'
+        body:
+          placeholder: 'Write your post here...'

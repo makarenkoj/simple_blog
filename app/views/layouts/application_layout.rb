@@ -33,6 +33,7 @@ class ApplicationLayout < RubyUI::Base
       meta name: 'viewport', content: 'width=device-width, initial-scale=1.0'
       title { content_for?(:title) ? yield(:title) : 'SimpleBlog' }
       unsafe_raw csrf_meta_tags
+      unsafe_raw csp_meta_tag
       unsafe_raw view_context.javascript_importmap_tags
       unsafe_raw view_context.stylesheet_link_tag 'application', media: 'all', "data-turbo-track": 'reload'
     end

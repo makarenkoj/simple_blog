@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    render Users::ShowView.new(view_context: view_context, user: @user)
   end
 
   def edit; end

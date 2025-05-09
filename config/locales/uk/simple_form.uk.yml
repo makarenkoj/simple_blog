@@ -38,3 +38,9 @@ uk:
     prompts:
       defaults:
         age: "Виберіть свій вік"
+    edit_form:
+      post:
+        title:
+          placeholder: 'Заголовок вашого поста'
+        body:
+          placeholder: 'Напишіть свій пост тут...'

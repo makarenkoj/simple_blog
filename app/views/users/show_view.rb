@@ -1,10 +1,10 @@
-module Posts
+module Users
   class ShowView < ApplicationLayout
-    attr_reader :post
+    attr_reader :user
 
-    def initialize(post:, view_context: nil)
+    def initialize(user:, view_context: nil)
       super(view_context: view_context)
-      @post = post
+      @user = user
     end
 
     def view_template
@@ -14,10 +14,9 @@ module Posts
             div(class: 'w-full') do
               div(class: 'flex flex-wrap') do
                 div(class: 'w-full') do
-                  div(class: 'event-description mb-4') { h1(class: 'text-2xl font-bold') { @post.title } }
-                  div(class: 'event-description mb-4') { p(class: 'text-gray-700') { @post.body } }
+                  div(class: 'event-description mb-4') { p(class: 'text-gray-700') { @user.email } }
                   div(class: 'my-4') do
-                    buttons_block if view_context.current_user_can_edit?(@post)
+                    buttons_block if view_context.current_user == @user
                   end
                 end
               end
@@ -32,25 +31,25 @@ module Posts
     def buttons_block
       div(class: 'flex flex-row') do
         div(class: 'basis-24 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 mr-4') do
-          edit_post
+          edit_user
         end
 
         div(class: 'basis-24 bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700') do
-          delete_post
+          delete_user
         end
       end
     end
 
-    def delete_post
-      button_to t('activerecord.post.destroy'),
-                view_context.post_path(@post),
+    def delete_user
+      button_to t('activerecord.user.destroy'),
+                view_context.user_path(@user),
                 method: :delete,
-                form: { data: { turbo_confirm: t('activerecord.post.destroy_confirm') } }
+                form: { data: { turbo_confirm: t('activerecord.user.destroy_confirm') } }
     end
 
-    def edit_post
-      link_to t('activerecord.post.change'),
-              view_context.edit_post_path(@post)
+    def edit_user
+      link_to t('activerecord.user.change'),
+              view_context.edit_user_path(@user)
     end
   end
 end
