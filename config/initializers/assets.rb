@@ -7,6 +7,9 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.paths << Emoji.images_path
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
+Rails.application.config.assets.paths << Gem.loaded_specs['rails_admin'].full_gem_path + '/app/assets/javascripts'
+Rails.application.config.assets.paths << Gem.loaded_specs['rails_admin'].full_gem_path + '/app/assets/stylesheets'
+Rails.application.config.assets.paths << Gem.loaded_specs['rails_admin'].full_gem_path + '/app/assets/images'
 
 # Precompile additional assets.
 # application.js, application.scss, and all non-JS/CSS in the app/assets
@@ -16,3 +19,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.configure do |env|
   env.export_concurrent = false
 end
+Rails.application.config.assets.paths << Rails.root.join("node_modules/@fortawesome/fontawesome-free/webfonts")

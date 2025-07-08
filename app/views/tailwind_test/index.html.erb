@@ -1,0 +1,41 @@
+<div class="p-8 bg-white rounded-lg shadow-xl" data-controller="tailwind-test">
+  <h1 class="text-4xl font-extrabold text-gray-900 mb-6 text-center">
+    <%= t('tailwind_test.title') %>
+  </h1>
+  <p class="text-lg text-gray-700 mb-8 text-center">
+    <%= t('tailwind_test.description') %>
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="p-6 bg-blue-500 text-white rounded-md shadow-lg flex items-center justify-center text-xl font-semibold">
+      <span class="mr-2">✅</span> <%= t('tailwind_test.tailwind_working_blue') %>
+    </div>
+    <div class="p-6 bg-green-500 text-white rounded-md shadow-lg flex items-center justify-center text-xl font-semibold">
+      <span class="mr-2">✅</span> <%= t('tailwind_test.tailwind_working_green') %>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 block mx-auto">
+      <%= t('tailwind_test.tailwind_button') %>
+    </button>
+  </div>
+
+  <div class="border border-gray-300 p-4 rounded-md mb-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= t('tailwind_test.typography_example_title') %></h2>
+    <div class="prose prose-blue max-w-none">
+      <p><%= t('tailwind_test.typography_example_paragraph_1', code_tag: '<code>prose</code>'.html_safe) %></p>
+      <ul>
+        <li><%= t('tailwind_test.list_item_1') %></li>
+        <li><%= t('tailwind_test.list_item_2') %></li>
+      </ul>
+      <h3><%= t('tailwind_test.heading_h3') %></h3>
+      <p><%= t('tailwind_test.paragraph_below_h3') %></p>
+    </div>
+  </div>
+
+  <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
+    <p class="font-bold"><%= t('tailwind_test.stimulus_message_title') %></p>
+    <p data-tailwind-test-target="message"><%= t('tailwind_test.stimulus_message_inactive') %></p>
+  </div>
+</div>

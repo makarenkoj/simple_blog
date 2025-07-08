@@ -1,5 +1,6 @@
 RailsAdmin.config do |config|
-  config.asset_source = :webpacker
+  config.asset_source = :importmap
+  # config.asset_source = :webpacker
 
   ### Popular gems integration
 
@@ -23,7 +24,7 @@ RailsAdmin.config do |config|
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar = true
-
+  config.asset_source = :sprockets
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory

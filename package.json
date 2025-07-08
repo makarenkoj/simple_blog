@@ -1,23 +1,27 @@
 {
   "name": "simple_blog",
-  "private": true,
+  "private": "true",
   "dependencies": {
-    "@rails/actioncable": "^6.0.0",
-    "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "5.2.1",
-    "bootstrap": "^4.6.0",
-    "flag-icon-css": "^3.5.0",
-    "jquery": "^3.6.0",
-    "popper.js": "^1.16.1",
-    "turbolinks": "^5.2.0",
-    "webpack": "^4.44.2"
+    "@activeadmin/activeadmin": "^3.3.0",
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.16",
+    "@popperjs/core": "^2.11.8",
+    "@rails/actioncable": "^7.1.3",
+    "@rails/activestorage": "^7.1.3",
+    "@tailwindcss/cli": "^4.1.11",
+    "@toast-ui/editor": "^3.2.2",
+    "flag-icons": "^7.2.1",
+    "highlight.js": "^11.9.0",
+    "jquery": "^3.7.1",
+    "sass": "^1.89.2"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
+    "esbuild": "^0.25.5",
+    "tailwindcss": "^4.1.11"
   },
-  "resolutions": {
-    "rails_admin/@fortawesome/fontawesome-free": "^5.15.0"
+  "scripts": {
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --platform=browser --main-fields=browser,module,main --resolve-extensions=.js,.jsx,.ts,.tsx --log-level=info",
+    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   }
 }
