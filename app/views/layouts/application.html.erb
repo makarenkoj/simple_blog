@@ -10,7 +10,7 @@
 
     <%= yield :head %>
 
-     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
@@ -25,78 +25,85 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   </head>
   <body class="flex min-h-screen font-serif text-gray-800" data-controller="sidebar">
-  <!-- sidenav -->
+    <!-- sidenav -->
     <div class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu transition-transform -translate-x-full md:translate-x-0" data-sidebar-target="sidebarMenu">
-      <a href="#" class="flex items-center pb-4 border-b border-b-gray-800">
-        <h2 class="font-bold text-2xl">LOREM <span class="bg-[#f84525] text-white px-2 rounded-md">IPSUM</span></h2>
+      <a href="<%= root_path %>" class="flex items-center pb-4 border-b border-b-gray-800">
+        <h2 class="font-bold text-2xl"><%= t('activerecord.app.simple')%> <span class="bg-[#f84525] text-white px-2 rounded-md"><%= t('activerecord.app.blog')%></span></h2>
       </a>
-      <ul class="mt-4">
-        <span class="text-gray-400 font-bold">ADMIN</span>
-        <li class="mb-1 group">
-          <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-            <i class="ri-home-2-line mr-3 text-lg"></i>
-            <span class="text-sm">Dashboard</span>
-          </a>
-        </li>
-        <li class="mb-1 group">
-          <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle" data-action="click->sidebar#toggleDropdown" data-sidebar-target="dropdownToggle">
-            <i class='bx bx-user mr-3 text-lg'></i>
-            <span class="text-sm">Users</span>
-            <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90"></i>
-          </a>
-          <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-            <li class="mb-4">
-              <a href="#" class="text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">All</a>
-            </li>
-            <li class="mb-4">
-              <a href="#" class="text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Roles</a>
-            </li>
-          </ul>
-        </li>
-        <li class="mb-1 group">
-          <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-            <i class='bx bx-list-ul mr-3 text-lg'></i>
-            <span class="text-sm">Activities</span>
-          </a>
-        </li>
-        <span class="text-gray-400 font-bold">BLOG</span>
-        <li class="mb-1 group">
-          <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle" data-action="click->sidebar#toggleDropdown" data-sidebar-target="dropdownToggle">
-            <i class='bx bxl-blogger mr-3 text-lg' ></i>
-            <span class="text-sm">Post</span>
-            <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90"></i>
-          </a>
-          <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-            <li class="mb-4">
-              <a href="#" class="text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">All</a>
-            </li>
-            <li class="mb-4">
-              <a href="#" class="text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Categories</a>
-            </li>
-          </ul>
-        </li>
-        <li class="mb-1 group">
-          <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-            <i class='bx bx-archive mr-3 text-lg'></i>
-            <span class="text-sm">Archive</span>
-          </a>
-        </li>
-        <span class="text-gray-400 font-bold">PERSONAL</span>
-        <li class="mb-1 group">
-          <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-            <i class='bx bx-bell mr-3 text-lg' ></i>
-            <span class="text-sm">Notifications</span>
-            <span class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-600 bg-red-200 rounded-full">5</span>
-          </a>
-        </li>
-        <li class="mb-1 group">
-          <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-            <i class='bx bx-envelope mr-3 text-lg' ></i>
-            <span class="text-sm">Messages</span>
-            <span class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-600 bg-green-200 rounded-full">2 New</span>
-          </a>
-        </li>
-      </ul>
+      <% if user_signed_in? %>
+        <ul class="mt-4">
+          <%# <span class="text-gray-400 font-bold">ADMIN</span>
+          <li class="mb-1 group">
+            <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+              <i class="ri-home-2-line mr-3 text-lg"></i>
+              <span class="text-sm">Dashboard</span>
+            </a>
+          </li>
+          <li class="mb-1 group">
+            <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle" data-action="click->sidebar#toggleDropdown" data-sidebar-target="dropdownToggle">
+              <i class='bx bx-user mr-3 text-lg'></i>
+              <span class="text-sm">Users</span>
+              <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90"></i>
+            </a>
+            <ul class="pl-7 mt-2 hidden group-[.selected]:block">
+              <li class="mb-4">
+                <a href="#" class="text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">All</a>
+              </li>
+              <li class="mb-4">
+                <a href="#" class="text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Roles</a>
+              </li>
+            </ul>
+          </li>
+          <li class="mb-1 group">
+            <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+              <i class='bx bx-list-ul mr-3 text-lg'></i>
+              <span class="text-sm">Activities</span>
+            </a>
+          </li> %>
+          <span class="text-gray-400 font-bold"><%= t('blog') %></span>
+          <li class="mb-1 group">
+            <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle" data-action="click->sidebar#toggleDropdown" data-sidebar-target="dropdownToggle">
+              <i class='bx bxl-blogger mr-3 text-lg' ></i>
+              <span class="text-sm"><%= t('post') %></span>
+              <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90"></i>
+            </a>
+            <ul class="pl-7 mt-2 hidden group-[.selected]:block">
+              <% if current_user.creator? %>
+                <li class="mb-4">
+                  <%= link_to t('activerecord.attributes.post.new'), new_post_path, class: "text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3" %>
+                </li>
+                <% end %>
+              <li class="mb-4">
+                <%= link_to t('all'), posts_path, class: "text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3" %>
+              </li>
+              <li class="mb-4">
+                <%= link_to t('categories'), '#', class: "text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3" %>
+              </li>
+            </ul>
+          </li>
+          <li class="mb-1 group">
+            <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+              <i class='bx bx-archive mr-3 text-lg'></i>
+              <span class="text-sm"><%= t('archive')%></span>
+            </a>
+          </li>
+          <span class="text-gray-400 font-bold"><%= t('personal')%></span>
+          <li class="mb-1 group">
+            <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+              <i class='bx bx-bell mr-3 text-lg' ></i>
+              <span class="text-sm"><%= t('notifications') %></span>
+              <span class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-600 bg-red-200 rounded-full">5</span>
+            </a>
+          </li>
+          <li class="mb-1 group">
+            <a href="#" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+              <i class='bx bx-envelope mr-3 text-lg' ></i>
+              <span class="text-sm"><%= t('messages') %></span>
+              <span class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-600 bg-green-200 rounded-full">2 New</span>
+            </a>
+          </li>
+        </ul>
+      <% end %>
     </div>
     <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 hidden md:hidden sidebar-overlay" data-sidebar-target="sidebarOverlay" data-action="click->sidebar#hideSidebar"></div>
     <!-- end sidenav -->
@@ -109,171 +116,204 @@
         </button>
 
         <ul class="ml-auto flex items-center gap-x-4">
-          <%# Search Dropdown %>
-          <li class="dropdown" data-controller="dropdown">
-            <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:text-gray-600" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
-            </button>
-            <div class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100" data-dropdown-target="menu">
-              <form action="" class="p-4 border-b border-b-gray-100">
-                <div class="relative w-full">
-                  <input type="text" class="py-2 pr-4 pl-10 bg-gray-50 w-full outline-none border border-gray-100 rounded-md text-sm focus:border-blue-500" placeholder="Search...">
-                  <i class="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-gray-900"></i>
-                </div>
-              </form>
-            </div>
-          </li>
-
-          <%# Notifications Dropdown %>
-          <li class="dropdown" data-controller="dropdown">
-            <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:text-gray-600" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;"><path d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"></path></svg>
-            </button>
-            <div class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100" data-dropdown-target="menu">
-              <%# TabsController %>
-              <div data-controller="tabs">
-                <div class="flex items-center px-4 pt-4 border-b border-b-gray-100 notification-tab">
-                  <button type="button" data-tab="notification" data-tab-page="notifications" class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1 active" data-action="click->tabs#selectTab" data-tabs-target="tabButton">Notifications</button>
-                  <button type="button" data-tab="notification" data-tab-page="messages" class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1" data-action="click->tabs#selectTab" data-tabs-target="tabButton">Messages</button>
-                </div>
-                <div class="my-2">
-                  <%# notifications %>
-                  <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications" data-tabs-target="tabContent">
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
-                          <div class="text-[11px] text-gray-400">from a user</div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
-                          <div class="text-[11px] text-gray-400">from a user</div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
-                          <div class="text-[11px] text-gray-400">from a user</div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
-                          <div class="text-[11px] text-gray-400">from a user</div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
-                          <div class="text-[11px] text-gray-400">from a user</div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                  <%# messages %>
-                  <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification" data-page="messages" data-tabs-target="tabContent">
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
-                          <div class="text-[11px] text-gray-400">Hello there!</div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
-                          <div class="text-[11px] text-gray-400">Hello there!</div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
-                          <div class="text-[11px] text-gray-400">Hello there!</div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
-                          <div class="text-[11px] text-gray-400">Hello there!</div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                        <div class="ml-2">
-                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
-                          <div class="text-[11px] text-gray-400">Hello there!</div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-          <%# FullscreenController %>
-          <button type="button" data-controller="fullscreen" data-action="click->fullscreen#toggle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;"><path d="M5 5h5V3H3v7h2zm5 14H5v-5H3v7h7zm11-5h-2v5h-5v2h7zm-2-4h2V3h-7v2h5z"></path></svg>
-          </button>
-
-          <%# User Profile Dropdown %>
-          <li class="dropdown ml-3" data-controller="dropdown">
-            <button type="button" class="dropdown-toggle flex items-center" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-              <div class="flex-shrink-0 w-10 h-10 relative">
-                <div class="p-1 bg-white rounded-full focus:outline-none focus:ring">
-                  <img class="w-8 h-8 rounded-full" src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg" alt=""/>
-                  <div class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping"></div>
-                  <div class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full"></div>
-                </div>
-              </div>
-              <div class="p-2 md:block text-left">
-                <h2 class="text-sm font-semibold text-gray-800">John Doe</h2>
-                <p class="text-xs text-gray-500">Administrator</p>
-              </div>
-            </button>
-            <ul class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]" data-dropdown-target="menu">
-              <li>
-                <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Profile</a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Settings</a>
-              </li>
-              <li>
-                <form method="POST" action="">
-                  <a role="menuitem" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer"
-                    data-action="click->dashboard#logout">
-                    Log Out
-                  </a>
+          <% if user_signed_in? %>
+            <%# Search Dropdown %>
+            <li class="dropdown" data-controller="dropdown">
+              <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:text-gray-600" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+              </button>
+              <div class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100" data-dropdown-target="menu">
+                <form action="" class="p-4 border-b border-b-gray-100">
+                  <div class="relative w-full">
+                    <input type="text" class="py-2 pr-4 pl-10 bg-gray-50 w-full outline-none border border-gray-100 rounded-md text-sm focus:border-blue-500" placeholder="Search...">
+                    <i class="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-gray-900"></i>
+                  </div>
                 </form>
-              </li>
-            </ul>
-          </li>
+              </div>
+            </li>
+
+            <%# Notifications Dropdown %>
+            <li class="dropdown" data-controller="dropdown">
+              <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:text-gray-600" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;"><path d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"></path></svg>
+              </button>
+              <div class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100" data-dropdown-target="menu">
+                <%# TabsController %>
+                <div data-controller="tabs">
+                  <div class="flex items-center px-4 pt-4 border-b border-b-gray-100 notification-tab">
+                    <button type="button" data-tab="notification" data-tab-page="notifications" class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1 active" data-action="click->tabs#selectTab" data-tabs-target="tabButton">Notifications</button>
+                    <button type="button" data-tab="notification" data-tab-page="messages" class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1" data-action="click->tabs#selectTab" data-tabs-target="tabButton">Messages</button>
+                  </div>
+                  <div class="my-2">
+                    <%# notifications %>
+                    <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications" data-tabs-target="tabContent">
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
+                            <div class="text-[11px] text-gray-400">from a user</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
+                            <div class="text-[11px] text-gray-400">from a user</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                              <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
+                            <div class="text-[11px] text-gray-400">from a user</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
+                            <div class="text-[11px] text-gray-400">from a user</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">New order</div>
+                            <div class="text-[11px] text-gray-400">from a user</div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                    <%# messages %>
+                    <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification" data-page="messages" data-tabs-target="tabContent">
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
+                            <div class="text-[11px] text-gray-400">Hello there!</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
+                            <div class="text-[11px] text-gray-400">Hello there!</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
+                            <div class="text-[11px] text-gray-400">Hello there!</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
+                            <div class="text-[11px] text-gray-400">Hello there!</div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
+                          <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">John Doe</div>
+                            <div class="text-[11px] text-gray-400">Hello there!</div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <%# FullscreenController %>
+            <button type="button" data-controller="fullscreen" data-action="click->fullscreen#toggle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;"><path d="M5 5h5V3H3v7h2zm5 14H5v-5H3v7h7zm11-5h-2v5h-5v2h7zm-2-4h2V3h-7v2h5z"></path></svg>
+            </button>
+
+            <%# Locale Switcher Dropdown %>
+            <li class="dropdown" data-controller="dropdown">
+              <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:text-gray-600" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                <i class="ri-earth-line text-xl"></i>
+              </button>
+              <div class="dropdown-menu shadow-md shadow-black/5 z-30 hidden w-auto bg-white rounded-md border border-gray-100 p-2" data-dropdown-target="menu">
+                <div class="lokale flex flex-col gap-1">
+                  <a><%= link_to emoji_flag("gb"), root_path(locale: :en), class: 'btn swich flex items-center justify-center w-8 h-8 rounded-md hover:bg-gray-100 text-2xl' %></a>
+                  <a><%= link_to emoji_flag("ua"), root_path(locale: :uk), class: 'btn swich flex items-center justify-center w-8 h-8 rounded-md hover:bg-gray-100 text-2xl' %></a>
+                </div>
+              </div>
+            </li>
+
+            <%# User Profile Dropdown %>
+            <li class="dropdown ml-3" data-controller="dropdown">
+              <button type="button" class="dropdown-toggle flex items-center" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                <div class="flex-shrink-0 w-10 h-10 relative">
+                  <div class="p-1 bg-white rounded-full focus:outline-none focus:ring">
+                    <img class="w-8 h-8 rounded-full" src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg" alt=""/>
+                    <div class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping"></div>
+                    <div class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full"></div>
+                  </div>
+                </div>
+                <div class="p-2 md:block text-left">
+                  <h2 class="text-sm font-semibold text-gray-800"><%= current_user.full_name %></h2>
+                  <p class="text-xs text-gray-500"><%= t("activerecord.attributes.user.role.#{current_user.role}") %></p> 
+                </div>
+              </button>
+              <ul class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]" data-dropdown-target="menu">
+                <li>
+                  <%= link_to user_path(current_user), class: "flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50" do %>
+                    <%= t('activerecord.attributes.user.profile') %>
+                  <% end %>
+                </li>
+                <%# <li>
+                  <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Settings</a>
+                </li> %>
+                <li>
+                  <%= link_to destroy_user_session_path, data: { turbo_method: :delete, action: "click->dashboard#logout" }, class: "flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer" do %>
+                    <%= t('activerecord.attributes.user.sign_out') %>
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="ml-3">
+              <%= link_to t('activerecord.attributes.user.sign_in'), new_user_session_path, class: "text-gray-600 hover:text-[#f84525] text-sm font-semibold" %>
+            </li>
+            <li class="ml-3">
+              <%= link_to t('activerecord.attributes.user.sign_up'), new_user_registration_path, class: "text-gray-600 hover:text-[#f84525] text-sm font-semibold" %>
+            </li>
+            <%# Locale Switcher Dropdown %>
+            <li class="dropdown" data-controller="dropdown">
+              <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:text-gray-600" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                <i class="ri-earth-line text-xl"></i>
+              </button>
+              <div class="dropdown-menu shadow-md shadow-black/5 z-30 hidden w-auto bg-white rounded-md border border-gray-100 p-2" data-dropdown-target="menu">
+                <div class="lokale flex flex-col gap-1">
+                  <a><%= link_to emoji_flag("gb"), root_path(locale: :en), class: 'btn swich flex items-center justify-center w-8 h-8 rounded-md hover:bg-gray-100 text-2xl' %></a>
+                  <a><%= link_to emoji_flag("ua"), root_path(locale: :uk), class: 'btn swich flex items-center justify-center w-8 h-8 rounded-md hover:bg-gray-100 text-2xl' %></a>
+                </div>
+              </div>
+            </li>
+          <% end %>
         </ul>
       </div>
       <!-- end navbar -->

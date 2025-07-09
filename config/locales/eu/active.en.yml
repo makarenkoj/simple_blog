@@ -1,5 +1,13 @@
 en:
   hello: "Hello world!"
+  blog: 'BLOG'
+  post: 'Post'
+  archive: 'Archive'
+  all: 'All'
+  categories: 'Categories'
+  personal: 'PERSONAL'
+  notifications: 'Notifications'
+  messages: 'Messages'
   activerecord:
     models:
       user: 'User'
@@ -7,6 +15,9 @@ en:
       photo: 'Photo'
     attributes:
       user:
+        role:
+          creator: 'Creator'
+          reader: 'Reader'
         email: 'Email'
         name: 'Name'
         avatar: 'Avatar'
@@ -18,6 +29,7 @@ en:
         save: 'Save'
         back: 'Back'
         or: 'or'
+        profile: 'Profile'
         edit_profile: 'Edit Profile'
         delete_profile: 'Delete profile'
         change_password: 'Change password'
@@ -30,6 +42,7 @@ en:
         datetime: 'Date and time'
         description: 'Description'
         pincode: 'Pin access code'
+        new: 'New post'
       comment:
         user_name: 'Your name'
         body: 'Comment'
@@ -61,6 +74,8 @@ en:
       name: 'Post'
       company: 'Simple Blog'
       url: 'blogasik.com'
+      simple: 'Simple'
+      blog: 'Blog'
     post:
       change: 'Change'
       destroy: 'Delete post'

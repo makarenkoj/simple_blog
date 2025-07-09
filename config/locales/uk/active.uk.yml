@@ -1,5 +1,13 @@
 uk:
   hello: 'Привіт Мир!'
+  blog: 'БЛОГ'
+  post: 'Пост'
+  archive: 'Архів'
+  all: 'Всі'
+  categories: 'Категорії'
+  personal: 'ПЕРСОНАЛЬНИЙ'
+  notifications: 'Сповіщення'
+  messages: 'Повідомлення'
   activerecord:
     models:
       user: 'Користувач'
@@ -7,6 +15,9 @@ uk:
       photo: 'Фотография'
     attributes:
       user:
+        role:
+          creator: 'Tворець'
+          reader: 'Читач'
         email: 'Email'
         name: 'Ім`я'
         avatar: 'Аватарочка'
@@ -18,6 +29,7 @@ uk:
         save: 'Зберегти'
         back: 'Повернуться'
         or: 'або'
+        profile: 'Профіль'
         edit_profile: 'Редактор профілю'
         delete_profile: 'Видалити профіль'
         change_password: 'Змінити пароль'
@@ -30,6 +42,7 @@ uk:
         datetime: 'Дата і час'
         description: 'Опис'
         pincode: 'Пін-код доступу'
+        new: 'Новий пост'
       comment:
         user_name: 'Ваше ім`я'
         body: 'Коментар'
@@ -61,6 +74,8 @@ uk:
       name: 'Пост'
       company: 'Просто Блог'
       url: 'blogasik.com'
+      simple: 'Simple'
+      blog: 'Blog'
     post:
       change: 'Змінити'
       destroy: 'Видалити пост'
