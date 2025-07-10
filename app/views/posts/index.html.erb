@@ -1,5 +1,19 @@
-<div class="post-heading">
-  <div class="subheading">
-    <%= render partial: 'posts/post', collection: @posts %>
-  </div>
+<div class="max-w-6xl mx-auto p-6 mt-8 mb-8">
+  <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">
+    <%= t('activerecord.attributes.posts.index.title', default: 'All Posts') %>
+  </h1>
+
+  <% if @posts.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> <%# Використовуємо grid для адаптивного розташування карток %>
+      <%= render partial: 'posts/post', collection: @posts %>
+    </div>
+  <% else %>
+    <div class="text-center py-12 bg-white rounded-lg shadow-md">
+      <p class="text-xl text-gray-600"><%= t('activerecord.attributes.posts.index.no_posts', default: 'No posts found.') %></p>
+      <p class="text-gray-500 mt-2"><%= t('activerecord.attributes.posts.index.create_one', default: 'Why not create one?') %></p>
+      <% if current_user&.creator? %> <%# Припускаємо, що у вас є метод creator? для користувача %>
+        <%= link_to t('activerecord.attributes.posts.index.new_post', default: 'Create New Post'), new_post_path, class: 'mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow transition-colors duration-200' %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

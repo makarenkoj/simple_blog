@@ -44,13 +44,25 @@ uk:
         current_user: 'Ви не є поточним користувачем'
         my_posts: 'Мої пости:'
         writen_posts: 'Користувач поки що не написав жодного поста'
-      post:
+      posts:
         title: 'Назва'
         address: 'Місце проведення'
         datetime: 'Дата і час'
         description: 'Опис'
         pincode: 'Пін-код доступу'
         new: 'Новий пост'
+        save: "Зберегти"
+        or: "або"
+        back: "Назад"
+        index:
+          title: "Усі публікації"
+          no_posts: "Публікацій не знайдено."
+          create_one: "Чому б не створити?"
+          new_post: "Створити нову публікацію"
+        post:
+          by: "від"
+          anonymous: "Анонім"
+          read_more: "Читати далі"
       comment:
         user_name: 'Ваше ім`я'
         body: 'Коментар'
@@ -63,6 +75,9 @@ uk:
         destroyed: 'Ви видалили пост :('
         changed: 'Редактор поста'
         wrong_pincode: 'НЕ вірний пін-код!'
+        changed: "Редагувати публікацію"
+        new:
+          title: "Створити нову публікацію"
       users:
         updated: 'Ви оновили свій профіль'
         destroyed: 'Користувач успішно вилучено :('

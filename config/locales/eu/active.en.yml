@@ -44,13 +44,25 @@ en:
         current_user: 'You are not the current user'
         my_posts: 'My Posts:'
         writen_posts: 'User hasnt posted any posts yet'
-      post:
+      posts:
         title: 'Title'
         address: 'Venue'
         datetime: 'Date and time'
         description: 'Description'
         pincode: 'Pin access code'
         new: 'New post'
+        save: "Save"
+        or: "or"
+        back: "Back"
+        index:
+          title: "All Posts"
+          no_posts: "No posts found."
+          create_one: "Why not create one?"
+          new_post: "Create New Post"
+        post:
+          by: "by"
+          anonymous: "Anonymous"
+          read_more: "Read More"
       comment:
         user_name: 'Your name'
         body: 'Comment'
@@ -63,6 +75,9 @@ en:
         destroyed: 'You deleted the post :('
         changed: 'Post editing'
         wrong_pincode: 'PIN code is NOT valid!'
+        change: "Edit Post"
+        new:
+          title: "Create New Post"
       users:
         updated: 'You have updated your profile'
         destroyed: 'User was successfully deleted :('
