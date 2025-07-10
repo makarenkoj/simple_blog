@@ -18,6 +18,14 @@ uk:
         roles:
           creator: 'Tворець'
           reader: 'Читач'
+        sign_up: "Реєстрація"
+        first_name: "Ім’я"
+        last_name: "Прізвище"
+        username: "Ім’я користувача"
+        email: "Електронна пошта"
+        password: "Пароль"
+        password_confirmation: "Підтвердження паролю"
+        role: "Роль"
         email: 'Email'
         name: 'Ім`я'
         avatar: 'Аватарочка'

@@ -1,5 +1,10 @@
 uk:
   devise:
+    form:
+      email: "Електронна пошта"
+      password: "Пароль"
+      password_confirmation: "Підтвердження паролю"
+      current_password: "Поточний пароль"
     shared:
       links:
         sign_in: "Увійти"
@@ -58,6 +63,9 @@ uk:
       signed_in: "Вхід успішний."
       signed_out: "Вихід успішний."
       already_signed_out: "Вихід успішний."
+      new:
+        sign_in: "Увійти"
+        remember_me: "Запам’ятати мене"
     unlocks:
       send_instructions: "Протягом декількох хвилин на Ваш email буде надіслано інструкції з розблокування облікового запису."
       send_paranoid_instructions: "Якщо ваш обліковий запис існує, то ви отримаєте повідомлення електронної пошти з інструкціями, як розблокувати його протягом декількох хвилин."

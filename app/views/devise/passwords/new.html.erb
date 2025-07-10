@@ -14,7 +14,7 @@
   <% end %>
 
   <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-    <%= f.error_notification %>
+    <%= f.error_notification class: "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center text-sm" %>
 
     <div class="form-inputs space-y-4">
       <%= f.input :email,
@@ -30,7 +30,7 @@
 
     <div class="form-actions mt-6">
       <%= f.button :submit, t('devise.passwords.new.submit', default: "Send me reset password instructions"),
-          class: 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-gray-900 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' %>
+          class: 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-gray-700 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' %>
     </div>
   <% end %>
 

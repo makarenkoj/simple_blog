@@ -25,8 +25,8 @@ SimpleForm.setup do |config|
     b.optional :minlength
     b.optional :pattern
     b.optional :readonly
-    b.use :label_html
-    b.use :input
+    b.use :label, class: 'block text-sm font-medium text-gray-700 mb-1'
+    b.use :input, class: 'w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
     b.use :hint, wrap_with: { tag: :p, class: :hint }
     b.use :error, wrap_with: { tag: :span, class: :error }
   end
@@ -39,14 +39,14 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.wrapper :field_and_label, tag: 'div', class: 'flex items-center' do |ba|
       ba.use :input, class: 'h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'
-      ba.use :label_html, class: 'ml-2 block text-sm text-gray-900'
+      ba.use :label, class: 'ml-2 block text-sm text-gray-900'
     end
     b.use :hint, wrap_with: { tag: :p, class: 'text-sm text-gray-500' } # Hint class for boolean
     b.use :error, wrap_with: { tag: :span, class: 'text-sm text-red-600' } # Error class for boolean
   end
 
   # Default configuration for submit buttons
-  config.button_class = 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+  config.button_class = 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-gray-900 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default

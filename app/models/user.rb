@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   validates :first_name, length: { maximum: 50 }
   validates :last_name, length: { maximum: 50 }
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 20 }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 20 } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :role, presence: true
 
   validates :username, format: { with: /^[a-zA-Z0-9_.]*$/, multiline: true }

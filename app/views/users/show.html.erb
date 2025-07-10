@@ -1,18 +1,39 @@
-<div class="text-center">
-  <% if @user == current_user %>
-    <%= link_to t('activerecord.attributes.user.edit_profile'), edit_user_path(@user), class: 'btn btn-primary buffer-right' %>
-    <%= link_to t('activerecord.attributes.user.delete_profile'), @user, method: :delete,
-              data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-8 mb-8">
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-4">
+      <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-2xl font-bold">
+        <%= @user.username.first.upcase if @user.username.present? %>
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800">
+          <%= @user.full_name.presence || @user.username %> <%# Використовуємо full_name, якщо є, інакше username %>
+        </h1>
+        <p class="text-lg text-gray-600">
+          <%= t("activerecord.attributes.user.roles.#{@user.role}", default: @user.role.humanize) %>
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <% if @user == current_user %>
+        <%= link_to t('activerecord.attributes.user.edit_profile'), edit_user_registration_path, class: 'bg-blue-600 hover:bg-blue-700 text-gray-900 font-semibold py-2 px-4 rounded-md shadow transition-colors duration-200' %>
+        <%= link_to t('activerecord.attributes.user.delete_profile'), @user,
+                    data: { turbo_method: :delete, turbo_confirm: t('confirm_delete_profile', default: 'Are you sure you want to delete your profile? This action cannot be undone.') },
+                    class: "bg-red-600 hover:bg-red-700 text-gray-900 font-semibold py-2 px-4 rounded-md shadow transition-colors duration-200" %>
+      <% else %>
+        <p class="text-gray-600 italic"><%= t('activerecord.attributes.user.current_user', default: "This is a user profile.")%></p>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @user.posts.any? %>
+    <h2 class="text-2xl font-bold text-gray-800 mb-4 mt-8"><%= t('activerecord.attributes.user.my_posts', default: "My Posts")%></h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <%= render partial: 'posts/post', collection: @user.posts %>
+    </div>
   <% else %>
-    <p><%= t('activerecord.attributes.user.current_user')%></p>
+    <p class="text-gray-600 text-lg mt-4 text-center">
+      <%= t('activerecord.attributes.user.writen_posts', default: "This user has not written any posts yet.")%>
+    </p>
   <% end %>
 </div>
-
-<% if @user.posts.any? %>
-  <h3><%= t('activerecord.attributes.user.my_posts')%></h3>
-  <%= render partial: 'posts/post', collection: @user.posts %>
-<% else %>
-  <p class="buffer-top">
-    <%= t('activerecord.attributes.user.writen_posts')%>
-  </p>
-<% end %>
