@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get 'tailwind_test/index'
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     get 'up' => 'rails/health#show', as: :rails_health_check
 
@@ -10,7 +9,11 @@ Rails.application.routes.draw do
     devise_scope :user do
       get 'users/sign_out', to: 'devise/sessions#destroy', as: 'logout'
     end
-    devise_for :users
+
+    devise_for :users, controllers: {
+      registrations: 'users/registrations'
+    }
+
     # root 'posts#index'
 
     get 'tailwind_test/index'

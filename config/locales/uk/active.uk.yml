@@ -15,7 +15,7 @@ uk:
       photo: 'Фотография'
     attributes:
       user:
-        role:
+        roles:
           creator: 'Tворець'
           reader: 'Читач'
         email: 'Email'

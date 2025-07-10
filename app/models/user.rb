@@ -5,8 +5,8 @@ class User < ApplicationRecord
 
   enum :role, { reader: 0, creator: 1 }
 
-  validates :first_name, presence: true, length: { maximum: 50 }
-  validates :last_name, presence: true, length: { maximum: 50 }
+  validates :first_name, length: { maximum: 50 }
+  validates :last_name, length: { maximum: 50 }
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 20 }
   validates :role, presence: true
 

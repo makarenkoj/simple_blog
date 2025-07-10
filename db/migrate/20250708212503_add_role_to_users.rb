@@ -13,5 +13,7 @@ class AddRoleToUsers < ActiveRecord::Migration[8.0]
       unique_username = "user_#{SecureRandom.hex(4)}" while User.exists?(username: unique_username)
       user.update_column(:username, unique_username)
     end
+
+    add_index :users, :username, unique: true
   end
 end
