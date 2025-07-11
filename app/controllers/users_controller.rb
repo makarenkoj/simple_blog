@@ -22,6 +22,16 @@ class UsersController < ApplicationController
     redirect_to posts_url, notice: I18n.t('controllers.users.destroyed')
   end
 
+  def delete_avatar
+    @user = User.find(params[:id])
+    if @user == current_user
+      @user.avatar.purge
+      redirect_back fallback_location: user_path(@user), notice: t('flash.avatar_removed', default: 'Avatar was successfully removed.')
+    else
+      redirect_back fallback_location: user_path(@user), alert: t('flash.not_authorized', default: 'You are not authorized to perform this action.')
+    end
+  end
+
   private
 
   def set_current_user

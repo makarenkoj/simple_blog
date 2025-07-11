@@ -1,46 +1,45 @@
-<%= simple_form_for @post, wrapper: :vertical_multi_select do |f| %>
+<div class="max-w-xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-8 mb-8">
+  <%= simple_form_for @post, html: { class: "space-y-6" } do |f| %>
 
-  <%= render partial: 'partials/form_errors', locals: {model: @post} %>
+    <%= f.error_notification %>
 
-  <div class="form-group">
-    <%= f.input :title %>
-  </div>
-  <div class="form-group">
-    <%= f.input :body, as: :text, input_html: {rows: 23, cols: 150 }%>
-  </div>
-  <div class="actions">
-    <%= f.button :submit, t('activerecord.post.save'), class: 'btn btn-primary' %>
-    <%= t('activerecord.post.or') %>
-    <%= link_to t('activerecord.post.back'), :back, class: 'btn btn-primary' %>
-  </div>
-<% end %>
+    <div class="form-inputs space-y-4">
+      <div class="form-group">
+        <%= f.input :title,
+                    input_html: {
+                      class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    },
+                    label: t('activerecord.attributes.post.title') %>
+      </div>
+      <div class="form-group">
+        <%= f.rich_text_area :body,
+                             class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
+                             label: t('activerecord.attributes.post.body') %>
+      </div>
+      <div class="form-group">
+        <%= f.input :cover_image, as: :file,
+                    input_html: { class: "block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" },
+                    label: t('activerecord.attributes.post.cover_image', default: 'Cover Image') %>
+        <% if f.object.cover_image.attached? %>
+          <div class="mt-2">
+            <%= image_tag f.object.cover_image.representation(resize_to_limit: [200, 150]), class: "rounded-md shadow-sm" %>
+            <%= link_to t('buttons.remove_image', default: 'Remove Image'),
+                        rails_blob_path(f.object.cover_image, disposition: "attachment"),
+                        data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_image', default: 'Are you sure you want to remove this image?') },
+                        class: "ml-4 text-red-600 hover:underline text-sm" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
 
-<%#= simple_form_for @post, html: {class: 'js-toast-form'} do |f| %>
+    <div class="form-actions mt-8 flex justify-end space-x-4">
+      <%= f.button :submit, t('activerecord.post.save', default: 'Save'),
+                  class: 'inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-gray-900 bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200' %>
 
-  <%#= render partial: 'partials/form_errors', locals: {model: @post} %>
+      <span class="text-gray-600 self-center"><%= t('activerecord.post.or', default: 'or') %></span>
 
-<!--  <div class="form-group">-->
-    <%#= f.input :title %>
-<!--  </div>-->
-<!--  <div class="form-group">-->
-    <%#= f.input :body, as: :markdown%>
-<!--  </div>-->
-<!--  <div class="actions">-->
-    <%#= f.button :submit, t('activerecord.post.save'), class: 'btn-light' %>
-    <%#= t('activerecord.post.or') %>
-    <%#= link_to t('activerecord.post.back'), :back, class: 'btn-light' %>
-<!--  </div>-->
-<%# end %>
-
-<%#= render 'markdown_modal_window' %>
-
-<!--<script>-->
-<!--        $(document).on('turbolinks:load', function () {-->
-<!--        hotkeys.activate('form');-->
-<!--    });-->
-
-<!--        $(document).ready(function(){-->
-<!--        $('button').attr("tabindex", "-1");-->
-<!--        $('.tui-toolbar-icons').attr("tabindex", "-1");-->
-<!--    });-->
-<!--</script>-->
+      <%= link_to t('activerecord.post.back', default: 'Back'), :back,
+                  class: 'inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-gray-900 bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200' %>
+    </div>
+  <% end %>
+</div>

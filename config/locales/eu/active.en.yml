@@ -1,5 +1,13 @@
 en:
   hello: "Hello world!"
+  blog: 'BLOG'
+  post: 'Post'
+  archive: 'Archive'
+  all: 'All'
+  categories: 'Categories'
+  personal: 'PERSONAL'
+  notifications: 'Notifications'
+  messages: 'Messages'
   activerecord:
     models:
       user: 'User'
@@ -7,6 +15,17 @@ en:
       photo: 'Photo'
     attributes:
       user:
+        roles:
+          creator: 'Creator'
+          reader: 'Reader'
+        sign_up: "Registration"
+        first_name: "First name"
+        last_name: "Last name"
+        username: "Username"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Confirm password"
+        role: "Role"
         email: 'Email'
         name: 'Name'
         avatar: 'Avatar'
@@ -18,18 +37,33 @@ en:
         save: 'Save'
         back: 'Back'
         or: 'or'
+        profile: 'Profile'
         edit_profile: 'Edit Profile'
         delete_profile: 'Delete profile'
         change_password: 'Change password'
         current_user: 'You are not the current user'
         my_posts: 'My Posts:'
         writen_posts: 'User hasnt posted any posts yet'
-      post:
+      posts:
         title: 'Title'
         address: 'Venue'
         datetime: 'Date and time'
         description: 'Description'
         pincode: 'Pin access code'
+        new: 'New post'
+        save: "Save"
+        or: "or"
+        back: "Back"
+        cover_image: "Cover Image"
+        index:
+          title: "All Posts"
+          no_posts: "No posts found."
+          create_one: "Why not create one?"
+          new_post: "Create New Post"
+        post:
+          by: "by"
+          anonymous: "Anonymous"
+          read_more: "Read More"
       comment:
         user_name: 'Your name'
         body: 'Comment'
@@ -42,6 +76,9 @@ en:
         destroyed: 'You deleted the post :('
         changed: 'Post editing'
         wrong_pincode: 'PIN code is NOT valid!'
+        change: "Edit Post"
+        new:
+          title: "Create New Post"
       users:
         updated: 'You have updated your profile'
         destroyed: 'User was successfully deleted :('
@@ -61,6 +98,8 @@ en:
       name: 'Post'
       company: 'Simple Blog'
       url: 'blogasik.com'
+      simple: 'Simple'
+      blog: 'Blog'
     post:
       change: 'Change'
       destroy: 'Delete post'
@@ -70,6 +109,8 @@ en:
       or: 'or'
       new: 'New post'
       destroy_confirm: 'Are you sure you want to delete the post?'
+      published_by: 'Published by'
+      anonymous_author: 'Anonymous author'
       errors:
         messages:
           not_saved:
@@ -110,3 +151,20 @@ en:
       user_email: 'This email address is already registered!'
     alert_destroy:
       photo: 'Are you sure you delete the photo?'
+  buttons:
+    remove_image: "Remove Image"
+    remove_avatar: "Remove Avatar"
+  confirm_remove_image: "Are you sure you want to remove this image?"
+  confirm_remove_avatar: "Are you sure you want to remove your avatar?"
+  time_ago:
+    ago: "ago"
+  flash:
+    avatar_removed: "Avatar was successfully removed."
+    not_authorized: "You are not authorized to perform this action."
+  attachments:
+    avatar:
+      large: 'Very heavy photo, more than 2 megabytes!'
+      dimension: 'Avatar must be less than 500x500 pixels.'
+    cover_image:
+      large: 'Very heavy cover image, more than 5 megabytes!'
+      dimension: 'Cover image must be less than 2000x2000 pixels.'
