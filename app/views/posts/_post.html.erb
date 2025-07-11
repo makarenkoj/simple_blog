@@ -1,22 +1,50 @@
-<div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-  <h2 class="text-2xl font-bold text-gray-800 mb-2">
-    <%= link_to post.title, post_path(post), class: 'hover:underline text-blue-700' %>
-  </h2>
+<div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4 overflow-hidden">
+  <div class="flex-grow">
+    <div class="flex items-center mb-2">
+      <% if post.user.present? && post.user&.avatar&.attached? %>
+        <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24]), class: "w-6 h-6 rounded-full mr-2" %>
+      <% else %>
+        <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs font-bold text-gray-600 mr-2">
+          <%= post.user.username.first.upcase if post.user.present? && post.user.username.present? %>
+        </div>
+      <% end %>
+      <span class="text-sm font-semibold text-gray-800">
+        <%= link_to post.user.username, user_path(post.user), class: 'hover:underline' if post.user.present? %>
+      </span>
+    </div>
 
-  <p class="text-gray-600 text-sm mb-3">
-    <%= t('posts.post.by', default: 'by') %>
-    <% if post.user.present? %>
-      <%= link_to post.user.username, user_path(post.user), class: 'text-blue-500 hover:underline' %>
-    <% else %>
-      <%= t('posts.post.anonymous', default: 'Anonymous') %>
+    <h2 class="text-xl font-bold text-gray-900 mb-1 leading-tight">
+      <%= link_to post_path(post), class: 'hover:underline' do %>
+        <%= post.title %>
+      <% end %>
+    </h2>
+
+    <% if post.cover_image.attached? %>
+      <div class="w-full sm:w-36 sm:h-36 flex-shrink-0">
+        <%= image_tag post.cover_image.representation(resize_to_limit: [150, 150]),
+            class: "w-full h-full object-cover rounded-lg shadow-sm" %>
+      </div>
     <% end %>
-    • <%= l post.created_at, format: :short %>
 
-  <% if post.body.present? %>
-    <p class="text-gray-700 leading-relaxed mb-4 flex-grow">
-      <%= truncate(post.body, length: 15, separator: ' ') %> 
-    </p>
-  <% end %>
+    <% if post.body.present? %>
+      <p class="text-gray-600 text-sm mb-3 line-clamp-3">
+        <%= truncate(post.body.to_plain_text, length: 100, separator: ' ') %>
+      </p>
+    <% end %>
 
-  <%= link_to t('activerecord.attributes.posts.post.read_more', default: 'Read More'), post_path(post), class: 'inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200' %>
+    <div class="flex items-center text-gray-500 text-xs mt-3">
+      <span class="flex items-center mr-3">
+        <svg class="w-4 h-4 mr-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="..." clip-rule="evenodd"></path></svg>
+        <%= time_ago_in_words(post.created_at) %> <%= t('time_ago.ago', default: 'ago') %>
+      </span>
+      <span class="flex items-center mr-3">
+        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="..." /></svg>
+        51
+      </span>
+      <span class="flex items-center">
+        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="..." /></svg>
+        9
+      </span>
+    </div>
+  </div>
 </div>

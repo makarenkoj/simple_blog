@@ -21,7 +21,7 @@ uk:
         sign_up: "Реєстрація"
         first_name: "Ім’я"
         last_name: "Прізвище"
-        username: "Ім’я користувача"
+        username: "Юзернейм"
         email: "Електронна пошта"
         password: "Пароль"
         password_confirmation: "Підтвердження паролю"
@@ -54,6 +54,7 @@ uk:
         save: "Зберегти"
         or: "або"
         back: "Назад"
+        cover_image: "Обкладинка"
         index:
           title: "Усі публікації"
           no_posts: "Публікацій не знайдено."
@@ -108,6 +109,8 @@ uk:
       or: 'або'
       new: 'Новий пост'
       destroy_confirm: 'Ви впевнені, що хочете видалити пост?'
+      published_by: 'Опубліковано'
+      anonymous_author: 'Анонімний автор'
       errors:
         messages:
           not_saved:
@@ -149,3 +152,20 @@ uk:
       user_email: 'Цей поштову адресу вже зареєстрований!'
     alert_destroy:
       photo: 'Точно видалити фото?'
+  buttons:
+    remove_image: "Видалити зображення"
+    remove_avatar: "Видалити аватар"
+  confirm_remove_image: "Ви впевнені, що хочете видалити це зображення?"
+  confirm_remove_avatar: "Ви впевнені, що хочете видалити цей аватар?"
+  time_ago:
+    ago: "тому"
+  flash:
+    avatar_removed: 'Аватар успішно видалено.'
+    not_authorized: 'Ви не маєте права виконувати цю дію.'
+  attachments:
+    avatar:
+      large: 'Дуже важка фоточка, більше 2 мегабайт!'
+      dimension: 'Зображення занадто велике, максимальний розмір 500x500 пікселів.'
+    cover_image:
+      large: 'Обкладинка занадто велика, більше 5 мегабайт!'
+      dimension: 'Обкладинка повинна бути менше 2000x2000 пікселів.'

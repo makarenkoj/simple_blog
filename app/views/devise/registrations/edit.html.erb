@@ -4,6 +4,22 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <div class="form-group text-center mb-6">
+      <% if f.object.errors.empty? && f.object.avatar.attached? %>
+        <%= image_tag f.object.avatar.representation(resize_to_limit: [150, 150]), class: "rounded-full w-32 h-32 object-cover mx-auto mb-4 shadow-md" %>
+        <%= link_to t('buttons.remove_avatar', default: 'Remove Avatar'),
+                    delete_avatar_user_path(f.object),
+                    data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_avatar', default: 'Are you sure you want to remove your avatar?') },
+                    class: "block text-red-600 hover:underline text-sm mt-2" %>
+      <% else %>
+        <div class="rounded-full w-32 h-32 bg-gray-300 flex items-center justify-center mx-auto mb-4 text-gray-600 text-5xl font-bold">
+          <%= f.object.username.first.upcase if f.object.username.present? %>
+        </div>
+      <% end %>
+      <%= f.input :avatar, as: :file,
+                  input_html: { class: "block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" },
+                  label: t('activerecord.attributes.user.avatar', default: 'Avatar') %>
+    </div>
     <%= f.input :username, required: true, autofocus: true %>
     <%= f.input :email, required: true, autofocus: true %>
     <%= f.input :first_name, required: true, autofocus: true %>
@@ -30,8 +46,6 @@
     <%= f.button :submit, t("simple_form.button.update"), class: 'btn btn-primary' %>
   </div>
 <% end %>
-
-
 
 <p><%= t("simple_form.labels.defaults.unhappy") %>
   <%= link_to t("simple_form.labels.defaults.cancel"), registration_path(resource_name),

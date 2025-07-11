@@ -19,6 +19,10 @@ Rails.application.routes.draw do
     get 'tailwind_test/index'
     root 'tailwind_test#index'
     resources :posts
-    resources :users
+    resources :users, only: [:show] do
+      member do
+        delete :delete_avatar, to: 'users#delete_avatar'
+      end
+    end
   end
 end

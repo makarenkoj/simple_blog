@@ -11,10 +11,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update
+    super do |resource|
+      render :edit, status: :unprocessable_entity and return if resource.errors.any?
+    end
+  end
+
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name username role])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name username role])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name username role avatar])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name username role avatar])
   end
 end

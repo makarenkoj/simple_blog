@@ -1,9 +1,13 @@
 <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-8 mb-8">
   <div class="flex items-center justify-between mb-6">
     <div class="flex items-center gap-4">
-      <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-2xl font-bold">
-        <%= @user.username.first.upcase if @user.username.present? %>
-      </div>
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar.representation(resize_to_limit: [96, 96]), class: "w-24 h-24 rounded-full object-cover shadow-md" %>
+      <% else %>
+        <div class="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-4xl font-bold">
+          <%= @user.username.first.upcase if @user.username.present? %>
+        </div>
+      <% end %>
       <div>
         <h1 class="text-3xl font-bold text-gray-800">
           <%= @user.full_name.presence || @user.username %> <%# Використовуємо full_name, якщо є, інакше username %>

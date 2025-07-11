@@ -24,6 +24,9 @@ module.exports = {
     'bg-red-100', 'text-red-700', 'border-red-400',
     'bg-yellow-100', 'text-yellow-700', 'border-yellow-400',
     'bg-gray-100', 'text-gray-700', 'border-gray-400',
+    'object-cover', 'w-36', 'h-36',
+    'file:mr-4', 'file:py-2', 'file:px-4', 'file:rounded-full', 'file:border-0',
+    'file:text-sm', 'file:font-semibold', 'file:bg-blue-50', 'file:text-blue-700', 'hover:file:bg-blue-100',
   ],
   theme: {
     extend: {},

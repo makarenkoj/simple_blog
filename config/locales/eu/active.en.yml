@@ -54,6 +54,7 @@ en:
         save: "Save"
         or: "or"
         back: "Back"
+        cover_image: "Cover Image"
         index:
           title: "All Posts"
           no_posts: "No posts found."
@@ -108,6 +109,8 @@ en:
       or: 'or'
       new: 'New post'
       destroy_confirm: 'Are you sure you want to delete the post?'
+      published_by: 'Published by'
+      anonymous_author: 'Anonymous author'
       errors:
         messages:
           not_saved:
@@ -148,3 +151,20 @@ en:
       user_email: 'This email address is already registered!'
     alert_destroy:
       photo: 'Are you sure you delete the photo?'
+  buttons:
+    remove_image: "Remove Image"
+    remove_avatar: "Remove Avatar"
+  confirm_remove_image: "Are you sure you want to remove this image?"
+  confirm_remove_avatar: "Are you sure you want to remove your avatar?"
+  time_ago:
+    ago: "ago"
+  flash:
+    avatar_removed: "Avatar was successfully removed."
+    not_authorized: "You are not authorized to perform this action."
+  attachments:
+    avatar:
+      large: 'Very heavy photo, more than 2 megabytes!'
+      dimension: 'Avatar must be less than 500x500 pixels.'
+    cover_image:
+      large: 'Very heavy cover image, more than 5 megabytes!'
+      dimension: 'Cover image must be less than 2000x2000 pixels.'
