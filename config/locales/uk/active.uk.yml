@@ -1,5 +1,13 @@
 uk:
   hello: 'Привіт Мир!'
+  blog: 'БЛОГ'
+  post: 'Пост'
+  archive: 'Архів'
+  all: 'Всі'
+  categories: 'Категорії'
+  personal: 'ПЕРСОНАЛЬНИЙ'
+  notifications: 'Сповіщення'
+  messages: 'Повідомлення'
   activerecord:
     models:
       user: 'Користувач'
@@ -7,6 +15,17 @@ uk:
       photo: 'Фотография'
     attributes:
       user:
+        roles:
+          creator: 'Tворець'
+          reader: 'Читач'
+        sign_up: "Реєстрація"
+        first_name: "Ім’я"
+        last_name: "Прізвище"
+        username: "Юзернейм"
+        email: "Електронна пошта"
+        password: "Пароль"
+        password_confirmation: "Підтвердження паролю"
+        role: "Роль"
         email: 'Email'
         name: 'Ім`я'
         avatar: 'Аватарочка'
@@ -18,18 +37,33 @@ uk:
         save: 'Зберегти'
         back: 'Повернуться'
         or: 'або'
+        profile: 'Профіль'
         edit_profile: 'Редактор профілю'
         delete_profile: 'Видалити профіль'
         change_password: 'Змінити пароль'
         current_user: 'Ви не є поточним користувачем'
         my_posts: 'Мої пости:'
         writen_posts: 'Користувач поки що не написав жодного поста'
-      post:
+      posts:
         title: 'Назва'
         address: 'Місце проведення'
         datetime: 'Дата і час'
         description: 'Опис'
         pincode: 'Пін-код доступу'
+        new: 'Новий пост'
+        save: "Зберегти"
+        or: "або"
+        back: "Назад"
+        cover_image: "Обкладинка"
+        index:
+          title: "Усі публікації"
+          no_posts: "Публікацій не знайдено."
+          create_one: "Чому б не створити?"
+          new_post: "Створити нову публікацію"
+        post:
+          by: "від"
+          anonymous: "Анонім"
+          read_more: "Читати далі"
       comment:
         user_name: 'Ваше ім`я'
         body: 'Коментар'
@@ -42,6 +76,9 @@ uk:
         destroyed: 'Ви видалили пост :('
         changed: 'Редактор поста'
         wrong_pincode: 'НЕ вірний пін-код!'
+        changed: "Редагувати публікацію"
+        new:
+          title: "Створити нову публікацію"
       users:
         updated: 'Ви оновили свій профіль'
         destroyed: 'Користувач успішно вилучено :('
@@ -61,6 +98,8 @@ uk:
       name: 'Пост'
       company: 'Просто Блог'
       url: 'blogasik.com'
+      simple: 'Simple'
+      blog: 'Blog'
     post:
       change: 'Змінити'
       destroy: 'Видалити пост'
@@ -70,6 +109,8 @@ uk:
       or: 'або'
       new: 'Новий пост'
       destroy_confirm: 'Ви впевнені, що хочете видалити пост?'
+      published_by: 'Опубліковано'
+      anonymous_author: 'Анонімний автор'
       errors:
         messages:
           not_saved:
@@ -111,3 +152,20 @@ uk:
       user_email: 'Цей поштову адресу вже зареєстрований!'
     alert_destroy:
       photo: 'Точно видалити фото?'
+  buttons:
+    remove_image: "Видалити зображення"
+    remove_avatar: "Видалити аватар"
+  confirm_remove_image: "Ви впевнені, що хочете видалити це зображення?"
+  confirm_remove_avatar: "Ви впевнені, що хочете видалити цей аватар?"
+  time_ago:
+    ago: "тому"
+  flash:
+    avatar_removed: 'Аватар успішно видалено.'
+    not_authorized: 'Ви не маєте права виконувати цю дію.'
+  attachments:
+    avatar:
+      large: 'Дуже важка фоточка, більше 2 мегабайт!'
+      dimension: 'Зображення занадто велике, максимальний розмір 500x500 пікселів.'
+    cover_image:
+      large: 'Обкладинка занадто велика, більше 5 мегабайт!'
+      dimension: 'Обкладинка повинна бути менше 2000x2000 пікселів.'

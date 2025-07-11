@@ -4,16 +4,24 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: simple_blog_development
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  port: 5432
+  database: simple_blog
+  username: postgres
+  password: postgres
+  pool: 5
 
 test:
   <<: *default
+  encoding: unicode
+  host: 127.0.0.1
+  port: 5432
   database: simple_blog_test
-  host: <%= ENV['POSTGRES_HOST'] %>
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
-
+  username: postgres
+  password: postgres
+  pool: 5
 
 production:
   <<: *default

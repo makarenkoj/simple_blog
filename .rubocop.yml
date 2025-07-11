@@ -1,0 +1,24 @@
+plugins:
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - config/initializers/secret_token.rb
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 200
+
+Lint/MissingSuper:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/AbcSize:
+  Max: 30
