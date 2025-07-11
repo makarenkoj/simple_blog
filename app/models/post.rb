@@ -9,5 +9,5 @@ class Post < ApplicationRecord
   validates :body, presence: true, length: { minimum: 10 }
   validates :cover_image, content_type: %w[image/png image/gif image/jpeg image/webp],
                           size: { less_than_or_equal_to: 5.megabytes, message: I18n.t('attachments.cover_image.large') },
-                          dimension: { width: { max: 2000 }, height: { max: 2000 }, message: I18n.t('attachments.cover_image.dimention') }
+                          dimension: { width: { max: 2000 }, height: { max: 2000 }, message: I18n.t('attachments.cover_image.dimension') }
 end
