@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
   adapter: postgresql
@@ -25,4 +25,29 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV['DATABASE'] %>
+  database: simple_blog_production
+  username: simple_blog
+  password: <%= ENV['SIMPL_BLOG_DATABASE_PASSWORD'] %>
+
+
+# default: &default
+#   adapter: postgresql
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   timeout: 5000
+
+# development:
+#   adapter: postgresql
+#   encoding: unicode
+#   # host: db
+#   # port: 5432
+#   database: simple_blog
+#   username: postgres
+#   password: postgres
+#   pool: 5
+
+# test:
+#   <<: *default
+
+# production:
+#   <<: *default
+#   url: <%= ENV['DATABASE'] %>
