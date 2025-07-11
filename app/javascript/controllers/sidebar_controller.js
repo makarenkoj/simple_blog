@@ -5,18 +5,12 @@ export default class extends Controller {
 
   connect() {
     console.log("Sidebar Stimulus controller connected!");
-    if (window.innerWidth >= 768) {
-      this.sidebarMenuTarget.classList.remove("-translate-x-full");
-      this.sidebarOverlayTarget.classList.add("hidden");
-      this.mainContentTarget.classList.add("md:ml-64");
-      this.mainContentTarget.classList.remove("active");
-    } else {
-      this.sidebarMenuTarget.classList.add("-translate-x-full");
-      this.sidebarOverlayTarget.classList.add("hidden");
-      this.mainContentTarget.classList.remove("md:ml-64");
-      this.mainContentTarget.classList.remove("active");
-    }
-  }
+
+    this.sidebarMenuTarget.classList.add("-translate-x-full");
+    this.sidebarOverlayTarget.classList.add("hidden");
+    this.mainContentTarget.classList.remove("md:ml-64");
+    this.mainContentTarget.classList.remove("active");
+}
 
   toggleSidebar = (event) => {
     event.preventDefault();
