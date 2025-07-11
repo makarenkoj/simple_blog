@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 20 }
   validates :role, presence: true
 
-  validates :username, format: { with: /^[a-zA-Z0-9_.]*$/, multiline: true }
+  validates :username, format: { with: /\A[a-zA-Z0-9_.]*\z/ }
   validates :avatar, content_type: %w[image/png image/gif image/jpeg image/webp],
                      size: { less_than_or_equal_to: 2.megabytes, message: I18n.t('attachments.avatar.large') } # ,
   #  dimension: { width: { max: 500 }, height: { max: 500 }, message: t('attachments.avatar.dimension') }
