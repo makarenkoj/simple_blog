@@ -1,36 +1,27 @@
 module.exports = {
   content: [
+    './app/assets/stylesheets/**/*.css',
+    './app/views/**/*.html.erb',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
-    './app/views/**/*.{erb,haml,html,slim}',
-    './app/views/devise/**/*.{erb,haml,html,slim}',
-    './app/views/layouts/**/*.{erb,haml,html,slim}', 
-    './app/components/**/*.{erb,haml,html,slim}',
+    './app/components/**/*.{rb,erb,html}'
   ],
-  safelist: [
-    'block', 'w-full', 'px-4', 'py-3', 'border', 'border-gray-300', 'rounded-lg', 'shadow-sm',
-    'placeholder-gray-400', 'focus:outline-none', 'focus:ring-blue-500', 'focus:border-blue-500', 'sm:text-sm',
-    'block', 'text-sm', 'font-medium', 'text-gray-700', 'mb-1',
-    'flex', 'items-center', 'mt-2', 'h-4', 'w-4', 'text-blue-600', 'rounded', 'focus:ring-blue-500',
-    'ml-2', 'text-gray-900',
-    'w-full', 'justify-center', 'py-3', 'px-4', 'border', 'border-transparent', 'rounded-lg', 'shadow-sm',
-    'text-base', 'font-medium', 'text-white', 'bg-blue-600', 'hover:bg-blue-700', 'focus:outline-none',
-    'focus:ring-2', 'focus:ring-offset-2', 'focus:ring-blue-500',
-    'min-h-screen', 'flex', 'items-center', 'justify-center', 'bg-gray-100', 'py-12', 'px-4', 'sm:px-6', 'lg:px-8',
-    'font-sans', 'max-w-md', 'w-full', 'space-y-8', 'p-8', 'bg-white', 'shadow-lg', 'rounded-xl',
-    'mb-4', 'rounded-lg', 'p-4', 'text-sm',
-    'bg-blue-100', 'text-blue-700', 'border-blue-400',
-    'bg-green-100', 'text-green-700', 'border-green-400',
-    'bg-red-100', 'text-red-700', 'border-red-400',
-    'bg-yellow-100', 'text-yellow-700', 'border-yellow-400',
-    'bg-gray-100', 'text-gray-700', 'border-gray-400',
-    'object-cover', 'w-36', 'h-36',
-    'file:mr-4', 'file:py-2', 'file:px-4', 'file:rounded-full', 'file:border-0',
-    'file:text-sm', 'file:font-semibold', 'file:bg-blue-50', 'file:text-blue-700', 'hover:file:bg-blue-100',
-  ],
+
   theme: {
     extend: {},
   },
+  safelist: [
+    {
+      pattern: /bg-(red|green|blue|yellow|gray)-(100|400|700)/,
+    },
+    {
+      pattern: /text-(red|green|blue|yellow|gray)-(700)/,
+    },
+    {
+      pattern: /border-(red|green|blue|yellow|gray)-(400)/,
+    }
+  ],
+  
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),

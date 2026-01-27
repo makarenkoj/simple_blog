@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%# <%= javascript_importmap_tags %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
@@ -26,7 +26,7 @@
   </head>
   <body class="flex min-h-screen font-serif text-gray-800" data-controller="sidebar">
     <!-- sidenav -->
-    <div class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu transition-transform -translate-x-full md:translate-x-0" data-sidebar-target="sidebarMenu">
+    <div class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu transition-transform -translate-x-full md:-translate-x-full" data-sidebar-target="sidebarMenu">
       <a href="<%= root_path %>" class="flex items-center pb-4 border-b border-b-gray-800">
         <h2 class="font-bold text-2xl"><%= t('activerecord.app.simple')%> <span class="bg-[#f84525] text-white px-2 rounded-md"><%= t('activerecord.app.blog')%></span></h2>
       </a>
@@ -108,7 +108,7 @@
     <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 hidden md:hidden sidebar-overlay" data-sidebar-target="sidebarOverlay" data-action="click->sidebar#hideSidebar"></div>
     <!-- end sidenav -->
 
-    <main class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-200 min-h-screen transition-all main" data-sidebar-target="mainContent">
+    <main class="w-full transition-all main" data-sidebar-target="mainContent">
       <!-- navbar -->
       <div class="py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
         <button type="button" class="text-lg text-gray-900 font-semibold sidebar-toggle" data-action="click->sidebar#toggleSidebar">

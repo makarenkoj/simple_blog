@@ -55,6 +55,7 @@ en:
         or: "or"
         back: "Back"
         cover_image: "Cover Image"
+        categories: "Categories"
         index:
           title: "All Posts"
           no_posts: "No posts found."

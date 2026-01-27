@@ -22,7 +22,6 @@ gem 'solid_cache'
 gem 'solid_queue'
 gem 'stimulus-rails'
 gem 'tailwindcss-rails'
-gem 'tailwind_merge', '~> 0.16.0'
 gem 'thruster', require: false
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
