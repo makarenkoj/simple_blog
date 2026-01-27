@@ -2,6 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
+  has_many :category_preferences, dependent: :destroy
+  has_many :preferred_categories, through: :category_preferences, source: :category
 
   has_one_attached :avatar
 

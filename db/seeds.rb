@@ -5,3 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts 'Seeding categories...'
+
+Category.create([
+                  { name: 'Technology' },
+                  { name: 'Health' },
+                  { name: 'Lifestyle' },
+                  { name: 'Travel' },
+                  { name: 'Food' },
+                  { name: 'Education' },
+                  { name: 'Finance' },
+                  { name: 'Entertainment' },
+                  { name: 'Sports' },
+                  { name: 'Fashion' }
+                ])
+
+puts 'Categories seeded successfully.'

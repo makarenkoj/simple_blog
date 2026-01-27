@@ -26,6 +26,7 @@ module SimpleBlog
     config.load_defaults 8.0
 
     config.autoload_paths << Rails.root.join('lib')
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -39,5 +40,8 @@ module SimpleBlog
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.assets.paths << Rails.root.join('node_modules')
+    config.assets.paths << Rails.root.join('app/assets/builds')
   end
 end

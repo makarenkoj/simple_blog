@@ -55,6 +55,7 @@ uk:
         or: "або"
         back: "Назад"
         cover_image: "Обкладинка"
+        categories: "Категорії"
         index:
           title: "Усі публікації"
           no_posts: "Публікацій не знайдено."

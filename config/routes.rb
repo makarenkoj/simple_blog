@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'tailwind_test/index'
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     get 'up' => 'rails/health#show', as: :rails_health_check
 
@@ -14,10 +13,8 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
     }
 
-    # root 'posts#index'
+    root 'posts#index'
 
-    get 'tailwind_test/index'
-    root 'tailwind_test#index'
     resources :posts
     resources :users, only: [:show] do
       member do
