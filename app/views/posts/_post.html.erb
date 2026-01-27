@@ -1,50 +1,80 @@
-<div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4 overflow-hidden">
-  <div class="flex-grow">
-    <div class="flex items-center mb-2">
-      <% if post.user.present? && post.user&.avatar&.attached? %>
-        <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24]), class: "w-6 h-6 rounded-full mr-2" %>
-      <% else %>
-        <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs font-bold text-gray-600 mr-2">
-          <%= post.user.username.first.upcase if post.user.present? && post.user.username.present? %>
+<article class="py-8">
+  <%= link_to post_path(post), class: "group block" do %>
+    <div class="flex flex-col sm:flex-row gap-6">
+      
+      <!-- Content -->
+      <div class="flex-1 min-w-0">
+        <!-- Author Info -->
+        <div class="flex items-center space-x-3 mb-4">
+          <% if post.user.present? %>
+            <% if post.user.avatar.attached? %>
+              <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24]),
+                  class: "w-6 h-6 rounded-full object-cover" %>
+            <% else %>
+              <div class="w-6 h-6 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-semibold">
+                <%= post.user.username&.first&.upcase || '?' %>
+              </div>
+            <% end %>
+            
+            <span class="text-sm font-medium text-slate-900 hover:underline">
+              <%= post.user.username %>
+            </span>
+          <% end %>
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2 leading-tight group-hover:underline line-clamp-2">
+          <%= post.title %>
+        </h2>
+
+        <!-- Excerpt -->
+        <% if post.body.present? %>
+          <p class="text-slate-600 text-base mb-4 line-clamp-2 hidden sm:block">
+            <%= truncate(post.body.to_plain_text, length: 120, separator: ' ') %>
+          </p>
+        <% end %>
+
+        <!-- Meta Info -->
+        <div class="flex items-center space-x-4 text-sm text-slate-500">
+          <time datetime="<%= post.created_at.iso8601 %>">
+            <%= l post.created_at, format: :short %>
+          </time>
+          <span>·</span>
+          <span><%= post.body.to_plain_text.split.size / 200 %> min read</span>
+          
+          <% if post.categories.any? %>
+            <span>·</span>
+            <span class="px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700">
+              <%= post.categories.first.name %>
+            </span>
+          <% end %>
+
+          <!-- Bookmark icon (right aligned) -->
+          <div class="ml-auto flex items-center space-x-4">
+            <button class="text-slate-400 hover:text-slate-900 transition-colors duration-200" onclick="event.preventDefault(); event.stopPropagation();">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+              </svg>
+            </button>
+            
+            <button class="text-slate-400 hover:text-slate-900 transition-colors duration-200" onclick="event.preventDefault(); event.stopPropagation();">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover Image -->
+      <% if post.cover_image.attached? %>
+        <div class="w-full sm:w-48 h-32 sm:h-32 flex-shrink-0 order-first sm:order-last">
+          <%= image_tag post.cover_image.representation(resize_to_limit: [400, 300]),
+              class: "w-full h-full object-cover",
+              loading: "lazy",
+              alt: post.title %>
         </div>
       <% end %>
-      <span class="text-sm font-semibold text-gray-800">
-        <%= link_to post.user.username, user_path(post.user), class: 'hover:underline' if post.user.present? %>
-      </span>
     </div>
-
-    <h2 class="text-xl font-bold text-gray-900 mb-1 leading-tight">
-      <%= link_to post_path(post), class: 'hover:underline' do %>
-        <%= post.title %>
-      <% end %>
-    </h2>
-
-    <% if post.cover_image.attached? %>
-      <div class="w-full sm:w-36 sm:h-36 flex-shrink-0">
-        <%= image_tag post.cover_image.representation(resize_to_limit: [750, 500]),
-            class: "w-full h-full object-cover rounded-lg shadow-sm" %>
-      </div>
-    <% end %>
-
-    <% if post.body.present? %>
-      <p class="text-gray-600 text-sm mb-3 line-clamp-3">
-        <%= truncate(post.body.to_plain_text, length: 100, separator: ' ') %>
-      </p>
-    <% end %>
-
-    <div class="flex items-center text-gray-500 text-xs mt-3">
-      <span class="flex items-center mr-3">
-        <svg class="w-4 h-4 mr-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="..." clip-rule="evenodd"></path></svg>
-        <%= time_ago_in_words(post.created_at) %> <%= t('time_ago.ago', default: 'ago') %>
-      </span>
-      <span class="flex items-center mr-3">
-        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="..." /></svg>
-        51
-      </span>
-      <span class="flex items-center">
-        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="..." /></svg>
-        9
-      </span>
-    </div>
-  </div>
-</div>
+  <% end %>
+</article>

@@ -1,70 +1,248 @@
-<h2><%= t('activerecord.attributes.user.edit_profile') %></h2>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-6 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-2xl mx-auto">
+    <!-- Header Section -->
+    <div class="text-center mb-8 animate-fadeIn">
+      <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+        <%= t('activerecord.attributes.user.edit_profile') %>
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base">
+        <%= t('activerecord.attributes.user.update_your_information', default: 'Оновіть свою інформацію') %>
+      </p>
+    </div>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+    <!-- Main Form Card -->
+    <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 animate-slideUp">
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-profile' }) do |f| %>
+        
+        <!-- Error Notification -->
+        <% if f.object.errors.any? %>
+          <div class="bg-red-50 border-l-4 border-red-500 p-4 m-6 rounded-r-lg animate-shake">
+            <div class="flex items-start">
+              <svg class="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <div class="flex-1">
+                <h3 class="text-sm font-semibold text-red-800 mb-1"><%= t('errors.messages.not_saved', default: 'Виникли помилки') %></h3>
+                <ul class="text-sm text-red-700 space-y-1">
+                  <% f.object.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
-  <div class="form-inputs">
-    <div class="form-group text-center mb-6">
-      <% if f.object.errors.empty? && f.object.avatar.attached? %>
-        <%= image_tag f.object.avatar.representation(resize_to_limit: [150, 150]), class: "rounded-full w-32 h-32 object-cover mx-auto mb-4 shadow-md" %>
-        <%= link_to t('buttons.remove_avatar', default: 'Remove Avatar'),
-                    delete_avatar_user_path(f.object),
-                    data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_avatar', default: 'Are you sure you want to remove your avatar?') },
-                    class: "block text-red-600 hover:underline text-sm mt-2" %>
-      <% else %>
-        <div class="rounded-full w-32 h-32 bg-gray-300 flex items-center justify-center mx-auto mb-4 text-gray-600 text-5xl font-bold">
-          <%= f.object.username.first.upcase if f.object.username.present? %>
+        <div class="px-6 sm:px-8 lg:px-10 py-8">
+          
+          <!-- Avatar Section -->
+          <div class="mb-10">
+            <div class="flex flex-col items-center text-center space-y-4">
+              <div class="relative group">
+                <% if f.object.avatar.attached? %>
+                  <%= image_tag f.object.avatar.representation(resize_to_limit: [150, 150]), 
+                      class: "w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg ring-4 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300" %>
+                <% else %>
+                  <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center shadow-lg ring-4 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300">
+                    <span class="text-white text-4xl sm:text-5xl font-bold">
+                      <%= f.object.username&.first&.upcase || '?' %>
+                    </span>
+                  </div>
+                <% end %>
+                
+                <!-- Camera Icon Overlay -->
+                <div class="absolute inset-0 rounded-full bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+              </div>
+
+              <% if f.object.avatar.attached? %>
+                <%= link_to delete_avatar_user_path(f.object),
+                            data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_avatar', default: 'Ви впевнені, що хочете видалити аватар?') },
+                            class: "inline-flex items-center text-sm text-red-600 hover:text-red-700 font-medium transition-colors duration-200" do %>
+                  <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                  <%= t('buttons.remove_avatar', default: 'Видалити аватар') %>
+                <% end %>
+              <% end %>
+
+              <div class="w-full">
+                <%= f.label :avatar, class: "block text-sm font-semibold text-slate-700 mb-2" do %>
+                  <%= t('activerecord.attributes.user.avatar', default: 'Аватар') %>
+                <% end %>
+                <label class="relative flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all duration-300 group">
+                  <%= f.file_field :avatar, class: "hidden", accept: "image/*" %>
+                  <div class="flex items-center space-x-2 text-slate-600 group-hover:text-blue-600 transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                    <span class="text-sm font-medium">
+                      <%= t('buttons.choose_file', default: 'Вибрати файл') %>
+                    </span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Fields -->
+          <div class="space-y-5">
+            
+            <!-- Username -->
+            <div class="form-field-wrapper">
+              <%= f.label :username, class: "block text-sm font-semibold text-slate-700 mb-1.5" %>
+              <%= f.input_field :username, 
+                  required: true,
+                  class: "w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white hover:border-slate-400",
+                  placeholder: t('activerecord.attributes.user.username_placeholder', default: 'Ваш нікнейм') %>
+            </div>
+
+            <!-- Email -->
+            <div class="form-field-wrapper">
+              <%= f.label :email, class: "block text-sm font-semibold text-slate-700 mb-1.5" %>
+              <%= f.input_field :email,
+                  required: true,
+                  type: :email,
+                  class: "w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white hover:border-slate-400",
+                  placeholder: "your@email.com" %>
+            </div>
+
+            <!-- First Name & Last Name Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div class="form-field-wrapper">
+                <%= f.label :first_name, class: "block text-sm font-semibold text-slate-700 mb-1.5" %>
+                <%= f.input_field :first_name,
+                    required: true,
+                    class: "w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white hover:border-slate-400",
+                    placeholder: t('activerecord.attributes.user.first_name_placeholder', default: "Ім'я") %>
+              </div>
+
+              <div class="form-field-wrapper">
+                <%= f.label :last_name, class: "block text-sm font-semibold text-slate-700 mb-1.5" %>
+                <%= f.input_field :last_name,
+                    required: true,
+                    class: "w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white hover:border-slate-400",
+                    placeholder: t('activerecord.attributes.user.last_name_placeholder', default: 'Прізвище') %>
+              </div>
+            </div>
+
+            <!-- Preferred Categories -->
+            <div class="form-field-wrapper">
+              <label class="block text-sm font-semibold text-slate-700 mb-3">
+                <%= t('activerecord.attributes.user.preferred_categories', default: 'Улюблені категорії') %>
+              </label>
+              <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <% Category.all.order(:name).each do |category| %>
+                    <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white transition-colors duration-200 cursor-pointer group">
+                      <%= check_box_tag 'user[preferred_category_ids][]', 
+                          category.id,
+                          @user.preferred_category_ids.include?(category.id),
+                          class: "w-5 h-5 text-blue-600 border-slate-300 rounded focus:ring-2 focus:ring-blue-500 transition-all duration-200 cursor-pointer" %>
+                      <span class="text-sm text-slate-700 font-medium group-hover:text-blue-600 transition-colors duration-200">
+                        <%= category.name %>
+                      </span>
+                    </label>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pending Reconfirmation Notice -->
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-amber-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  <p class="text-sm text-amber-800">
+                    <%= t('devise.registrations.waiting_confirmation', default: 'Очікується підтвердження для') %>: 
+                    <span class="font-semibold"><%= resource.unconfirmed_email %></span>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+
+            <!-- Password Section -->
+            <div class="pt-6 border-t border-slate-200 space-y-5">
+              <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+                <%= t('activerecord.attributes.user.change_password', default: 'Зміна пароля') %>
+              </h3>
+
+              <div class="form-field-wrapper">
+                <%= f.label :password, class: "block text-sm font-semibold text-slate-700 mb-1.5" %>
+                <%= f.input_field :password,
+                    autocomplete: "new-password",
+                    class: "w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white hover:border-slate-400",
+                    placeholder: "••••••••" %>
+                <p class="mt-1.5 text-xs text-slate-500">
+                  <%= t('simple_form.labels.defaults.comment', default: 'Залиште порожнім, якщо не хочете змінювати') %>
+                </p>
+              </div>
+
+              <div class="form-field-wrapper">
+                <%= f.label :password_confirmation, class: "block text-sm font-semibold text-slate-700 mb-1.5" %>
+                <%= f.input_field :password_confirmation,
+                    autocomplete: "new-password",
+                    class: "w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white hover:border-slate-400",
+                    placeholder: "••••••••" %>
+              </div>
+
+              <div class="form-field-wrapper">
+                <%= f.label :current_password, class: "block text-sm font-semibold text-slate-700 mb-1.5" do %>
+                  <%= t('activerecord.attributes.user.current_password') %>
+                  <span class="text-red-500">*</span>
+                <% end %>
+                <%= f.input_field :current_password,
+                    required: true,
+                    autocomplete: "current-password",
+                    class: "w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white hover:border-slate-400",
+                    placeholder: "••••••••" %>
+                <p class="mt-1.5 text-xs text-slate-500">
+                  <%= t('simple_form.labels.defaults.comment_password', default: 'Потрібен для підтвердження змін') %>
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-8 pt-6 border-t border-slate-200 space-y-4">
+            <%= f.button :submit, 
+                class: "w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center space-x-2" do %>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span><%= t("simple_form.button.update", default: 'Оновити профіль') %></span>
+            <% end %>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <%= link_to :back, class: "flex-1 bg-white border-2 border-slate-300 text-slate-700 font-semibold py-3 px-6 rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300 text-center" do %>
+                <span><%= t("simple_form.button.back", default: 'Назад') %></span>
+              <% end %>
+
+              <%= link_to registration_path(resource_name),
+                  data: { confirm: t("simple_form.labels.defaults.confirm", default: 'Ви впевнені? Цю дію не можна скасувати.'), turbo_method: :delete },
+                  class: "flex-1 bg-white border-2 border-red-300 text-red-600 font-semibold py-3 px-6 rounded-xl hover:bg-red-50 hover:border-red-400 transition-all duration-300 text-center" do %>
+                <span><%= t("simple_form.labels.defaults.cancel", default: 'Видалити акаунт') %></span>
+              <% end %>
+            </div>
+          </div>
+
         </div>
       <% end %>
-      <%= f.input :avatar, as: :file,
-                  input_html: { class: "block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" },
-                  label: t('activerecord.attributes.user.avatar', default: 'Avatar') %>
-    </div>
-    <%= f.input :username, required: true, autofocus: true %>
-    <%= f.input :email, required: true, autofocus: true %>
-    <%= f.input :first_name, required: true, autofocus: true %>
-    <%= f.input :last_name, required: true, autofocus: true %>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-2">
-        <%= t('activerecord.attributes.user.preferred_categories', default: 'Preferred Categories') %>
-      </label>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-        <% Category.all.order(:name).each do |category| %>
-          <label class="inline-flex items-center space-x-2">
-            <%= check_box_tag 'user[preferred_category_ids][]', category.id,
-                  @user.preferred_category_ids.include?(category.id),
-                  class: "text-blue-600 border-gray-300 rounded focus:ring-blue-500" %>
-            <span class="text-sm text-gray-800"><%= category.name %></span>
-          </label>
-        <% end %>
-      </div>
     </div>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :password,
-                hint: t('simple_form.labels.defaults.comment'),
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: t('simple_form.labels.defaults.comment_password'),
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+    <!-- Footer Note -->
+    <p class="text-center text-sm text-slate-500 mt-6">
+      <%= t('activerecord.attributes.user.secure_notice', default: 'Ваші дані захищені та зберігаються безпечно') %>
+    </p>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, t("simple_form.button.update"), class: 'btn btn-primary' %>
-  </div>
-<% end %>
-
-<p><%= t("simple_form.labels.defaults.unhappy") %>
-  <%= link_to t("simple_form.labels.defaults.cancel"), registration_path(resource_name),
-              data: { confirm: t("simple_form.labels.defaults.confirm") }, method: :delete %></p>
-
-<%= link_to t("simple_form.button.back"), :back, class: 'btn btn-primary' %>
+</div>

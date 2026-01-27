@@ -1,0 +1,163 @@
+/* Additional styles for application layout */
+
+/* Custom scrollbar for sidebar and dropdowns */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Slide down animation for flash messages */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.4s ease-out;
+}
+
+/* Sidebar active state styles */
+.sidebar-menu.active {
+  transform: translateX(0) !important;
+}
+
+/* Tab active state */
+.notification-tab button.active {
+  border-bottom-color: #f84525;
+  color: #1e293b;
+}
+
+/* Smooth transitions for sidebar */
+.sidebar-menu {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-overlay {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Main content shift when sidebar is open */
+.main.active {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .main.md\:ml-64 {
+    margin-left: 18rem;
+  }
+}
+
+/* Hover effects for navigation items */
+.group:hover .group-hover\:scale-110 {
+  transform: scale(1.1);
+}
+
+/* Dropdown menu positioning improvements */
+.dropdown-menu {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Badge pulse animation */
+@keyframes badgePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-badge-pulse {
+  animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Improve focus states for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #f84525;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .sidebar-menu {
+    width: 85vw;
+    max-width: 320px;
+  }
+  
+  /* Ensure dropdowns don't overflow on mobile */
+  .dropdown-menu {
+    max-width: 90vw;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+/* Smooth backdrop blur */
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Gradient text effect */
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card hover effects */
+.hover-lift {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading state */
+.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Notification badge */
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border-radius: 9999px;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
