@@ -1,12 +1,7 @@
 <div class="min-h-screen bg-white">
-  
-  <!-- Profile Header -->
   <div class="border-b border-slate-200">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-      
-      <!-- User Info -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
-        <!-- Avatar -->
         <% if @user.avatar.attached? %>
           <%= image_tag @user.avatar.representation(resize_to_limit: [128, 128]), 
               class: "w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover flex-shrink-0" %>
@@ -15,8 +10,6 @@
             <%= @user.username&.first&.upcase || '?' %>
           </div>
         <% end %>
-
-        <!-- Info & Actions -->
         <div class="flex-1 min-w-0">
           <h1 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-2">
             <%= @user.full_name.presence || @user.username %>
@@ -24,56 +17,46 @@
           <p class="text-base sm:text-lg text-slate-600 mb-4">
             <%= t("activerecord.attributes.user.roles.#{@user.role}", default: @user.role.humanize) %>
           </p>
-
-          <!-- Stats -->
           <div class="flex items-center space-x-6 text-sm text-slate-600 mb-6">
             <div>
               <span class="font-semibold text-slate-900"><%= @user.posts.count %></span>
-              <%= t('posts', default: 'Постів') %>
+              <%= t('activerecord.attributes.user.posts') %>
             </div>
             <div>
               <span class="font-semibold text-slate-900">0</span>
-              <%= t('followers', default: 'Підписників') %>
+              <%= t('activerecord.attributes.user.followers') %>
             </div>
             <div>
               <span class="font-semibold text-slate-900">0</span>
-              <%= t('following', default: 'Підписок') %>
+              <%= t('activerecord.attributes.user.following') %>
             </div>
           </div>
-
-          <!-- Action Buttons -->
           <% if @user == current_user %>
             <div class="flex flex-wrap gap-3">
               <%= link_to edit_user_registration_path, class: "inline-flex items-center px-4 py-2 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
                 <i class='bx bx-edit text-lg mr-2'></i>
-                <%= t('activerecord.attributes.user.edit_profile', default: 'Редагувати профіль') %>
+                <%= t('activerecord.attributes.user.edit_profile') %>
               <% end %>
-
-              <%= link_to @user, data: { turbo_method: :delete, turbo_confirm: t('confirm_delete_profile', default: 'Ви впевнені? Цю дію не можна скасувати.') }, class: "inline-flex items-center px-4 py-2 border border-red-300 rounded-full text-sm font-medium text-red-600 hover:bg-red-50 transition-colors duration-200" do %>
+              <%= link_to @user, data: { turbo_method: :delete, turbo_confirm: t('activerecord.attributes.user.confirm_delete_profile') }, class: "inline-flex items-center px-4 py-2 border border-red-300 rounded-full text-sm font-medium text-red-600 hover:bg-red-50 transition-colors duration-200" do %>
                 <i class='bx bx-trash text-lg mr-2'></i>
-                <%= t('delete', default: 'Видалити') %>
+                <%= t('activerecord.attributes.user.delete_profile') %>
               <% end %>
             </div>
           <% else %>
             <button class="inline-flex items-center px-6 py-2 bg-slate-900 text-white rounded-full text-sm font-medium hover:bg-slate-800 transition-colors duration-200">
-              <%= t('follow', default: 'Підписатися') %>
+              <%= t('activerecord.attributes.user.follow') %>
             </button>
           <% end %>
         </div>
       </div>
-
     </div>
   </div>
-  <!-- Posts Section -->
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <% if @user.posts.any? %>
-      <!-- Posts List -->
       <div class="divide-y divide-slate-200">
         <%= render partial: 'posts/post', collection: @user.posts %>
       </div>
-
     <% else %>
-      <!-- Empty State -->
       <div class="text-center py-16 sm:py-24">
         <div class="mb-6">
           <svg class="w-16 h-16 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,19 +64,18 @@
           </svg>
         </div>
         <h3 class="text-xl font-serif font-bold text-slate-900 mb-2">
-          <%= @user == current_user ? t('no_posts_yet', default: 'У вас поки немає постів') : t('user_no_posts', default: 'Цей користувач ще не написав жодного поста') %>
+          <%= @user == current_user ? t('activerecord.attributes.user.no_posts_yet') : t('activerecord.attributes.user.user_no_posts') %>
         </h3>
         <p class="text-slate-600 mb-8">
-          <%= @user == current_user ? t('start_writing', default: 'Почніть писати, щоб поділитися своїми думками') : t('check_back_later', default: 'Перевірте пізніше') %>
+          <%= @user == current_user ? t('activerecord.attributes.user.start_writing') : t('activerecord.attributes.user.check_back_later') %>
         </p>
         <% if @user == current_user && current_user.creator? %>
           <%= link_to new_post_path, class: "inline-flex items-center px-6 py-3 bg-slate-900 text-white font-medium rounded-full hover:bg-slate-800 transition-colors duration-200" do %>
             <i class='bx bx-edit text-xl mr-2'></i>
-            <%= t('write_post', default: 'Написати пост') %>
+            <%= t('activerecord.attributes.posts.new') %>
           <% end %>
         <% end %>
       </div>
     <% end %>
   </div>
-
 </div>

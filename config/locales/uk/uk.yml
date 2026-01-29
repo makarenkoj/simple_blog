@@ -102,10 +102,20 @@ uk:
         profile: 'Профіль'
         edit_profile: 'Редактор профілю'
         delete_profile: 'Видалити профіль'
+        confirm_delete_profile: 'Ви впевнені? Цю дію не можна скасувати.'
         change_password: 'Змінити пароль'
         current_user: 'Ви не є поточним користувачем'
         my_posts: 'Мої пости:'
         writen_posts: 'Користувач поки що не написав жодного поста'
+        secure_notice: 'Ваші дані захищені та зберігаються безпечно'
+        start_writing: 'Почніть писати, щоб поділитися своїми думками'
+        check_back_later: 'Перевірте пізніше'
+        no_posts_yet: 'У вас поки немає постів'
+        user_no_posts: 'Цей користувач ще не написав жодного поста'
+        posts: "Публікації"
+        followings: "Підписки"
+        followers: "Підписники"
+        folow: 'Підписатися'
       posts:
         title: 'Назва'
         address: 'Місце проведення'
