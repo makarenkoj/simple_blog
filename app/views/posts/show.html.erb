@@ -1,5 +1,4 @@
 <div class="min-h-screen bg-white">
-  
   <!-- Top Navigation Bar (Medium style) -->
   <nav class="sticky top-0 z-50 bg-white border-b border-slate-200 backdrop-blur-sm bg-white/95">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,7 +10,6 @@
           </svg>
           <span class="hidden sm:inline font-medium"><%= t('activerecord.post.back', default: 'Назад') %></span>
         <% end %>
-
         <!-- Actions -->
         <div class="flex items-center space-x-3">
           <% if current_user_can_edit?(@post) %>
@@ -19,14 +17,12 @@
               <%= t('edit', default: 'Редагувати') %>
             <% end %>
           <% end %>
-          
           <!-- Share Button -->
           <button class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-all duration-200">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
             </svg>
           </button>
-          
           <!-- More Options -->
           <button class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-all duration-200">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -37,16 +33,13 @@
       </div>
     </div>
   </nav>
-
   <!-- Article Container -->
   <article class="mx-auto" style="max-width: 680px;">
-    
     <!-- Title Section -->
     <header class="px-6 sm:px-8 pt-12 sm:pt-16 pb-8">
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-slate-900 leading-tight mb-8 tracking-tight">
         <%= @post.title %>
       </h1>
-
       <!-- Author Section -->
       <div class="flex items-center justify-between flex-wrap gap-4">
         <% if @post.user.present? %>
@@ -59,7 +52,6 @@
                 <%= @post.user.username&.first&.upcase || '?' %>
               </div>
             <% end %>
-            
             <div>
               <p class="text-sm font-medium text-slate-900 group-hover:underline">
                 <%= @post.user.username %>
@@ -75,7 +67,6 @@
           <% end %>
         <% end %>
       </div>
-
       <!-- Interaction Bar (Medium style) -->
       <div class="flex items-center justify-between pt-8 mt-8 border-t border-slate-200">
         <div class="flex items-center space-x-6">
@@ -86,7 +77,6 @@
             </svg>
             <span class="text-sm font-medium">51</span>
           </button>
-
           <!-- Comments -->
           <button class="flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 group">
             <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +85,6 @@
             <span class="text-sm font-medium">9</span>
           </button>
         </div>
-
         <div class="flex items-center space-x-4">
           <!-- Bookmark -->
           <button class="text-slate-600 hover:text-slate-900 transition-colors duration-200">
@@ -103,7 +92,6 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
             </svg>
           </button>
-
           <!-- Listen -->
           <button class="text-slate-600 hover:text-slate-900 transition-colors duration-200">
             <svg class="w-6 h-6 hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +101,6 @@
         </div>
       </div>
     </header>
-
     <!-- Cover Image (if exists) -->
     <% if @post.cover_image.attached? %>
       <figure class="mb-12">
@@ -122,14 +109,12 @@
             alt: @post.title %>
       </figure>
     <% end %>
-
     <!-- Article Body -->
     <div class="px-6 sm:px-8 pb-16">
       <div class="prose prose-lg max-w-none medium-prose">
         <%= @post.body %>
       </div>
     </div>
-
     <!-- Tags Section -->
     <% if @post.categories.any? %>
       <div class="px-6 sm:px-8 pb-8">
@@ -142,7 +127,6 @@
         </div>
       </div>
     <% end %>
-
     <!-- Bottom Interaction Bar -->
     <div class="px-6 sm:px-8 pb-12">
       <div class="flex items-center justify-between py-8 border-y border-slate-200">
@@ -153,7 +137,6 @@
             </svg>
             <span class="text-sm font-medium">51</span>
           </button>
-
           <button class="flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 group">
             <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
@@ -161,14 +144,12 @@
             <span class="text-sm font-medium">9</span>
           </button>
         </div>
-
         <div class="flex items-center space-x-4">
           <button class="text-slate-600 hover:text-slate-900 transition-colors duration-200">
             <svg class="w-6 h-6 hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
             </svg>
           </button>
-
           <button class="text-slate-600 hover:text-slate-900 transition-colors duration-200">
             <svg class="w-6 h-6 hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
@@ -177,7 +158,6 @@
         </div>
       </div>
     </div>
-
     <!-- Author Bio Section -->
     <% if @post.user.present? %>
       <div class="px-6 sm:px-8 pb-16">
@@ -190,7 +170,6 @@
               <%= @post.user.username&.first&.upcase || '?' %>
             </div>
           <% end %>
-          
           <div class="flex-1 min-w-0">
             <p class="text-base font-semibold text-slate-900 mb-1 group-hover:underline">
               <%= @post.user.username %>
@@ -206,7 +185,6 @@
         <% end %>
       </div>
     <% end %>
-
     <!-- Admin Actions (if applicable) -->
     <% if current_user_can_edit?(@post) %>
       <div class="px-6 sm:px-8 pb-16">
@@ -229,7 +207,6 @@
                   </svg>
                   <%= t('edit', default: 'Редагувати') %>
                 <% end %>
-
                 <%= link_to post_path(@post), data: { turbo_confirm: t('activerecord.post.destroy_confirm', default: 'Ви впевнені?'), turbo_method: :delete }, class: 'inline-flex items-center px-4 py-2 bg-white border border-red-300 rounded-md text-sm font-medium text-red-900 hover:bg-red-50 transition-colors duration-200' do %>
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -242,9 +219,7 @@
         </div>
       </div>
     <% end %>
-
   </article>
-
   <!-- More from author section -->
   <div class="border-t border-slate-200 bg-slate-50">
     <div class="mx-auto py-16" style="max-width: 1200px;">
@@ -252,7 +227,6 @@
         <h2 class="text-2xl font-bold text-slate-900 mb-8">
           <%= t('more_from', default: 'Більше від') %> <%= @post.user&.username || t('author', default: 'автора') %>
         </h2>
-        
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Placeholder for more posts -->
           <% 3.times do %>
@@ -269,7 +243,7 @@
               <div class="flex items-center text-xs text-slate-500 space-x-2">
                 <span><%= t('5_min_read', default: '5 хв читання') %></span>
                 <span>·</span>
-                <span><%= l(Time.current, format: :short) %></span> // TODO: Replace with actual post date
+                <span><%= l(Time.current, format: :short) %></span> <!-- TODO: Replace with actual post date -->
               </div>
             </article>
           <% end %>
@@ -277,5 +251,4 @@
       </div>
     </div>
   </div>
-
 </div>

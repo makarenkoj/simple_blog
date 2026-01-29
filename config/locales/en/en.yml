@@ -1,0 +1,449 @@
+en:
+  # --- General ---
+  hello: 'Hello World!'
+  blog: 'PUBLICATIONS'
+  post: 'Post'
+  archive: 'Archive'
+  all: 'All'
+  categories: 'Categories'
+  personal: 'PERSONAL'
+  notifications: 'Notifications'
+  messages: 'Messages'
+  
+  # --- Buttons & Interface ---
+  buttons:
+    remove_image: "Remove image"
+    remove_avatar: "Remove avatar"
+  confirm_remove_image: "Are you sure you want to remove this image?"
+  confirm_remove_avatar: "Are you sure you want to remove this avatar?"
+  time_ago:
+    ago: "ago"
+  alert_destroy:
+    photo: 'Are you sure you want to delete this photo?'
+
+  # --- Flash messages (custom) ---
+  flash:
+    avatar_removed: 'Avatar successfully removed.'
+    not_authorized: 'You are not authorized to perform this action.'
+
+  # --- File Uploads ---
+  attachments:
+    avatar:
+      large: 'Photo is too large, max 2 MB!'
+      dimension: 'Image too large, max size 500x500 pixels.'
+    cover_image:
+      large: 'Cover image too large, max 5 MB!'
+      dimension: 'Cover image must be smaller than 2000x2000 pixels.'
+
+  # --- Simple Form ---
+  simple_form:
+    "Yes": "Yes"
+    "No": "No"
+    required:
+      text: "required"
+      mark: "*"
+    button:
+      update: "Update"
+      back: "Back"
+    error_notification:
+      default_message: "Please review the problems below:"
+    labels:
+      defaults:
+        password: "Password"
+        comment: "leave blank if you don't want to change it"
+        comment_password: "we need your current password to confirm your changes"
+        cancel: "Cancel my account"
+        unhappy: "Unhappy?"
+        confirm: "Are you sure?"
+        sign_up: "Sign up"
+        characters: "characters minimum"
+      user:
+        new:
+          email: "Login email."
+        edit:
+          email: "Email."
+    hints:
+      defaults:
+        username: "Login username."
+        password: "Please do not use special characters."
+    include_blanks:
+      defaults:
+        age: "Rather not say"
+    prompts:
+      defaults:
+        age: "Select your age"
+
+  # --- ActiveRecord ---
+  activerecord:
+    models:
+      user: 'User'
+      post: 'Post'
+      photo: 'Photo'
+    attributes:
+      user:
+        roles:
+          creator: 'Creator'
+          reader: 'Reader'
+        first_name: "First name"
+        last_name: "Last name"
+        username: "Username"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        role: "Role"
+        name: 'Name'
+        avatar: 'Avatar'
+        sign_in: 'Log in'
+        sign_out: 'Log out'
+        sign_up: 'Sign up'
+        save: 'Save'
+        back: 'Back'
+        or: 'or'
+        profile: 'Profile'
+        edit_profile: 'Edit profile'
+        delete_profile: 'Delete profile'
+        change_password: 'Change password'
+        current_user: 'You are not the current user'
+        my_posts: 'My posts:'
+        # ВИПРАВЛЕНО ТУТ (використано подвійні лапки):
+        writen_posts: "User hasn't written any posts yet"
+      posts:
+        title: 'Title'
+        address: 'Location'
+        datetime: 'Date and time'
+        description: 'Description'
+        pincode: 'Access PIN-code'
+        new: 'Create publication'
+        save: "Save"
+        or: "or"
+        back: "Back"
+        cover_image: "Cover image"
+        categories: "Categories"
+        actions: "Post actions"
+        creators: "My publications"
+        library: "My library"
+        index:
+          title: "All publications"
+          no_posts: "No publications found."
+          create_one: "Why not create one?"
+          new_post: "Create new publication"
+          subtitle: 'Discover stories, thinking, and expertise from writers on any topic.'
+        post:
+          by: "by"
+          anonymous: "Anonymous"
+          read_more: "Read more"
+      comment:
+        user_name: 'Your name'
+        body: 'Comment'
+      photo:
+        photo: 'Photo'
+    
+    # Custom controller messages
+    controllers:
+      posts:
+        created: 'You created a new post :)'
+        updated: 'You updated the post'
+        destroyed: 'You deleted the post :('
+        changed: 'Edit publication'
+        wrong_pincode: 'WRONG PIN-code!'
+        new: 'Create new publication'
+        new_description: 'Share your thoughts with the world!'
+      users:
+        updated: 'You updated your profile'
+        destroyed: 'User successfully deleted :('
+      comments:
+        destroyed: 'Comment deleted'
+        created: 'Your comment was added'
+        error: 'Error with comment'
+      subscriptions:
+        created: 'You subscribed to this event'
+        destroyed: 'Unsubscribed'
+        error: 'Subscribe / Unsubscribe failed'
+      photos:
+        error: 'Something wrong with the photo'
+        created: 'You added a photo to the event'
+        destroyed: 'You deleted the photo'
+
+    # Standard ActiveRecord Errors
+    errors:
+      messages:
+        record_invalid: 'Validation failed: %{errors}'
+        restrict_dependent_destroy:
+          has_one: 'Cannot delete record because dependent %{record} exists'
+          has_many: 'Cannot delete record because dependent %{record} exist'
+
+  # --- Custom App Sections ---
+  app:
+    name: 'Post'
+    company: 'Simple Blog'
+    url: 'blogasik.com'
+    simple: 'Simple'
+    blog: 'Blog'
+  
+  post:
+    change: 'Edit'
+    destroy: 'Delete post'
+    create: 'Create post'
+    save: 'Save'
+    back: 'Back'
+    or: 'or'
+    new: 'New post'
+    destroy_confirm: 'Are you sure you want to delete this post?'
+    published_by: 'Published'
+    anonymous_author: 'Anonymous author'
+    errors:
+      messages:
+        not_saved:
+          one: "1 error prohibited this post from being saved:"
+          other: "%{count} errors prohibited this post from being saved:"
+  
+  comments:
+    comment:
+      destroy_confirm: 'Are you sure you want to delete this comment?'
+  
+  subscriptions:
+    subscription:
+      destroy_confirm: 'Are you sure you want to delete this subscription?'
+  
+  # --- Mailers ---
+  post_mailer:
+    comment:
+      title: 'New comment'
+      author: 'Author'
+      event: 'Event'
+      datetime: 'Happens at'
+      owner: 'Organizer'
+    subscription:
+      title: 'Subscribe'
+      name: 'Name'
+      email: 'Email'
+      author: 'Author'
+      post: 'Event'
+      datetime: 'Happens at'
+      owner: 'Organizer'
+    photo:
+      title: 'New photo'
+      name: 'Name'
+      email: 'Email'
+      post: 'Event'
+      author: 'Author'
+      owner: 'Organizer'
+      datetime: 'Happens at'
+
+  # --- Standard Rails Formats & Errors ---
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    - 
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      short: "%b %d"
+    month_names:
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_seconds:
+        one: 1 second
+        other: "%{count} seconds"
+      x_minutes:
+        one: 1 minute
+        other: "%{count} minutes"
+      x_days:
+        one: 1 day
+        other: "%{count} days"
+      x_months:
+        one: 1 month
+        other: "%{count} months"
+      x_years:
+        one: 1 year
+        other: "%{count} years"
+    prompts:
+      second: Second
+      minute: Minute
+      hour: Hour
+      day: Day
+      month: Month
+      year: Year
+
+  errors:
+    # Custom App Errors
+    organize_subscribe: 'You cannot subscribe to your own event!'
+    user_email: 'This email address is already registered!'
+    
+    # Standard Rails Errors
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      confirmation: doesn't match confirmation
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      model_invalid: 'Validation failed: %{errors}'
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      other_than: must be other than %{count}
+      present: must be blank
+      required: must exist
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+    template:
+      body: 'There were problems with the following fields:'
+      header:
+        one: 1 error prohibited this %{model} from being saved
+        other: "%{count} errors prohibited this %{model} from being saved"
+
+  helpers:
+    select:
+      prompt: 'Please select'
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
+
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "$"
+    format:
+      delimiter: ","
+      precision: 3
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+          unit: ""
+      format:
+        delimiter: ""
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ""
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ""
+
+  support:
+    array:
+      last_word_connector: ", and "
+      two_words_connector: " and "
+      words_connector: ", "
+  
+  time:
+    am: "am"
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+      year: "%Y"
+    pm: "pm"

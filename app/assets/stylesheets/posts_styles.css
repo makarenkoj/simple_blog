@@ -1,6 +1,3 @@
-/* Medium-inspired Posts Styles */
-
-/* Line clamp utilities */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -15,7 +12,6 @@
   overflow: hidden;
 }
 
-/* Serif fonts for headings */
 .font-serif {
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
@@ -26,7 +22,6 @@ h3.font-serif {
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
-/* Focus states for accessibility */
 button:focus-visible,
 a:focus-visible {
   outline: 2px solid #0f172a;
@@ -34,7 +29,6 @@ a:focus-visible {
   border-radius: 4px;
 }
 
-/* Smooth transitions */
 article {
   transition: all 0.2s ease-in-out;
 }
@@ -44,13 +38,11 @@ a {
   transition: all 0.2s ease-in-out;
 }
 
-/* Remove any extra margins that might cause offset */
 body {
   margin: 0;
   padding: 0;
 }
 
-/* Ensure main container doesn't have unwanted padding */
 .max-w-7xl {
   margin-left: auto;
   margin-right: auto;

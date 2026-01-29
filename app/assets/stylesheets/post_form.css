@@ -1,4 +1,3 @@
-/* Rich text editor custom styling */
 .rich-text-wrapper trix-editor {
   min-height: 300px;
   outline: none;
@@ -30,16 +29,14 @@
   color: white;
 }
 
-/* Smooth file input interaction */
 .post-form input[type="file"] {
   cursor: pointer;
 }
 
-/* Mobile optimizations */
 @media (max-width: 640px) {
   .form-section input,
   .form-section textarea {
-    font-size: 16px; /* Prevents zoom on iOS */
+    font-size: 16px;
   }
 
   .rich-text-wrapper trix-toolbar {

@@ -1,13 +1,9 @@
-/* Additional styles for application layout */
-
-/* Custom scrollbar for sidebar and dropdowns */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 10px;
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -19,11 +15,10 @@
   background: #94a3b8;
 }
 
-/* Slide down animation for flash messages */
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -32,21 +27,9 @@
 }
 
 .animate-slideDown {
-  animation: slideDown 0.4s ease-out;
+  animation: slideDown 0.3s ease-out;
 }
 
-/* Sidebar active state styles */
-.sidebar-menu.active {
-  transform: translateX(0) !important;
-}
-
-/* Tab active state */
-.notification-tab button.active {
-  border-bottom-color: #f84525;
-  color: #1e293b;
-}
-
-/* Smooth transitions for sidebar */
 .sidebar-menu {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -55,109 +38,95 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-/* Main content shift when sidebar is open */
-.main.active {
-  margin-left: 0;
+.dropdown-hidden {
+  display: none !important;
 }
 
-@media (min-width: 768px) {
-  .main.md\:ml-64 {
-    margin-left: 18rem;
-  }
-}
-
-/* Hover effects for navigation items */
-.group:hover .group-hover\:scale-110 {
-  transform: scale(1.1);
-}
-
-/* Dropdown menu positioning improvements */
-.dropdown-menu {
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-/* Badge pulse animation */
-@keyframes badgePulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.animate-badge-pulse {
-  animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Improve focus states for accessibility */
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid #f84525;
+  outline: 2px solid #0f172a;
   outline-offset: 2px;
-  border-radius: 0.5rem;
+  border-radius: 4px;
 }
 
-/* Mobile optimizations */
-@media (max-width: 640px) {
+a, button {
+  transition: all 0.2s ease-in-out;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 50;
+}
+
+@media (max-width: 768px) {
   .sidebar-menu {
-    width: 85vw;
     max-width: 320px;
   }
-  
-  /* Ensure dropdowns don't overflow on mobile */
-  .dropdown-menu {
-    max-width: 90vw;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-  }
 }
 
-/* Smooth backdrop blur */
+body.sidebar-open {
+  overflow: hidden;
+}
+
+.font-serif {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+h1, h2, h3 {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .backdrop-blur-md {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Gradient text effect */
-.bg-clip-text {
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
 }
 
-/* Card hover effects */
+.border-slate-200 {
+  border-color: rgba(226, 232, 240, 1);
+}
+
 .hover-lift {
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-}
-
-/* Loading state */
-.loading {
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-/* Notification badge */
-.notification-badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  min-width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: white;
-  border-radius: 9999px;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }

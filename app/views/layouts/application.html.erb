@@ -17,354 +17,208 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%= stylesheet_link_tag :app, "profile", "post_form", "layout_styles", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   </head>
-  
-  <body class="flex min-h-screen bg-gradient-to-br from-slate-50 to-slate-100" data-controller="sidebar">
-    
-    <!-- Improved Sidebar -->
-    <aside class="fixed left-0 top-0 w-72 h-full bg-white shadow-2xl border-r border-slate-200 p-6 z-50 sidebar-menu transition-all duration-300 -translate-x-full md:-translate-x-full" data-sidebar-target="sidebarMenu">
-      
-      <!-- Logo Section -->
-      <a href="<%= root_path %>" class="flex items-center pb-6 border-b-2 border-slate-200 group hover:border-rose-500 transition-colors duration-300">
-        <div class="flex items-center space-x-2">
-          <div class="w-10 h-10 bg-gradient-to-br from-rose-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-            <i class='bx bxl-blogger text-white text-2xl'></i>
-          </div>
-          <div>
-            <h2 class="font-bold text-xl text-slate-800 group-hover:text-rose-600 transition-colors duration-300">
-              <%= t('activerecord.app.simple', default: 'Simple')%>
-            </h2>
-            <span class="text-xs text-slate-500 font-medium"><%= t('activerecord.app.blog', default: 'Blog')%></span>
-          </div>
-        </div>
-      </a>
-
-      <% if user_signed_in? %>
-        <!-- Navigation Menu -->
-        <nav class="mt-6 space-y-6 overflow-y-auto max-h-[calc(100vh-180px)] custom-scrollbar">
-          
-          <!-- Blog Section -->
-          <div class="space-y-2">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2"><%= t('blog', default: 'Blog') %></span>
-            
-            <div class="space-y-1">
-              <!-- Posts Dropdown -->
-              <div class="group">
-                <button class="w-full flex items-center justify-between py-3 px-4 text-slate-700 hover:bg-gradient-to-r hover:from-rose-50 hover:to-orange-50 rounded-xl transition-all duration-200 sidebar-dropdown-toggle font-medium" data-action="click->sidebar#toggleDropdown" data-sidebar-target="dropdownToggle">
-                  <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 bg-rose-100 rounded-lg flex items-center justify-center group-hover:bg-rose-200 transition-colors duration-200">
-                      <i class='bx bxl-blogger text-rose-600 text-lg'></i>
-                    </div>
-                    <span class="text-sm group-hover:text-rose-600 transition-colors duration-200"><%= t('activerecord.attributes.posts.actions') %></span>
-                  </div>
-                  <i class="ri-arrow-right-s-line text-slate-400 group-[.selected]:rotate-90 transition-transform duration-200"></i>
-                </button>
-                
-                <div class="pl-12 mt-2 space-y-1 hidden group-[.selected]:block">
-                  <% if current_user.creator? %>
-                    <%= link_to new_post_path, class: "flex items-center py-2 px-4 text-sm text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all duration-200 group" do %>
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-3 group-hover:bg-rose-500 transition-colors duration-200"></span>
-                      <%= t('activerecord.attributes.posts.new', default: 'New Post') %>
-                    <% end %>
-                  <% end %>
-                  
-                  <%= link_to posts_path, class: "flex items-center py-2 px-4 text-sm text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all duration-200 group" do %>
-                    <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-3 group-hover:bg-rose-500 transition-colors duration-200"></span>
-                    <%= t('all', default: 'All Posts') %>
-                  <% end %>
-                  
-                  <%= link_to '#', class: "flex items-center py-2 px-4 text-sm text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all duration-200 group" do %>
-                    <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-3 group-hover:bg-rose-500 transition-colors duration-200"></span>
-                    <%= t('categories', default: 'Categories') %>
-                  <% end %>
-                </div>
+  <body class="bg-white" data-controller="sidebar">
+    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center space-x-4">
+            <button type="button" class="lg:hidden text-slate-700 hover:text-slate-900 transition-colors duration-200" data-action="click->sidebar#toggleSidebar">
+              <i class="ri-menu-line text-2xl"></i>
+            </button>
+            <%= link_to root_path, class: "flex items-center space-x-2 group" do %>
+              <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+                <i class='bx bxl-blogger text-white text-xl'></i>
               </div>
-
-              <!-- Archive -->
-              <a href="#" class="flex items-center space-x-3 py-3 px-4 text-slate-700 hover:bg-gradient-to-r hover:from-amber-50 hover:to-yellow-50 rounded-xl transition-all duration-200 group font-medium">
-                <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center group-hover:bg-amber-200 transition-colors duration-200">
-                  <i class='bx bx-archive text-amber-600 text-lg'></i>
-                </div>
-                <span class="text-sm group-hover:text-amber-600 transition-colors duration-200"><%= t('archive', default: 'Archive')%></span>
-              </a>
+              <span class="hidden sm:!block text-xl font-serif font-bold text-slate-900">
+                <%= t('activerecord.app.simple', default: 'Simple')%> <%= t('activerecord.app.blog', default: 'Blog')%>
+              </span>
+            <% end %>
+          </div>
+          <!-- Center: Search (Desktop) -->
+          <div class="hidden lg:!block flex-1 max-w-md mx-8">
+            <div class="relative">
+              <input 
+                type="text" 
+                placeholder="<%= t('search', default: 'Пошук...') %>"
+                class="w-full px-4 py-2 pl-10 bg-slate-100 border border-transparent rounded-full text-sm focus:outline-none focus:bg-white focus:border-slate-300 transition-all duration-200"
+              >
+              <i class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 mt-3.5 text-slate-400 text-lg"></i>
             </div>
           </div>
-
-          <!-- Personal Section -->
-          <div class="space-y-2 pt-4 border-t border-slate-200">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2"><%= t('personal', default: 'Personal')%></span>
-            
-            <div class="space-y-1">
-              <!-- Notifications -->
-              <a href="#" class="flex items-center justify-between py-3 px-4 text-slate-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 rounded-xl transition-all duration-200 group font-medium">
-                <div class="flex items-center space-x-3">
-                  <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors duration-200 relative">
-                    <i class='bx bx-bell text-blue-600 text-lg'></i>
-                    <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-white text-[10px] flex items-center justify-center font-bold animate-pulse">5</span>
-                  </div>
-                  <span class="text-sm group-hover:text-blue-600 transition-colors duration-200"><%= t('notifications', default: 'Notifications') %></span>
-                </div>
-                <span class="px-2 py-0.5 text-xs font-bold text-red-600 bg-red-100 rounded-full">5</span>
-              </a>
-
-              <!-- Messages -->
-              <a href="#" class="flex items-center justify-between py-3 px-4 text-slate-700 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 rounded-xl transition-all duration-200 group font-medium">
-                <div class="flex items-center space-x-3">
-                  <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors duration-200 relative">
-                    <i class='bx bx-envelope text-emerald-600 text-lg'></i>
-                    <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full text-white text-[10px] flex items-center justify-center font-bold">2</span>
-                  </div>
-                  <span class="text-sm group-hover:text-emerald-600 transition-colors duration-200"><%= t('messages', default: 'Messages') %></span>
-                </div>
-                <span class="px-2 py-0.5 text-xs font-bold text-green-600 bg-green-100 rounded-full">2</span>
-              </a>
-            </div>
-          </div>
-
-        </nav>
-      <% end %>
-    </aside>
-
-    <!-- Overlay for mobile -->
-    <div class="fixed top-0 left-0 w-full h-full bg-black/60 backdrop-blur-sm z-40 hidden sidebar-overlay transition-opacity duration-300" data-sidebar-target="sidebarOverlay" data-action="click->sidebar#hideSidebar"></div>
-
-    <!-- Main Content Area -->
-    <main class="w-full min-h-screen transition-all duration-300 main" data-sidebar-target="mainContent">
-      
-      <!-- Enhanced Navbar -->
-      <nav class="sticky top-0 left-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div class="py-4 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          
-          <!-- Left: Menu Toggle -->
-          <button type="button" class="text-slate-700 hover:text-rose-600 transition-colors duration-200 sidebar-toggle group" data-action="click->sidebar#toggleSidebar">
-            <i class="ri-menu-line text-2xl group-hover:scale-110 transition-transform duration-200"></i>
-          </button>
-
           <!-- Right: Actions -->
-          <div class="flex items-center space-x-2 sm:space-x-4">
+          <div class="flex items-center space-x-2 sm:space-x-3">
             <% if user_signed_in? %>
-              
-              <!-- Search -->
-              <div class="dropdown" data-controller="dropdown">
-                <button type="button" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-rose-600 transition-all duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-                  <i class="ri-search-line text-xl"></i>
-                </button>
-                <div class="dropdown-menu shadow-xl border border-slate-200 z-30 hidden max-w-xs w-full bg-white rounded-2xl overflow-hidden" data-dropdown-target="menu">
-                  <form action="" class="p-4">
-                    <div class="relative">
-                      <input type="text" class="w-full py-3 pr-4 pl-11 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200" placeholder="<%= t('search_placeholder', default: 'Search...') %>">
-                      <i class="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-slate-400"></i>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
-              <!-- Notifications -->
-              <div class="dropdown" data-controller="dropdown">
-                <button type="button" class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-rose-600 transition-all duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-                  <i class="ri-notification-3-line text-xl"></i>
-                  <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                </button>
-                <div class="dropdown-menu shadow-xl border border-slate-200 z-30 hidden max-w-xs w-full bg-white rounded-2xl overflow-hidden" data-dropdown-target="menu">
-                  <div data-controller="tabs">
-                    <!-- Tabs Header -->
-                    <div class="flex items-center px-4 pt-4 border-b border-slate-100 notification-tab">
-                      <button type="button" data-tab="notification" data-tab-page="notifications" class="relative text-slate-500 font-semibold text-sm hover:text-rose-600 border-b-2 border-b-transparent mr-6 pb-3 active transition-colors duration-200" data-action="click->tabs#selectTab" data-tabs-target="tabButton">
-                        <%= t('notifications', default: 'Notifications') %>
-                      </button>
-                      <button type="button" data-tab="notification" data-tab-page="messages" class="relative text-slate-500 font-semibold text-sm hover:text-rose-600 border-b-2 border-b-transparent pb-3 transition-colors duration-200" data-action="click->tabs#selectTab" data-tabs-target="tabButton">
-                        <%= t('messages', default: 'Messages') %>
-                      </button>
-                    </div>
-                    
-                    <!-- Tab Content -->
-                    <div class="my-2">
-                      <!-- Notifications Tab -->
-                      <ul class="max-h-80 overflow-y-auto custom-scrollbar" data-tab-for="notification" data-page="notifications" data-tabs-target="tabContent">
-                        <% 5.times do |i| %>
-                          <li>
-                            <a href="#" class="py-3 px-4 flex items-center hover:bg-slate-50 group transition-colors duration-200">
-                              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-400 to-orange-500 flex items-center justify-center text-white font-bold flex-shrink-0">
-                                <i class='bx bx-bell text-lg'></i>
-                              </div>
-                              <div class="ml-3 flex-1">
-                                <div class="text-sm text-slate-700 font-medium group-hover:text-rose-600 transition-colors duration-200">
-                                  <%= t('notification_new_order', default: 'New order') %>
-                                </div>
-                                <div class="text-xs text-slate-500 mt-0.5">
-                                  <%= t('notification_from_user', default: 'from a user') %>
-                                </div>
-                              </div>
-                              <span class="text-xs text-slate-400">2h</span>
-                            </a>
-                          </li>
-                        <% end %>
-                      </ul>
-                      
-                      <!-- Messages Tab -->
-                      <ul class="max-h-80 overflow-y-auto custom-scrollbar hidden" data-tab-for="notification" data-page="messages" data-tabs-target="tabContent">
-                        <% 5.times do |i| %>
-                          <li>
-                            <a href="#" class="py-3 px-4 flex items-center hover:bg-slate-50 group transition-colors duration-200">
-                              <img src="https://ui-avatars.com/api/?name=User+<%= i+1 %>&background=random" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-slate-200 flex-shrink-0">
-                              <div class="ml-3 flex-1">
-                                <div class="text-sm text-slate-700 font-medium group-hover:text-rose-600 transition-colors duration-200">
-                                  User <%= i+1 %>
-                                </div>
-                                <div class="text-xs text-slate-500 mt-0.5 truncate">
-                                  <%= t('message_hello', default: 'Hello there!') %>
-                                </div>
-                              </div>
-                              <span class="text-xs text-slate-400">5m</span>
-                            </a>
-                          </li>
-                        <% end %>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Fullscreen -->
-              <button type="button" class="hidden sm:flex w-10 h-10 rounded-xl items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-rose-600 transition-all duration-200" data-controller="fullscreen" data-action="click->fullscreen#toggle">
-                <i class="ri-fullscreen-line text-xl"></i>
+              <!-- Search Icon (Mobile only) -->
+              <button type="button" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200">
+                <i class="ri-search-line text-xl"></i>
               </button>
-
-              <!-- Language Switcher -->
+              <%= link_to '#', class: "hidden lg:!inline-block p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" do %>
+                <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
+              <% end %>
               <div class="dropdown" data-controller="dropdown">
-                <button type="button" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-rose-600 transition-all duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-                  <i class="ri-earth-line text-xl"></i>
+                <button type="button" class="relative p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                  <i class="ri-notification-3-line text-xl"></i>
+                  <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
-                <div class="dropdown-menu shadow-xl border border-slate-200 z-30 hidden w-auto bg-white rounded-2xl p-2" data-dropdown-target="menu">
-                  <div class="flex flex-col gap-1">
-                    <%= link_to root_path(locale: :en), class: 'flex items-center justify-center w-10 h-10 rounded-xl hover:bg-slate-100 text-2xl transition-colors duration-200' do %>
-                      <%= emoji_flag("gb") %>
-                    <% end %>
-                    <%= link_to root_path(locale: :uk), class: 'flex items-center justify-center w-10 h-10 rounded-xl hover:bg-slate-100 text-2xl transition-colors duration-200' do %>
-                      <%= emoji_flag("ua") %>
-                    <% end %>
+                <div class="dropdown-menu shadow-xl border border-slate-200 z-30 dropdown-hidden w-80 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
+                  <div class="p-4 border-b border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-900">
+                      <%= t('notifications', default: 'Сповіщення') %>
+                    </h3>
                   </div>
+                  <ul class="max-h-96 overflow-y-auto custom-scrollbar">
+                    <% 5.times do |i| %>
+                      <li>
+                        <a href="#" class="block px-4 py-3 hover:bg-slate-50 transition-colors duration-200">
+                          <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                              U
+                            </div>
+                            <div class="flex-1 min-w-0">
+                              <p class="text-sm text-slate-900 font-medium">
+                                <%= t('notification_title', default: 'Нове повідомлення') %>
+                              </p>
+                              <p class="text-xs text-slate-500 mt-0.5">
+                                <%= t('notification_time', default: '2 години тому') %>
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    <% end %>
+                  </ul>
                 </div>
               </div>
-
               <!-- User Profile -->
-              <div class="dropdown ml-2" data-controller="dropdown">
-                <button type="button" class="flex items-center space-x-2 sm:space-x-3 hover:bg-slate-100 rounded-xl p-1.5 sm:p-2 transition-all duration-200 group" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-                  <div class="relative flex-shrink-0">
-                    <% if current_user.avatar.attached? %>
-                      <%= image_tag current_user.avatar.variant(resize_to_limit: [40, 40]), class: "w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-white shadow-md ring-2 ring-rose-200 group-hover:ring-rose-300 transition-all duration-200" %>
-                    <% else %>
-                      <img class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-white shadow-md ring-2 ring-rose-200 group-hover:ring-rose-300 transition-all duration-200" src="https://ui-avatars.com/api/?name=<%= current_user.full_name %>&background=f87171&color=fff" alt=""/>
-                    <% end %>
-                    <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
-                  </div>
-                  <div class="hidden md:block text-left">
-                    <h2 class="text-sm font-bold text-slate-800 group-hover:text-rose-600 transition-colors duration-200">
-                      <%= current_user.full_name.truncate(20) %>
-                    </h2>
-                    <p class="text-xs text-slate-500">
-                      <%= t("activerecord.attributes.user.roles.#{current_user.role}") %>
-                    </p>
-                  </div>
-                  <i class="ri-arrow-down-s-line text-slate-400 hidden md:block"></i>
+              <div class="dropdown" data-controller="dropdown">
+                <button type="button" class="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded-full transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                  <% if current_user.avatar.attached? %>
+                    <%= image_tag current_user.avatar.variant(resize_to_limit: [32, 32]), class: "w-8 h-8 rounded-full object-cover" %>
+                  <% else %>
+                    <div class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white text-sm font-semibold">
+                      <%= current_user.full_name&.first&.upcase || '?' %>
+                    </div>
+                  <% end %>
                 </button>
-                
-                <ul class="dropdown-menu shadow-xl border border-slate-200 z-30 hidden py-2 rounded-2xl bg-white w-48" data-dropdown-target="menu">
+                <ul class="dropdown-menu shadow-xl border border-slate-200 z-30 dropdown-hidden py-2 rounded-lg bg-white w-56" data-dropdown-target="menu">
+                  <li class="px-4 py-3 border-b border-slate-200">
+                    <p class="text-sm font-semibold text-slate-900 truncate">
+                      <%= current_user.full_name %>
+                    </p>
+                    <p class="text-xs text-slate-500 truncate">
+                      <%= current_user.email %>
+                    </p>
+                  </li>
                   <li>
-                    <%= link_to user_path(current_user), class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-rose-50 hover:text-rose-600 transition-all duration-200 group" do %>
-                      <i class='bx bx-user text-lg group-hover:scale-110 transition-transform duration-200'></i>
-                      <span class="font-medium"><%= t('activerecord.attributes.user.profile', default: 'Profile') %></span>
+                    <%= link_to user_path(current_user), class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+                      <i class='bx bx-user text-lg'></i>
+                      <span><%= t('activerecord.attributes.user.profile') %></span>
                     <% end %>
                   </li>
-                  <li class="my-1 border-t border-slate-100"></li>
-                  <li>
-                    <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group" do %>
-                      <i class='bx bx-log-out text-lg group-hover:scale-110 transition-transform duration-200'></i>
-                      <span class="font-medium"><%= t('activerecord.attributes.user.sign_out', default: 'Sign Out') %></span>
+                  <% if current_user.creator? %>
+                    <li>
+                      <%= link_to new_post_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+                        <i class='bx bx-edit text-xl'></i>
+                        <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.new') %></span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to posts_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+                        <i class='bx bx-collection text-xl'></i>
+                        <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.creators') %></span>
+                      <% end %>
+                    </li>
+                  <% end %>
+                  <li class="border-t border-slate-200 mt-2 pt-2">
+                    <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+                      <i class='bx bx-log-out text-lg'></i>
+                      <span><%= t('activerecord.attributes.user.sign_out', default: 'Вийти') %></span>
                     <% end %>
                   </li>
                 </ul>
               </div>
-
             <% else %>
               <!-- Guest Actions -->
-              <div class="flex items-center space-x-2 sm:space-x-3">
-                <%= link_to new_user_session_path, class: "px-4 py-2 text-sm font-semibold text-slate-700 hover:text-rose-600 transition-colors duration-200" do %>
-                  <%= t('activerecord.attributes.user.sign_in', default: 'Sign In') %>
-                <% end %>
-                <%= link_to new_user_registration_path, class: "px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-rose-500 to-orange-600 rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200" do %>
-                  <%= t('activerecord.attributes.user.sign_up', default: 'Sign Up') %>
-                <% end %>
-                
-                <!-- Language Switcher for Guests -->
-                <div class="dropdown" data-controller="dropdown">
-                  <button type="button" class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-rose-600 transition-all duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-                    <i class="ri-earth-line text-xl"></i>
-                  </button>
-                  <div class="dropdown-menu shadow-xl border border-slate-200 z-30 hidden w-auto bg-white rounded-2xl p-2" data-dropdown-target="menu">
-                    <div class="flex flex-col gap-1">
-                      <%= link_to root_path(locale: :en), class: 'flex items-center justify-center w-10 h-10 rounded-xl hover:bg-slate-100 text-2xl transition-colors duration-200' do %>
-                        <%= emoji_flag("gb") %>
-                      <% end %>
-                      <%= link_to root_path(locale: :uk), class: 'flex items-center justify-center w-10 h-10 rounded-xl hover:bg-slate-100 text-2xl transition-colors duration-200' do %>
-                        <%= emoji_flag("ua") %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <%= link_to new_user_session_path, class: "px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
+                <%= t('activerecord.attributes.user.sign_in', default: 'Увійти') %>
+              <% end %>
+              <%= link_to new_user_registration_path, class: "px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-slate-800 transition-colors duration-200" do %>
+                <%= t('get_started', default: 'Почати') %>
+              <% end %>
             <% end %>
           </div>
         </div>
-      </nav>
-
-      <!-- Content Area -->
-      <div class="p-4 sm:p-6 lg:p-8">
-        <!-- Flash Messages -->
-        <% if notice %>
-          <div class="mb-6 animate-slideDown">
-            <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-xl p-4 shadow-sm">
-              <div class="flex items-start">
-                <div class="flex-shrink-0">
-                  <i class='bx bx-check-circle text-green-500 text-2xl'></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium text-green-800"><%= notice %></p>
-                </div>
-                <button type="button" class="ml-auto flex-shrink-0 text-green-500 hover:text-green-700" onclick="this.parentElement.parentElement.parentElement.remove()">
-                  <i class='bx bx-x text-xl'></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        <% end %>
-
-        <% if alert %>
-          <div class="mb-6 animate-slideDown">
-            <div class="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-500 rounded-xl p-4 shadow-sm">
-              <div class="flex items-start">
-                <div class="flex-shrink-0">
-                  <i class='bx bx-error-circle text-red-500 text-2xl'></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium text-red-800"><%= alert %></p>
-                </div>
-                <button type="button" class="ml-auto flex-shrink-0 text-red-500 hover:text-red-700" onclick="this.parentElement.parentElement.parentElement.remove()">
-                  <i class='bx bx-x text-xl'></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        <% end %>
-
-        <%= yield %>
       </div>
+    </nav>
+    <!-- Mobile Sidebar Drawer -->
+    <aside class="fixed left-0 top-0 w-72 h-full bg-white shadow-2xl border-r border-slate-200 z-50 sidebar-menu transition-transform duration-300 -translate-x-full" data-sidebar-target="sidebarMenu">
+      <div class="p-6 border-b border-slate-200">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-serif font-bold text-slate-900">
+            <%= t('menu', default: 'Меню') %>
+          </h2>
+          <button type="button" class="text-slate-400 hover:text-slate-900" data-action="click->sidebar#hideSidebar">
+            <i class="ri-close-line text-2xl"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="p-4 space-y-1 overflow-y-auto max-h-[calc(100vh-100px)] custom-scrollbar">
+        <% if user_signed_in? %>
+          <%= link_to posts_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+            <i class='bx bx-home text-xl'></i>
+            <span class="text-sm font-medium"><%= t('home', default: 'Головна') %></span>
+          <% end %>
+          <%= link_to '#', class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+            <i class='bx bx-library text-xl'></i>
+            <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
+          <% end %>
+          <div class="border-t border-slate-200 my-4"></div>
+        <% end %>
+      </nav>
+    </aside>
+    <div class="fixed inset-0 bg-black/50 z-40 dropdown-hidden sidebar-overlay transition-opacity duration-300" data-sidebar-target="sidebarOverlay" data-action="click->sidebar#hideSidebar"></div>
+    <!-- Main Content -->
+    <main class="min-h-screen" data-sidebar-target="mainContent">
+      <!-- Flash Messages -->
+      <% if notice %>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+          <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg animate-slideDown">
+            <div class="flex items-start">
+              <i class='bx bx-check-circle text-green-500 text-xl flex-shrink-0 mt-0.5'></i>
+              <p class="ml-3 text-sm text-green-800"><%= notice %></p>
+              <button type="button" class="ml-auto text-green-500 hover:text-green-700" onclick="this.parentElement.parentElement.remove()">
+                <i class='bx bx-x text-xl'></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg animate-slideDown">
+            <div class="flex items-start">
+              <i class='bx bx-error-circle text-red-500 text-xl flex-shrink-0 mt-0.5'></i>
+              <p class="ml-3 text-sm text-red-800"><%= alert %></p>
+              <button type="button" class="ml-auto text-red-500 hover:text-red-700" onclick="this.parentElement.parentElement.remove()">
+                <i class='bx bx-x text-xl'></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= yield %>
     </main>
-
+    <!-- Mobile Write FAB (hidden on desktop) -->
+    <% if user_signed_in? && current_user.creator? %>
+      <%= link_to new_post_path, class: "lg:hidden fixed bottom-6 right-6 z-30 w-14 h-14 bg-slate-900 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-slate-800 transition-colors duration-200" do %>
+        <i class='bx bx-edit text-2xl'></i>
+      <% end %>
+    <% end %>
   </body>
 </html>

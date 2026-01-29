@@ -37,7 +37,8 @@ export default class extends Controller {
         ],
         placement: 'bottom-end'
       });
-      this.menuTarget.classList.add('hidden');
+
+      this.menuTarget.classList.add('dropdown-hidden');
     }
   }
 
@@ -45,12 +46,12 @@ export default class extends Controller {
     event.preventDefault();
     event.stopPropagation();
 
-    const isShowing = !this.menuTarget.classList.contains('hidden');
+    const isShowing = !this.menuTarget.classList.contains('dropdown-hidden');
 
     document.querySelectorAll('[data-controller="dropdown"]').forEach(controllerElement => {
       const otherMenu = controllerElement.querySelector('[data-dropdown-target="menu"]');
-      if (otherMenu && otherMenu !== this.menuTarget && !otherMenu.classList.contains('hidden')) {
-        otherMenu.classList.add('hidden');
+      if (otherMenu && otherMenu !== this.menuTarget && !otherMenu.classList.contains('dropdown-hidden')) {
+        otherMenu.classList.add('dropdown-hidden');
         const otherController = this.application.getControllerForElementAndIdentifier(controllerElement, 'dropdown');
         if (otherController && otherController.popperInstance) {
           otherController.popperInstance.setOptions({
@@ -60,16 +61,16 @@ export default class extends Controller {
       }
     });
 
-    this.menuTarget.classList.toggle('hidden', isShowing);
+    this.menuTarget.classList.toggle('dropdown-hidden', isShowing);
 
     if (this.popperInstance) {
       this.popperInstance.setOptions({
-        modifiers: [{ name: 'eventListeners', enabled: !this.menuTarget.classList.contains('hidden') }],
+        modifiers: [{ name: 'eventListeners', enabled: !this.menuTarget.classList.contains('dropdown-hidden') }],
       });
       this.popperInstance.update();
     }
 
-    if (!this.menuTarget.classList.contains('hidden')) {
+    if (!this.menuTarget.classList.contains('dropdown-hidden')) {
       this.boundHideOnClickOutside = this.hideOnClickOutside.bind(this);
       document.addEventListener('click', this.boundHideOnClickOutside);
     } else {
@@ -78,8 +79,8 @@ export default class extends Controller {
   }
 
   hideOnClickOutside = (event) => {
-    if (!this.element.contains(event.target) && !this.menuTarget.classList.contains('hidden')) {
-      this.menuTarget.classList.add('hidden');
+    if (!this.element.contains(event.target) && !this.menuTarget.classList.contains('dropdown-hidden')) {
+      this.menuTarget.classList.add('dropdown-hidden');
       if (this.popperInstance) {
         this.popperInstance.setOptions({
           modifiers: [{ name: 'eventListeners', enabled: false }],
