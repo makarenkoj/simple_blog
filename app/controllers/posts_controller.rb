@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_post, only: %i[show edit update destroy]
-  before_action :set_current_user_post, only: %i[edit update destroy]
+  before_action :authorize_owner!, only: %i[edit update destroy]
 
   def index
     @posts = Post.all
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: I18n.t('activerecord.controllers.posts.created')
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -41,12 +41,14 @@ class PostsController < ApplicationController
 
   private
 
-  def set_current_user_post
-    @post = current_user.posts.find(params[:id])
+  def authorize_owner!
+    unless current_user_can_edit?(@post)
+      redirect_to posts_path, alert: t('activerecord.controllers.posts.not_your_post')
+    end
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(id: params[:id])
   end
 
   def post_params
