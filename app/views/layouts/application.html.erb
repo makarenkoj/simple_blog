@@ -62,6 +62,45 @@
                 <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
               <% end %>
               <div class="dropdown" data-controller="dropdown">
+                <button type="button" class="flex items-center space-x-1 p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                  <i class="ri-global-line text-xl"></i>
+                  <span class="hidden sm:inline text-sm font-medium">
+                    <%= I18n.locale.to_s.upcase %>
+                  </span>
+                </button>
+                <div class="dropdown-menu shadow-xl border border-slate-200 z-30 dropdown-hidden w-48 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
+                  <div class="p-2">
+                    <%= link_to url_for(locale: :uk), class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 #{'bg-slate-100' if I18n.locale == :uk}" do %>
+                      <span class="text-2xl">🇺🇦</span>
+                      <div class="flex-1">
+                        <p class="text-sm font-medium text-slate-900"><%= t('buttons.languages.uk') %></p>
+                      </div>
+                      <% if I18n.locale == :uk %>
+                        <i class="ri-check-line text-slate-900"></i>
+                      <% end %>
+                    <% end %>
+                    <%= link_to url_for(locale: :en), class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 #{'bg-slate-100' if I18n.locale == :en}" do %>
+                      <span class="text-2xl">🇬🇧</span>
+                      <div class="flex-1">
+                        <p class="text-sm font-medium text-slate-900"><%= t('buttons.languages.en') %></p>
+                      </div>
+                      <% if I18n.locale == :en %>
+                        <i class="ri-check-line text-slate-900"></i>
+                      <% end %>
+                    <% end %>
+                    <%= link_to url_for(locale: :it), class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 #{'bg-slate-100' if I18n.locale == :it}" do %>
+                      <span class="text-2xl">🇮🇹</span>
+                      <div class="flex-1">
+                        <p class="text-sm font-medium text-slate-900"><%= t('buttons.languages.it') %></p>
+                      </div>
+                      <% if I18n.locale == :it %>
+                        <i class="ri-check-line text-slate-900"></i>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown" data-controller="dropdown">
                 <button type="button" class="relative p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
                   <i class="ri-notification-3-line text-xl"></i>
                   <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>

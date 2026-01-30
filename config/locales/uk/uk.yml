@@ -14,6 +14,13 @@ uk:
   buttons:
     remove_image: "Видалити зображення"
     remove_avatar: "Видалити аватар"
+    languages:
+      uk: "Українська"
+      en: "English"
+      it: "Italiano"
+      fr: "Français"
+      de: "Deutsch"
+      es: "Español"
   confirm_remove_image: "Ви впевнені, що хочете видалити це зображення?"
   confirm_remove_avatar: "Ви впевнені, що хочете видалити цей аватар?"
   time_ago:
@@ -157,6 +164,7 @@ uk:
         wrong_pincode: 'НЕ вірний пін-код!'
         new: 'Створити нову публікацію'
         new_description: 'Поділіться своїми думками зі світом!'
+        not_your_post: 'Це не ваш пост!'
       users:
         updated: 'Ви оновили свій профіль'
         destroyed: 'Користувач успішно вилучено :('

@@ -9,7 +9,7 @@
           </svg>
           <div class="flex-1">
             <h3 class="text-sm font-semibold text-red-800 mb-1">
-              <%= t('errors.messages.not_saved', count: f.object.errors.count, default: 'Виникли помилки') %>
+              <%= t('post.errors.messages.not_saved', count: f.object.errors.count, default: 'Виникли помилки') %>
             </h3>
             <ul class="text-sm text-red-700 space-y-1">
               <% f.object.errors.full_messages.each do |message| %>
@@ -32,7 +32,7 @@
               <%= t('activerecord.attributes.post.cover_image', default: 'Обкладинка') %>
             </h2>
           </div>
-          <% if f.object.cover_image.attached? %>
+          <% if f.object.cover_image.attached? && f.object.cover_image.persisted? %>
             <div class="mb-4 relative group">
               <%= image_tag f.object.cover_image.representation(resize_to_limit: [800, 500]), 
                   class: "w-full h-48 sm:h-64 lg:h-80 object-cover rounded-2xl shadow-lg border-2 border-slate-200" %>
@@ -139,7 +139,7 @@
           <!-- Save Button -->
           <div class="order-1 sm:order-2">
             <%= f.button :submit,
-                class: "w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:from-emerald-700 hover:to-teal-700 transform hover:-translate-y-0.5 transition-all duration-300" do %>
+                class: "w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 font-bold rounded-xl shadow-lg hover:shadow-xl hover:from-emerald-700 hover:to-teal-700 transform hover:-translate-y-0.5 transition-all duration-300" do %>
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
