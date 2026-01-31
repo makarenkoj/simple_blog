@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authorize_owner!, only: %i[edit update destroy]
+  before_action :popular_categories, only: %i[index show]
 
   def index
     @posts = Post.all
@@ -40,6 +41,13 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def popular_categories
+    @categories = Category.joins(:posts)
+                          .group('categories.id')
+                          .order('COUNT(posts.id) DESC')
+                          .limit(5)
+  end
 
   def authorize_owner!
     unless current_user_can_edit?(@post)

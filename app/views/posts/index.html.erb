@@ -55,19 +55,19 @@
           <!-- Trending Topics -->
           <div class="bg-white border border-slate-200 rounded-lg p-6 mb-6">
             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
-              <%= t('trending_topics', default: 'Популярні теми') %>
+              <%= t('activerecord.attributes.categories.popular') %>
             </h3>
             <div class="space-y-4">
-              <% ['Технології', 'Програмування', 'Дизайн', 'Бізнес', 'Культура'].each_with_index do |topic, index| %>
+              <% @categories.each_with_index do |category, index| %>
                 <div class="group cursor-pointer">
                   <div class="flex items-baseline space-x-3">
                     <span class="text-xs font-medium text-slate-400"><%= (index + 1).to_s.rjust(2, '0') %></span>
                     <div>
                       <h4 class="text-sm font-semibold text-slate-900 group-hover:underline">
-                        <%= topic %>
+                        <%= category.name %>
                       </h4>
                       <p class="text-xs text-slate-500 mt-0.5">
-                        <%= rand(100..500) %> <%= t('stories', default: 'публікацій') %>
+                        <%= category.posts.count %> <%= t('activerecord.attributes.posts.index.posts') %>
                       </p>
                     </div>
                   </div>
