@@ -42,21 +42,27 @@ class PostsController < ApplicationController
   private
 
   def popular_categories
-    @categories = Category.joins(:posts)
-                          .where.not(id: current_user.category_preferences.select(:category_id))
-                          .group('categories.id')
-                          .order('COUNT(posts.id) DESC')
-                          .limit(5)
+    scope = Category.left_joins(:posts)
+
+    if user_signed_in?
+      scope = scope.where.not(id: current_user.category_preferences.select(:category_id))
+    end
+
+    @categories = scope.group('categories.id')
+                        .order('COUNT(posts.id) DESC')
+                        .limit(5)
   end
 
   def popular_creators
-    @creators = User.creator
-                .left_joins(:followers)
-                .where.not(id: current_user.followings.select(:id))
-                .where.not(id: current_user.id)
-                .group('users.id')
-                .order('COUNT(follows.id) DESC')
-                .limit(5)
+    scope = User.creator.left_joins(:followers)
+
+    if user_signed_in?
+      scope = scope.where.not(id: current_user.followings.select(:id)).where.not(id: current_user.id)
+    end
+
+    @creators = scope.group('users.id')
+                     .order('COUNT(follows.id) DESC')
+                     .limit(5)
   end
 
   def authorize_owner!
