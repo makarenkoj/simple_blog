@@ -58,7 +58,7 @@
               <button type="button" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200">
                 <i class="ri-search-line text-xl"></i>
               </button>
-              <%= link_to '#', class: "hidden lg:!inline-block p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" do %>
+              <%= link_to library_posts_path, class: "hidden lg:!inline-block p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" do %>
                 <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
               <% end %>
               <div class="dropdown" data-controller="dropdown">

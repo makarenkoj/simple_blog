@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_relationships, source: :follower
   has_many :notifications, dependent: :destroy
   has_many :initiated_notifications, foreign_key: :actor_id, class_name: 'Notification', dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarked_posts, through: :bookmarks, source: :post
 
   has_one_attached :avatar
 
@@ -59,5 +61,9 @@ class User < ApplicationRecord
 
   def unread_notifications_count
     notifications.unread.count
+  end
+
+  def bookmarked?(post)
+    bookmarks.exists?(post: post)
   end
 end

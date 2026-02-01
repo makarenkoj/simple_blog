@@ -3,6 +3,7 @@ class Post < ApplicationRecord
 
   has_many :categorizations, dependent: :destroy
   has_many :categories, through: :categorizations
+  has_many :bookmarks, dependent: :destroy
 
   has_rich_text :body
 

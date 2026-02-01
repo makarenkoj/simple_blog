@@ -1,54 +1,45 @@
-<article class="py-8">
-  <%= link_to post_path(post), class: "group block" do %>
+<article id="<%= dom_id(post) %>" class="py-8">
     <div class="flex flex-col sm:flex-row gap-6">
-      <!-- Content -->
       <div class="flex-1 min-w-0">
-        <!-- Author Info -->
         <div class="flex items-center space-x-3 mb-4">
           <% if post.user.present? %>
-            <% if post.user.avatar.attached? %>
-              <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24]),
-                  class: "w-6 h-6 rounded-full object-cover" %>
-            <% else %>
-              <div class="w-6 h-6 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-semibold">
-                <%= post.user.username&.first&.upcase || '?' %>
-              </div>
+              <%= link_to user_path(post.user) do %>
+                <% if post.user.avatar.attached? %>
+                  <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24]),
+                      class: "w-6 h-6 rounded-full object-cover" %>
+                <% else %>
+                  <div class="w-6 h-6 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-semibold">
+                    <%= post.user.username&.first&.upcase || '?' %>
+                  </div>
+                <% end %>
+                <span class="text-sm font-medium text-slate-900 hover:underline">
+                  <%= link_to post.user.username, user_path(post.user) %>
+                </span>
             <% end %>
-            <span class="text-sm font-medium text-slate-900 hover:underline">
-              <%= post.user.username %>
-            </span>
           <% end %>
         </div>
-        <!-- Title -->
         <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2 leading-tight group-hover:underline line-clamp-2">
-          <%= post.title %>
+          <%= link_to post.title, post_path(post) %>
         </h2>
-        <!-- Excerpt -->
         <% if post.body.present? %>
           <p class="text-slate-600 text-base mb-4 line-clamp-2 hidden sm:block">
             <%= truncate(post.body.to_plain_text, length: 120, separator: ' ') %>
           </p>
         <% end %>
-        <!-- Meta Info -->
         <div class="flex items-center space-x-4 text-sm text-slate-500">
           <time datetime="<%= post.created_at.iso8601 %>">
             <%= l post.created_at, format: :short %>
           </time>
           <span>·</span>
-          <span><%= post.body.to_plain_text.split.size / 200 %> min read</span>
+          <span><%= post.body.to_plain_text.split.size / 200 %> <%= t('activerecord.attributes.posts.index.min_read') %></span> <!-- TODO: fix plurarizations -->
           <% if post.categories.any? %>
             <span>·</span>
             <span class="px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700">
               <%= post.categories.first.name %>
             </span>
           <% end %>
-          <!-- Bookmark icon (right aligned) -->
           <div class="ml-auto flex items-center space-x-4">
-            <button class="text-slate-400 hover:text-slate-900 transition-colors duration-200" onclick="event.preventDefault(); event.stopPropagation();">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
-              </svg>
-            </button>
+            <%= render "posts/bookmarks/button", post: post, source: local_assigns[:source] %>
             <button class="text-slate-400 hover:text-slate-900 transition-colors duration-200" onclick="event.preventDefault(); event.stopPropagation();">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
@@ -57,7 +48,6 @@
           </div>
         </div>
       </div>
-      <!-- Cover Image -->
       <% if post.cover_image.attached? %>
         <div class="w-full sm:w-48 h-32 sm:h-32 flex-shrink-0 order-first sm:order-last">
           <%= image_tag post.cover_image.representation(resize_to_limit: [400, 300]),
@@ -67,5 +57,4 @@
         </div>
       <% end %>
     </div>
-  <% end %>
 </article>

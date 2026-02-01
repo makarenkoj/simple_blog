@@ -4,10 +4,18 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
       <div class="max-w-3xl lg:max-w-none">
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 leading-tight">
-          <%= t('activerecord.attributes.posts.index.title') %>
+          <% if action_name == 'library' %>
+            <%= t('activerecord.attributes.posts.library') %>
+          <% else %>
+            <%= t('activerecord.attributes.posts.index.title') %>
+          <% end %>
         </h1>
         <p class="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl">
-          <%= t('activerecord.attributes.posts.index.subtitle') %>
+          <% if action_name == 'library' %>
+            <%= t('activerecord.attributes.posts.library_subtitle') %>
+          <% else %>
+            <%= t('activerecord.attributes.posts.index.subtitle') %>
+          <% end %>
         </p>
       </div>
     </div>
@@ -19,14 +27,16 @@
       <div class="flex-1 max-w-3xl">
         <% if @posts.any? %>
           <div class="divide-y divide-slate-200">
-            <%= render partial: 'posts/post', collection: @posts %>
+            <%= render partial: 'posts/post', collection: @posts, locals: { source: action_name } %>
           </div>
           <!-- Load More / Pagination -->
-          <div class="mt-16 text-center">
-            <button class="inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200">
-              <%= t('load_more', default: 'Завантажити більше') %>
-            </button>
-          </div>
+          <% if @posts.count >= 10 %>
+            <div class="mt-16 text-center">
+              <button class="inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200">
+                <%= t('activerecord.attributes.posts.index.load_more') %>
+              </button>
+            </div>
+          <% end %>
         <% else %>
           <!-- Empty State (Medium-style) -->
           <div class="max-w-2xl mx-auto text-center py-20">
@@ -36,14 +46,14 @@
               </svg>
             </div>
             <h3 class="text-2xl font-serif font-bold text-slate-900 mb-3">
-              <%= t('activerecord.attributes.posts.index.no_posts', default: 'Постів поки немає') %>
+              <%= t('activerecord.attributes.posts.index.no_posts') %>
             </h3>
-            <p class="text-lg text-slate-600 mb-8">
-              <%= t('activerecord.attributes.posts.index.create_one', default: 'Будьте першим, хто створить пост!') %>
-            </p>
-            <% if current_user&.creator? %>
+            <% if current_user&.creator? && action_name != 'library' %>
+              <p class="text-lg text-slate-600 mb-8">
+                <%= t('activerecord.attributes.posts.index.create_one') %>
+              </p>
               <%= link_to new_post_path, class: 'inline-flex items-center px-6 py-3 bg-slate-900 text-white font-medium rounded-full hover:bg-slate-800 transition-colors duration-200' do %>
-                <%= t('activerecord.attributes.posts.index.new_post', default: 'Створити пост') %>
+                <%= t('activerecord.attributes.posts.index.new_post') %>
               <% end %>
             <% end %>
           </div>
@@ -101,8 +111,10 @@
                         <%= creator.followers.count %> <%= t('followers') %>
                       </p>
                     </div>
-                    <%= button_to follow_user_path(creator), class: "inline-flex items-center px-6 py-2 bg-slate-900 rounded-full text-sm font-medium hover:bg-slate-800 transition-colors duration-200" do %>
-                      <%= t('activerecord.attributes.user.follow') %>
+                    <% if user_signed_in? %>
+                      <%= button_to follow_user_path(creator), class: "inline-flex items-center px-6 py-2 bg-slate-900 rounded-full text-sm font-medium hover:bg-slate-800 transition-colors duration-200" do %>
+                        <%= t('activerecord.attributes.user.follow') %>
+                      <% end %>
                     <% end %>
                   </div>
                 <% end %>

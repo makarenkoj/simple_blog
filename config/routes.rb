@@ -15,7 +15,13 @@ Rails.application.routes.draw do
 
     root 'posts#index'
 
-    resources :posts
+    resources :posts do
+      resource :bookmark, only: [:create, :destroy], module: :posts
+      collection do
+        get :library
+      end
+    end
+
     resources :users, only: [:show] do
       member do
         delete :delete_avatar, to: 'users#delete_avatar'

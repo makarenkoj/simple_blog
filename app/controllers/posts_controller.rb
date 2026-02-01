@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: %i[show index]
+  before_action :authenticate_user!, except: %i[show index library]
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authorize_owner!, only: %i[edit update destroy]
-  before_action :popular_categories, only: %i[index show]
-  before_action :popular_creators, only: %i[index show]
+  before_action :popular_categories, only: %i[index show library]
+  before_action :popular_creators, only: %i[index show library]
 
   def index
     @posts = Post.all
@@ -32,6 +32,11 @@ class PostsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def library
+    @posts = current_user.bookmarked_posts.includes(:user, :rich_text_body).order('bookmarks.created_at DESC')
+    render :index
   end
 
   def destroy
