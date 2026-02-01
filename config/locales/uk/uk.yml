@@ -123,6 +123,7 @@ uk:
         followings: "Підписки"
         followers: "Підписники"
         follow: 'Підписатися'
+        who_to_follow: 'На кого підписатися'
       posts:
         title: 'Назва'
         address: 'Місце проведення'
@@ -148,6 +149,7 @@ uk:
           subtitle: 'Відкрийте для себе історії, думки та експертні знання від письменників на будь-які теми.'
           load_more: "Завантажити більше публікацій"
           min_read: "хвилини читання"
+          posts_in_category: "Постів у категорії %{count}"
         post:
           by: "від"
           anonymous: "Анонім"
@@ -189,7 +191,8 @@ uk:
         error: 'Щось не так з фоткою'
         created: 'Ви додали фотографію до події'
         destroyed: 'Ви видалили фотку'
-
+      categories:
+        not_found: 'Категорію не знайдено!'
     # Стандартні помилки ActiveRecord
     errors:
       messages:

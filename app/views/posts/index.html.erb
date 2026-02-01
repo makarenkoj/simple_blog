@@ -1,17 +1,20 @@
 <div class="min-h-screen bg-white">
-  <!-- Medium-style Header -->
   <header class="border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
       <div class="max-w-3xl lg:max-w-none">
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 leading-tight">
-          <% if action_name == 'library' %>
+          <% if controller_name == 'categories' %>
+            <%= @category.name.capitalize %>
+          <% elsif action_name == 'library' %>
             <%= t('activerecord.attributes.posts.library') %>
           <% else %>
             <%= t('activerecord.attributes.posts.index.title') %>
           <% end %>
         </h1>
         <p class="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl">
-          <% if action_name == 'library' %>
+          <% if controller_name == 'categories' %>
+            <%= t('activerecord.attributes.posts.index.posts_in_category', count: @posts.count) %>
+          <% elsif action_name == 'library' %>
             <%= t('activerecord.attributes.posts.library_subtitle') %>
           <% else %>
             <%= t('activerecord.attributes.posts.index.subtitle') %>
@@ -20,16 +23,13 @@
       </div>
     </div>
   </header>
-  <!-- Main Content with Sidebar -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="flex gap-12">
-      <!-- Posts List (Left/Center Column) -->
       <div class="flex-1 max-w-3xl">
         <% if @posts.any? %>
           <div class="divide-y divide-slate-200">
             <%= render partial: 'posts/post', collection: @posts, locals: { source: action_name } %>
           </div>
-          <!-- Load More / Pagination -->
           <% if @posts.count >= 10 %>
             <div class="mt-16 text-center">
               <button class="inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200">
@@ -38,7 +38,6 @@
             </div>
           <% end %>
         <% else %>
-          <!-- Empty State (Medium-style) -->
           <div class="max-w-2xl mx-auto text-center py-20">
             <div class="mb-8">
               <svg class="w-20 h-20 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,9 +45,9 @@
               </svg>
             </div>
             <h3 class="text-2xl font-serif font-bold text-slate-900 mb-3">
-              <%= t('activerecord.attributes.posts.index.no_posts') %>
+              <%= controller_name == 'categories' ? t('no_posts_in_category', default: 'У цій категорії поки немає постів') : t('activerecord.attributes.posts.index.no_posts') %>
             </h3>
-            <% if current_user&.creator? && action_name != 'library' %>
+            <% if current_user&.creator? && action_name != 'library' && controller_name != 'categories' %>
               <p class="text-lg text-slate-600 mb-8">
                 <%= t('activerecord.attributes.posts.index.create_one') %>
               </p>
@@ -59,36 +58,37 @@
           </div>
         <% end %>
       </div>
-      <!-- Sidebar (Right Column - Hidden on smaller screens) -->
       <aside class="hidden lg:!block w-80 flex-shrink-0">
         <div class="sticky top-20">
-          <!-- Trending Topics -->
           <div class="bg-white border border-slate-200 rounded-lg p-6 mb-6">
             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
               <%= t('activerecord.attributes.categories.popular') %>
             </h3>
             <div class="space-y-4">
               <% @categories.each_with_index do |category, index| %>
-                <div class="group cursor-pointer">
-                  <div class="flex items-baseline space-x-3">
-                    <span class="text-xs font-medium text-slate-400"><%= (index + 1).to_s.rjust(2, '0') %></span>
-                    <div>
-                      <h4 class="text-sm font-semibold text-slate-900 group-hover:underline">
-                        <%= category.name %>
-                      </h4>
-                      <p class="text-xs text-slate-500 mt-0.5">
-                        <%= category.posts.count %> <%= t('activerecord.attributes.posts.index.posts') %>
-                      </p>
+                <div class="flex items-center justify-between group">
+                  <%= link_to category_path(category), class: "group block" do %>
+                    <div class="flex items-baseline space-x-3">
+                      <div>
+                        <h4 class="text-sm font-semibold text-slate-900 group-hover:underline">
+                          <%= category.name.capitalize %>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-0.5">
+                          <%= category.posts.count %> <%= t('activerecord.attributes.posts.index.posts') %>
+                        </p>
+                      </div>
                     </div>
+                  <% end %>
+                  <div class="ml-2 flex-shrink-0">
+                    <%= render "categories/preferences/button", category: category %>
                   </div>
                 </div>
               <% end %>
             </div>
           </div>
-          <!-- Who to follow -->
           <div class="bg-white border border-slate-200 rounded-lg p-6">
             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
-              <%= t('who_to_follow', default: 'На кого підписатися') %>
+              <%= t('activerecord.attributes.user.who_to_follow') %>
             </h3>
             <div class="space-y-2">
               <% @creators.each_with_index do |creator, i| %>
@@ -125,12 +125,4 @@
       </aside>
     </div>
   </div>
-  <!-- Mobile Write Button -->
-  <!-- <% if current_user&.creator? %>
-    <%= link_to new_post_path, class: "sm:!hidden fixed bottom-6 right-6 z-50 w-14 h-14 bg-slate-900 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-slate-800 transition-colors duration-200" do %>
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-      </svg>
-    <% end %>
-  <% end %> -->
 </div>

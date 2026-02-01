@@ -36,5 +36,9 @@ Rails.application.routes.draw do
         patch :mark_as_read
       end
     end
+
+    resources :categories, only: [:show] do
+      resource :preference, only: [:create, :destroy], module: :categories
+    end
   end
 end

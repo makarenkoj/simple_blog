@@ -25,6 +25,30 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def popular_categories
+    scope = Category.left_joins(:posts)
+
+    if user_signed_in?
+      scope = scope.where.not(id: current_user.category_preferences.select(:category_id))
+    end
+
+    @categories = scope.group('categories.id')
+                        .order('COUNT(posts.id) DESC')
+                        .limit(5)
+  end
+
+    def popular_creators
+    scope = User.creator.left_joins(:followers)
+
+    if user_signed_in?
+      scope = scope.where.not(id: current_user.followings.select(:id)).where.not(id: current_user.id)
+    end
+
+    @creators = scope.group('users.id')
+                     .order('COUNT(follows.id) DESC')
+                     .limit(5)
+  end
+
   def default_url_options
     { locale: I18n.locale }
   end

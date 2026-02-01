@@ -5,4 +5,8 @@ class Category < ApplicationRecord
   has_many :users, through: :category_preferences
 
   validates :name, presence: true, uniqueness: true
+
+  def to_param
+    name.parameterize
+  end
 end
