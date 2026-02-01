@@ -13,3 +13,5 @@
 <%= turbo_stream.update "following_count_#{@follower.id}" do %>
   <%= @follower.followings.count %>
 <% end %>
+
+<%= turbo_stream.remove "recommended_user_#{@follower.id}" %>

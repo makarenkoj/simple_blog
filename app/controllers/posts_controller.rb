@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authorize_owner!, only: %i[edit update destroy]
   before_action :popular_categories, only: %i[index show]
+  before_action :popular_creators, only: %i[index show]
 
   def index
     @posts = Post.all
@@ -42,9 +43,20 @@ class PostsController < ApplicationController
 
   def popular_categories
     @categories = Category.joins(:posts)
+                          .where.not(id: current_user.category_preferences.select(:category_id))
                           .group('categories.id')
                           .order('COUNT(posts.id) DESC')
                           .limit(5)
+  end
+
+  def popular_creators
+    @creators = User.creator
+                .left_joins(:followers)
+                .where.not(id: current_user.followings.select(:id))
+                .where.not(id: current_user.id)
+                .group('users.id')
+                .order('COUNT(follows.id) DESC')
+                .limit(5)
   end
 
   def authorize_owner!

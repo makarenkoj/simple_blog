@@ -80,24 +80,32 @@
             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
               <%= t('who_to_follow', default: 'На кого підписатися') %>
             </h3>
-            <div class="space-y-4">
-              <% 3.times do |i| %>
-                <div class="flex items-center space-x-3 group cursor-pointer">
-                  <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
-                    U<%= i + 1 %>
+            <div class="space-y-2">
+              <% @creators.each_with_index do |creator, i| %>
+                <%= turbo_frame_tag "recommended_user_#{creator.id}", class: "block" do %>
+                  <div class="flex items-center space-x-3 group cursor-pointer">
+                    <% if creator.avatar.attached? %>
+                      <%= image_tag creator.avatar.variant(resize_to_fill: [80, 80]), class: "w-10 h-10 rounded-full object-cover flex-shrink-0", alt: creator.username %>
+                    <% else %>
+                      <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                        <%= creator.username&.first&.upcase || '?' %>
+                      </div>
+                    <% end %>
+                    <div class="flex-1 min-w-0">
+                      <%= link_to user_path(creator), data: { turbo_frame: "_top" } do %>
+                        <p class="text-sm font-semibold text-slate-900 group-hover:underline truncate">
+                          <%= creator.username %>
+                        </p>
+                      <% end %>
+                      <p class="text-xs text-slate-500 truncate">
+                        <%= creator.followers.count %> <%= t('followers') %>
+                      </p>
+                    </div>
+                    <%= button_to follow_user_path(creator), class: "inline-flex items-center px-6 py-2 bg-slate-900 rounded-full text-sm font-medium hover:bg-slate-800 transition-colors duration-200" do %>
+                      <%= t('activerecord.attributes.user.follow') %>
+                    <% end %>
                   </div>
-                  <div class="flex-1 min-w-0">
-                    <p class="text-sm font-semibold text-slate-900 group-hover:underline truncate">
-                      User <%= i + 1 %>
-                    </p>
-                    <p class="text-xs text-slate-500 truncate">
-                      <%= rand(500..5000) %> <%= t('followers', default: 'підписників') %>
-                    </p>
-                  </div>
-                  <button class="px-3 py-1 border border-slate-900 rounded-full text-xs font-medium text-slate-900 hover:bg-slate-900 hover:text-white transition-colors duration-200">
-                    <%= t('follow', default: 'Підписатися') %>
-                  </button>
-                </div>
+                <% end %>
               <% end %>
             </div>
           </div>
