@@ -8,15 +8,13 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @post = current_user.posts.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @post = Post.create(post_params.merge(user: current_user))
@@ -50,9 +48,9 @@ class PostsController < ApplicationController
   end
 
   def authorize_owner!
-    unless current_user_can_edit?(@post)
-      redirect_to posts_path, alert: t('activerecord.controllers.posts.not_your_post')
-    end
+    return if current_user_can_edit?(@post)
+
+    redirect_to posts_path, alert: t('activerecord.controllers.posts.not_your_post')
   end
 
   def set_post

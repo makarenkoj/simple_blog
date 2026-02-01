@@ -19,6 +19,15 @@ Rails.application.routes.draw do
     resources :users, only: [:show] do
       member do
         delete :delete_avatar, to: 'users#delete_avatar'
+        post :follow, to: 'follows#create'
+        delete :unfollow, to: 'follows#destroy'
+      end
+    end
+
+    resources :notifications, only: [:index, :destroy] do
+      member do
+        get :click
+        patch :mark_as_read
       end
     end
   end

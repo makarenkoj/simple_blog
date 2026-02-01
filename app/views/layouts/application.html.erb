@@ -100,41 +100,8 @@
                   </div>
                 </div>
               </div>
-              <div class="dropdown" data-controller="dropdown">
-                <button type="button" class="relative p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
-                  <i class="ri-notification-3-line text-xl"></i>
-                  <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
-                </button>
-                <div class="dropdown-menu shadow-xl border border-slate-200 z-30 dropdown-hidden w-80 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
-                  <div class="p-4 border-b border-slate-200">
-                    <h3 class="text-sm font-bold text-slate-900">
-                      <%= t('notifications', default: 'Сповіщення') %>
-                    </h3>
-                  </div>
-                  <ul class="max-h-96 overflow-y-auto custom-scrollbar">
-                    <% 5.times do |i| %>
-                      <li>
-                        <a href="#" class="block px-4 py-3 hover:bg-slate-50 transition-colors duration-200">
-                          <div class="flex items-start space-x-3">
-                            <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
-                              U
-                            </div>
-                            <div class="flex-1 min-w-0">
-                              <p class="text-sm text-slate-900 font-medium">
-                                <%= t('notification_title', default: 'Нове повідомлення') %>
-                              </p>
-                              <p class="text-xs text-slate-500 mt-0.5">
-                                <%= t('notification_time', default: '2 години тому') %>
-                              </p>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                    <% end %>
-                  </ul>
-                </div>
-              </div>
-              <!-- User Profile -->
+              <%= turbo_stream_from current_user, :notifications %>
+              <%= render "partials/notifications_dropdown", user: current_user %>
               <div class="dropdown" data-controller="dropdown">
                 <button type="button" class="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded-full transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
                   <% if current_user.avatar.attached? %>
@@ -225,32 +192,11 @@
     <!-- Main Content -->
     <main class="min-h-screen" data-sidebar-target="mainContent">
       <!-- Flash Messages -->
-      <% if notice %>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg animate-slideDown">
-            <div class="flex items-start">
-              <i class='bx bx-check-circle text-green-500 text-xl flex-shrink-0 mt-0.5'></i>
-              <p class="ml-3 text-sm text-green-800"><%= notice %></p>
-              <button type="button" class="ml-auto text-green-500 hover:text-green-700" onclick="this.parentElement.parentElement.remove()">
-                <i class='bx bx-x text-xl'></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      <% end %>
-      <% if alert %>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg animate-slideDown">
-            <div class="flex items-start">
-              <i class='bx bx-error-circle text-red-500 text-xl flex-shrink-0 mt-0.5'></i>
-              <p class="ml-3 text-sm text-red-800"><%= alert %></p>
-              <button type="button" class="ml-auto text-red-500 hover:text-red-700" onclick="this.parentElement.parentElement.remove()">
-                <i class='bx bx-x text-xl'></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      <% end %>
+      <div id="flash_messages">
+        <% flash.each do |type, message| %>
+          <%= render partial: "partials/flash_message", locals: { type: type, message: message } %>
+        <% end %>
+      </div>
       <%= yield %>
     </main>
     <!-- Mobile Write FAB (hidden on desktop) -->

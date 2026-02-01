@@ -1,0 +1,70 @@
+<div id="notifications_dropdown" class="dropdown" data-controller="dropdown">
+  <button type="button" class="relative p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+    <i class="ri-notification-3-line text-xl"></i>
+    <% if user.unread_notifications_count > 0 %>
+      <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+    <% end %>
+  </button>
+  <div class="dropdown-menu shadow-xl border border-slate-200 z-30 dropdown-hidden w-80 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
+    <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+      <h3 class="text-sm font-bold text-slate-900">
+        <%= t('notifications.notifications') %>
+      </h3>
+      <% if user.unread_notifications_count > 0 %>
+        <span class="inline-flex items-center px-2 py-1 bg-red-500 text-white text-xs font-semibold rounded-full">
+          <%= user.unread_notifications_count %>
+        </span>
+      <% end %>
+    </div>
+    <ul class="max-h-96 overflow-y-auto custom-scrollbar">
+      <% recent_notifications = user.notifications.recent.limit(5) %>
+      <% if recent_notifications.any? %>
+        <% recent_notifications.each do |notification| %>
+          <li>
+            <%= link_to click_notification_path(notification), class: "block px-4 py-3 hover:bg-slate-50 transition-colors duration-200 #{notification.read ? '' : 'bg-blue-50'}" do %>
+              <div class="flex items-start space-x-3">
+                <% if notification.actor.avatar.attached? %>
+                  <%= image_tag notification.actor.avatar.variant(resize_to_limit: [40, 40]), 
+                      class: "w-10 h-10 rounded-full object-cover flex-shrink-0" %>
+                <% else %>
+                  <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                    <%= notification.actor.username&.first&.upcase || '?' %>
+                  </div>
+                <% end %>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm text-slate-900 font-medium line-clamp-2">
+                    <% if notification.action == 'new_post' %>
+                      <span class="font-semibold"><%= notification.actor.full_name %></span>
+                      <%= t('notifications.published', default: 'опублікував') %>:
+                      <%= notification.notifiable.title %>
+                    <% elsif notification.action == 'new_follower' %>
+                      <span class="font-semibold"><%= notification.actor.full_name %></span>
+                      <%= t('notifications.followed_you', default: 'підписався на вас') %>
+                    <% end %>
+                  </p>
+                  <p class="text-xs text-slate-500 mt-0.5">
+                    <%= time_ago_in_words(notification.created_at) %> <%= t('ago', default: 'тому') %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+        <li class="border-t border-slate-200">
+          <%= link_to notifications_path, class: "block px-4 py-3 text-center text-sm font-medium text-blue-600 hover:bg-slate-50 transition-colors duration-200" do %>
+            <%= t('notifications.view_all_notifications') %>
+          <% end %>
+        </li>
+      <% else %>
+        <li class="px-4 py-8 text-center">
+          <svg class="w-12 h-12 mx-auto text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+          <p class="text-sm text-slate-600">
+            <%= t('notifications.no_notifications') %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

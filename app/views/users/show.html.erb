@@ -18,17 +18,19 @@
             <%= t("activerecord.attributes.user.roles.#{@user.role}", default: @user.role.humanize) %>
           </p>
           <div class="flex items-center space-x-6 text-sm text-slate-600 mb-6">
+            <% if @user.creator? %>
+              <div>
+                <span class="font-semibold text-slate-900"><%= @user.posts.count %></span>
+                <%= t('activerecord.attributes.user.posts') %>
+              </div>
+              <div>
+                <span id="followers_count_<%= @user.id %>" class="font-semibold text-slate-900"><%= @user.followers.count %></span>
+                <%= t('activerecord.attributes.user.followers') %>
+              </div>
+            <% end %>
             <div>
-              <span class="font-semibold text-slate-900"><%= @user.posts.count %></span>
-              <%= t('activerecord.attributes.user.posts') %>
-            </div>
-            <div>
-              <span class="font-semibold text-slate-900">0</span>
-              <%= t('activerecord.attributes.user.followers') %>
-            </div>
-            <div>
-              <span class="font-semibold text-slate-900">0</span>
-              <%= t('activerecord.attributes.user.following') %>
+              <span id="following_count_<%= @user.id %>" class="font-semibold text-slate-900"><%= @user.followings.count %></span>
+              <%= t('follows.followings') %>
             </div>
           </div>
           <% if @user == current_user %>
@@ -43,39 +45,59 @@
               <% end %>
             </div>
           <% else %>
-            <button class="inline-flex items-center px-6 py-2 bg-slate-900 text-white rounded-full text-sm font-medium hover:bg-slate-800 transition-colors duration-200">
-              <%= t('activerecord.attributes.user.follow') %>
-            </button>
+              <% if user_signed_in? %>
+                <% if @user != current_user && @user.creator? %>
+                  <%= turbo_frame_tag "follow_button_#{@user.id}" do %>
+                    <% if current_user.following?(@user) %>
+                      <%= button_to unfollow_user_path(@user), method: :delete, class: "inline-flex items-center px-6 py-2 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50" do %>
+                        <i class='bx bx-check mr-2'></i>
+                        <%= t('follows.unfollow') %>
+                      <% end %>
+                    <% else %>
+                      <%= button_to follow_user_path(@user), class: "inline-flex items-center px-6 py-2 bg-slate-900 rounded-full text-sm font-medium hover:bg-slate-800" do %>
+                        <i class='bx bx-plus mr-2'></i>
+                        <%= t('activerecord.attributes.user.follow') %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% else %>
+              <%= link_to new_user_session_path, class: "inline-flex items-center px-6 py-2 bg-slate-900  rounded-full text-sm font-medium hover:bg-slate-800 transition-colors duration-200" do %>
+                <%= t('activerecord.attributes.user.sign_in_to_follow') %>
+              <% end %>
+            <% end %>
           <% end %>
         </div>
       </div>
     </div>
   </div>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <% if @user.posts.any? %>
-      <div class="divide-y divide-slate-200">
-        <%= render partial: 'posts/post', collection: @user.posts %>
-      </div>
-    <% else %>
-      <div class="text-center py-16 sm:py-24">
-        <div class="mb-6">
-          <svg class="w-16 h-16 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
+  <% if @user.creator?%>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <% if @user.posts.any? %>
+        <div class="divide-y divide-slate-200">
+          <%= render partial: 'posts/post', collection: @user.posts %>
         </div>
-        <h3 class="text-xl font-serif font-bold text-slate-900 mb-2">
-          <%= @user == current_user ? t('activerecord.attributes.user.no_posts_yet') : t('activerecord.attributes.user.user_no_posts') %>
-        </h3>
-        <p class="text-slate-600 mb-8">
-          <%= @user == current_user ? t('activerecord.attributes.user.start_writing') : t('activerecord.attributes.user.check_back_later') %>
-        </p>
-        <% if @user == current_user && current_user.creator? %>
-          <%= link_to new_post_path, class: "inline-flex items-center px-6 py-3 bg-slate-900 text-white font-medium rounded-full hover:bg-slate-800 transition-colors duration-200" do %>
-            <i class='bx bx-edit text-xl mr-2'></i>
-            <%= t('activerecord.attributes.posts.new') %>
+      <% else %>
+        <div class="text-center py-16 sm:py-24">
+          <div class="mb-6">
+            <svg class="w-16 h-16 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-serif font-bold text-slate-900 mb-2">
+            <%= @user == current_user ? t('activerecord.attributes.user.no_posts_yet') : t('activerecord.attributes.user.user_no_posts') %>
+          </h3>
+          <p class="text-slate-600 mb-8">
+            <%= @user == current_user ? t('activerecord.attributes.user.start_writing') : t('activerecord.attributes.user.check_back_later') %>
+          </p>
+          <% if @user == current_user && current_user.creator? %>
+            <%= link_to new_post_path, class: "inline-flex items-center px-6 py-3 bg-slate-900 text-white font-medium rounded-full hover:bg-slate-800 transition-colors duration-200" do %>
+              <i class='bx bx-edit text-xl mr-2'></i>
+              <%= t('activerecord.attributes.posts.new') %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

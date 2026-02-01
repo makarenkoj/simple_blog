@@ -122,7 +122,7 @@ uk:
         posts: "Публікації"
         followings: "Підписки"
         followers: "Підписники"
-        folow: 'Підписатися'
+        follow: 'Підписатися'
       posts:
         title: 'Назва'
         address: 'Місце проведення'
@@ -201,7 +201,27 @@ uk:
     url: 'blogasik.com'
     simple: 'Simple'
     blog: 'Blog'
-  
+  follow: "Підписатися"
+  following: "Ви підписані"
+  followers: "Підписників"
+  notifications:
+    no_notifications: "У вас немає сповіщень"
+    no_notifications_description: "Коли з'являться нові сповіщення, ви побачите їх тут"
+    notifications: "Сповіщення"
+    new_post: "%{author} опублікував новий пост: %{title}"
+    new_follower: "%{follower} підписався на вас"
+    published: "опублікував"
+    followed_you: "підписався на вас"
+    view_all_notifications: "Переглянути всі сповіщення"
+  follows:
+    created: "Ви підписалися на %{username}"
+    destroyed: "Ви відписалися від %{username}"
+    error: "Помилка підписки"
+    unfollow_error: "Не вдалося відписатися"
+    user_not_found: "Користувача не знайдено"
+    unfollow: "Відписатися"
+    followings: "Підписаних"
+  ago: "тому"
   post:
     change: 'Змінити'
     destroy: 'Видалити пост'

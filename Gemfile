@@ -10,6 +10,7 @@ gem 'image_processing', '~> 1.14'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'kamal', require: false
+gem 'kaminari', '~> 1.2'
 gem 'pg'
 gem 'phlex-rails', '~> 1.2'
 gem 'propshaft'
