@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :categories, only: [:show] do
+    resources :categories, only: [:show, :index] do
       resource :preference, only: [:create, :destroy], module: :categories
     end
   end

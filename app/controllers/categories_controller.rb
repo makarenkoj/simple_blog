@@ -8,6 +8,10 @@ class CategoriesController < ApplicationController
     render 'posts/index' 
   end
 
+  def index
+    @categories = Category.includes(:posts).order(:name)
+  end
+
   private
 
   def set_category

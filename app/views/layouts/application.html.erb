@@ -127,6 +127,12 @@
                       <span><%= t('activerecord.attributes.user.profile') %></span>
                     <% end %>
                   </li>
+                  <li>
+                    <%= link_to categories_path, class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+                      <i class='bx bx-category text-lg'></i>
+                      <span><%= t('activerecord.attributes.categories.all') %></span>
+                    <% end %>
+                  </li>
                   <% if current_user.creator? %>
                     <li>
                       <%= link_to new_post_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
@@ -192,7 +198,7 @@
     <!-- Main Content -->
     <main class="min-h-screen" data-sidebar-target="mainContent">
       <!-- Flash Messages -->
-      <div id="flash_messages">
+      <div id="flash_messages" class="fixed top-4 left-0 right-0 z-[100] flex flex-col items-center gap-2 pointer-events-none px-4">
         <% flash.each do |type, message| %>
           <%= render partial: "partials/flash_message", locals: { type: type, message: message } %>
         <% end %>

@@ -163,6 +163,18 @@ uk:
         name: 'Назва категорії'
         favorites: 'Улюблені категорії'
         popular: 'Популярні категорії'
+        all: 'Усі категорії'
+        no_categories: 'Немає категорій'
+        no_categories_description: 'Поки що немає категорій. Будь ласка, перевірте пізніше.'
+        subtitle: 'Досліджуйте пости за категоріями та знаходьте те, що вам до душі.'
+        preferences:
+          subscribed: 'Підписані на категорію %{category}'
+          unsubscribed: 'Відписалися від категорії %{category}'
+          subscribe: 'Підписатися на категорію'
+          unsubscribe: 'Відписатися від категорії'
+          error:
+            subscribe: 'Не вдалося підписатися на категорію %{category}'
+            unsubscribe: 'Не вдалося відписатися від категорії %{category}'
     
     # Кастомні повідомлення контролерів (з active.uk.yml та uk.yml)
     controllers:
