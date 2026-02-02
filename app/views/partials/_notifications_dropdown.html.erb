@@ -35,11 +35,14 @@
                   <p class="text-sm text-slate-900 font-medium line-clamp-2">
                     <% if notification.action == 'new_post' %>
                       <span class="font-semibold"><%= notification.actor.full_name %></span>
-                      <%= t('notifications.published', default: 'опублікував') %>:
+                      <%= t('notifications.published') %>:
                       <%= notification.notifiable.title %>
                     <% elsif notification.action == 'new_follower' %>
                       <span class="font-semibold"><%= notification.actor.full_name %></span>
-                      <%= t('notifications.followed_you', default: 'підписався на вас') %>
+                      <%= t('notifications.followed_you') %>
+                    <% elsif notification.action == 'post_liked' %>
+                      <span class="font-semibold"><%= notification.actor.full_name %></span>
+                      <%= t('notifications.liked_your_post') %>
                     <% end %>
                   </p>
                   <p class="text-xs text-slate-500 mt-0.5">

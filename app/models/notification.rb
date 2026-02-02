@@ -6,10 +6,10 @@ class Notification < ApplicationRecord
   scope :unread, -> { where(read: false) }
   scope :recent, -> { order(created_at: :desc) }
 
-  ACTIONS = {
-    new_post: 'new_post',
-    new_follower: 'new_follower'
-  }.freeze
+  ACTIONS = { new_post: 'new_post',
+              new_follower: 'new_follower',
+              post_liked: 'post_liked'
+            }.freeze
 
   validates :action, inclusion: { in: ACTIONS.values }
 
@@ -24,6 +24,8 @@ class Notification < ApplicationRecord
       I18n.t('notifications.new_post', author: actor.full_name, title: notifiable.title)
     when 'new_follower'
       I18n.t('notifications.new_follower', follower: actor.full_name)
+    when 'post_liked'
+      I18n.t('notifications.post_liked', actor: actor.full_name, title: notifiable.title)
     else
       I18n.t('notifications.default')
     end

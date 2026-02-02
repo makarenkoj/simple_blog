@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :initiated_notifications, foreign_key: :actor_id, class_name: 'Notification', dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_posts, through: :bookmarks, source: :post
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
 
   has_one_attached :avatar
 
@@ -65,5 +67,9 @@ class User < ApplicationRecord
 
   def bookmarked?(post)
     bookmarks.exists?(post: post)
+  end
+
+  def liked?(post)
+    liked_posts.exists?(post.id)
   end
 end

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
     resources :posts do
       resource :bookmark, only: [:create, :destroy], module: :posts
+      resource :like, only: [:create, :destroy], module: :posts
       collection do
         get :library
       end

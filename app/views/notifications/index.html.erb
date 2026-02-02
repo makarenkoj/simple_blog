@@ -41,8 +41,19 @@
                     <%= t('notifications.followed_you') %>
                   </p>
                   <%= link_to click_notification_path(notification), class: "inline-flex items-center mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
-                    <%= t('view_profile', default: 'Переглянути профіль') %>
+                    <%= t('notifications.view_profile') %>
                     <i class='bx bx-right-arrow-alt ml-1'></i>
+                  <% end %>
+                <% elsif notification.action == 'post_liked' %>
+                  <p class="text-sm text-slate-900 mb-1">
+                    <i class='bx bxs-like text-blue-500 mr-1'></i>
+                    <span class="font-semibold"><%= notification.actor.full_name %></span>
+                    <%= t('notifications.post_liked_msg') %>
+                  </p>
+                  <%= link_to click_notification_path(notification), class: "block mt-2 group" do %>
+                    <h3 class="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
+                      <%= t('notifications.view_profile') %>
+                    </h3>
                   <% end %>
                 <% end %>
                 <p class="text-xs text-slate-500 mt-2">

@@ -141,6 +141,10 @@ uk:
         library: "Моя бібліотека"
         library_subtitle: "Пости, які ви зберегли для читання пізніше."
         more_from_author: "Більше від %{author}"
+        edit: "Редагувати публікацію"
+        destroy: "Видалити публікацію"
+        destroy_confirm: "Ви впевнені, що хочете видалити цю публікацію?"
+        liked_flash: "Вам сподобався цей пост!"
         index:
           title: "Усі публікації"
           no_posts: "Публікацій не знайдено."
@@ -176,7 +180,16 @@ uk:
           error:
             subscribe: 'Не вдалося підписатися на категорію %{category}'
             unsubscribe: 'Не вдалося відписатися від категорії %{category}'
-    
+      likes:
+        count:
+          one: '%{count} вподобання'
+          few: '%{count} вподоблення'
+          many: '%{count} вподоблень'
+          other: '%{count} вподоблення'
+        errors:
+          like: 'Не вдалося вподобати пост'
+          unlike: 'Не вдалося видалити вподобання поста'
+          user_is_not_post_author: 'Ви не можете вподобати власний пост'
     # Кастомні повідомлення контролерів (з active.uk.yml та uk.yml)
     controllers:
       posts:
@@ -233,6 +246,10 @@ uk:
     published: "опублікував"
     followed_you: "підписався на вас"
     view_all_notifications: "Переглянути всі сповіщення"
+    post_liked: "%{actor} %{title}"
+    post_liked_msg: ' сподобался ваш пост!)'
+    liked_your_post: "сподобався ваш пост"
+    view_profile: "Переглянути профіль"
   follows:
     created: "Ви підписалися на %{username}"
     destroyed: "Ви відписалися від %{username}"
