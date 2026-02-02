@@ -26,6 +26,7 @@ gem 'tailwindcss-rails'
 gem 'thruster', require: false
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
+gem "faker", "~> 3.6"
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
