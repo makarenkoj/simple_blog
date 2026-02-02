@@ -140,6 +140,7 @@ uk:
         creators: "Мої публікації"
         library: "Моя бібліотека"
         library_subtitle: "Пости, які ви зберегли для читання пізніше."
+        more_from_author: "Більше від %{author}"
         index:
           title: "Усі публікації"
           no_posts: "Публікацій не знайдено."
