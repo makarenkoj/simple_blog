@@ -34,9 +34,9 @@
           <span><%= post.body.to_plain_text.split.size / 200 %> <%= t('activerecord.attributes.posts.index.min_read') %></span> <!-- TODO: fix plurarizations -->
           <% if post.categories.any? %>
             <span>·</span>
-            <span class="px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700">
-              <%= post.categories.first.name %>
-            </span>
+            <%= link_to category_path(post.categories.first), class: "px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700" do %>
+              <% post.categories.first.name %>
+            <%end%>
           <% end %>
           <div class="ml-auto flex items-center space-x-4">
             <% if user_signed_in? %>

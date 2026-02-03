@@ -24,7 +24,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   </head>
   <body class="bg-white" data-controller="sidebar">
-    <nav class="sticky top-0 z-55 bg-white border-b border-slate-200">
+    <nav class="sticky top-0 z-40 bg-white border-b border-slate-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center space-x-4">
@@ -41,14 +41,21 @@
             <% end %>
           </div>
           <div class="hidden lg:!block flex-1 max-w-md mx-8">
-            <div class="relative">
-              <input 
-                type="text" 
-                placeholder="<%= t('search', default: 'Пошук...') %>"
-                class="w-full px-4 py-2 pl-10 bg-slate-100 border border-transparent rounded-full text-sm focus:outline-none focus:bg-white focus:border-slate-300 transition-all duration-200"
-              >
-              <i class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 mt-3.5 text-slate-400 text-lg"></i>
-            </div>
+            <%= form_with url: search_path, method: :get, data: { controller: "search", turbo_frame: "search_results" }, class: "relative" do |f| %>
+              <div class="flex items-center w-full px-4 py-2 bg-slate-100 border border-transparent rounded-full focus-within:bg-white focus-within:border-slate-300 transition-all duration-200">
+                <i class="ri-search-line text-slate-400 text-lg mr-2 flex-shrink-0"></i>
+                <%= f.text_field :query, 
+                    placeholder: t('search.search'),
+                    class: "w-full bg-transparent border-none focus:ring-0 p-0 text-sm placeholder-slate-500 focus:outline-none",
+                    autocomplete: "off",
+                    data: { action: "input->search#query focus->search#handleFocus keydown->search#handleKeydown",
+                            search_target: "input" } 
+                %>
+              </div>
+              <div class="absolute top-full left-0 right-0 mt-2 z-50" data-search-target="results">
+                <turbo-frame id="search_results"></turbo-frame>
+              </div>
+            <% end %>
           </div>
           <div class="flex items-center space-x-2 sm:space-x-3">
             <% if user_signed_in? %>
@@ -65,7 +72,7 @@
                     <%= I18n.locale.to_s.upcase %>
                   </span>
                 </button>
-                <div class="dropdown-menu shadow-xl border border-slate-200 z-30 dropdown-hidden w-48 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
+                <div class="dropdown-menu shadow-xl border border-slate-200 z-35 dropdown-hidden w-48 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
                   <div class="p-2">
                     <%= link_to url_for(locale: :uk), class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 #{'bg-slate-100' if I18n.locale == :uk}" do %>
                       <span class="text-2xl">🇺🇦</span>
@@ -109,7 +116,7 @@
                     </div>
                   <% end %>
                 </button>
-                <ul class="dropdown-menu shadow-xl border border-slate-200 z-30 dropdown-hidden py-2 rounded-lg bg-white w-56" data-dropdown-target="menu">
+                <ul class="dropdown-menu shadow-xl border border-slate-200 z-50 dropdown-hidden py-2 rounded-lg bg-white w-56" data-dropdown-target="menu">
                   <li class="px-4 py-3 border-b border-slate-200">
                     <p class="text-sm font-semibold text-slate-900 truncate">
                       <%= current_user.full_name %>
@@ -164,7 +171,7 @@
         </div>
       </div>
     </nav>
-    <aside class="fixed left-0 top-0 w-72 h-full bg-white shadow-2xl border-r border-slate-200 z-[60] sidebar-menu transition-transform duration-300 -translate-x-full" data-sidebar-target="sidebarMenu">
+    <aside class="fixed left-0 top-0 w-72 h-full bg-white shadow-2xl border-r border-slate-200 z-[70] sidebar-menu transition-transform duration-300 -translate-x-full" data-sidebar-target="sidebarMenu">
       <div class="p-6 border-b border-slate-200">
         <div class="flex items-center justify-between">
           <h2 class="text-lg font-serif font-bold text-slate-900">
@@ -189,7 +196,7 @@
         <% end %>
       </nav>
     </aside>
-    <div class="fixed inset-0 bg-black/50 z-[55] dropdown-hidden sidebar-overlay transition-opacity duration-300" data-sidebar-target="sidebarOverlay" data-action="click->sidebar#hideSidebar"></div>
+    <div class="fixed inset-0 bg-black/50 z-[65] dropdown-hidden sidebar-overlay transition-opacity duration-300" data-sidebar-target="sidebarOverlay" data-action="click->sidebar#hideSidebar"></div>
     <main class="min-h-screen" data-sidebar-target="mainContent">
       <div id="flash_messages" class="fixed top-4 left-0 right-0 z-[100] flex flex-col items-center gap-2 pointer-events-none px-4">
         <% flash.each do |type, message| %>
@@ -199,7 +206,7 @@
       <%= yield %>
     </main>
     <% if user_signed_in? && current_user.creator? %>
-      <%= link_to new_post_path, class: "lg:hidden fixed bottom-6 right-6 z-30 w-14 h-14 bg-slate-900 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-slate-800 transition-colors duration-200" do %>
+      <%= link_to new_post_path, class: "lg:hidden fixed bottom-6 right-6 z-35 w-14 h-14 bg-slate-900 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-slate-800 transition-colors duration-200" do %>
         <i class='bx bx-edit text-2xl'></i>
       <% end %>
     <% end %>

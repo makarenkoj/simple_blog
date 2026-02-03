@@ -41,5 +41,7 @@ Rails.application.routes.draw do
     resources :categories, only: [:show, :index] do
       resource :preference, only: [:create, :destroy], module: :categories
     end
+
+    get 'search', to: 'search#index'
   end
 end

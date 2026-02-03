@@ -2,7 +2,8 @@ uk:
   # --- Загальні ---
   hello: 'Привіт Мир!'
   blog: 'ПУБЛІКАЦІЇ'
-  post: 'Пост'
+  post: 'Публікація'
+  posts: 'Публікації'
   archive: 'Архів'
   all: 'Всі'
   categories: 'Категорії'
@@ -10,7 +11,7 @@ uk:
   notifications: 'Сповіщення'
   messages: 'Повідомлення'
   menu: 'Меню'
-  
+  users: 'Користувачі'  
   # --- Кнопки та інтерфейс ---
   buttons:
     remove_image: "Видалити зображення"
@@ -260,6 +261,14 @@ uk:
     user_not_found: "Користувача не знайдено"
     unfollow: "Відписатися"
     followings: "Підписаних"
+  search:
+    search: 'Пошук...'
+    search_no_results: 'Нічого не знайдено'
+    try_different_query: 'Спробуйте змінити запит'
+    all_results: 'Показати всі результати'
+    search_results_for: 'Результати пошуку для'
+    found_results: "Знайдено %{count} результатів"
+    try_different_keywords: 'Спробуйте змінити запит або перевірте правопис.'
   ago: "тому"
   post:
     change: 'Змінити'
