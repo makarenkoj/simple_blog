@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: %i[show index library]
+  before_action :authenticate_user!, except: %i[show index]
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authorize_owner!, only: %i[edit update destroy]
   before_action :popular_categories, only: %i[index show library]
@@ -45,6 +45,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def authorize_owner!
     return if current_user_can_edit?(@post)
 

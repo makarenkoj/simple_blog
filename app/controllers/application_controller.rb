@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user_can_edit?
 
+  rescue_from ActionController::InvalidAuthenticityToken, with: :handle_expired_session
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(
       :account_update,
@@ -27,22 +29,16 @@ class ApplicationController < ActionController::Base
 
   def popular_categories
     scope = Category.left_joins(:posts)
-
-    if user_signed_in?
-      scope = scope.where.not(id: current_user.category_preferences.select(:category_id))
-    end
+    scope = scope.where.not(id: current_user.category_preferences.select(:category_id)) if user_signed_in?
 
     @categories = scope.group('categories.id')
-                        .order('COUNT(posts.id) DESC')
-                        .limit(5)
+                       .order('COUNT(posts.id) DESC')
+                       .limit(5)
   end
 
-    def popular_creators
+  def popular_creators
     scope = User.creator.left_joins(:followers)
-
-    if user_signed_in?
-      scope = scope.where.not(id: current_user.followings.select(:id)).where.not(id: current_user.id)
-    end
+    scope = scope.where.not(id: current_user.followings.select(:id)).where.not(id: current_user.id) if user_signed_in?
 
     @creators = scope.group('users.id')
                      .order('COUNT(follows.id) DESC')
@@ -62,5 +58,9 @@ class ApplicationController < ActionController::Base
     return unless I18n.available_locales.map(&:to_s).include?(parsed_locale)
 
     parsed_locale.to_sym
+  end
+
+  def handle_expired_session
+    redirect_to new_user_session_path, alert: t('errors.session_expired')
   end
 end

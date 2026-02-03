@@ -8,8 +8,7 @@ class Notification < ApplicationRecord
 
   ACTIONS = { new_post: 'new_post',
               new_follower: 'new_follower',
-              post_liked: 'post_liked'
-            }.freeze
+              post_liked: 'post_liked' }.freeze
 
   validates :action, inclusion: { in: ACTIONS.values }
 

@@ -22,7 +22,7 @@ module Posts
           if params[:source] == 'library'
             render turbo_stream: turbo_stream.remove(@post)
           else
-            render turbo_stream: turbo_stream.replace("bookmark_button_#{@post.id}", partial: "posts/bookmarks/button", locals: { post: @post, source: nil })
+            render turbo_stream: turbo_stream.replace("bookmark_button_#{@post.id}", partial: 'posts/bookmarks/button', locals: { post: @post, source: nil })
           end
         end
       end
@@ -33,9 +33,9 @@ module Posts
     def set_post
       @post = Post.find_by(id: params[:post_id])
 
-      unless @post
-        redirect_to posts_path, alert: t('activerecord.controllers.posts.not_found')
-      end
+      return if @post
+
+      redirect_to posts_path, alert: t('activerecord.controllers.posts.not_found')
     end
   end
 end

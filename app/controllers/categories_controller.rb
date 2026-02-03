@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
 
   def show
     @posts = @category.posts.includes(:user, :rich_text_body).order(created_at: :desc)
-    render 'posts/index' 
+    render 'posts/index'
   end
 
   def index
