@@ -48,11 +48,7 @@
                 </svg>
               <% end %>
             <% end %>
-            <button class="text-slate-400 hover:text-slate-900 transition-colors duration-200" onclick="event.preventDefault(); event.stopPropagation();">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
-              </svg>
-            </button>
+            <%= render "posts/share/button", post: post %>
           </div>
         </div>
       </div>

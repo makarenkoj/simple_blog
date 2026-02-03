@@ -1,0 +1,63 @@
+<% url = post_url(post) %>
+<% title = post.title %>
+
+<div class="relative" 
+     data-controller="share" 
+     data-share-url-value="<%= url %>" 
+     data-share-title-value="<%= title %>">
+  
+  <button type="button" 
+          data-action="click->share#toggle"
+          class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-all duration-200"
+          title="<%= t('share', default: 'Поділитися') %>">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+    </svg>
+  </button>
+
+  <div data-share-target="menu" 
+       class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 ring-1 ring-black/5 z-50 transform origin-top-right transition-all">
+    
+    <div class="p-2 space-y-1">
+      <button data-action="click->share#copy" class="w-full flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors text-left group">
+        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-slate-200 transition-colors">
+          <i class='bx bx-link text-lg' data-share-target="copyIcon"></i>
+          <i class='bx bx-check text-lg text-green-600 hidden' data-share-target="checkIcon"></i>
+        </div>
+        <span class="text-sm font-medium text-slate-700" data-share-target="copyText">
+          <%= t('activerecord.attributes.posts.copy_link') %>
+        </span>
+      </button>
+
+      <div class="h-px bg-slate-100 my-1"></div>
+
+      <%= link_to share_url(:telegram, url, title), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors group" do %>
+        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 group-hover:bg-blue-200 transition-colors">
+          <i class='bx bxl-telegram text-xl'></i>
+        </div>
+        <span class="text-sm font-medium text-slate-700 group-hover:text-blue-700">Telegram</span>
+      <% end %>
+
+      <%= link_to share_url(:twitter, url, title), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors group" do %>
+        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-800 group-hover:bg-slate-200 transition-colors">
+          <i class='bx bxl-twitter text-xl'></i>
+        </div>
+        <span class="text-sm font-medium text-slate-700 group-hover:text-slate-900">Twitter</span>
+      <% end %>
+
+      <%= link_to share_url(:facebook, url, title), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors group" do %>
+        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-100 transition-colors">
+          <i class='bx bxl-facebook text-xl'></i>
+        </div>
+        <span class="text-sm font-medium text-slate-700 group-hover:text-blue-800">Facebook</span>
+      <% end %>
+      
+      <%= link_to share_url(:whatsapp, url, title), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-green-50 transition-colors group" do %>
+        <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-600 group-hover:bg-green-100 transition-colors">
+          <i class='bx bxl-whatsapp text-xl'></i>
+        </div>
+        <span class="text-sm font-medium text-slate-700 group-hover:text-green-800">WhatsApp</span>
+      <% end %>
+    </div>
+  </div>
+</div>

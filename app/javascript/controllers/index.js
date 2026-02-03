@@ -19,6 +19,9 @@ application.register("hello", HelloController)
 import ProfileFormController from "./profile_form_controller"
 application.register("profile-form", ProfileFormController)
 
+import ShareController from "./share_controller"
+application.register("share", ShareController)
+
 import SidebarController from "./sidebar_controller"
 application.register("sidebar", SidebarController)
 
