@@ -145,7 +145,7 @@
                       <% end %>
                     </li>
                     <li>
-                      <%= link_to posts_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+                      <%= link_to user_path(current_user), class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
                         <i class='bx bx-collection text-xl'></i>
                         <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.creators') %></span>
                       <% end %>
