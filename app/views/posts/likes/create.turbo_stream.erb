@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "like_button_#{@post.id}" do %>
+  <%= render "posts/likes/button", post: @post %>
+<% end %>
+
+<%= turbo_stream.prepend "flash_messages" do %>
+  <%= render partial: "partials/flash_message", locals: { type: :notice, message: flash.now[:notice] } %>
+<% end %>

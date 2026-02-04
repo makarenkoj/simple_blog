@@ -1,0 +1,82 @@
+<turbo-frame id="search_results">
+  <% if @posts.any? || @users.any? || @categories.any? %>
+    <div class="py-2 max-h-[80vh] overflow-y-auto custom-scrollbar bg-white rounded-xl shadow-xl border border-slate-100">
+      
+      <% if @categories.any? %>
+        <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+          <%= t('activerecord.attributes.posts.categories') %>
+        </div>
+        <% @categories.each do |category| %>
+          <%= link_to category_path(category), class: "block px-4 py-2 hover:bg-slate-50 transition-colors flex items-center space-x-3", data: { turbo: false } do %>
+            <div class="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center">
+              <i class='bx bx-hash'></i>
+            </div>
+            <span class="text-sm font-medium text-slate-700"><%= category.name %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% if @users.any? %>
+        <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-2">
+          <%= t('users') %>
+        </div>
+        <% @users.each do |user| %>
+          <%= link_to user_path(user), class: "block px-4 py-2 hover:bg-slate-50 transition-colors flex items-center space-x-3", data: { turbo: false } do %>
+            <% if user.avatar.attached? %>
+              <%= image_tag user.avatar.variant(resize_to_limit: [32, 32]), class: "w-8 h-8 rounded-full object-cover" %>
+            <% else %>
+              <div class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-bold">
+                <%= user.username&.first&.upcase %>
+              </div>
+            <% end %>
+            <div>
+              <p class="text-sm font-medium text-slate-700"><%= user.full_name %></p>
+              <p class="text-xs text-slate-500">@<%= user.username %></p>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% if @posts.any? %>
+        <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-2">
+          <%= t('posts') %>
+        </div>
+        <% @posts.each do |post| %>
+          <%= link_to post_path(post), class: "block px-4 py-3 hover:bg-slate-50 transition-colors group", data: { turbo: false } do %>
+            <p class="text-sm font-medium text-slate-900 line-clamp-1 group-hover:text-blue-600">
+              <%= highlight(post.title, @query, highlighter: '<mark class="bg-yellow-100 text-slate-900 rounded-sm">\1</mark>') %>
+            </p>
+            <div class="flex items-center space-x-2 mt-1 text-xs text-slate-500">
+              <% if post.user.avatar.attached? %>
+                <%= image_tag post.user.avatar.variant(resize_to_limit: [20, 20]), class: "w-5 h-5 rounded-full" %>
+              <% end %>
+              <span><%= post.user.username %></span>
+              <span>•</span>
+              <span><%= time_ago_in_words(post.created_at) %></span>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+      
+      <div class="border-t border-slate-100 mt-2">
+        <%= link_to search_path(query: @query), class: "block px-4 py-3 text-center text-sm font-medium text-blue-600 hover:bg-slate-50 transition-colors", data: { turbo_frame: "_top" } do %>
+          <%= t('search.all_results') %>
+        <% end %>
+      </div>
+    </div>
+    <% elsif query.present? && query.length >= 2 %> 
+      <div class="py-12 text-center bg-white rounded-xl shadow-2xl border border-slate-200">
+        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="ri-search-line text-3xl text-slate-300"></i>
+        </div>
+        <p class="text-sm font-medium text-slate-900 mb-1">
+          <%= t('search.search_no_results') %>
+        </p>
+        <p class="text-xs text-slate-500">
+          <%= t('search.try_different_query') %>
+        </p>
+      </div>
+    <% else %>
+    <div class="hidden"></div>
+  <% end %>
+</turbo-frame>

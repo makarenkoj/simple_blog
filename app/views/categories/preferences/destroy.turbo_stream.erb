@@ -1,0 +1,11 @@
+<%= turbo_stream.replace "category_pref_#{@category.id}" do %>
+  <%= render "categories/preferences/button", category: @category %>
+<% end %>
+
+<%= turbo_stream.prepend "flash_messages" do %>
+  <% if flash.now[:notice] %>
+    <%= render partial: "partials/flash_message", locals: { type: :notice, message: flash.now[:notice] } %>
+  <% elsif flash.now[:alert] %>
+    <%= render partial: "partials/flash_message", locals: { type: :alert, message: flash.now[:alert] } %>
+  <% end %>
+<% end %>

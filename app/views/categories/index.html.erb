@@ -1,0 +1,77 @@
+<div class="min-h-screen bg-white">
+  <div class="border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-2">
+        <%= t('activerecord.attributes.categories.all') %>
+      </h1>
+      <p class="text-lg text-slate-600">
+        <%= t('activerecord.attributes.categories.subtitle') %>
+      </p>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <% @categories.each do |category| %>
+        <div class="group relative bg-slate-900 rounded-xl overflow-hidden h-56 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div class="absolute inset-0 z-0">
+            <% if category.cover_image.attached? %>
+              <%= image_tag category.cover_image.variant(resize_to_fill: [400, 300]),
+                  class: "w-full h-full object-cover opacity-60 group-hover:opacity-50 group-hover:scale-110 transition-transform duration-700",
+                  alt: category.name.capitalize %>
+            <% else %>
+              <div class="w-full h-full bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900"></div>
+            <% end %>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+          </div>
+          <div class="absolute top-3 right-3 z-30">
+            <div class="bg-white/90 backdrop-blur-sm rounded-full shadow-md flex items-center justify-center hover:bg-white transition-colors">
+              <%= render "categories/preferences/button", category: category %>
+            </div>
+          </div>
+          <div class="relative z-10 h-full flex flex-col justify-between p-5">
+            <div>
+              <%= link_to category_path(category), class: "block group-hover:text-blue-200 transition-colors duration-200" do %>
+                <h3 class="text-2xl font-serif font-bold text-white mb-2 leading-tight drop-shadow-md">
+                  <%= category.name.capitalize %>
+                </h3>
+              <% end %>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-center space-x-4 text-slate-300 text-sm font-medium">
+                <div class="flex items-center space-x-1.5" title="<%= t('activerecord.attributes.posts.index.posts') %>">
+                  <i class='bx bx-file text-lg'></i>
+                  <span><%= category.posts.count %></span>
+                </div>
+                <div class="flex items-center space-x-1.5" title="<%= t('followers') %>">
+                  <i class='bx bx-user text-lg'></i>
+                  <span><%= category.category_preferences.count %></span>
+                </div>
+              </div>
+              <% unless user_signed_in? %>
+                <%= link_to new_user_session_path, 
+                    class: "block w-full px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-semibold rounded-lg hover:bg-white hover:text-slate-900 transition-all duration-200 text-center" do %>
+                  <i class='bx bx-log-in-circle mr-1 align-middle'></i>
+                  <%= t('sign_in_to_subscribe', default: 'Увійти, щоб підписатися') %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <%= link_to "", category_path(category), class: "absolute inset-0 z-0", "aria-label": category.name.capitalize %>
+        </div>
+      <% end %>
+    </div>
+    <% if @categories.empty? %>
+      <div class="text-center py-16">
+        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class='bx bx-category text-3xl text-slate-400'></i>
+        </div>
+        <h3 class="text-xl font-serif font-bold text-slate-900 mb-2">
+          <%= t('activerecord.attributes.categories.no_categories') %>
+        </h3>
+        <p class="text-slate-600">
+          <%= t('activerecord.attributes.categories.no_categories_description') %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

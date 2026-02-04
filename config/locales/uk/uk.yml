@@ -2,14 +2,16 @@ uk:
   # --- Загальні ---
   hello: 'Привіт Мир!'
   blog: 'ПУБЛІКАЦІЇ'
-  post: 'Пост'
+  post: 'Публікація'
+  posts: 'Публікації'
   archive: 'Архів'
   all: 'Всі'
   categories: 'Категорії'
   personal: 'ПЕРСОНАЛЬНИЙ'
   notifications: 'Сповіщення'
   messages: 'Повідомлення'
-  
+  menu: 'Меню'
+  users: 'Користувачі'  
   # --- Кнопки та інтерфейс ---
   buttons:
     remove_image: "Видалити зображення"
@@ -122,7 +124,8 @@ uk:
         posts: "Публікації"
         followings: "Підписки"
         followers: "Підписники"
-        folow: 'Підписатися'
+        follow: 'Підписатися'
+        who_to_follow: 'На кого підписатися'
       posts:
         title: 'Назва'
         address: 'Місце проведення'
@@ -138,12 +141,23 @@ uk:
         actions: "Дії з публікаціями"
         creators: "Мої публікації"
         library: "Моя бібліотека"
+        library_subtitle: "Пости, які ви зберегли для читання пізніше."
+        more_from_author: "Більше від %{author}"
+        edit: "Редагувати публікацію"
+        destroy: "Видалити публікацію"
+        destroy_confirm: "Ви впевнені, що хочете видалити цю публікацію?"
+        liked_flash: "Вам сподобався цей пост!"
+        copy_link: 'Копіювати посилання'
         index:
           title: "Усі публікації"
           no_posts: "Публікацій не знайдено."
+          posts: "Публікації"
           create_one: "Чому б не створити?"
           new_post: "Створити нову публікацію"
           subtitle: 'Відкрийте для себе історії, думки та експертні знання від письменників на будь-які теми.'
+          load_more: "Завантажити більше публікацій"
+          min_read: "хвилини читання"
+          posts_in_category: "Постів у категорії %{count}"
         post:
           by: "від"
           anonymous: "Анонім"
@@ -153,7 +167,32 @@ uk:
         body: 'Коментар'
       photo:
         photo: 'Фотография'
-    
+      categories:
+        name: 'Назва категорії'
+        favorites: 'Улюблені категорії'
+        popular: 'Популярні категорії'
+        all: 'Усі категорії'
+        no_categories: 'Немає категорій'
+        no_categories_description: 'Поки що немає категорій. Будь ласка, перевірте пізніше.'
+        subtitle: 'Досліджуйте пости за категоріями та знаходьте те, що вам до душі.'
+        preferences:
+          subscribed: 'Підписані на категорію %{category}'
+          unsubscribed: 'Відписалися від категорії %{category}'
+          subscribe: 'Підписатися на категорію'
+          unsubscribe: 'Відписатися від категорії'
+          error:
+            subscribe: 'Не вдалося підписатися на категорію %{category}'
+            unsubscribe: 'Не вдалося відписатися від категорії %{category}'
+      likes:
+        count:
+          one: '%{count} вподобання'
+          few: '%{count} вподоблення'
+          many: '%{count} вподоблень'
+          other: '%{count} вподоблення'
+        errors:
+          like: 'Не вдалося вподобати пост'
+          unlike: 'Не вдалося видалити вподобання поста'
+          user_is_not_post_author: 'Ви не можете вподобати власний пост'
     # Кастомні повідомлення контролерів (з active.uk.yml та uk.yml)
     controllers:
       posts:
@@ -165,6 +204,7 @@ uk:
         new: 'Створити нову публікацію'
         new_description: 'Поділіться своїми думками зі світом!'
         not_your_post: 'Це не ваш пост!'
+        not_found: 'Пост не знайдено!'
       users:
         updated: 'Ви оновили свій профіль'
         destroyed: 'Користувач успішно вилучено :('
@@ -180,7 +220,8 @@ uk:
         error: 'Щось не так з фоткою'
         created: 'Ви додали фотографію до події'
         destroyed: 'Ви видалили фотку'
-
+      categories:
+        not_found: 'Категорію не знайдено!'
     # Стандартні помилки ActiveRecord
     errors:
       messages:
@@ -196,7 +237,39 @@ uk:
     url: 'blogasik.com'
     simple: 'Simple'
     blog: 'Blog'
-  
+  follow: "Підписатися"
+  following: "Ви підписані"
+  followers: "Підписників"
+  notifications:
+    no_notifications: "У вас немає сповіщень"
+    no_notifications_description: "Коли з'являться нові сповіщення, ви побачите їх тут"
+    notifications: "Сповіщення"
+    new_post: "%{author} опублікував новий пост: %{title}"
+    new_follower: "%{follower} підписався на вас"
+    published: "опублікував"
+    followed_you: "підписався на вас"
+    view_all_notifications: "Переглянути всі сповіщення"
+    post_liked: "%{actor} %{title}"
+    post_liked_msg: ' сподобался ваш пост!)'
+    liked_your_post: "сподобався ваш пост"
+    view_profile: "Переглянути профіль"
+  follows:
+    created: "Ви підписалися на %{username}"
+    destroyed: "Ви відписалися від %{username}"
+    error: "Помилка підписки"
+    unfollow_error: "Не вдалося відписатися"
+    user_not_found: "Користувача не знайдено"
+    unfollow: "Відписатися"
+    followings: "Підписаних"
+  search:
+    search: 'Пошук...'
+    search_no_results: 'Нічого не знайдено'
+    try_different_query: 'Спробуйте змінити запит'
+    all_results: 'Показати всі результати'
+    search_results_for: 'Результати пошуку для'
+    found_results: "Знайдено %{count} результатів"
+    try_different_keywords: 'Спробуйте змінити запит або перевірте правопис.'
+  ago: "тому"
   post:
     change: 'Змінити'
     destroy: 'Видалити пост'
@@ -379,7 +452,7 @@ uk:
     # Кастомні помилки на рівні додатку
     organize_subscribe: 'Ви не можете підписатися на свою подію!'
     user_email: 'Ця поштова адреса вже зареєстрована!'
-    
+    session_expired: "Ваша сесія закінчилася. Будь ласка, увійдіть знову."
     # Стандартні помилки Rails
     format: "%{attribute} %{message}"
     messages:

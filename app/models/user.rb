@@ -4,6 +4,16 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :category_preferences, dependent: :destroy
   has_many :preferred_categories, through: :category_preferences, source: :category
+  has_many :following_relationships, foreign_key: :follower_id, class_name: 'Follow', dependent: :destroy, inverse_of: :follower
+  has_many :followings, through: :following_relationships, source: :following
+  has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow', dependent: :destroy, inverse_of: :following
+  has_many :followers, through: :follower_relationships, source: :follower
+  has_many :notifications, dependent: :destroy
+  has_many :initiated_notifications, foreign_key: :actor_id, class_name: 'Notification', dependent: :destroy, inverse_of: :actor
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarked_posts, through: :bookmarks, source: :post
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
 
   has_one_attached :avatar
 
@@ -25,5 +35,41 @@ class User < ApplicationRecord
 
   def creator?
     role == 'creator'
+  end
+
+  def follow(user)
+    return false if user == self || following?(user) || !user.creator?
+
+    following_relationships.create(following: user)
+
+    user.notifications.create(
+      actor: self,
+      notifiable: user,
+      action: 'new_follower'
+    )
+  end
+
+  def unfollow(user)
+    following_relationships.find_by(following: user)&.destroy
+  end
+
+  def following?(user)
+    followings.include?(user)
+  end
+
+  def followed_by?(user)
+    followers.include?(user)
+  end
+
+  def unread_notifications_count
+    notifications.unread.count
+  end
+
+  def bookmarked?(post)
+    bookmarks.exists?(post: post)
+  end
+
+  def liked?(post)
+    liked_posts.exists?(post.id)
   end
 end

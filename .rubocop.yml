@@ -4,6 +4,18 @@ plugins:
 AllCops:
   Exclude:
     - config/initializers/secret_token.rb
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'node_modules/**/*'
+    - 'lib/tasks/**/*'
+    - 'lib/templates/**/*'
+    - 'app/controllers/concerns/*'
+    - 'app/models/concerns/*'
+    - 'log/**/*'
 
 Style/FrozenStringLiteralComment:
   Enabled: false

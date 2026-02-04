@@ -3,6 +3,9 @@ class Post < ApplicationRecord
 
   has_many :categorizations, dependent: :destroy
   has_many :categories, through: :categorizations
+  has_many :bookmarks, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liking_users, through: :likes, source: :user
 
   has_rich_text :body
 
@@ -13,4 +16,17 @@ class Post < ApplicationRecord
   validates :cover_image, content_type: %w[image/png image/gif image/jpeg image/webp],
                           size: { less_than_or_equal_to: 5.megabytes, message: I18n.t('attachments.cover_image.large') },
                           dimension: { width: { max: 2000 }, height: { max: 2000 }, message: I18n.t('attachments.cover_image.dimension') }
+
+  after_create :notify_followers
+
+  private
+
+  def notify_followers
+    user.followers.find_each do |follower|
+      Notification.create(user: follower,
+                          actor: user,
+                          notifiable: self,
+                          action: 'new_post')
+    end
+  end
 end

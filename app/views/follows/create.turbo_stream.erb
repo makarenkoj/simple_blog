@@ -1,0 +1,17 @@
+<%= turbo_stream.prepend "flash_messages" do %>
+  <%= render partial: "partials/flash_message", locals: { type: :notice, message: flash.now[:notice] } %>
+<% end %>
+
+<%= turbo_stream.replace "follow_button_#{@follower.id}" do %>
+  <%= render partial: "follows/button", locals: { user: @follower } %>
+<% end %>
+
+<%= turbo_stream.update "followers_count_#{@follower.id}" do %>
+  <%= @follower.followers.count %>
+<% end %>
+
+<%= turbo_stream.update "following_count_#{@follower.id}" do %>
+  <%= @follower.followings.count %>
+<% end %>
+
+<%= turbo_stream.remove "recommended_user_#{@follower.id}" %>

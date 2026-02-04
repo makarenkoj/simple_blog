@@ -15,11 +15,33 @@ Rails.application.routes.draw do
 
     root 'posts#index'
 
-    resources :posts
+    resources :posts do
+      resource :bookmark, only: [:create, :destroy], module: :posts
+      resource :like, only: [:create, :destroy], module: :posts
+      collection do
+        get :library
+      end
+    end
+
     resources :users, only: [:show] do
       member do
         delete :delete_avatar, to: 'users#delete_avatar'
+        post :follow, to: 'follows#create'
+        delete :unfollow, to: 'follows#destroy'
       end
     end
+
+    resources :notifications, only: [:index, :destroy] do
+      member do
+        get :click
+        patch :mark_as_read
+      end
+    end
+
+    resources :categories, only: [:show, :index] do
+      resource :preference, only: [:create, :destroy], module: :categories
+    end
+
+    get 'search', to: 'search#index'
   end
 end

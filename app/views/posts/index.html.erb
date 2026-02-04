@@ -1,34 +1,43 @@
 <div class="min-h-screen bg-white">
-  <!-- Medium-style Header -->
   <header class="border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
       <div class="max-w-3xl lg:max-w-none">
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 leading-tight">
-          <%= t('activerecord.attributes.posts.index.title') %>
+          <% if controller_name == 'categories' %>
+            <%= @category.name.capitalize %>
+          <% elsif action_name == 'library' %>
+            <%= t('activerecord.attributes.posts.library') %>
+          <% else %>
+            <%= t('activerecord.attributes.posts.index.title') %>
+          <% end %>
         </h1>
         <p class="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl">
-          <%= t('activerecord.attributes.posts.index.subtitle') %>
+          <% if controller_name == 'categories' %>
+            <%= t('activerecord.attributes.posts.index.posts_in_category', count: @posts.count) %>
+          <% elsif action_name == 'library' %>
+            <%= t('activerecord.attributes.posts.library_subtitle') %>
+          <% else %>
+            <%= t('activerecord.attributes.posts.index.subtitle') %>
+          <% end %>
         </p>
       </div>
     </div>
   </header>
-  <!-- Main Content with Sidebar -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="flex gap-12">
-      <!-- Posts List (Left/Center Column) -->
       <div class="flex-1 max-w-3xl">
         <% if @posts.any? %>
           <div class="divide-y divide-slate-200">
-            <%= render partial: 'posts/post', collection: @posts %>
+            <%= render partial: 'posts/post', collection: @posts, locals: { source: action_name } %>
           </div>
-          <!-- Load More / Pagination -->
-          <div class="mt-16 text-center">
-            <button class="inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200">
-              <%= t('load_more', default: 'Завантажити більше') %>
-            </button>
-          </div>
+          <% if @posts.count >= 10 %>
+            <div class="mt-16 text-center">
+              <button class="inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200">
+                <%= t('activerecord.attributes.posts.index.load_more') %>
+              </button>
+            </div>
+          <% end %>
         <% else %>
-          <!-- Empty State (Medium-style) -->
           <div class="max-w-2xl mx-auto text-center py-20">
             <div class="mb-8">
               <svg class="w-20 h-20 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,68 +45,79 @@
               </svg>
             </div>
             <h3 class="text-2xl font-serif font-bold text-slate-900 mb-3">
-              <%= t('activerecord.attributes.posts.index.no_posts', default: 'Постів поки немає') %>
+              <%= controller_name == 'categories' ? t('no_posts_in_category', default: 'У цій категорії поки немає постів') : t('activerecord.attributes.posts.index.no_posts') %>
             </h3>
-            <p class="text-lg text-slate-600 mb-8">
-              <%= t('activerecord.attributes.posts.index.create_one', default: 'Будьте першим, хто створить пост!') %>
-            </p>
-            <% if current_user&.creator? %>
+            <% if current_user&.creator? && action_name != 'library' && controller_name != 'categories' %>
+              <p class="text-lg text-slate-600 mb-8">
+                <%= t('activerecord.attributes.posts.index.create_one') %>
+              </p>
               <%= link_to new_post_path, class: 'inline-flex items-center px-6 py-3 bg-slate-900 text-white font-medium rounded-full hover:bg-slate-800 transition-colors duration-200' do %>
-                <%= t('activerecord.attributes.posts.index.new_post', default: 'Створити пост') %>
+                <%= t('activerecord.attributes.posts.index.new_post') %>
               <% end %>
             <% end %>
           </div>
         <% end %>
       </div>
-      <!-- Sidebar (Right Column - Hidden on smaller screens) -->
       <aside class="hidden lg:!block w-80 flex-shrink-0">
         <div class="sticky top-20">
-          <!-- Trending Topics -->
           <div class="bg-white border border-slate-200 rounded-lg p-6 mb-6">
             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
-              <%= t('trending_topics', default: 'Популярні теми') %>
+              <%= t('activerecord.attributes.categories.popular') %>
             </h3>
             <div class="space-y-4">
-              <% ['Технології', 'Програмування', 'Дизайн', 'Бізнес', 'Культура'].each_with_index do |topic, index| %>
-                <div class="group cursor-pointer">
-                  <div class="flex items-baseline space-x-3">
-                    <span class="text-xs font-medium text-slate-400"><%= (index + 1).to_s.rjust(2, '0') %></span>
-                    <div>
-                      <h4 class="text-sm font-semibold text-slate-900 group-hover:underline">
-                        <%= topic %>
-                      </h4>
-                      <p class="text-xs text-slate-500 mt-0.5">
-                        <%= rand(100..500) %> <%= t('stories', default: 'публікацій') %>
-                      </p>
+              <% @categories.each_with_index do |category, index| %>
+                <div class="flex items-center justify-between group">
+                  <%= link_to category_path(category), class: "group block" do %>
+                    <div class="flex items-baseline space-x-3">
+                      <div>
+                        <h4 class="text-sm font-semibold text-slate-900 group-hover:underline">
+                          <%= category.name.capitalize %>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-0.5">
+                          <%= category.posts.count %> <%= t('activerecord.attributes.posts.index.posts') %>
+                        </p>
+                      </div>
                     </div>
+                  <% end %>
+                  <div class="ml-2 flex-shrink-0">
+                    <%= render "categories/preferences/button", category: category %>
                   </div>
                 </div>
               <% end %>
             </div>
           </div>
-          <!-- Who to follow -->
           <div class="bg-white border border-slate-200 rounded-lg p-6">
             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
-              <%= t('who_to_follow', default: 'На кого підписатися') %>
+              <%= t('activerecord.attributes.user.who_to_follow') %>
             </h3>
-            <div class="space-y-4">
-              <% 3.times do |i| %>
-                <div class="flex items-center space-x-3 group cursor-pointer">
-                  <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
-                    U<%= i + 1 %>
+            <div class="space-y-2">
+              <% @creators.each_with_index do |creator, i| %>
+                <%= turbo_frame_tag "recommended_user_#{creator.id}", class: "block" do %>
+                  <div class="flex items-center space-x-3 group cursor-pointer">
+                    <% if creator.avatar.attached? %>
+                      <%= image_tag creator.avatar.variant(resize_to_fill: [80, 80]), class: "w-10 h-10 rounded-full object-cover flex-shrink-0", alt: creator.username %>
+                    <% else %>
+                      <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                        <%= creator.username&.first&.upcase || '?' %>
+                      </div>
+                    <% end %>
+                    <div class="flex-1 min-w-0">
+                      <%= link_to user_path(creator), data: { turbo_frame: "_top" } do %>
+                        <p class="text-sm font-semibold text-slate-900 group-hover:underline truncate">
+                          <%= creator.username %>
+                        </p>
+                      <% end %>
+                      <p class="text-xs text-slate-500 truncate">
+                        <%= creator.followers.count %> <%= t('followers') %>
+                      </p>
+                    </div>
+                    <% if user_signed_in? %>
+                      <%= button_to follow_user_path(creator), class: "inline-flex items-center px-6 py-2 bg-slate-900 rounded-full text-sm font-medium hover:bg-slate-800 transition-colors duration-200" do %>
+                        <%= t('activerecord.attributes.user.follow') %>
+                      <% end %>
+                    <% end %>
                   </div>
-                  <div class="flex-1 min-w-0">
-                    <p class="text-sm font-semibold text-slate-900 group-hover:underline truncate">
-                      User <%= i + 1 %>
-                    </p>
-                    <p class="text-xs text-slate-500 truncate">
-                      <%= rand(500..5000) %> <%= t('followers', default: 'підписників') %>
-                    </p>
-                  </div>
-                  <button class="px-3 py-1 border border-slate-900 rounded-full text-xs font-medium text-slate-900 hover:bg-slate-900 hover:text-white transition-colors duration-200">
-                    <%= t('follow', default: 'Підписатися') %>
-                  </button>
-                </div>
+                <% end %>
               <% end %>
             </div>
           </div>
@@ -105,12 +125,4 @@
       </aside>
     </div>
   </div>
-  <!-- Mobile Write Button -->
-  <!-- <% if current_user&.creator? %>
-    <%= link_to new_post_path, class: "sm:!hidden fixed bottom-6 right-6 z-50 w-14 h-14 bg-slate-900 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-slate-800 transition-colors duration-200" do %>
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-      </svg>
-    <% end %>
-  <% end %> -->
 </div>
