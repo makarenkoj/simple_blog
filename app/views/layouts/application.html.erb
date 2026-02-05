@@ -36,7 +36,7 @@
                 <i class='bx bxl-blogger text-white text-xl'></i>
               </div>
               <span class="hidden sm:!block text-xl font-serif font-bold text-slate-900">
-                <%= t('activerecord.app.simple', default: 'Simple')%> <%= t('activerecord.app.blog', default: 'Blog')%>
+                <%= t('app.company')%>
               </span>
             <% end %>
           </div>
@@ -65,6 +65,8 @@
               <%= link_to library_posts_path, class: "hidden lg:!inline-block p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" do %>
                 <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
               <% end %>
+            <% end %>
+
               <div class="dropdown" data-controller="dropdown">
                 <button type="button" class="flex items-center space-x-1 p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
                   <i class="ri-global-line text-xl"></i>
@@ -104,6 +106,8 @@
                   </div>
                 </div>
               </div>
+            <% if user_signed_in? %>
+
               <%= turbo_stream_from current_user, :notifications %>
               <%= render "partials/notifications_dropdown", user: current_user %>
               <div class="dropdown" data-controller="dropdown">
@@ -154,17 +158,17 @@
                   <li class="border-t border-slate-200 mt-2 pt-2">
                     <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
                       <i class='bx bx-log-out text-lg'></i>
-                      <span><%= t('activerecord.attributes.user.sign_out', default: 'Вийти') %></span>
+                      <span><%= t('activerecord.attributes.user.sign_out') %></span>
                     <% end %>
                   </li>
                 </ul>
               </div>
             <% else %>
               <%= link_to new_user_session_path, class: "px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
-                <%= t('activerecord.attributes.user.sign_in', default: 'Увійти') %>
+                <%= t('activerecord.attributes.user.sign_in') %>
               <% end %>
               <%= link_to new_user_registration_path, class: "px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-slate-800 transition-colors duration-200" do %>
-                <%= t('get_started', default: 'Почати') %>
+                <%= t('activerecord.attributes.user.get_started') %>
               <% end %>
             <% end %>
           </div>
@@ -185,7 +189,7 @@
       <nav class="p-4 space-y-1 overflow-y-auto max-h-[calc(100vh-100px)] custom-scrollbar">
         <%= link_to posts_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
           <i class='bx bx-home text-xl'></i>
-          <span class="text-sm font-medium"><%= t('home', default: 'Головна') %></span>
+          <span class="text-sm font-medium"><%= t('app.home') %></span>
         <% end %>
         <% if user_signed_in? %>
           <%= link_to library_posts_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>

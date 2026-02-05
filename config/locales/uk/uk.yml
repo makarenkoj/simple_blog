@@ -126,6 +126,7 @@ uk:
         followers: "Підписники"
         follow: 'Підписатися'
         who_to_follow: 'На кого підписатися'
+        get_started: "Увійти"
       posts:
         title: 'Назва'
         address: 'Місце проведення'
@@ -233,10 +234,11 @@ uk:
   # --- Кастомні секції App ---
   app:
     name: 'Пост'
-    company: 'Просто Блог'
+    company: 'Healthy Boost'
     url: 'blogasik.com'
-    simple: 'Simple'
-    blog: 'Blog'
+    simple: 'Healthy'
+    blog: 'Boost'
+    home: 'Головна'
   follow: "Підписатися"
   following: "Ви підписані"
   followers: "Підписників"

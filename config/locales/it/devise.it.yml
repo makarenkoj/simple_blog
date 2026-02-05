@@ -1,0 +1,82 @@
+it:
+  devise:
+    form:
+      email: "Email"
+      password: "Password"
+      password_confirmation: "Conferma password"
+      current_password: "Password attuale"
+    shared:
+      links:
+        sign_in: "Accedi"
+        sign_up: "Registrati"
+        forgot_password: "Password dimenticata?"
+        resend_confirmation: "Non hai ricevuto le istruzioni di conferma?"
+        resend_unlock: "Non hai ricevuto le istruzioni di sblocco?"
+        sign_in_with: "Accedi con %{provider}"
+    confirmations:
+      confirmed: "Il tuo account è stato confermato con successo."
+      send_instructions: "Riceverai un'email con le istruzioni per confermare il tuo account tra pochi minuti."
+      send_paranoid_instructions: "Se il tuo indirizzo email esiste nel nostro database, riceverai un'email con le istruzioni per confermare il tuo account tra pochi minuti."
+    failure:
+      already_authenticated: "Hai già effettuato l'accesso."
+      inactive: "Il tuo account non è ancora stato attivato."
+      invalid: "%{authentication_keys} o password non valida."
+      locked: "Il tuo account è bloccato."
+      last_attempt: "Hai ancora un tentativo prima che il tuo account venga bloccato."
+      not_found_in_database: "%{authentication_keys} o password non valida."
+      timeout: "La tua sessione è scaduta. Accedi nuovamente per continuare."
+      unauthenticated: "Devi accedere o registrarti per continuare."
+      unconfirmed: "Devi confermare il tuo account per continuare."
+    mailer:
+      confirmation_instructions:
+        subject: "Istruzioni per la conferma dell'account"
+      reset_password_instructions:
+        subject: "Istruzioni per il reset della password"
+      unlock_instructions:
+        subject: "Istruzioni per lo sblocco dell'account"
+      password_change:
+        subject: "La password è stata modificata"
+    omniauth_callbacks:
+      failure: "Impossibile autenticarti da %{kind} perché \"%{reason}\"."
+      success: "Autenticato con successo dall'account %{kind}."
+    passwords:
+      new:
+        title: "Password dimenticata?"
+        submit: "Invia istruzioni per il reset della password"
+      edit:
+        title: "Cambia la tua password"
+        submit: "Cambia la mia password"
+      no_token: "Non puoi accedere a questa pagina senza provenire da un'email di reset password. Se provieni da un'email, assicurati di aver utilizzato l'URL completo."
+      send_instructions: "Riceverai un'email con le istruzioni per resettare la tua password tra pochi minuti."
+      send_paranoid_instructions: "Se il tuo indirizzo email esiste nel nostro database, riceverai un link per il recupero della password al tuo indirizzo email tra pochi minuti."
+      updated: "La tua password è stata cambiata con successo. Ora sei connesso."
+      updated_not_active: "La tua password è stata cambiata con successo."
+    registrations:
+      destroyed: "Arrivederci! Il tuo account è stato cancellato con successo. Speriamo di rivederti presto."
+      signed_up: "Benvenuto! Ti sei registrato con successo."
+      signed_up_but_inactive: "Ti sei registrato con successo. Tuttavia, non puoi accedere perché il tuo account non è ancora attivato."
+      signed_up_but_locked: "Ti sei registrato con successo. Tuttavia, non puoi accedere perché il tuo account è bloccato."
+      signed_up_but_unconfirmed: "Un messaggio con un link di conferma è stato inviato al tuo indirizzo email. Per favore segui il link per attivare il tuo account."
+      update_needs_confirmation: "Hai aggiornato il tuo account con successo, ma dobbiamo verificare il tuo nuovo indirizzo email. Controlla la tua email e segui il link di conferma per confermare il tuo nuovo indirizzo email."
+      updated: "Il tuo account è stato aggiornato con successo."
+    sessions:
+      signed_in: "Accesso effettuato con successo."
+      signed_out: "Uscita effettuata con successo."
+      already_signed_out: "Uscita effettuata con successo."
+      new:
+        sign_in: "Accedi"
+        remember_me: "Ricordami"
+    unlocks:
+      send_instructions: "Riceverai un'email con le istruzioni per sbloccare il tuo account tra pochi minuti."
+      send_paranoid_instructions: "Se il tuo account esiste, riceverai un'email con le istruzioni per sbloccarlo tra pochi minuti."
+      unlocked: "Il tuo account è stato sbloccato con successo. Accedi per continuare."
+  errors:
+    messages:
+      already_confirmed: "è già stato confermato, prova ad accedere"
+      confirmation_period_expired: "deve essere confermato entro %{period}, per favore richiedi una nuova conferma"
+      expired: "è scaduto, per favore richiedine uno nuovo"
+      not_found: "non trovato"
+      not_locked: "non era bloccato"
+      not_saved:
+        one: "%{resource}: Si è verificato un errore che impedisce il salvataggio."
+        other: "%{resource}: Si sono verificati %{count} errori che impediscono il salvataggio."

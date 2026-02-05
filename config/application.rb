@@ -34,7 +34,7 @@ module SimpleBlog
     # the framework and any gems in your application.
 
     config.i18n.load_path += Dir["#{Rails.root.join('config/locales/**/*.{rb,yml}')}"]
-    config.i18n.available_locales = %i[en uk]
+    config.i18n.available_locales = %i[en uk  it]
     config.i18n.default_locale = :uk
     config.i18n.fallbacks = true
 
