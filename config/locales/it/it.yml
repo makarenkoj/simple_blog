@@ -50,7 +50,7 @@ it:
   privacy:
     title: "Informativa sulla Privacy"
     updated_at: "Ultimo aggiornamento: %{date}"
-    intro_html: "Benvenuti su <strong>Healthy Boost</strong>. Rispettiamo la tua privacy e ci impegniamo a proteggere i tuoi dati personali. Questa politica spiega come raccogliamo, utilizziamo e proteggiamo le tue informazioni."
+    intro_html: "Benvenuti su <strong>Help Boost</strong>. Rispettiamo la tua privacy e ci impegniamo a proteggere i tuoi dati personali. Questa politica spiega come raccogliamo, utilizziamo e proteggiamo le tue informazioni."
     collection:
       title: "Dati che raccogliamo"
       body: "Possiamo raccogliere le seguenti categorie di dati:"
@@ -77,7 +77,7 @@ it:
   terms:
     title: "Termini di Servizio"
     updated_at: "Ultimo aggiornamento: %{date}"
-    intro_html: "Benvenuti su <strong>Healthy Boost</strong>. Utilizzando il nostro sito web, accetti i seguenti termini."
+    intro_html: "Benvenuti su <strong>Help Boost</strong>. Utilizzando il nostro sito web, accetti i seguenti termini."
     medical:
       title: "Disclaimer Medico"
       body: "Il contenuto di questo sito, inclusi articoli, testi, grafici e altre informazioni, è solo a scopo informativo. Queste informazioni NON sostituiscono il parere, la diagnosi o il trattamento medico professionale. Chiedi sempre il parere del tuo medico o di un altro operatore sanitario qualificato per qualsiasi domanda tu possa avere riguardo a una condizione medica."
@@ -86,7 +86,7 @@ it:
       body: "Puoi leggere, commentare e condividere i nostri materiali. È vietato utilizzare i contenuti del sito per spam, distribuzione di malware o molestie verso altri membri della comunità."
     intellectual:
       title: "Proprietà Intellettuale"
-      body: "Tutti i contenuti (articoli, loghi, design) sono di proprietà di Healthy Boost o dei nostri autori e sono protetti da copyright."
+      body: "Tutti i contenuti (articoli, loghi, design) sono di proprietà di Help Boost o dei nostri autori e sono protetti da copyright."
     liability:
       title: "Limitazione di Responsabilità"
       body: "Non siamo responsabili per eventuali danni o lesioni derivanti dall'uso delle informazioni presenti su questo sito."
@@ -99,10 +99,10 @@ it:
     quote: "La salute non è una destinazione, è un modo di viaggiare."
     story:
       title: "Chi Siamo"
-      body: "Healthy Boost è una comunità di appassionati, esperti e persone comuni che condividono le loro esperienze verso un benessere migliore. Scriviamo di nutrizione, sport, salute mentale e produttività."
+      body: "Help Boost è una comunità di appassionati, esperti e persone comuni che condividono le loro esperienze verso un benessere migliore. Scriviamo di nutrizione, sport, salute mentale e produttività."
     join:
       title: "Unisciti a Noi"
-      body: "Entra a far parte della comunità Healthy Boost. Registrati per salvare articoli e connetterti con gli autori."
+      body: "Entra a far parte della comunità Help Boost. Registrati per salvare articoli e connetterti con gli autori."
   # --- Simple Form ---
   simple_form:
     "Yes": "Sì"
@@ -291,9 +291,9 @@ it:
   # --- Sezioni App Personalizzate ---
   app:
     name: 'Post'
-    company: 'Healthy Boost'
+    company: 'Help Boost'
     url: 'blogasik.com'
-    simple: 'Healthy'
+    simple: 'Help'
     blog: 'Boost'
     home: 'Casa'
   follow: "Segui"
