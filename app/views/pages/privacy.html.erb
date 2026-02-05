@@ -1,0 +1,42 @@
+<div class="min-h-screen bg-white py-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h1 class="text-3xl font-serif font-bold text-slate-900 sm:text-4xl">
+        <%= t('privacy.title') %>
+      </h1>
+      <p class="mt-4 text-slate-600">
+        <%= t('privacy.updated_at', date: l(Date.current, format: :long)) %>
+      </p>
+    </div>
+    <div class="prose prose-lg prose-slate mx-auto text-slate-600">
+      <p><%= t('privacy.intro_html') %></p>
+      <h3>1. <%= t('privacy.collection.title') %></h3>
+      <p><%= t('privacy.collection.body') %></p>
+      <ul>
+        <li><%= t('privacy.collection.point_1') %></li>
+        <li><%= t('privacy.collection.point_2') %></li>
+        <li><%= t('privacy.collection.point_3') %></li>
+      </ul>
+      <h3>2. <%= t('privacy.usage.title') %></h3>
+      <p><%= t('privacy.usage.body') %></p>
+      <h3>3. <%= t('privacy.cookies.title') %></h3>
+      <p><%= t('privacy.cookies.body') %></p>
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-6 my-8 not-prose rounded-r-lg">
+        <h3 class="text-lg font-bold text-blue-900 mb-2">
+          <%= t('privacy.affiliate.title') %>
+        </h3>
+        <p class="text-blue-800 text-sm leading-relaxed">
+          <%= t('privacy.affiliate.body') %>
+        </p>
+      </div>
+      <h3>5. <%= t('privacy.rights.title') %></h3>
+      <p><%= t('privacy.rights.body') %></p>
+      <ul>
+        <li><%= t('privacy.rights.access') %></li>
+        <li><%= t('privacy.rights.deletion') %></li>
+      </ul>
+      <h3>6. <%= t('privacy.contact.title') %></h3>
+      <p><%= t('privacy.contact.body_html', email: 'support@healthyboost.com') %></p>
+    </div>
+  </div>
+</div>

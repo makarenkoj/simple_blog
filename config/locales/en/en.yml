@@ -43,7 +43,66 @@ en:
     cover_image:
       large: 'Cover image is too large, over 5 megabytes!'
       dimension: 'Cover image must be smaller than 2000x2000 pixels.'
-
+  cookies:
+    consent_text: "We use cookies to improve your experience and for security."
+    privacy_policy: "Privacy Policy"
+    accept: "Got it"
+  privacy:
+    title: "Privacy Policy"
+    updated_at: "Last updated: %{date}"
+    intro_html: "Welcome to <strong>Healthy Boost</strong>. We respect your privacy and are committed to protecting your personal data. This policy explains how we collect, use, and protect your information."
+    collection:
+      title: "Data We Collect"
+      body: "We may collect the following categories of data:"
+      point_1: "Registration Data: Name, email, encrypted password."
+      point_2: "Profile Data: Your bio, avatar, and social links."
+      point_3: "Technical Data: IP address, browser type, cookies."
+    usage:
+      title: "How We Use Data"
+      body: "We use your data solely to provide blog services: authentication, allowing you to publish articles, leave comments, and receive notifications."
+    cookies:
+      title: "Cookies"
+      body: "We use cookies to maintain your session (keep you logged in) and language preferences. We do not use third-party advertising trackers without your consent."
+    affiliate:
+      title: "Affiliate Disclosure"
+      body: "Some links in our articles may be 'affiliate links'. This means if you click on the link and purchase an item, we may receive a small commission at no extra cost to you. We only recommend products and services we use or trust."
+    rights:
+      title: "Your Rights (GDPR)"
+      body: "Under GDPR, you have the right to:"
+      access: "Request a copy of your data."
+      deletion: "Delete your account and all associated data at any time via profile settings."
+    contact:
+      title: "Contact Us"
+      body_html: "If you have questions about this policy, please email us at: <strong>%{email}</strong>"
+  terms:
+    title: "Terms of Service"
+    updated_at: "Last updated: %{date}"
+    intro_html: "Welcome to <strong>Healthy Boost</strong>. By using our website, you agree to the following terms."
+    medical:
+      title: "Medical Disclaimer"
+      body: "The content on this site, including articles, text, graphics, and other information, is for informational purposes only. This information is NOT a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition."
+    rules:
+      title: "Content Usage"
+      body: "You may read, comment on, and share our materials. Using the site content for spam, distributing malware, or harassing other community members is prohibited."
+    intellectual:
+      title: "Intellectual Property"
+      body: "All content (articles, logos, design) is the property of Healthy Boost or our authors and is protected by copyright."
+    liability:
+      title: "Limitation of Liability"
+      body: "We are not liable for any damages or harm resulting from the use of information from this site."
+  about:
+    title: "About Healthy Boost"
+    subtitle: "We believe that a healthy lifestyle should be simple, accessible, and inspiring for everyone."
+    mission:
+      title: "Our Mission"
+      body: "The world of health is full of complex information. Our mission is to filter out the noise and provide you with verified, practical advice that is easy to implement in everyday life. We are here to give you the boost you need for change."
+    quote: "Health is not a destination, it is a way of traveling."
+    story:
+      title: "Who We Are"
+      body: "Healthy Boost is a community of enthusiasts, experts, and everyday people sharing their experiences on the path to better well-being. We write about nutrition, sports, mental health, and productivity."
+    join:
+      title: "Join Us"
+      body: "Become part of the Healthy Boost community. Sign up to save articles and connect with authors."
   # --- Simple Form ---
   simple_form:
     "Yes": "Yes"
@@ -126,7 +185,7 @@ en:
         followers: "Followers"
         follow: 'Follow'
         who_to_follow: 'Who to follow'
-        get_started: "Log in"
+        get_started: "Sign up"
       posts:
         title: 'Title'
         address: 'Location'

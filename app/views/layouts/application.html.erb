@@ -66,7 +66,6 @@
                 <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
               <% end %>
             <% end %>
-
               <div class="dropdown" data-controller="dropdown">
                 <button type="button" class="flex items-center space-x-1 p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
                   <i class="ri-global-line text-xl"></i>
@@ -107,7 +106,6 @@
                 </div>
               </div>
             <% if user_signed_in? %>
-
               <%= turbo_stream_from current_user, :notifications %>
               <%= render "partials/notifications_dropdown", user: current_user %>
               <div class="dropdown" data-controller="dropdown">
@@ -214,5 +212,7 @@
         <i class='bx bx-edit text-2xl'></i>
       <% end %>
     <% end %>
+    <%= render "shared/footer" %>
+    <%= render "shared/cookie_banner" %>
   </body>
 </html>

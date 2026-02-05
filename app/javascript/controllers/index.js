@@ -7,6 +7,9 @@ import { application } from "./application"
 import AutohideController from "./autohide_controller"
 application.register("autohide", AutohideController)
 
+import CookieConsentController from "./cookie_consent_controller"
+application.register("cookie-consent", CookieConsentController)
+
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "pages/privacy"
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     get 'up' => 'rails/health#show', as: :rails_health_check
 
@@ -43,5 +44,8 @@ Rails.application.routes.draw do
     end
 
     get 'search', to: 'search#index'
+    get 'privacy', to: 'pages#privacy', as: :privacy_policy
+    get 'terms', to: 'pages#terms', as: :terms
+    get 'about', to: 'pages#about', as: :about
   end
 end

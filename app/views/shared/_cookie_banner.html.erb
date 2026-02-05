@@ -1,0 +1,17 @@
+<div data-controller="cookie-consent" 
+    data-cookie-consent-target="banner" 
+    class="fixed bottom-0 left-0 right-0 z-[100] p-4 bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] hidden transition-transform duration-300 translate-y-full">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="text-sm text-slate-600">
+      <p>
+        <%= t('cookies.consent_text') %>
+        <%= link_to t('cookies.privacy_policy'), privacy_policy_path, class: "underline text-slate-900 hover:text-blue-600", data: { turbo: false } %>
+      </p>
+    </div>
+    <div class="flex items-center gap-3">
+      <button data-action="click->cookie-consent#accept" type="button" class="px-6 py-2 bg-blue-600 text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
+        <%= t('cookies.accept') %>
+      </button>
+    </div>
+  </div>
+</div>
