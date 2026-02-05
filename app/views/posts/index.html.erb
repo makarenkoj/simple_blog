@@ -27,16 +27,19 @@
     <div class="flex gap-12">
       <div class="flex-1 max-w-3xl">
         <% if @posts.any? %>
-          <div class="divide-y divide-slate-200">
+          <div id="posts_list" class="divide-y divide-slate-200">
             <%= render partial: 'posts/post', collection: @posts, locals: { source: action_name } %>
           </div>
-          <% if @posts.count >= 10 %>
-            <div class="mt-16 text-center">
-              <button class="inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200">
+          <div id="pagination" class="mt-16 text-center">
+            <% if @pagy.next %>
+              <% pagination_path = action_name == 'library' ? library_posts_path(page: @pagy.next) : posts_path(page: @pagy.next) %>
+              <%= link_to pagination_path, 
+                  data: { turbo_stream: true }, 
+                  class: "inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
                 <%= t('activerecord.attributes.posts.index.load_more') %>
-              </button>
-            </div>
-          <% end %>
+              <% end %>
+            <% end %>
+          </div>
         <% else %>
           <div class="max-w-2xl mx-auto text-center py-20">
             <div class="mb-8">

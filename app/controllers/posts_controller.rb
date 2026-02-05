@@ -6,7 +6,12 @@ class PostsController < ApplicationController
   before_action :popular_creators, only: %i[index show library]
 
   def index
-    @posts = Post.all
+    @pagy, @posts = pagy(Post.order(created_at: :desc).all, limit: 5)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show; end
@@ -35,8 +40,13 @@ class PostsController < ApplicationController
   end
 
   def library
-    @posts = current_user.bookmarked_posts.includes(:user, :rich_text_body).order('bookmarks.created_at DESC')
-    render :index
+    scope = current_user.bookmarked_posts.includes(:user, :rich_text_body).order('bookmarks.created_at DESC')
+    @pagy, @posts = pagy(scope, limit: 5)
+
+    respond_to do |format|
+      format.html { render :index }
+      format.turbo_stream { render :index }
+    end
   end
 
   def destroy

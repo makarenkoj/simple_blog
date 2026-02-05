@@ -12,6 +12,7 @@ gem 'importmap-rails'
 gem 'jbuilder'
 gem 'kamal', require: false
 gem 'kaminari', '~> 1.2'
+gem 'pagy', '~> 43.2'
 gem 'pg'
 gem 'phlex-rails', '~> 1.2'
 gem 'propshaft'
