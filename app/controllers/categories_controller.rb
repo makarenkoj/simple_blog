@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show]
 
   def show
-    @posts = @category.posts.includes(:user, :rich_text_body).order(created_at: :desc)
+    @pagy, @posts = pagy(@category.posts.includes(:user, :rich_text_body).order(created_at: :desc), limit: 5)
     render 'posts/index'
   end
 

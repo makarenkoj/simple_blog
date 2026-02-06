@@ -154,7 +154,7 @@
                     </li>
                   <% end %>
                   <li class="border-t border-slate-200 mt-2 pt-2">
-                    <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+                    <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo: false }, class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
                       <i class='bx bx-log-out text-lg'></i>
                       <span><%= t('activerecord.attributes.user.sign_out') %></span>
                     <% end %>
@@ -162,10 +162,10 @@
                 </ul>
               </div>
             <% else %>
-              <%= link_to new_user_session_path, class: "px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
+              <%= link_to new_user_session_path, data: { turbo: 'false' }, class: "px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
                 <%= t('activerecord.attributes.user.sign_in') %>
               <% end %>
-              <%= link_to new_user_registration_path, class: "px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-slate-800 transition-colors duration-200" do %>
+              <%= link_to new_user_registration_path, data: { turbo: "false" }, class: "px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-slate-800 transition-colors duration-200" do %>
                 <%= t('activerecord.attributes.user.get_started') %>
               <% end %>
             <% end %>

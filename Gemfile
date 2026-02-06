@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'active_storage_validations', '~> 3.0'
+gem 'avo', '~> 3.29'
 gem 'bootsnap'
 gem 'cssbundling-rails'
 gem 'devise'
@@ -12,12 +13,13 @@ gem 'importmap-rails'
 gem 'jbuilder'
 gem 'kamal', require: false
 gem 'kaminari', '~> 1.2'
-gem 'pagy', '~> 43.2'
+gem 'pagy'
 gem 'pg'
 gem 'phlex-rails', '~> 1.2'
 gem 'propshaft'
 gem 'puma'
 gem 'rails', '~> 8.0.2'
+gem 'ransack', '~> 4.4'
 gem 'ruby_ui', group: :development, require: false
 gem 'simple_form'
 gem 'solid_cable'
@@ -31,6 +33,7 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'dotenv', '~> 3.1'
   gem 'listen'
   gem 'rubocop'
   gem 'rubocop-rails', require: false

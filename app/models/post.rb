@@ -19,6 +19,14 @@ class Post < ApplicationRecord
 
   after_create :notify_followers
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id title created_at updated_at]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user categories rich_text_body]
+  end
+
   private
 
   def notify_followers

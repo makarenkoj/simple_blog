@@ -186,6 +186,7 @@ it:
         follow: 'Segui'
         who_to_follow: 'Chi seguire'
         get_started: "Registrati"
+        preferred_categories: 'Categorie preferite'
       posts:
         title: 'Titolo'
         address: 'Luogo'

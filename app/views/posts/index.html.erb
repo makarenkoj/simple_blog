@@ -13,7 +13,7 @@
         </h1>
         <p class="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl">
           <% if controller_name == 'categories' %>
-            <%= t('activerecord.attributes.posts.index.posts_in_category', count: @posts.count) %>
+            <%= t('activerecord.attributes.posts.index.posts_in_category', count: @category.posts.count) %>
           <% elsif action_name == 'library' %>
             <%= t('activerecord.attributes.posts.library_subtitle') %>
           <% else %>
@@ -31,8 +31,14 @@
             <%= render partial: 'posts/post', collection: @posts, locals: { source: action_name } %>
           </div>
           <div id="pagination" class="mt-16 text-center">
-            <% if @pagy.next %>
-              <% pagination_path = action_name == 'library' ? library_posts_path(page: @pagy.next) : posts_path(page: @pagy.next) %>
+            <% if @pagy && @pagy.next %>
+              <% pagination_path = if action_name == 'library'
+                                     library_posts_path(page: @pagy.next)
+                                   elsif controller_name == 'categories'
+                                     category_path(@category, page: @pagy.next)
+                                   else
+                                     posts_path(page: @pagy.next)
+                                   end %>
               <%= link_to pagination_path, 
                   data: { turbo_stream: true }, 
                   class: "inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>

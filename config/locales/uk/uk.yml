@@ -103,6 +103,24 @@ uk:
     join:
       title: "Приєднуйтесь до нас"
       body: "Станьте частиною спільноти Help Boost. Реєструйтеся, щоб зберігати статті та спілкуватися з авторами."
+  avo:
+    admin:
+      not_access: "У вас немає доступу до адміністративної панелі."
+    get_started: 'Почати'
+    resources: 'ресурси'
+    posts: "Публікації"
+    users: "Користувачі"
+    categories: "Категорії"
+    field_translations:
+      id: 'Айді'
+      name: 'Ім’я'
+      title: 'Тайтл'
+      user_id: 'Айді творця'
+      cover_image: 'Обкладинка'
+      user: 'Творець'
+      first_name: "Ім'я"
+      last_name: "Прізвище"
+      role: 'Роль'
   # --- Simple Form ---
   simple_form:
     "Yes": "Так"
@@ -186,6 +204,7 @@ uk:
         follow: 'Підписатися'
         who_to_follow: 'На кого підписатися'
         get_started: "Зарєєструватись"
+        preferred_categories: 'Улюблені категоріі'
       posts:
         title: 'Назва'
         address: 'Місце проведення'

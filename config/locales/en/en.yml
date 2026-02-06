@@ -186,6 +186,7 @@ en:
         follow: 'Follow'
         who_to_follow: 'Who to follow'
         get_started: "Sign up"
+        preferred_categories: 'Preferred categories'
       posts:
         title: 'Title'
         address: 'Location'
