@@ -237,6 +237,11 @@ uk:
           load_more: "Завантажити більше публікацій"
           min_read: "хвилини читання"
           posts_in_category: "Постів у категорії %{count}"
+          filter:
+            filter: 'Фільтр'
+            choose_category: "Виберіть категорії"
+            reset_all: "Скинути всі"
+            show_results: "Показати результати"
         post:
           by: "від"
           anonymous: "Анонім"

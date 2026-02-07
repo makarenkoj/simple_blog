@@ -1,0 +1,57 @@
+<div class="relative inline-block text-left" data-controller="dropdown">
+  <button type="button" 
+          class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm"
+          data-action="click->dropdown#toggle"
+          data-dropdown-target="toggle">
+    <i class="ri-filter-3-line text-lg"></i>
+    <span><%= t('activerecord.attributes.posts.index.filter.filter') %></span>
+    <% if params[:category_ids].present? %>
+      <span class="flex h-5 w-5 items-center justify-center rounded-full bg-slate-900 text-[10px] text-white font-bold">
+        <%= params[:category_ids].size %>
+      </span>
+    <% end %>
+    <i class="ri-arrow-down-s-line ml-1"></i>
+  </button>
+  <div class="dropdown-menu dropdown-hidden absolute right-0 mt-2 w-72 sm:w-80 bg-white rounded-xl shadow-2xl ring-1 ring-black ring-opacity-5 z-50 p-0"
+       data-dropdown-target="menu">
+    <%= form_with url: posts_path, method: :get, data: { turbo_frame: "_top" } do |f| %>
+      <div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-xl">
+        <span class="text-sm font-semibold text-slate-900">
+          <%= t('activerecord.attributes.posts.index.filter.choose_category') %>
+        </span>
+        <% if params[:category_ids].present? %>
+          <%= link_to posts_path, class: "text-xs text-red-600 hover:text-red-700 font-medium transition-colors" do %>
+          <%= t('activerecord.attributes.posts.index.filter.reset_all') %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="p-2 max-h-64 overflow-y-auto custom-scrollbar">
+        <div class="space-y-1">
+          <% Category.order(:name).each do |category| %>
+            <label class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer group transition-colors">
+              <div class="flex items-center">
+                <%= check_box_tag "category_ids[]", 
+                    category.id, 
+                    (params[:category_ids] || []).include?(category.id.to_s), 
+                    id: "cat_#{category.id}",
+                    class: "w-4 h-4 text-slate-900 border-slate-300 rounded focus:ring-slate-900 cursor-pointer" 
+                %>
+                <span class="ml-3 text-sm text-slate-700 font-medium group-hover:text-slate-900">
+                  <%= category.name %>
+                </span>
+              </div>
+              <span class="text-xs text-slate-400">
+                <%= category.posts.count %>
+              </span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+      <div class="p-3 border-t border-slate-100 bg-slate-50/50 rounded-b-xl">
+        <%= button_tag type: 'submit', class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium bg-slate-900 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 transition-all" do %>
+          <%= t('activerecord.attributes.posts.index.filter.show_results') %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

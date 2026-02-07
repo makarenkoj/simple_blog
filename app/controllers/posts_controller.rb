@@ -6,7 +6,13 @@ class PostsController < ApplicationController
   before_action :popular_creators, only: %i[index show library]
 
   def index
-    @pagy, @posts = pagy(Post.order(created_at: :desc).all, limit: 5)
+    @posts_scope = Post.includes(:user, :categories).with_attached_cover_image.order(created_at: :desc)
+
+    if params[:category_ids].present?
+      @posts_scope = @posts_scope.joins(:categories).where(categories: { id: params[:category_ids] })
+    end
+
+    @pagy, @posts = pagy(@posts_scope, limit: 5)
 
     respond_to do |format|
       format.html

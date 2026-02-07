@@ -219,6 +219,11 @@ en:
           load_more: "Load more posts"
           min_read: "min read"
           posts_in_category: "Posts in category %{count}"
+          filter:
+            filter: 'Filter'
+            choose_category: "Choose categories"
+            reset_all: "Reset all"
+            show_results: "Show results"
         post:
           by: "by"
           anonymous: "Anonymous"

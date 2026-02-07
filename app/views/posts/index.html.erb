@@ -1,25 +1,32 @@
 <div class="min-h-screen bg-white">
-  <header class="border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
-      <div class="max-w-3xl lg:max-w-none">
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3 leading-tight">
-          <% if controller_name == 'categories' %>
-            <%= @category.name.capitalize %>
-          <% elsif action_name == 'library' %>
-            <%= t('activerecord.attributes.posts.library') %>
-          <% else %>
-            <%= t('activerecord.attributes.posts.index.title') %>
-          <% end %>
-        </h1>
-        <p class="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl">
-          <% if controller_name == 'categories' %>
-            <%= t('activerecord.attributes.posts.index.posts_in_category', count: @category.posts.count) %>
-          <% elsif action_name == 'library' %>
-            <%= t('activerecord.attributes.posts.library_subtitle') %>
-          <% else %>
-            <%= t('activerecord.attributes.posts.index.subtitle') %>
-          <% end %>
-        </p>
+  <header class="border-b border-slate-200 bg-white/80 backdrop-blur-md top-16 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        <div class="max-w-3xl">
+          <h1 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-2 leading-tight">
+            <% if controller_name == 'categories' %>
+              <%= @category.name.capitalize %>
+            <% elsif action_name == 'library' %>
+              <%= t('activerecord.attributes.posts.library') %>
+            <% else %>
+              <%= t('activerecord.attributes.posts.index.title') %>
+            <% end %>
+          </h1>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+            <% if controller_name == 'categories' %>
+              <%= t('activerecord.attributes.posts.index.posts_in_category', count: @category.posts.count) %>
+            <% elsif action_name == 'library' %>
+              <%= t('activerecord.attributes.posts.library_subtitle') %>
+            <% else %>
+              <%= t('activerecord.attributes.posts.index.subtitle') %>
+            <% end %>
+          </p>
+        </div>
+        <% unless controller_name == 'categories' %>
+          <div class="flex-shrink-0 mt-2 md:mt-0">
+            <%= render 'posts/filter_dropdown' %>
+          </div>
+        <% end %>
       </div>
     </div>
   </header>
@@ -33,11 +40,11 @@
           <div id="pagination" class="mt-16 text-center">
             <% if @pagy && @pagy.next %>
               <% pagination_path = if action_name == 'library'
-                                     library_posts_path(page: @pagy.next)
+                                     library_posts_path(page: @pagy.next, category_ids: params[:category_ids])
                                    elsif controller_name == 'categories'
                                      category_path(@category, page: @pagy.next)
                                    else
-                                     posts_path(page: @pagy.next)
+                                     posts_path(page: @pagy.next, category_ids: params[:category_ids])
                                    end %>
               <%= link_to pagination_path, 
                   data: { turbo_stream: true }, 

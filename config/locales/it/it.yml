@@ -219,6 +219,11 @@ it:
           load_more: "Carica altri post"
           min_read: "min di lettura"
           posts_in_category: "Post nella categoria %{count}"
+          filter:
+            filter: 'Filtro'
+            choose_category: "Scegli categorie"
+            reset_all: "Reimposta tutto"
+            show_results: "Mostra risultati"
         post:
           by: "da"
           anonymous: "Anonimo"
