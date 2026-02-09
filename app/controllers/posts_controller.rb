@@ -8,9 +8,7 @@ class PostsController < ApplicationController
   def index
     @posts_scope = Post.includes(:user, :categories).with_attached_cover_image.order(created_at: :desc)
 
-    if params[:category_ids].present?
-      @posts_scope = @posts_scope.joins(:categories).where(categories: { id: params[:category_ids] })
-    end
+    @posts_scope = @posts_scope.joins(:categories).where(categories: { id: params[:category_ids] }) if params[:category_ids].present?
 
     @pagy, @posts = pagy(@posts_scope, limit: 5)
 
@@ -57,7 +55,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: I18n.t('activerecord.controllers.posts.destroyed')
+    redirect_to posts_url(format: :html), notice: I18n.t('activerecord.controllers.posts.destroyed'), status: :see_other
   end
 
   private
