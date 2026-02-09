@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'active_storage_validations', '~> 3.0'
 gem 'avo', '~> 3.29'
+gem 'aws-sdk-s3', '~> 1.213'
 gem 'bootsnap'
 gem 'cssbundling-rails'
 gem 'devise'
@@ -31,16 +32,28 @@ gem 'thruster', require: false
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
+group :development do
+  gem 'web-console'
+end
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv', '~> 3.1'
+  gem 'factory_bot_rails'
   gem 'listen'
+  gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'spring'
   gem 'spring-watcher-listen'
-  gem 'web-console'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :production do
