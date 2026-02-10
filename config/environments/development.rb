@@ -14,7 +14,7 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+  if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
@@ -29,13 +29,22 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :cloudflare
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { address:              'smtp.gmail.com',
+                                         port:                 587,
+                                         domain:               'gmail.com',
+                                         user_name:            ENV.fetch('GMAIL_USERNAME'),
+                                         password:             ENV.fetch('GMAIL_PASSWORD'),
+                                         authentication:       'plain',
+                                         enable_starttls_auto: true
+                                        }
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -61,4 +70,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  config.assets.paths << Rails.root.join('app/assets/builds')
 end

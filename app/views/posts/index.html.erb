@@ -1,5 +1,144 @@
-<div class="post-heading">
-  <div class="subheading">
-    <%= render partial: 'posts/post', collection: @posts %>
+<div class="min-h-screen bg-white">
+  <header class="border-b border-slate-200 bg-white/80 backdrop-blur-md top-16 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        <div class="max-w-3xl">
+          <h1 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-2 leading-tight">
+            <% if controller_name == 'categories' %>
+              <%= @category.name.capitalize %>
+            <% elsif action_name == 'library' %>
+              <%= t('activerecord.attributes.posts.library') %>
+            <% else %>
+              <%= t('activerecord.attributes.posts.index.title') %>
+            <% end %>
+          </h1>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+            <% if controller_name == 'categories' %>
+              <%= t('activerecord.attributes.posts.index.posts_in_category', count: @category.posts.count) %>
+            <% elsif action_name == 'library' %>
+              <%= t('activerecord.attributes.posts.library_subtitle') %>
+            <% else %>
+              <%= t('activerecord.attributes.posts.index.subtitle') %>
+            <% end %>
+          </p>
+        </div>
+        <% unless controller_name == 'categories' %>
+          <div class="flex-shrink-0 mt-2 md:mt-0">
+            <%= render 'posts/filter_dropdown' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </header>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex gap-12">
+      <div class="flex-1 max-w-3xl">
+        <% if @posts.any? %>
+          <div id="posts_list" class="divide-y divide-slate-200">
+            <%= render partial: 'posts/post', collection: @posts, locals: { source: action_name } %>
+          </div>
+          <div id="pagination" class="mt-16 text-center">
+            <% if @pagy && @pagy.next %>
+              <% pagination_path = if action_name == 'library'
+                                     library_posts_path(page: @pagy.next, category_ids: params[:category_ids])
+                                   elsif controller_name == 'categories'
+                                     category_path(@category, page: @pagy.next)
+                                   else
+                                     posts_path(page: @pagy.next, category_ids: params[:category_ids])
+                                   end %>
+              <%= link_to pagination_path, 
+                  data: { turbo_stream: true }, 
+                  class: "inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+                <%= t('activerecord.attributes.posts.index.load_more') %>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="max-w-2xl mx-auto text-center py-20">
+            <div class="mb-8">
+              <svg class="w-20 h-20 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-serif font-bold text-slate-900 mb-3">
+              <%= controller_name == 'categories' ? t('no_posts_in_category', default: 'У цій категорії поки немає постів') : t('activerecord.attributes.posts.index.no_posts') %>
+            </h3>
+            <% if current_user&.creator? && action_name != 'library' && controller_name != 'categories' %>
+              <p class="text-lg text-slate-600 mb-8">
+                <%= t('activerecord.attributes.posts.index.create_one') %>
+              </p>
+              <%= link_to new_post_path, class: 'inline-flex items-center px-6 py-3 bg-slate-900 text-white font-medium rounded-full hover:bg-slate-800 transition-colors duration-200' do %>
+                <%= t('activerecord.attributes.posts.index.new_post') %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <aside class="hidden lg:!block w-80 flex-shrink-0">
+        <div class="sticky top-20">
+          <div class="bg-white border border-slate-200 rounded-lg p-6 mb-6">
+            <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
+              <%= t('activerecord.attributes.categories.popular') %>
+            </h3>
+            <div class="space-y-4">
+              <% @categories.each_with_index do |category, index| %>
+                <div class="flex items-center justify-between group">
+                  <%= link_to category_path(category), class: "group block" do %>
+                    <div class="flex items-baseline space-x-3">
+                      <div>
+                        <h4 class="text-sm font-semibold text-slate-900 group-hover:underline">
+                          <%= category.name.capitalize %>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-0.5">
+                          <%= category.posts.count %> <%= t('activerecord.attributes.posts.index.posts') %>
+                        </p>
+                      </div>
+                    </div>
+                  <% end %>
+                  <div class="ml-2 flex-shrink-0">
+                    <%= render "categories/preferences/button", category: category %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-lg p-6">
+            <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
+              <%= t('activerecord.attributes.user.who_to_follow') %>
+            </h3>
+            <div class="space-y-2">
+              <% @creators.each_with_index do |creator, i| %>
+                <%= turbo_frame_tag "recommended_user_#{creator.id}", class: "block" do %>
+                  <div class="flex items-center space-x-3 group cursor-pointer">
+                    <% if creator.avatar.attached? %>
+                      <%= image_tag creator.avatar.variant(resize_to_fill: [80, 80]), class: "w-10 h-10 rounded-full object-cover flex-shrink-0", alt: creator.username %>
+                    <% else %>
+                      <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                        <%= creator.username&.first&.upcase || '?' %>
+                      </div>
+                    <% end %>
+                    <div class="flex-1 min-w-0">
+                      <%= link_to user_path(creator), data: { turbo_frame: "_top" } do %>
+                        <p class="text-sm font-semibold text-slate-900 group-hover:underline truncate">
+                          <%= creator.username %>
+                        </p>
+                      <% end %>
+                      <p class="text-xs text-slate-500 truncate">
+                        <%= creator.followers.count %> <%= t('followers') %>
+                      </p>
+                    </div>
+                    <% if user_signed_in? %>
+                      <%= button_to follow_user_path(creator), class: "inline-flex items-center px-6 py-2 bg-slate-900 rounded-full text-sm font-medium hover:bg-slate-800 transition-colors duration-200" do %>
+                        <%= t('activerecord.attributes.user.follow') %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
   </div>
 </div>

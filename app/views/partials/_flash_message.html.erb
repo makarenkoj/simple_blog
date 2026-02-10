@@ -1,0 +1,27 @@
+<div class="w-full max-w-md animate-slideDown transition-all duration-300 pointer-events-auto" data-controller="autohide" data-autohide-delay-value="4000">
+  <% if type.to_s == 'notice' %>
+    <div class="bg-white border-l-4 border-green-500 p-4 rounded shadow-lg ring-1 ring-black/5">
+      <div class="flex items-start">
+        <i class='bx bx-check-circle text-green-500 text-2xl flex-shrink-0'></i>
+        <div class="ml-3 w-0 flex-1 pt-0.5">
+          <p class="text-sm font-medium text-slate-900"><%= message %></p>
+        </div>
+        <button type="button" class="ml-4 flex-shrink-0 text-slate-400 hover:text-slate-500 focus:outline-none" data-action="click->autohide#dismiss">
+          <i class='bx bx-x text-xl'></i>
+        </button>
+      </div>
+    </div>
+  <% else %>
+    <div class="bg-white border-l-4 border-red-500 p-4 rounded shadow-lg ring-1 ring-black/5">
+      <div class="flex items-start">
+        <i class='bx bx-error-circle text-red-500 text-2xl flex-shrink-0'></i>
+        <div class="ml-3 w-0 flex-1 pt-0.5">
+          <p class="text-sm font-medium text-slate-900"><%= message %></p>
+        </div>
+        <button type="button" class="ml-4 flex-shrink-0 text-slate-400 hover:text-slate-500 focus:outline-none" data-action="click->autohide#dismiss">
+          <i class='bx bx-x text-xl'></i>
+        </button>
+      </div>
+    </div>
+  <% end %>
+</div>

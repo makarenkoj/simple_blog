@@ -1,0 +1,29 @@
+<div class="min-h-screen bg-white py-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h1 class="text-3xl font-serif font-bold text-slate-900 sm:text-4xl">
+        <%= t('terms.title') %>
+      </h1>
+      <p class="mt-4 text-slate-600">
+        <%= t('terms.updated_at', date: l(Date.current, format: :long)) %>
+      </p>
+    </div>
+    <div class="prose prose-lg prose-slate mx-auto text-slate-600">
+      <p><%= t('terms.intro_html') %></p>
+      <div class="bg-red-50 border-l-4 border-red-500 p-6 my-8 not-prose rounded-r-lg">
+        <h3 class="text-lg font-bold text-red-900 mb-2">
+          <%= t('terms.medical.title') %>
+        </h3>
+        <p class="text-red-800 text-sm leading-relaxed">
+          <%= t('terms.medical.body') %>
+        </p>
+      </div>
+      <h3>1. <%= t('terms.rules.title') %></h3>
+      <p><%= t('terms.rules.body') %></p>
+      <h3>2. <%= t('terms.intellectual.title') %></h3>
+      <p><%= t('terms.intellectual.body') %></p>
+      <h3>3. <%= t('terms.liability.title') %></h3>
+      <p><%= t('terms.liability.body') %></p>
+    </div>
+  </div>
+</div>

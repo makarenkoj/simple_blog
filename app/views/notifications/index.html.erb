@@ -1,0 +1,92 @@
+<div class="min-h-screen bg-white">
+  <div class="border-b border-slate-200">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <h1 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900">
+        <%= t('notifications.notifications') %>
+      </h1>
+    </div>
+  </div>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <% if @notifications.any? %>
+      <div class="divide-y divide-slate-200">
+        <% @notifications.each do |notification| %>
+          <div class="py-6 <%= 'bg-blue-50' unless notification.read %>">
+            <div class="flex items-start space-x-4">
+              <% if notification.actor.avatar.attached? %>
+                <%= link_to click_notification_path(notification) do %>
+                  <%= image_tag notification.actor.avatar.variant(resize_to_limit: [48, 48]), 
+                      class: "w-12 h-12 rounded-full object-cover flex-shrink-0" %>
+                <% end %>
+              <% else %>
+                <%= link_to click_notification_path(notification) do %>
+                  <div class="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-white text-lg font-bold flex-shrink-0">
+                    <%= notification.actor.username&.first&.upcase || '?' %>
+                  </div>
+                <% end %>
+              <% end %>
+              <div class="flex-1 min-w-0">
+                <% if notification.action == 'new_post' %>
+                  <p class="text-sm text-slate-900 mb-1">
+                    <span class="font-semibold"><%= notification.actor.full_name %></span>
+                    <%= t('notifications.new_post', author: notification.actor.full_name, title: notification.notifiable.title) %>
+                  </p>
+                  <%= link_to click_notification_path(notification), class: "block mt-2 group" do %>
+                    <h3 class="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
+                      <%= notification.notifiable.title %>
+                    </h3>
+                  <% end %>
+                <% elsif notification.action == 'new_follower' %>
+                  <p class="text-sm text-slate-900">
+                    <span class="font-semibold"><%= notification.actor.full_name %></span>
+                    <%= t('notifications.followed_you') %>
+                  </p>
+                  <%= link_to click_notification_path(notification), class: "inline-flex items-center mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
+                    <%= t('notifications.view_profile') %>
+                    <i class='bx bx-right-arrow-alt ml-1'></i>
+                  <% end %>
+                <% elsif notification.action == 'post_liked' %>
+                  <p class="text-sm text-slate-900 mb-1">
+                    <i class='bx bxs-like text-blue-500 mr-1'></i>
+                    <span class="font-semibold"><%= notification.actor.full_name %></span>
+                    <%= t('notifications.post_liked_msg') %>
+                  </p>
+                  <%= link_to click_notification_path(notification), class: "block mt-2 group" do %>
+                    <h3 class="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
+                      <%= t('notifications.view_profile') %>
+                    </h3>
+                  <% end %>
+                <% end %>
+                <p class="text-xs text-slate-500 mt-2">
+                  <%= time_ago_in_words(notification.created_at) %> <%= t('ago', default: 'тому') %>
+                </p>
+              </div>
+              <%= button_to notification_path(notification), 
+                  method: :delete, 
+                  class: "flex-shrink-0 text-slate-400 hover:text-red-600 transition-colors duration-200",
+                  form: { data: { turbo_confirm: t('confirm_delete', default: 'Видалити сповіщення?') } } do %>
+                <i class='bx bx-x text-2xl'></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="mt-8">
+        <%= paginate @notifications %>
+      </div>
+    <% else %>
+      <div class="text-center py-16 sm:py-24">
+        <div class="mb-6">
+          <svg class="w-16 h-16 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-serif font-bold text-slate-900 mb-2">
+          <%= t('notifications.no_notifications') %>
+        </h3>
+        <p class="text-slate-600">
+          <%= t('notifications.no_notifications_description') %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

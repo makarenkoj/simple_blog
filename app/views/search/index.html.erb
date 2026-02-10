@@ -1,0 +1,104 @@
+<div class="min-h-screen bg-white">
+  <div class="border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 class="text-3xl font-serif font-bold text-slate-900 mb-2">
+        <%= t('search.search_results_for') %>: "<span class="text-blue-600"><%= @query %></span>"
+      </h1>
+      <p class="text-slate-600">
+        <%= t('search.found_results', count: @posts.count + @users.count + @categories.count) %>
+      </p>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <% if @categories.any? %>
+      <div class="mb-12">
+        <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+          <i class='bx bx-hash mr-2 text-slate-400'></i>
+          <%= t('categories') %>
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <% @categories.each do |category| %>
+            <%= link_to category_path(category), class: "group flex items-center p-4 border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all bg-white" do %>
+              <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+                <i class='bx bx-category text-xl'></i>
+              </div>
+              <span class="font-medium text-slate-700 group-hover:text-blue-700"><%= category.name %></span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <% if @users.any? %>
+      <div class="mb-12">
+        <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+          <i class='bx bx-user mr-2 text-slate-400'></i>
+          <%= t('users') %>
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% @users.each do |user| %>
+            <%= link_to user_path(user), class: "flex items-center space-x-4 p-4 rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all bg-white" do %>
+              <% if user.avatar.attached? %>
+                <%= image_tag user.avatar.variant(resize_to_limit: [60, 60]), class: "w-14 h-14 rounded-full object-cover" %>
+              <% else %>
+                <div class="w-14 h-14 rounded-full bg-slate-900 flex items-center justify-center text-white text-xl font-bold">
+                  <%= user.username&.first&.upcase %>
+                </div>
+              <% end %>
+              <div>
+                <p class="font-bold text-slate-900"><%= user.full_name %></p>
+                <p class="text-sm text-slate-500">@<%= user.username %></p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <% if @posts.any? %>
+      <div class="mb-8">
+        <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+          <i class='bx bx-news mr-2 text-slate-400'></i>
+          <%= t('posts') %>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <% @posts.each do |post| %>
+            <%= link_to post_path(post), class: "group block" do %>
+              <div class="aspect-video bg-slate-100 rounded-xl overflow-hidden mb-4 relative">
+                <% if post.cover_image.attached? %>
+                  <%= image_tag post.cover_image.variant(resize_to_limit: [600, 400]), class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" %>
+                <% else %>
+                  <div class="w-full h-full flex items-center justify-center bg-slate-200 text-slate-400">
+                    <i class='bx bx-image text-4xl'></i>
+                  </div>
+                <% end %>
+              </div>
+              <h3 class="font-bold text-lg text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                <%= highlight(post.title, @query, highlighter: '<mark class="bg-yellow-200 text-slate-900 rounded px-0.5">\1</mark>') %>
+              </h3>
+              <p class="text-slate-600 text-sm line-clamp-2">
+                <%= strip_tags(post.body.to_s).truncate(120) %>
+              </p>
+              <div class="mt-3 flex items-center text-xs text-slate-500 space-x-2">
+                <span><%= post.user.username %></span>
+                <span>•</span>
+                <span><%= time_ago_in_words(post.created_at) %></span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <% if @posts.empty? && @users.empty? && @categories.empty? %>
+      <div class="text-center py-20">
+        <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
+          <i class="ri-search-line text-4xl text-slate-300"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">
+          <%= t('search.search_no_results') %>
+        </h3>
+        <p class="text-slate-600">
+          <%= t('search.try_different_keywords') %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

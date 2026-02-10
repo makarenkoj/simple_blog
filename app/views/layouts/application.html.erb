@@ -1,110 +1,220 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= content_for?(:title) ? yield(:title) : "SimpleBlog" %></title>
-  <%= csrf_meta_tags %>
+<html>
+  <head>
+    <title><%= content_for(:title) || t('app.company') %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield :head %>
 
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'main', 'data-turbolinks-track': 'reload' %>
+    <%# Enable PWA manifest for installable apps %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-</head>
-<body>
-<div class="content">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
 
-    <div class="container">
-      <a><%= link_to t('activerecord.app.name'), root_path, class: 'navbar-brand' %></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <%= display_meta_tags site: t('app_name'), reverse: true %>
 
-      <% if user_signed_in? %>
-        <div class="collapse navbar-collapse " id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a>
-                <%= link_to  t('activerecord.post.create'), new_post_path, class: 'btn btn-dark' %>
-                <span class="sr-only">
-              (current)
-            </span>
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a>
-                <%= link_to current_user.email, current_user, class: "nav-link, btn btn-dark" %>
-                <span class="sr-only">
-              (current)
-            </span>
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a>
-                <%= link_to t('activerecord.attributes.user.sign_out'), destroy_user_session_path, method: :delete, class: "nav-link, btn btn-dark" %>
-                <span class="sr-only">
-              (current)
-            </span>
-              </a>
-            </li>
-          </ul>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <body class="bg-white" data-controller="sidebar">
+    <nav class="sticky top-0 z-40 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center space-x-4">
+            <button type="button" class="lg:hidden text-slate-700 hover:text-slate-900 transition-colors duration-200" data-action="click->sidebar#toggleSidebar">
+              <i class="ri-menu-line text-2xl"></i>
+            </button>
+            <%= link_to root_path, class: "flex items-center space-x-2 group" do %>
+              <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+                <i class='bx bxl-blogger text-white text-xl'></i>
+              </div>
+              <span class="hidden sm:!block text-xl font-serif font-bold text-slate-900">
+                <%= t('app.company')%>
+              </span>
+            <% end %>
+          </div>
+          <div class="hidden lg:!block flex-1 max-w-md mx-8">
+            <%= form_with url: search_path, method: :get, data: { controller: "search", turbo_frame: "search_results" }, class: "relative" do |f| %>
+              <div class="flex items-center w-full px-4 py-2 bg-slate-100 border border-transparent rounded-full focus-within:bg-white focus-within:border-slate-300 transition-all duration-200">
+                <i class="ri-search-line text-slate-400 text-lg mr-2 flex-shrink-0"></i>
+                <%= f.text_field :query, 
+                    placeholder: t('search.search'),
+                    class: "w-full bg-transparent border-none focus:ring-0 p-0 text-sm placeholder-slate-500 focus:outline-none",
+                    autocomplete: "off",
+                    data: { action: "input->search#query focus->search#handleFocus keydown->search#handleKeydown",
+                            search_target: "input" } 
+                %>
+              </div>
+              <div class="absolute top-full left-0 right-0 mt-2 z-50" data-search-target="results">
+                <turbo-frame id="search_results"></turbo-frame>
+              </div>
+            <% end %>
+          </div>
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <% if user_signed_in? %>
+              <button type="button" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200">
+                <i class="ri-search-line text-xl"></i>
+              </button>
+              <%= link_to library_posts_path, class: "hidden lg:!inline-block p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" do %>
+                <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
+              <% end %>
+            <% end %>
+              <div class="dropdown" data-controller="dropdown">
+                <button type="button" class="flex items-center space-x-1 p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                  <i class="ri-global-line text-xl"></i>
+                  <span class="hidden sm:inline text-sm font-medium">
+                    <%= I18n.locale.to_s.upcase %>
+                  </span>
+                </button>
+                <div class="dropdown-menu shadow-xl border border-slate-200 z-35 dropdown-hidden w-48 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
+                  <div class="p-2">
+                    <%= link_to url_for(locale: :uk), class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 #{'bg-slate-100' if I18n.locale == :uk}" do %>
+                      <span class="text-2xl">🇺🇦</span>
+                      <div class="flex-1">
+                        <p class="text-sm font-medium text-slate-900"><%= t('buttons.languages.uk') %></p>
+                      </div>
+                      <% if I18n.locale == :uk %>
+                        <i class="ri-check-line text-slate-900"></i>
+                      <% end %>
+                    <% end %>
+                    <%= link_to url_for(locale: :en), class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 #{'bg-slate-100' if I18n.locale == :en}" do %>
+                      <span class="text-2xl">🇬🇧</span>
+                      <div class="flex-1">
+                        <p class="text-sm font-medium text-slate-900"><%= t('buttons.languages.en') %></p>
+                      </div>
+                      <% if I18n.locale == :en %>
+                        <i class="ri-check-line text-slate-900"></i>
+                      <% end %>
+                    <% end %>
+                    <%= link_to url_for(locale: :it), class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 #{'bg-slate-100' if I18n.locale == :it}" do %>
+                      <span class="text-2xl">🇮🇹</span>
+                      <div class="flex-1">
+                        <p class="text-sm font-medium text-slate-900"><%= t('buttons.languages.it') %></p>
+                      </div>
+                      <% if I18n.locale == :it %>
+                        <i class="ri-check-line text-slate-900"></i>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% if user_signed_in? %>
+              <%= turbo_stream_from current_user, :notifications %>
+              <%= render "partials/notifications_dropdown", user: current_user %>
+              <div class="dropdown" data-controller="dropdown">
+                <button type="button" class="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded-full transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
+                  <% if current_user.avatar.attached? %>
+                    <%= image_tag current_user.avatar.variant(resize_to_limit: [32, 32]), class: "w-8 h-8 rounded-full object-cover" %>
+                  <% else %>
+                    <div class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white text-sm font-semibold">
+                      <%= current_user.full_name&.first&.upcase || '?' %>
+                    </div>
+                  <% end %>
+                </button>
+                <ul class="dropdown-menu shadow-xl border border-slate-200 z-50 dropdown-hidden py-2 rounded-lg bg-white w-56" data-dropdown-target="menu">
+                  <li class="px-4 py-3 border-b border-slate-200">
+                    <p class="text-sm font-semibold text-slate-900 truncate">
+                      <%= current_user.full_name %>
+                    </p>
+                    <p class="text-xs text-slate-500 truncate">
+                      <%= current_user.email %>
+                    </p>
+                  </li>
+                  <li>
+                    <%= link_to user_path(current_user), class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+                      <i class='bx bx-user text-lg'></i>
+                      <span><%= t('activerecord.attributes.user.profile') %></span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to categories_path, class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+                      <i class='bx bx-category text-lg'></i>
+                      <span><%= t('activerecord.attributes.categories.all') %></span>
+                    <% end %>
+                  </li>
+                  <% if current_user.creator? %>
+                    <li>
+                      <%= link_to new_post_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+                        <i class='bx bx-edit text-xl'></i>
+                        <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.new') %></span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to user_path(current_user), class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+                        <i class='bx bx-collection text-xl'></i>
+                        <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.creators') %></span>
+                      <% end %>
+                    </li>
+                  <% end %>
+                  <li class="border-t border-slate-200 mt-2 pt-2">
+                    <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo: false }, class: "flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+                      <i class='bx bx-log-out text-lg'></i>
+                      <span><%= t('activerecord.attributes.user.sign_out') %></span>
+                    <% end %>
+                  </li>
+                </ul>
+              </div>
+            <% else %>
+              <%= link_to new_user_session_path, data: { turbo: 'false' }, class: "px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
+                <%= t('activerecord.attributes.user.sign_in') %>
+              <% end %>
+              <%= link_to new_user_registration_path, data: { turbo: "false" }, class: "px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-slate-800 transition-colors duration-200" do %>
+                <%= t('activerecord.attributes.user.get_started') %>
+              <% end %>
+            <% end %>
+          </div>
         </div>
-      <% else %>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a>
-                <%= link_to t('activerecord.attributes.user.sign_in'), new_user_session_path, class: "nav-link, btn btn-dark" %>
-                <span class="sr-only">v
-              (current)
-            </span>
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a>
-                <%= link_to t('activerecord.attributes.user.sign_up'), new_user_registration_path, class: "nav-link, btn btn-dark" %>
-                <span class="sr-only">
-              (current)
-            </span>
-              </a>
-            </li>
-          </ul>
+      </div>
+    </nav>
+    <aside class="fixed left-0 top-0 w-72 h-full bg-white shadow-2xl border-r border-slate-200 z-[70] sidebar-menu transition-transform duration-300 -translate-x-full" data-sidebar-target="sidebarMenu">
+      <div class="p-6 border-b border-slate-200">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-serif font-bold text-slate-900">
+            <%= t('menu') %>
+          </h2>
+          <button type="button" class="text-slate-400 hover:text-slate-900" data-action="click->sidebar#hideSidebar">
+            <i class="ri-close-line text-2xl"></i>
+          </button>
         </div>
+      </div>
+      <nav class="p-4 space-y-1 overflow-y-auto max-h-[calc(100vh-100px)] custom-scrollbar">
+        <%= link_to posts_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+          <i class='bx bx-home text-xl'></i>
+          <span class="text-sm font-medium"><%= t('app.home') %></span>
+        <% end %>
+        <% if user_signed_in? %>
+          <%= link_to library_posts_path, class: "flex items-center space-x-3 px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors duration-200" do %>
+            <i class='bx bx-library text-xl'></i>
+            <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
+          <% end %>
+          <div class="border-t border-slate-200 my-4"></div>
+        <% end %>
+      </nav>
+    </aside>
+    <div class="fixed inset-0 bg-black/50 z-[65] dropdown-hidden sidebar-overlay transition-opacity duration-300" data-sidebar-target="sidebarOverlay" data-action="click->sidebar#hideSidebar"></div>
+    <main class="min-h-screen" data-sidebar-target="mainContent">
+      <div id="flash_messages" class="fixed top-4 left-0 right-0 z-[100] flex flex-col items-center gap-2 pointer-events-none px-4">
+        <% flash.each do |type, message| %>
+          <%= render partial: "partials/flash_message", locals: { type: type, message: message } %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </main>
+    <% if user_signed_in? && current_user.creator? %>
+      <%= link_to new_post_path, class: "lg:hidden fixed bottom-6 right-6 z-35 w-14 h-14 bg-slate-900 text-white rounded-full shadow-xl flex items-center justify-center hover:bg-slate-800 transition-colors duration-200" do %>
+        <i class='bx bx-edit text-2xl'></i>
       <% end %>
-      <div class="navbar-brand">
-        <div class="lokale">
-          <a><%= link_to emoji_flag("gb"), root_path(locale: :en), class: 'btn swich' %></a>
-          <a><%= link_to emoji_flag("ru"), root_path(locale: :ru), class: 'btn swich' %></a>
-          <a><%= link_to emoji_flag("ua"), root_path(locale: :uk), class: 'btn swich' %></a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <p id="notice"><%= notice %></p>
-        <%= yield %>
-      </div>
-      <div class="col-md-3">
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer class="footer page-footer font-small mdb-color darken-3 pt-4">
-  <div class="footer-copyright text-center py-3 container">
-    <p class="text-center">
-      &copy; <%= t('activerecord.app.company') %>
-      <%= l Time.now, format: :year %>
-    </p>
-    <a href="https://blogasik.herokuapp.com/"><%= t('activerecord.app.url') %></a>
-  </div>
-</footer>
-</body>
+    <% end %>
+    <%= render "shared/footer" %>
+    <%= render "shared/cookie_banner" %>
+  </body>
 </html>

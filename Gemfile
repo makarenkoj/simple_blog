@@ -1,25 +1,64 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'active_storage_validations', '~> 3.0'
+gem 'avo', '~> 3.29'
+gem 'aws-sdk-s3', '~> 1.213'
+gem 'babosa', '~> 2.0'
+gem 'bootsnap'
+gem 'cssbundling-rails'
 gem 'devise'
 gem 'devise-i18n'
+gem 'faker', '~> 3.6'
+gem 'friendly_id', '~> 5.6'
+gem 'image_processing', '~> 1.14'
+gem 'importmap-rails'
+gem 'jbuilder'
+gem 'kamal', require: false
+gem 'kaminari', '~> 1.2'
+gem 'meta-tags', '~> 2.22'
+gem 'pagy'
 gem 'pg'
-gem 'puma', '~> 4.3'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
-gem 'rails_admin'
-gem 'sass-rails', '>= 6'
-gem 'turbolinks', '~> 5.2.0'
-gem 'webpacker', '~> 5.x'
+gem 'phlex-rails', '~> 1.2'
+gem 'propshaft'
+gem 'puma'
+gem 'rails', '~> 8.0.2'
+gem 'ransack', '~> 4.4'
+gem 'ruby_ui', group: :development, require: false
 gem 'simple_form'
+gem 'sitemap_generator', '~> 6.3'
+gem 'solid_cable'
+gem 'solid_cache'
+gem 'solid_queue'
+gem 'stimulus-rails'
+gem 'tailwindcss-rails'
+gem 'thruster', require: false
+gem 'turbo-rails'
+gem 'tzinfo-data', platforms: %i[windows jruby]
+
+group :development do
+  gem 'web-console'
+end
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'listen', '~> 3.2'
-  gem 'rubocop', '~> 0.86.0', require: false
+  gem 'dotenv', '~> 3.1'
+  gem 'factory_bot_rails'
+  gem 'listen'
+  gem 'rspec-rails'
+  gem 'rubocop'
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'spring-watcher-listen'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner-active_record', '~> 2.2'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :production do

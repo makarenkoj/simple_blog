@@ -1,0 +1,23 @@
+<%= turbo_frame_tag "bookmark_button_#{post.id}" do %>
+  <% if user_signed_in? %>
+    <% if current_user.bookmarked?(post) %>
+      <%= button_to post_bookmark_path(post, source: local_assigns[:source]), method: :delete, class: "text-slate-900 hover:text-slate-700 transition-colors duration-200" do %>
+        <svg class="w-5 h-5" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+        </svg>
+      <% end %>
+    <% else %>
+      <%= button_to post_bookmark_path(post), method: :post, class: "text-slate-400 hover:text-slate-900 transition-colors duration-200" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+        </svg>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= link_to new_user_session_path, class: "text-slate-400 hover:text-slate-900 transition-colors duration-200" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+      </svg>
+    <% end %>
+  <% end %>
+<% end %>

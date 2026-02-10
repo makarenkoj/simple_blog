@@ -1,0 +1,601 @@
+en:
+  # --- General ---
+  hello: 'Hello World!'
+  blog: 'PUBLICATIONS'
+  post: 'Publication'
+  posts: 'Publications'
+  archive: 'Archive'
+  all: 'All'
+  categories: 'Categories'
+  personal: 'PERSONAL'
+  notifications: 'Notifications'
+  messages: 'Messages'
+  menu: 'Menu'
+  users: 'Users'  
+  # --- Buttons and Interface ---
+  buttons:
+    remove_image: "Remove image"
+    remove_avatar: "Remove avatar"
+    languages:
+      uk: "Українська"
+      en: "English"
+      it: "Italiano"
+      fr: "Français"
+      de: "Deutsch"
+      es: "Español"
+  confirm_remove_image: "Are you sure you want to remove this image?"
+  confirm_remove_avatar: "Are you sure you want to remove this avatar?"
+  time_ago:
+    ago: "ago"
+  alert_destroy:
+    photo: 'Permanently delete photo?'
+
+  # --- Flash Messages ---
+  flash:
+    avatar_removed: 'Avatar successfully removed.'
+    not_authorized: 'You are not authorized to perform this action.'
+
+  # --- File Uploads ---
+  attachments:
+    avatar:
+      large: 'Photo is too heavy, over 2 megabytes!'
+      dimension: 'Image is too large, maximum size 500x500 pixels.'
+    cover_image:
+      large: 'Cover image is too large, over 5 megabytes!'
+      dimension: 'Cover image must be smaller than 2000x2000 pixels.'
+  cookies:
+    consent_text: "We use cookies to improve your experience and for security."
+    privacy_policy: "Privacy Policy"
+    accept: "Got it"
+  privacy:
+    title: "Privacy Policy"
+    updated_at: "Last updated: %{date}"
+    intro_html: "Welcome to <strong>Help Boost</strong>. We respect your privacy and are committed to protecting your personal data. This policy explains how we collect, use, and protect your information."
+    collection:
+      title: "Data We Collect"
+      body: "We may collect the following categories of data:"
+      point_1: "Registration Data: Name, email, encrypted password."
+      point_2: "Profile Data: Your bio, avatar, and social links."
+      point_3: "Technical Data: IP address, browser type, cookies."
+    usage:
+      title: "How We Use Data"
+      body: "We use your data solely to provide blog services: authentication, allowing you to publish articles, leave comments, and receive notifications."
+    cookies:
+      title: "Cookies"
+      body: "We use cookies to maintain your session (keep you logged in) and language preferences. We do not use third-party advertising trackers without your consent."
+    affiliate:
+      title: "Affiliate Disclosure"
+      body: "Some links in our articles may be 'affiliate links'. This means if you click on the link and purchase an item, we may receive a small commission at no extra cost to you. We only recommend products and services we use or trust."
+    rights:
+      title: "Your Rights (GDPR)"
+      body: "Under GDPR, you have the right to:"
+      access: "Request a copy of your data."
+      deletion: "Delete your account and all associated data at any time via profile settings."
+    contact:
+      title: "Contact Us"
+      body_html: "If you have questions about this policy, please email us at: <strong>%{email}</strong>"
+  terms:
+    title: "Terms of Service"
+    updated_at: "Last updated: %{date}"
+    intro_html: "Welcome to <strong>Help Boost</strong>. By using our website, you agree to the following terms."
+    medical:
+      title: "Medical Disclaimer"
+      body: "The content on this site, including articles, text, graphics, and other information, is for informational purposes only. This information is NOT a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition."
+    rules:
+      title: "Content Usage"
+      body: "You may read, comment on, and share our materials. Using the site content for spam, distributing malware, or harassing other community members is prohibited."
+    intellectual:
+      title: "Intellectual Property"
+      body: "All content (articles, logos, design) is the property of Help Boost or our authors and is protected by copyright."
+    liability:
+      title: "Limitation of Liability"
+      body: "We are not liable for any damages or harm resulting from the use of information from this site."
+  about:
+    title: "About Help Boost"
+    subtitle: "We believe that a healthy lifestyle should be simple, accessible, and inspiring for everyone."
+    mission:
+      title: "Our Mission"
+      body: "The world of health is full of complex information. Our mission is to filter out the noise and provide you with verified, practical advice that is easy to implement in everyday life. We are here to give you the boost you need for change."
+    quote: "Health is not a destination, it is a way of traveling."
+    story:
+      title: "Who We Are"
+      body: "Help Boost is a community of enthusiasts, experts, and everyday people sharing their experiences on the path to better well-being. We write about nutrition, sports, mental health, and productivity."
+    join:
+      title: "Join Us"
+      body: "Become part of the Help Boost community. Sign up to save articles and connect with authors."
+  # --- Simple Form ---
+  simple_form:
+    "Yes": "Yes"
+    "No": "No"
+    required:
+      text: "required"
+      mark: "*"
+    button:
+      update: "Update"
+      back: "Back"
+    error_notification:
+      default_message: "Please review the problems below:"
+    labels:
+      defaults:
+        password: "Password"
+        comment: "leave it blank if you don't want to change it"
+        comment_password: "we need your current password to confirm your changes"
+        cancel: "Cancel my account"
+        unhappy: "Unhappy?"
+        confirm: "Are you sure?"
+        sign_up: "Sign up"
+        characters: "characters minimum"
+      user:
+        new:
+          email: "Login email."
+        edit:
+          email: "Email."
+    hints:
+      defaults:
+        username: "Login username."
+        password: "Please do not use special characters."
+    include_blanks:
+      defaults:
+        age: "Prefer not to say"
+    prompts:
+      defaults:
+        age: "Select your age"
+
+  # --- ActiveRecord ---
+  activerecord:
+    models:
+      user: 'User'
+      post: 'Post'
+      photo: 'Photo'
+    attributes:
+      user:
+        roles:
+          creator: 'Creator'
+          reader: 'Reader'
+        first_name: "First name"
+        last_name: "Last name"
+        username: "Username"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        role: "Role"
+        name: 'Name'
+        avatar: 'Avatar'
+        sign_in: 'Log in'
+        sign_out: 'Log out'
+        sign_up: 'Sign up'
+        save: 'Save'
+        back: 'Back'
+        or: 'or'
+        profile: 'Profile'
+        edit_profile: 'Edit Profile'
+        delete_profile: 'Delete Profile'
+        confirm_delete_profile: 'Are you sure? This action cannot be undone.'
+        change_password: 'Change password'
+        current_user: 'You are not the current user'
+        my_posts: 'My posts:'
+        writen_posts: 'User has not written any posts yet'
+        secure_notice: 'Your data is protected and stored securely'
+        start_writing: 'Start writing to share your thoughts'
+        check_back_later: 'Check back later'
+        no_posts_yet: 'You have no posts yet'
+        user_no_posts: 'This user has not written any posts yet'
+        posts: "Publications"
+        followings: "Following"
+        followers: "Followers"
+        follow: 'Follow'
+        who_to_follow: 'Who to follow'
+        get_started: "Sign up"
+        preferred_categories: 'Preferred categories'
+      posts:
+        title: 'Title'
+        address: 'Location'
+        datetime: 'Date and time'
+        description: 'Description'
+        pincode: 'Access PIN code'
+        new: 'Create publication'
+        save: "Save"
+        or: "or"
+        back: "Back"
+        cover_image: "Cover image"
+        categories: "Categories"
+        actions: "Publication actions"
+        creators: "My publications"
+        library: "My library"
+        library_subtitle: "Posts you saved to read later."
+        more_from_author: "More from %{author}"
+        edit: "Edit publication"
+        destroy: "Delete publication"
+        destroy_confirm: "Are you sure you want to delete this publication?"
+        liked_flash: "You liked this post!"
+        copy_link: 'Copy link'
+        index:
+          title: "All publications"
+          no_posts: "No publications found."
+          posts: "Publications"
+          create_one: "Why not create one?"
+          new_post: "Create new publication"
+          subtitle: 'Discover stories, thinking, and expertise from writers on any topic.'
+          load_more: "Load more posts"
+          min_read: "min read"
+          posts_in_category: "Posts in category %{count}"
+          filter:
+            filter: 'Filter'
+            choose_category: "Choose categories"
+            reset_all: "Reset all"
+            show_results: "Show results"
+        post:
+          by: "by"
+          anonymous: "Anonymous"
+          read_more: "Read more"
+      comment:
+        user_name: 'Your name'
+        body: 'Comment'
+      photo:
+        photo: 'Photo'
+      categories:
+        name: 'Category name'
+        favorites: 'Favorite categories'
+        popular: 'Popular categories'
+        all: 'All categories'
+        no_categories: 'No categories'
+        no_categories_description: 'No categories yet. Please check back later.'
+        subtitle: 'Explore posts by category and find what you love.'
+        preferences:
+          subscribed: 'Subscribed to %{category}'
+          unsubscribed: 'Unsubscribed from %{category}'
+          subscribe: 'Subscribe to category'
+          unsubscribe: 'Unsubscribe from category'
+          error:
+            subscribe: 'Failed to subscribe to %{category}'
+            unsubscribe: 'Failed to unsubscribe from %{category}'
+      likes:
+        count:
+          one: '%{count} like'
+          other: '%{count} likes'
+        errors:
+          like: 'Failed to like post'
+          unlike: 'Failed to unlike post'
+          user_is_not_post_author: 'You cannot like your own post'
+    
+    controllers:
+      posts:
+        created: 'You created a new post :)'
+        updated: 'You updated the post'
+        destroyed: 'You deleted the post :('
+        changed: 'Edit publication'
+        wrong_pincode: 'Invalid PIN code!'
+        new: 'Create new publication'
+        new_description: 'Share your thoughts with the world!'
+        not_your_post: 'This is not your post!'
+        not_found: 'Post not found!'
+      users:
+        updated: 'You updated your profile'
+        destroyed: 'User successfully removed :('
+      comments:
+        destroyed: 'Comment deleted'
+        created: 'Your comment has been added'
+        error: 'Error with comment'
+      subscriptions:
+        created: 'You have subscribed to this event'
+        destroyed: 'Participant unsubscribed'
+        error: 'Subscription / Unsubscription failed'
+      photos:
+        error: 'Something wrong with the photo'
+        created: 'You added a photo to the event'
+        destroyed: 'You deleted the photo'
+      categories:
+        not_found: 'Category not found!'
+    
+    errors:
+      messages:
+        record_invalid: 'Errors occurred: %{errors}'
+        restrict_dependent_destroy:
+          has_one: 'Cannot delete record because a dependent exists: %{record}'
+          has_many: 'Cannot delete record because dependents exist: %{record}'
+
+  # --- Custom App Sections ---
+  app:
+    name: 'Post'
+    company: 'Help Booost'
+    url: 'helpbooost.com'
+    simple: 'Help'
+    blog: 'Booost'
+    home: 'Home'
+  follow: "Follow"
+  following: "Following"
+  followers: "Followers"
+  notifications:
+    no_notifications: "You have no notifications"
+    no_notifications_description: "When you have new notifications, they will show up here"
+    notifications: "Notifications"
+    new_post: "%{author} published a new post: %{title}"
+    new_follower: "%{follower} followed you"
+    published: "published"
+    followed_you: "followed you"
+    view_all_notifications: "View all notifications"
+    post_liked: "%{actor} liked %{title}"
+    post_liked_msg: ' liked your post!)'
+    liked_your_post: "liked your post"
+    view_profile: "View profile"
+  follows:
+    created: "You followed %{username}"
+    destroyed: "You unfollowed %{username}"
+    error: "Subscription error"
+    unfollow_error: "Failed to unfollow"
+    user_not_found: "User not found"
+    unfollow: "Unfollow"
+    followings: "Following"
+  search:
+    search: 'Search...'
+    search_no_results: 'No results found'
+    try_different_query: 'Try changing your query'
+    all_results: 'Show all results'
+    search_results_for: 'Search results for'
+    found_results: "Found %{count} results"
+    try_different_keywords: 'Try changing the query or check spelling.'
+  ago: "ago"
+  post:
+    change: 'Edit'
+    destroy: 'Delete post'
+    create: 'Create post'
+    save: 'Save'
+    back: 'Back'
+    or: 'or'
+    new: 'New post'
+    destroy_confirm: 'Are you sure you want to delete this post?'
+    published_by: 'Published by'
+    anonymous_author: 'Anonymous author'
+    errors:
+      messages:
+        not_saved:
+          one: "Failed to save due to %{count} error"
+          other: "Failed to save due to %{count} errors"
+  
+  comments:
+    comment:
+      destroy_confirm: 'Are you sure you want to delete this comment?'
+  
+  subscriptions:
+    subscription:
+      destroy_confirm: 'Are you sure you want to delete this subscription?'
+  
+  # --- Mailers ---
+  post_mailer:
+    comment:
+      title: 'New comment'
+      author: 'Author'
+      event: 'Event'
+      datetime: 'Occurs at'
+      owner: 'Organizer'
+    subscription:
+      title: 'Subscribe'
+      name: 'Name'
+      email: 'Email'
+      author: 'Author'
+      post: 'Event'
+      datetime: 'Occurs at'
+      owner: 'Organizer'
+    photo:
+      title: 'New photo'
+      name: 'Name'
+      email: 'Email'
+      post: 'Event'
+      author: 'Author'
+      owner: 'Organizer'
+      datetime: 'Occurs at'
+
+  # --- Standard Rails formats and errors ---
+  date:
+    abbr_day_names:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+    abbr_month_names:
+      -
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    formats:
+      default: "%m/%d/%Y"
+      long: "%B %d, %Y"
+      short: "%b %d"
+    month_names:
+      -
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    order:
+      - :year
+      - :month
+      - :day
+
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about %{count} hour
+        other: about %{count} hours
+      about_x_months:
+        one: about %{count} month
+        other: about %{count} months
+      about_x_years:
+        one: about %{count} year
+        other: about %{count} years
+      almost_x_years:
+        one: almost %{count} year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_seconds:
+        one: less than %{count} second
+        other: less than %{count} seconds
+      less_than_x_minutes:
+        one: less than %{count} minute
+        other: less than %{count} minutes
+      over_x_years:
+        one: over %{count} year
+        other: over %{count} years
+      x_seconds:
+        one: "%{count} second"
+        other: "%{count} seconds"
+      x_minutes:
+        one: "%{count} minute"
+        other: "%{count} minutes"
+      x_days:
+        one: "%{count} day"
+        other: "%{count} days"
+      x_months:
+        one: "%{count} month"
+        other: "%{count} months"
+      x_years:
+        one: "%{count} year"
+        other: "%{count} years"
+    prompts:
+      second: Second
+      minute: Minute
+      hour: Hour
+      day: Day
+      month: Month
+      year: Year
+
+  errors:
+    organize_subscribe: 'You cannot subscribe to your own event!'
+    user_email: 'This email address is already registered!'
+    session_expired: "Your session has expired. Please sign in again."
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      confirmation: doesn't match confirmation
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      model_invalid: 'Validation failed: %{errors}'
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      other_than: must be other than %{count}
+      present: must be blank
+      required: must exist
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is %{count} character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is %{count} character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be %{count} character)
+        other: is the wrong length (should be %{count} characters)
+    template:
+      body: 'There were problems with the following fields:'
+      header:
+        one: "%{count} error prohibited this %{model} from being saved"
+        other: "%{count} errors prohibited this %{model} from being saved"
+
+  helpers:
+    select:
+      prompt: 'Select: '
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
+
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: $
+    format:
+      delimiter: ","
+      precision: 3
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: false
+        strip_insignificant_zeros: false
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: byte
+            other: bytes
+          gb: "GB"
+          kb: "KB"
+          mb: "MB"
+          tb: "TB"
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+
+  support:
+    array:
+      last_word_connector: ", and "
+      two_words_connector: " and "
+      words_connector: ", "
+  
+  time:
+    am: "am"
+    formats:
+      default: "%a, %d %b %Y, %H:%M:%S %z"
+      long: "%B %d, %Y, %H:%M"
+      short: "%d %b, %H:%M"
+      year: "%Y"
+    pm: "pm"

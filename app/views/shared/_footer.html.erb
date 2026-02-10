@@ -1,0 +1,16 @@
+<footer class="bg-slate-50 border-t border-slate-200 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-slate-500 font-medium">
+        <span class="text-slate-900 font-bold"><%= t('app.company') %></span>
+        <span class="mx-2 text-slate-300">|</span>
+        &copy; <%= Date.current.year %>
+      </div>
+      <nav class="flex flex-wrap justify-center gap-6 text-sm text-slate-600">
+        <%= link_to t('about.title', default: 'Про нас'), about_path, class: "hover:text-slate-900 hover:underline transition-colors" %>
+        <%= link_to t('terms.title', default: 'Правила'), terms_path, class: "hover:text-slate-900 hover:underline transition-colors" %>
+        <%= link_to t('privacy.title', default: 'Конфіденційність'), privacy_policy_path, class: "hover:text-slate-900 hover:underline transition-colors" %>
+      </nav>
+    </div>
+  </div>
+</footer>

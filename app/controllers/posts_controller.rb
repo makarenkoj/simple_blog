@@ -1,28 +1,47 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_post, only: %i[show edit update destroy]
-  before_action :set_current_user_post, only: %i[edit update destroy]
+  before_action :authorize_owner!, only: %i[edit update destroy]
+  before_action :popular_categories, only: %i[index show library]
+  before_action :popular_creators, only: %i[index show library]
 
   def index
-    @posts = Post.all
+    @posts_scope = Post.includes(:user, :categories).with_attached_cover_image.order(created_at: :desc)
+
+    @posts_scope = @posts_scope.joins(:categories).where(categories: { id: params[:category_ids] }) if params[:category_ids].present?
+
+    @pagy, @posts = pagy(@posts_scope, limit: 5)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show
+    set_meta_tags title: @post.title,
+                  description: @post.body.to_plain_text.truncate(160),
+                  keywords: @post.categories.map(&:name).join(', '),
+                  canonical: request.original_url,
+                  og: {
+                    title: @post.title,
+                    type: 'article',
+                    image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
+                  }
   end
 
   def new
     @post = current_user.posts.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @post = Post.create(post_params.merge(user: current_user))
     if @post.save
       redirect_to @post, notice: I18n.t('activerecord.controllers.posts.created')
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -34,22 +53,34 @@ class PostsController < ApplicationController
     end
   end
 
+  def library
+    scope = current_user.bookmarked_posts.includes(:user, :rich_text_body).order('bookmarks.created_at DESC')
+    @pagy, @posts = pagy(scope, limit: 5)
+
+    respond_to do |format|
+      format.html { render :index }
+      format.turbo_stream { render :index }
+    end
+  end
+
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: I18n.t('activerecord.controllers.posts.destroyed')
+    redirect_to posts_url(format: :html), notice: I18n.t('activerecord.controllers.posts.destroyed'), status: :see_other
   end
 
   private
 
-  def set_current_user_post
-    @post = current_user.posts.find(params[:id])
+  def authorize_owner!
+    return if current_user_can_edit?(@post)
+
+    redirect_to posts_path, alert: t('activerecord.controllers.posts.not_your_post')
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :cover_image, category_ids: [])
   end
 end

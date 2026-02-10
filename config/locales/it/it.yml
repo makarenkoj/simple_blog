@@ -1,0 +1,609 @@
+it:
+  # --- Generali ---
+  hello: 'Ciao Mondo!'
+  blog: 'PUBBLICAZIONI'
+  post: 'Pubblicazione'
+  posts: 'Pubblicazioni'
+  archive: 'Archivio'
+  all: 'Tutti'
+  categories: 'Categorie'
+  personal: 'PERSONALE'
+  notifications: 'Notifiche'
+  messages: 'Messaggi'
+  menu: 'Menu'
+  users: 'Utenti'
+  # --- Pulsanti e Interfaccia ---
+  buttons:
+    remove_image: "Rimuovi immagine"
+    remove_avatar: "Rimuovi avatar"
+    languages:
+      uk: "Українська"
+      en: "English"
+      it: "Italiano"
+      fr: "Français"
+      de: "Deutsch"
+      es: "Español"
+  confirm_remove_image: "Sei sicuro di voler rimuovere questa immagine?"
+  confirm_remove_avatar: "Sei sicuro di voler rimuovere questo avatar?"
+  time_ago:
+    ago: "fa"
+  alert_destroy:
+    photo: 'Eliminare definitivamente la foto?'
+
+  # --- Messaggi Flash ---
+  flash:
+    avatar_removed: 'Avatar rimosso con successo.'
+    not_authorized: 'Non sei autorizzato a eseguire questa azione.'
+
+  # --- Caricamento file ---
+  attachments:
+    avatar:
+      large: 'Foto troppo pesante, supera i 2 megabyte!'
+      dimension: 'Immagine troppo grande, dimensione massima 500x500 pixel.'
+    cover_image:
+      large: 'Copertina troppo grande, supera i 5 megabyte!'
+      dimension: 'La copertina deve essere inferiore a 2000x2000 pixel.'
+  cookies:
+    accept: 'OK'
+    privacy_policy: 'Informativa sulla privacy'
+    consent_text: "Utilizziamo i cookie per migliorare il sito e l'autorizzazione."
+  privacy:
+    title: "Informativa sulla Privacy"
+    updated_at: "Ultimo aggiornamento: %{date}"
+    intro_html: "Benvenuti su <strong>Help Boost</strong>. Rispettiamo la tua privacy e ci impegniamo a proteggere i tuoi dati personali. Questa politica spiega come raccogliamo, utilizziamo e proteggiamo le tue informazioni."
+    collection:
+      title: "Dati che raccogliamo"
+      body: "Possiamo raccogliere le seguenti categorie di dati:"
+      point_1: "Dati di registrazione: Nome, email, password crittografata."
+      point_2: "Dati del profilo: La tua biografia, avatar e link social."
+      point_3: "Dati tecnici: Indirizzo IP, tipo di browser, cookie."
+    usage:
+      title: "Come utilizziamo i dati"
+      body: "Utilizziamo i tuoi dati esclusivamente per fornire servizi di blog: autenticazione, possibilità di pubblicare articoli, lasciare commenti e ricevere notifiche."
+    cookies:
+      title: "Cookie"
+      body: "Utilizziamo i cookie per mantenere la tua sessione (rimanere connesso) e le preferenze linguistiche. Non utilizziamo tracker pubblicitari di terze parti senza il tuo consenso."
+    affiliate:
+      title: "Divulgazione di Affiliazione (Affiliate Disclosure)"
+      body: "Alcuni link nei nostri articoli potrebbero essere 'link di affiliazione'. Ciò significa che se clicchi sul link e acquisti un articolo, potremmo ricevere una piccola commissione senza costi aggiuntivi per te. Consigliamo solo prodotti e servizi che utilizziamo o di cui ci fidiamo."
+    rights:
+      title: "I tuoi diritti (GDPR)"
+      body: "Ai sensi del GDPR, hai il diritto di:"
+      access: "Richiedere una copia dei tuoi dati."
+      deletion: "Eliminare il tuo account e tutti i dati associati in qualsiasi momento tramite le impostazioni del profilo."
+    contact:
+      title: "Contatti"
+      body_html: "Se hai domande su questa politica, scrivici a: <strong>%{email}</strong>"
+  terms:
+    title: "Termini di Servizio"
+    updated_at: "Ultimo aggiornamento: %{date}"
+    intro_html: "Benvenuti su <strong>Help Boost</strong>. Utilizzando il nostro sito web, accetti i seguenti termini."
+    medical:
+      title: "Disclaimer Medico"
+      body: "Il contenuto di questo sito, inclusi articoli, testi, grafici e altre informazioni, è solo a scopo informativo. Queste informazioni NON sostituiscono il parere, la diagnosi o il trattamento medico professionale. Chiedi sempre il parere del tuo medico o di un altro operatore sanitario qualificato per qualsiasi domanda tu possa avere riguardo a una condizione medica."
+    rules:
+      title: "Uso dei Contenuti"
+      body: "Puoi leggere, commentare e condividere i nostri materiali. È vietato utilizzare i contenuti del sito per spam, distribuzione di malware o molestie verso altri membri della comunità."
+    intellectual:
+      title: "Proprietà Intellettuale"
+      body: "Tutti i contenuti (articoli, loghi, design) sono di proprietà di Help Boost o dei nostri autori e sono protetti da copyright."
+    liability:
+      title: "Limitazione di Responsabilità"
+      body: "Non siamo responsabili per eventuali danni o lesioni derivanti dall'uso delle informazioni presenti su questo sito."
+  about:
+    title: "Chi Siamo"
+    subtitle: "Crediamo che uno stile di vita sano debba essere semplice, accessibile e stimolante per tutti."
+    mission:
+      title: "La Nostra Missione"
+      body: "Il mondo della salute è pieno di informazioni complesse. La nostra missione è filtrare il rumore e fornirti consigli verificati e pratici, facili da implementare nella vita quotidiana. Siamo qui per darti la spinta (boost) per il cambiamento."
+    quote: "La salute non è una destinazione, è un modo di viaggiare."
+    story:
+      title: "Chi Siamo"
+      body: "Help Boost è una comunità di appassionati, esperti e persone comuni che condividono le loro esperienze verso un benessere migliore. Scriviamo di nutrizione, sport, salute mentale e produttività."
+    join:
+      title: "Unisciti a Noi"
+      body: "Entra a far parte della comunità Help Boost. Registrati per salvare articoli e connetterti con gli autori."
+  # --- Simple Form ---
+  simple_form:
+    "Yes": "Sì"
+    "No": "No"
+    required:
+      text: "richiesto"
+      mark: "*"
+    button:
+      update: "Aggiorna"
+      back: "Indietro"
+    error_notification:
+      default_message: "Controlla i problemi elencati di seguito:"
+    labels:
+      defaults:
+        password: "Password"
+        comment: "lascia vuoto se non vuoi modificarlo"
+        comment_password: "abbiamo bisogno della tua password attuale per confermare le modifiche"
+        cancel: "Cancella il mio account"
+        unhappy: "Insoddisfatto?"
+        confirm: "Sei sicuro?"
+        sign_up: "Registrati"
+        characters: "caratteri minimo"
+      user:
+        new:
+          email: "Email per l'accesso."
+        edit:
+          email: "Email."
+    hints:
+      defaults:
+        username: "Nome utente per l'accesso."
+        password: "Per favore, non usare caratteri speciali."
+    include_blanks:
+      defaults:
+        age: "Preferisco non dirlo"
+    prompts:
+      defaults:
+        age: "Seleziona la tua età"
+
+  # --- ActiveRecord ---
+  activerecord:
+    models:
+      user: 'Utente'
+      post: 'Post'
+      photo: 'Foto'
+    attributes:
+      user:
+        roles:
+          creator: 'Creatore'
+          reader: 'Lettore'
+        first_name: "Nome"
+        last_name: "Cognome"
+        username: "Username"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Conferma password"
+        role: "Ruolo"
+        name: 'Nome'
+        avatar: 'Avatar'
+        sign_in: 'Accedi'
+        sign_out: 'Esci'
+        sign_up: 'Registrati'
+        save: 'Salva'
+        back: 'Indietro'
+        or: 'o'
+        profile: 'Profilo'
+        edit_profile: 'Modifica profilo'
+        delete_profile: 'Elimina profilo'
+        confirm_delete_profile: 'Sei sicuro? Questa azione non può essere annullata.'
+        change_password: 'Cambia password'
+        current_user: 'Non sei l`utente corrente'
+        my_posts: 'I miei post:'
+        writen_posts: 'L`utente non ha ancora scritto nessun post'
+        secure_notice: 'I tuoi dati sono protetti e conservati in modo sicuro'
+        start_writing: 'Inizia a scrivere per condividere i tuoi pensieri'
+        check_back_later: 'Controlla più tardi'
+        no_posts_yet: 'Non hai ancora post'
+        user_no_posts: 'Questo utente non ha ancora scritto nessun post'
+        posts: "Pubblicazioni"
+        followings: "Seguiti"
+        followers: "Follower"
+        follow: 'Segui'
+        who_to_follow: 'Chi seguire'
+        get_started: "Registrati"
+        preferred_categories: 'Categorie preferite'
+      posts:
+        title: 'Titolo'
+        address: 'Luogo'
+        datetime: 'Data e ora'
+        description: 'Descrizione'
+        pincode: 'Codice PIN di accesso'
+        new: 'Crea pubblicazione'
+        save: "Salva"
+        or: "o"
+        back: "Indietro"
+        cover_image: "Copertina"
+        categories: "Categorie"
+        actions: "Azioni sulle pubblicazioni"
+        creators: "Le mie pubblicazioni"
+        library: "La mia libreria"
+        library_subtitle: "Post che hai salvato per leggere più tardi."
+        more_from_author: "Altro da %{author}"
+        edit: "Modifica pubblicazione"
+        destroy: "Elimina pubblicazione"
+        destroy_confirm: "Sei sicuro di voler eliminare questa pubblicazione?"
+        liked_flash: "Ti è piaciuto questo post!"
+        copy_link: 'Copia link'
+        index:
+          title: "Tutte le pubblicazioni"
+          no_posts: "Nessuna pubblicazione trovata."
+          posts: "Pubblicazioni"
+          create_one: "Perché non crearne una?"
+          new_post: "Crea una nuova pubblicazione"
+          subtitle: 'Scopri storie, pensieri e conoscenze di scrittori su qualsiasi argomento.'
+          load_more: "Carica altri post"
+          min_read: "min di lettura"
+          posts_in_category: "Post nella categoria %{count}"
+          filter:
+            filter: 'Filtro'
+            choose_category: "Scegli categorie"
+            reset_all: "Reimposta tutto"
+            show_results: "Mostra risultati"
+        post:
+          by: "da"
+          anonymous: "Anonimo"
+          read_more: "Leggi di più"
+      comment:
+        user_name: 'Il tuo nome'
+        body: 'Commento'
+      photo:
+        photo: 'Foto'
+      categories:
+        name: 'Nome categoria'
+        favorites: 'Categorie preferite'
+        popular: 'Categorie popolari'
+        all: 'Tutte le categorie'
+        no_categories: 'Nessuna categoria'
+        no_categories_description: 'Nessuna categoria al momento. Per favore controlla più tardi.'
+        subtitle: 'Esplora i post per categoria e trova ciò che ti piace.'
+        preferences:
+          subscribed: 'Iscritto alla categoria %{category}'
+          unsubscribed: 'Disiscritto dalla categoria %{category}'
+          subscribe: 'Iscriviti alla categoria'
+          unsubscribe: 'Disiscriviti dalla categoria'
+          error:
+            subscribe: 'Impossibile iscriversi alla categoria %{category}'
+            unsubscribe: 'Impossibile disiscriversi dalla categoria %{category}'
+      likes:
+        count:
+          one: '%{count} mi piace'
+          other: '%{count} mi piace'
+        errors:
+          like: 'Impossibile mettere mi piace al post'
+          unlike: 'Impossibile rimuovere il mi piace'
+          user_is_not_post_author: 'Non puoi mettere mi piace al tuo stesso post'
+    
+    controllers:
+      posts:
+        created: 'Hai creato un nuovo post :)'
+        updated: 'Hai aggiornato il post'
+        destroyed: 'Hai eliminato il post :('
+        changed: 'Modifica pubblicazione'
+        wrong_pincode: 'Codice PIN NON valido!'
+        new: 'Crea una nuova pubblicazione'
+        new_description: 'Condividi i tuoi pensieri con il mondo!'
+        not_your_post: 'Questo non è il tuo post!'
+        not_found: 'Post non trovato!'
+      users:
+        updated: 'Hai aggiornato il tuo profilo'
+        destroyed: 'Utente rimosso con successo :('
+      comments:
+        destroyed: 'Commento eliminato'
+        created: 'Il tuo commento è stato aggiunto'
+        error: 'Errore con il commento'
+      subscriptions:
+        created: 'Ti sei iscritto a questo evento'
+        destroyed: 'Partecipante disiscritto'
+        error: 'Iscrizione / Cancellazione fallita'
+      photos:
+        error: 'Qualcosa non va con la foto'
+        created: 'Hai aggiunto una foto all`evento'
+        destroyed: 'Hai eliminato la foto'
+      categories:
+        not_found: 'Categoria non trovata!'
+    
+    errors:
+      messages:
+        record_invalid: 'Si sono verificati errori: %{errors}'
+        restrict_dependent_destroy:
+          has_one: 'Impossibile eliminare il record perché esiste una dipendenza: %{record}'
+          has_many: 'Impossibile eliminare il record perché esistono dipendenze: %{record}'
+
+  # --- Sezioni App Personalizzate ---
+  app:
+    name: 'Post'
+    company: 'Help Booost'
+    url: 'helpbooost.com'
+    simple: 'Help'
+    blog: 'Booost'
+    home: 'Casa'
+  follow: "Segui"
+  following: "Segui già"
+  followers: "Follower"
+  notifications:
+    no_notifications: "Non hai notifiche"
+    no_notifications_description: "Quando ci saranno nuove notifiche, le vedrai qui"
+    notifications: "Notifiche"
+    new_post: "%{author} ha pubblicato un nuovo post: %{title}"
+    new_follower: "%{follower} ha iniziato a seguirti"
+    published: "ha pubblicato"
+    followed_you: "ti segue"
+    view_all_notifications: "Vedi tutte le notifiche"
+    post_liked: "A %{actor} piace %{title}"
+    post_liked_msg: ' è piaciuto il tuo post!)'
+    liked_your_post: "ha messo mi piace al tuo post"
+    view_profile: "Vedi profilo"
+  follows:
+    created: "Hai iniziato a seguire %{username}"
+    destroyed: "Hai smesso di seguire %{username}"
+    error: "Errore durante l'iscrizione"
+    unfollow_error: "Impossibile smettere di seguire"
+    user_not_found: "Utente non trovato"
+    unfollow: "Smetti di seguire"
+    followings: "Seguiti"
+  search:
+    search: 'Cerca...'
+    search_no_results: 'Nessun risultato trovato'
+    try_different_query: 'Prova a cambiare la ricerca'
+    all_results: 'Mostra tutti i risultati'
+    search_results_for: 'Risultati della ricerca per'
+    found_results: "Trovati %{count} risultati"
+    try_different_keywords: 'Prova a cambiare la ricerca o controlla l`ortografia.'
+  ago: "fa"
+  post:
+    change: 'Modifica'
+    destroy: 'Elimina post'
+    create: 'Crea post'
+    save: 'Salva'
+    back: 'Indietro'
+    or: 'o'
+    new: 'Nuovo post'
+    destroy_confirm: 'Sei sicuro di voler eliminare il post?'
+    published_by: 'Pubblicato da'
+    anonymous_author: 'Autore anonimo'
+    errors:
+      messages:
+        not_saved:
+          one: "Salvataggio fallito a causa di %{count} errore"
+          other: "Salvataggio fallito a causa di %{count} errori"
+  
+  comments:
+    comment:
+      destroy_confirm: 'Sei sicuro di voler eliminare questo commento?'
+  
+  subscriptions:
+    subscription:
+      destroy_confirm: 'Sei sicuro di voler eliminare questa iscrizione?'
+  
+  # --- Mailers ---
+  post_mailer:
+    comment:
+      title: 'Nuovo commento'
+      author: 'Autore'
+      event: 'Evento'
+      datetime: 'Si terrà'
+      owner: 'Organizzatore'
+    subscription:
+      title: 'Iscriviti'
+      name: 'Nome'
+      email: 'Email'
+      author: 'Autore'
+      post: 'Evento'
+      datetime: 'Si terrà'
+      owner: 'Organizzatore'
+    photo:
+      title: 'Nuova foto'
+      name: 'Nome'
+      email: 'Email'
+      post: 'Evento'
+      author: 'Autore'
+      owner: 'Organizzatore'
+      datetime: 'Si terrà'
+
+  # --- Formati e errori standard Rails ---
+  date:
+    abbr_day_names:
+      - Dom
+      - Lun
+      - Mar
+      - Mer
+      - Gio
+      - Ven
+      - Sab
+    abbr_month_names:
+      -
+      - Gen
+      - Feb
+      - Mar
+      - Apr
+      - Mag
+      - Giu
+      - Lug
+      - Ago
+      - Set
+      - Ott
+      - Nov
+      - Dic
+    day_names:
+      - Domenica
+      - Lunedì
+      - Martedì
+      - Mercoledì
+      - Giovedì
+      - Venerdì
+      - Sabato
+    formats:
+      default: "%d/%m/%Y"
+      long: "%d %B %Y"
+      short: "%d %b"
+    month_names:
+      -
+      - Gennaio
+      - Febbraio
+      - Marzo
+      - Aprile
+      - Maggio
+      - Giugno
+      - Luglio
+      - Agosto
+      - Settembre
+      - Ottobre
+      - Novembre
+      - Dicembre
+    order:
+      - :day
+      - :month
+      - :year
+
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: circa %{count} ora
+        other: circa %{count} ore
+      about_x_months:
+        one: circa %{count} mese
+        other: circa %{count} mesi
+      about_x_years:
+        one: circa %{count} anno
+        other: circa %{count} anni
+      almost_x_years:
+        one: quasi %{count} anno
+        other: quasi %{count} anni
+      half_a_minute: mezzo minuto
+      less_than_x_seconds:
+        one: meno di %{count} secondo
+        other: meno di %{count} secondi
+      less_than_x_minutes:
+        one: meno di %{count} minuto
+        other: meno di %{count} minuti
+      over_x_years:
+        one: più di %{count} anno
+        other: più di %{count} anni
+      x_seconds:
+        one: "%{count} secondo"
+        other: "%{count} secondi"
+      x_minutes:
+        one: "%{count} minuto"
+        other: "%{count} minuti"
+      x_days:
+        one: "%{count} giorno"
+        other: "%{count} giorni"
+      x_months:
+        one: "%{count} mese"
+        other: "%{count} mesi"
+      x_years:
+        one: "%{count} anno"
+        other: "%{count} anni"
+    prompts:
+      second: Secondo
+      minute: Minuto
+      hour: Ora
+      day: Giorno
+      month: Mese
+      year: Anno
+
+  errors:
+    organize_subscribe: 'Non puoi iscriverti al tuo stesso evento!'
+    user_email: 'Questo indirizzo email è già registrato!'
+    session_expired: "La tua sessione è scaduta. Per favore, accedi di nuovo."
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: deve essere accettato
+      blank: non può essere vuoto
+      confirmation: non coincide con la conferma
+      empty: non può essere vuoto
+      equal_to: deve essere uguale a %{count}
+      even: deve essere pari
+      exclusion: è riservato
+      greater_than: deve essere maggiore di %{count}
+      greater_than_or_equal_to: deve essere maggiore o uguale a %{count}
+      inclusion: non è incluso nell'elenco
+      invalid: non valido
+      less_than: deve essere minore di %{count}
+      less_than_or_equal_to: deve essere minore o uguale a %{count}
+      model_invalid: 'Si sono verificati errori: %{errors}'
+      not_a_number: non è un numero
+      not_an_integer: non è un numero intero
+      odd: deve essere dispari
+      other_than: deve essere diverso da %{count}
+      present: deve essere vuoto
+      required: deve esistere
+      taken: è già in uso
+      too_long:
+        one: è troppo lungo (il massimo è %{count} carattere)
+        other: è troppo lungo (il massimo è %{count} caratteri)
+      too_short:
+        one: è troppo corto (il minimo è %{count} carattere)
+        other: è troppo corto (il minimo è %{count} caratteri)
+      wrong_length:
+        one: lunghezza errata (deve essere %{count} carattere)
+        other: lunghezza errata (deve essere %{count} caratteri)
+    template:
+      body: 'Ci sono problemi con i seguenti campi:'
+      header:
+        one: "Impossibile salvare %{model}: %{count} errore"
+        other: "Impossibile salvare %{model}: %{count} errori"
+
+  helpers:
+    select:
+      prompt: 'Seleziona: '
+    submit:
+      create: Crea %{model}
+      submit: Salva %{model}
+      update: Aggiorna %{model}
+
+  number:
+    currency:
+      format:
+        delimiter: "."
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: €
+    format:
+      delimiter: "."
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion:
+            one: Miliardo
+            other: Miliardi
+          million:
+            one: Milione
+            other: Milioni
+          quadrillion:
+            one: Biliardo
+            other: Biliardi
+          thousand: Mila
+          trillion:
+            one: Bilione
+            other: Bilioni
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: false
+        strip_insignificant_zeros: false
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: byte
+            other: byte
+          gb: "GB"
+          kb: "kB"
+          mb: "MB"
+          tb: "TB"
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+
+  support:
+    array:
+      last_word_connector: " e "
+      two_words_connector: " e "
+      words_connector: ", "
+  
+  time:
+    am: "am"
+    formats:
+      default: "%a, %d %b %Y, %H:%M:%S %z"
+      long: "%d %B %Y, %H:%M"
+      short: "%d %b, %H:%M"
+      year: "%Y"
+    pm: "pm"

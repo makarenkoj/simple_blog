@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "follow_button_#{user.id}" do %>
+  <% if current_user.following?(user) %>
+    <%= button_to unfollow_user_path(user), method: :delete, class: "inline-flex items-center px-6 py-2 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50" do %>
+      <i class='bx bx-check mr-2'></i>
+      <%= t('follows.unfollow') %>
+    <% end %>
+  <% else %>
+    <%= button_to follow_user_path(user), class: "inline-flex items-center px-6 py-2 bg-slate-900 rounded-full text-sm font-medium hover:bg-slate-800" do %>
+      <i class='bx bx-plus mr-2'></i>
+      <%= t('activerecord.attributes.user.follow') %>
+    <% end %>
+  <% end %>
+<% end %>
