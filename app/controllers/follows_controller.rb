@@ -21,7 +21,7 @@ class FollowsController < ApplicationController
   private
 
   def set_follower
-    @follower = User.find_by(id: params[:id])
+    @follower = User.friendly.find(params[:id])
     redirect_to root_path, alert: t('follows.user_not_found') unless @follower
   end
 

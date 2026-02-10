@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  extend FriendlyId
+  friendly_id :username, use: %i[slugged history]
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
@@ -79,5 +82,13 @@ class User < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[posts followers followings preferred_categories]
+  end
+
+  def should_generate_new_friendly_id?
+    username_changed? || super
+  end
+
+  def normalize_friendly_id(input)
+    input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s
   end
 end

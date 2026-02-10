@@ -31,11 +31,16 @@ module Posts
     private
 
     def set_post
-      @post = Post.find_by(id: params[:post_id])
-
-      return if @post
-
-      redirect_to posts_path, alert: t('activerecord.controllers.posts.not_found')
+      @post = Post.friendly.find(params[:post_id])
+    rescue ActiveRecord::RecordNotFound
+      respond_to do |format|
+        format.html { redirect_to posts_path, alert: t('activerecord.controllers.posts.not_found') }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('flash_messages',
+                                                    partial: 'partials/flash_message',
+                                                    locals: { type: 'alert', message: t('activerecord.controllers.posts.not_found') })
+        end
+      end
     end
   end
 end

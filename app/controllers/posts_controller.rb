@@ -18,7 +18,17 @@ class PostsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    set_meta_tags title: @post.title,
+                  description: @post.body.to_plain_text.truncate(160),
+                  keywords: @post.categories.map(&:name).join(', '),
+                  canonical: request.original_url,
+                  og: {
+                    title: @post.title,
+                    type: 'article',
+                    image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
+                  }
+  end
 
   def new
     @post = current_user.posts.build
@@ -67,7 +77,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find_by(id: params[:id])
+    @post = Post.friendly.find(params[:id])
   end
 
   def post_params

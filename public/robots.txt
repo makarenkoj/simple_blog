@@ -1,1 +1,18 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+
+User-agent: *
+Allow: /
+
+Disallow: /users/sign_in
+Disallow: /users/sign_up
+Disallow: /users/password
+Disallow: /users/edit
+Disallow: /users/cancel
+
+Disallow: /admin/
+Disallow: /avo/
+
+Disallow: /search
+Disallow: /*?*q=
+
+Sitemap: https://helpbooost.com/sitemap.xml.gz

@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_seo_hreflangs
 
   helper_method :current_user_can_edit?
 
@@ -69,5 +70,21 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(_resource_or_scope)
     root_path
+  end
+
+  def set_seo_hreflangs
+    hreflangs = I18n.available_locales.map do |lang|
+      {
+        :href => url_for(locale: lang, only_path: false),
+        :hreflang => lang
+      }
+    end
+
+    hreflangs << {
+      :href => url_for(locale: I18n.default_locale, only_path: false),
+      :hreflang => 'x-default'
+    }
+
+    set_meta_tags alternate: hreflangs
   end
 end

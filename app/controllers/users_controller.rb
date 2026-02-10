@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[show edit update destroy]
-  before_action :set_current_user, only: %i[show edit update destroy]
+  before_action :set_current_user, only: %i[show edit update destroy delete_avatar]
 
   def show
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
   end
 
   def edit; end
@@ -22,7 +22,6 @@ class UsersController < ApplicationController
   end
 
   def delete_avatar
-    @user = User.find(params[:id])
     if @user == current_user
       @user.avatar.purge
       redirect_back fallback_location: user_path(@user), notice: t('flash.avatar_removed', default: 'Avatar was successfully removed.')
@@ -34,7 +33,7 @@ class UsersController < ApplicationController
   private
 
   def set_current_user
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
   end
 
   def user_params

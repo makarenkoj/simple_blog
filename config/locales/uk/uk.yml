@@ -317,10 +317,10 @@ uk:
   # --- Кастомні секції App ---
   app:
     name: 'Пост'
-    company: 'Help Boost'
-    url: 'blogasik.com'
+    company: 'Help Booost'
+    url: 'helpbooost.com'
     simple: 'Help'
-    blog: 'Boost'
+    blog: 'Booost'
     home: 'Головна'
   follow: "Підписатися"
   following: "Ви підписані"

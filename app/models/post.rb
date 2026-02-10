@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: %i[slugged history]
+
   belongs_to :user
 
   has_many :categorizations, dependent: :destroy
@@ -25,6 +28,14 @@ class Post < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[user categories rich_text_body]
+  end
+
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
+
+  def normalize_friendly_id(input)
+    input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s
   end
 
   private

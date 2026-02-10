@@ -297,10 +297,10 @@ en:
   # --- Custom App Sections ---
   app:
     name: 'Post'
-    company: 'Help Boost'
-    url: 'blogasik.com'
+    company: 'Help Booost'
+    url: 'helpbooost.com'
     simple: 'Help'
-    blog: 'Boost'
+    blog: 'Booost'
     home: 'Home'
   follow: "Follow"
   following: "Following"

@@ -4,16 +4,19 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'active_storage_validations', '~> 3.0'
 gem 'avo', '~> 3.29'
 gem 'aws-sdk-s3', '~> 1.213'
+gem 'babosa', '~> 2.0'
 gem 'bootsnap'
 gem 'cssbundling-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'faker', '~> 3.6'
+gem 'friendly_id', '~> 5.6'
 gem 'image_processing', '~> 1.14'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'kamal', require: false
 gem 'kaminari', '~> 1.2'
+gem 'meta-tags', '~> 2.22'
 gem 'pagy'
 gem 'pg'
 gem 'phlex-rails', '~> 1.2'
@@ -23,6 +26,7 @@ gem 'rails', '~> 8.0.2'
 gem 'ransack', '~> 4.4'
 gem 'ruby_ui', group: :development, require: false
 gem 'simple_form'
+gem 'sitemap_generator', '~> 6.3'
 gem 'solid_cable'
 gem 'solid_cache'
 gem 'solid_queue'
@@ -51,6 +55,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'database_cleaner-active_record', '~> 2.2'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
