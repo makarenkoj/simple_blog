@@ -306,14 +306,31 @@ uk:
         destroyed: 'Ви видалили фотку'
       categories:
         not_found: 'Категорію не знайдено!'
-    # Стандартні помилки ActiveRecord
     errors:
       messages:
         record_invalid: 'Виникли помилки: %{errors}'
         restrict_dependent_destroy:
           has_one: 'Неможливо видалити запис, так як існує залежність: %{record}'
           has_many: 'Неможливо видалити запис, так як існують залежності: %{record}'
-
+        content_type_invalid: "має недійсний тип вмісту (дозволені типи вмісту %{authorized_human_content_types})"
+        file_size_out_of_range: "має недійсний розмір (максимум %{max_size})"
+        limit_out_of_range: "кількість файлів перевищує ліміт (максимум %{max})"
+        image_metadata_missing: "не є дійсним зображенням"
+        dimension_min_inclusion: "розміри мають бути не менше ніж %{width} x %{height} пікселів"
+        dimension_max_inclusion: "розміри мають бути не більше ніж %{width} x %{height} пікселів"
+        dimension_width_inclusion: "ширина має бути не менше %{min} і не більше %{max} пікселів"
+        dimension_height_inclusion: "висота має бути не менше %{min} і не більше %{max} пікселів"
+        dimension_width_greater_than_or_equal_to: "ширина має бути більше або дорівнювати %{length} пікселів"
+        dimension_height_greater_than_or_equal_to: "висота має бути більше або дорівнювати %{length} пікселів"
+        dimension_width_less_than_or_equal_to: "ширина має бути менше або дорівнювати %{length} пікселів"
+        dimension_height_less_than_or_equal_to: "висота має бути менше або дорівнювати %{length} пікселів"
+        dimension_width_equal_to: "ширина має дорівнювати %{length} пікселів"
+        dimension_height_equal_to: "висота має дорівнювати %{length} пікселів"
+        aspect_ratio_not_square: "має бути квадратним зображенням"
+        aspect_ratio_not_portrait: "має бути вертикальним зображенням"
+        aspect_ratio_not_landscape: "має бути горизонтальним зображенням"
+        aspect_ratio_is_not: "має співвідношення сторін %{aspect_ratio}"
+        aspect_ratio_unknown: "має невідоме співвідношення сторін"
   # --- Кастомні секції App ---
   app:
     name: 'Пост'
