@@ -1,5 +1,4 @@
 en:
-  # --- General ---
   hello: 'Hello World!'
   blog: 'PUBLICATIONS'
   post: 'Publication'
@@ -11,99 +10,111 @@ en:
   notifications: 'Notifications'
   messages: 'Messages'
   menu: 'Menu'
-  users: 'Users'  
-  # --- Buttons and Interface ---
+  users: 'Users'
   buttons:
     remove_image: "Remove image"
     remove_avatar: "Remove avatar"
     languages:
-      uk: "Українська"
+      uk: "Ukrainian"
       en: "English"
-      it: "Italiano"
-      fr: "Français"
-      de: "Deutsch"
-      es: "Español"
+      it: "Italian"
+      fr: "French"
+      de: "German"
+      es: "Spanish"
   confirm_remove_image: "Are you sure you want to remove this image?"
   confirm_remove_avatar: "Are you sure you want to remove this avatar?"
   time_ago:
     ago: "ago"
   alert_destroy:
-    photo: 'Permanently delete photo?'
-
-  # --- Flash Messages ---
+    photo: 'Really delete photo?'
   flash:
     avatar_removed: 'Avatar successfully removed.'
     not_authorized: 'You are not authorized to perform this action.'
-
-  # --- File Uploads ---
   attachments:
     avatar:
-      large: 'Photo is too heavy, over 2 megabytes!'
-      dimension: 'Image is too large, maximum size 500x500 pixels.'
+      large: 'Photo is too large, over 2 megabytes!'
+      dimension: 'Image is too large, maximum size is 500x500 pixels.'
     cover_image:
-      large: 'Cover image is too large, over 5 megabytes!'
-      dimension: 'Cover image must be smaller than 2000x2000 pixels.'
+      large: 'Cover is too large, over 5 megabytes!'
+      dimension: 'Cover must be smaller than 2000x2000 pixels.'
   cookies:
-    consent_text: "We use cookies to improve your experience and for security."
-    privacy_policy: "Privacy Policy"
-    accept: "Got it"
+    accept: 'Accept'
+    privacy_policy: 'Privacy Policy'
+    consent_text: 'We use cookies to improve the site and for authorization.'
   privacy:
     title: "Privacy Policy"
     updated_at: "Last updated: %{date}"
-    intro_html: "Welcome to <strong>Help Boost</strong>. We respect your privacy and are committed to protecting your personal data. This policy explains how we collect, use, and protect your information."
+    intro_html: "Welcome to <strong>Help Boost</strong>. We respect your privacy and strive to protect your personal data. This policy explains how we collect, use and protect your information."
     collection:
-      title: "Data We Collect"
+      title: "What data we collect"
       body: "We may collect the following categories of data:"
-      point_1: "Registration Data: Name, email, encrypted password."
-      point_2: "Profile Data: Your bio, avatar, and social links."
-      point_3: "Technical Data: IP address, browser type, cookies."
+      point_1: "Registration data: Name, email, encrypted password."
+      point_2: "Profile data: Your bio, avatar and social media links."
+      point_3: "Technical data: IP address, browser type, cookies."
     usage:
-      title: "How We Use Data"
-      body: "We use your data solely to provide blog services: authentication, allowing you to publish articles, leave comments, and receive notifications."
+      title: "How we use data"
+      body: "We use your data exclusively to provide blog services: authorization, ability to publish articles, leave comments and receive notifications."
     cookies:
       title: "Cookies"
-      body: "We use cookies to maintain your session (keep you logged in) and language preferences. We do not use third-party advertising trackers without your consent."
+      body: "We use cookies to maintain your session (to keep you logged in) and language settings. We do not use third-party advertising trackers without your consent."
     affiliate:
       title: "Affiliate Disclosure"
-      body: "Some links in our articles may be 'affiliate links'. This means if you click on the link and purchase an item, we may receive a small commission at no extra cost to you. We only recommend products and services we use or trust."
+      body: "Some links in our articles may be 'affiliate links'. This means that if you click on the link and purchase a product, we may receive a small commission at no additional cost to you. We only recommend products and services that we use ourselves or trust."
     rights:
-      title: "Your Rights (GDPR)"
+      title: "Your rights (GDPR)"
       body: "Under GDPR, you have the right to:"
       access: "Request a copy of your data."
-      deletion: "Delete your account and all associated data at any time via profile settings."
+      deletion: "Delete your account and all associated data at any time through profile settings."
     contact:
-      title: "Contact Us"
-      body_html: "If you have questions about this policy, please email us at: <strong>%{email}</strong>"
+      title: "Contact"
+      body_html: "If you have questions about this policy, write to us at: <strong>%{email}</strong>"
   terms:
-    title: "Terms of Service"
+    title: "Terms of Use"
     updated_at: "Last updated: %{date}"
-    intro_html: "Welcome to <strong>Help Boost</strong>. By using our website, you agree to the following terms."
+    intro_html: "Welcome to <strong>Help Boost</strong>. By using our site, you agree to the following terms."
     medical:
       title: "Medical Disclaimer"
-      body: "The content on this site, including articles, text, graphics, and other information, is for informational purposes only. This information is NOT a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition."
+      body: "The content on this site, including articles, texts, graphics and other information, is provided for informational purposes only. This information is NOT a substitute for professional medical advice, diagnosis or treatment. Always consult your doctor or other qualified healthcare professional with any questions about your health."
     rules:
       title: "Content Usage"
-      body: "You may read, comment on, and share our materials. Using the site content for spam, distributing malware, or harassing other community members is prohibited."
+      body: "You may read, comment and share our materials. It is prohibited to use the site content for spam, malware distribution or insulting other community members."
     intellectual:
       title: "Intellectual Property"
       body: "All content (articles, logos, design) is the property of Help Boost or our authors and is protected by copyright."
     liability:
       title: "Limitation of Liability"
-      body: "We are not liable for any damages or harm resulting from the use of information from this site."
+      body: "We are not responsible for any damages or harm arising from the use of information from this site."
   about:
     title: "About Help Boost"
-    subtitle: "We believe that a healthy lifestyle should be simple, accessible, and inspiring for everyone."
+    subtitle: "We believe that a healthy lifestyle should be simple, accessible and inspiring for everyone."
     mission:
-      title: "Our Mission"
-      body: "The world of health is full of complex information. Our mission is to filter out the noise and provide you with verified, practical advice that is easy to implement in everyday life. We are here to give you the boost you need for change."
-    quote: "Health is not a destination, it is a way of traveling."
+      title: "Our mission"
+      body: "The world of health is full of complex information. Our mission is to filter the noise and provide you with verified, practical advice that is easy to implement in everyday life. We're here to give you the energy to change."
+    quote: "Health is not a destination, it's a way of traveling."
     story:
-      title: "Who We Are"
-      body: "Help Boost is a community of enthusiasts, experts, and everyday people sharing their experiences on the path to better well-being. We write about nutrition, sports, mental health, and productivity."
+      title: "Who we are"
+      body: "Help Boost is a community of enthusiasts, experts and ordinary people who share their experiences on the path to better well-being. We write about nutrition, sports, mental health and productivity."
     join:
-      title: "Join Us"
-      body: "Become part of the Help Boost community. Sign up to save articles and connect with authors."
-  # --- Simple Form ---
+      title: "Join us"
+      body: "Become part of the Help Boost community. Sign up to save articles and communicate with authors."
+  avo:
+    admin:
+      not_access: "You do not have access to the admin panel."
+    get_started: 'Get started'
+    resources: 'resources'
+    posts: "Publications"
+    users: "Users"
+    categories: "Categories"
+    field_translations:
+      id: 'ID'
+      name: 'Name'
+      title: 'Title'
+      user_id: 'Creator ID'
+      cover_image: 'Cover'
+      user: 'Creator'
+      first_name: "First name"
+      last_name: "Last name"
+      role: 'Role'
   simple_form:
     "Yes": "Yes"
     "No": "No"
@@ -127,21 +138,19 @@ en:
         characters: "characters minimum"
       user:
         new:
-          email: "Login email."
+          email: "Email for login."
         edit:
           email: "Email."
     hints:
       defaults:
-        username: "Login username."
+        username: "Username for login."
         password: "Please do not use special characters."
     include_blanks:
       defaults:
-        age: "Prefer not to say"
+        age: "Better not say"
     prompts:
       defaults:
         age: "Select your age"
-
-  # --- ActiveRecord ---
   activerecord:
     models:
       user: 'User'
@@ -161,15 +170,15 @@ en:
         role: "Role"
         name: 'Name'
         avatar: 'Avatar'
-        sign_in: 'Log in'
-        sign_out: 'Log out'
+        sign_in: 'Sign in'
+        sign_out: 'Sign out'
         sign_up: 'Sign up'
         save: 'Save'
         back: 'Back'
         or: 'or'
         profile: 'Profile'
-        edit_profile: 'Edit Profile'
-        delete_profile: 'Delete Profile'
+        edit_profile: 'Edit profile'
+        delete_profile: 'Delete profile'
         confirm_delete_profile: 'Are you sure? This action cannot be undone.'
         change_password: 'Change password'
         current_user: 'You are not the current user'
@@ -185,24 +194,24 @@ en:
         followers: "Followers"
         follow: 'Follow'
         who_to_follow: 'Who to follow'
-        get_started: "Sign up"
+        get_started: "Get started"
         preferred_categories: 'Preferred categories'
       posts:
         title: 'Title'
-        address: 'Location'
+        address: 'Venue'
         datetime: 'Date and time'
         description: 'Description'
-        pincode: 'Access PIN code'
+        pincode: 'Access PIN'
         new: 'Create publication'
         save: "Save"
         or: "or"
         back: "Back"
-        cover_image: "Cover image"
+        cover_image: "Cover"
         categories: "Categories"
-        actions: "Publication actions"
+        actions: "Post actions"
         creators: "My publications"
         library: "My library"
-        library_subtitle: "Posts you saved to read later."
+        library_subtitle: "Posts you've saved for later reading."
         more_from_author: "More from %{author}"
         edit: "Edit publication"
         destroy: "Delete publication"
@@ -215,8 +224,8 @@ en:
           posts: "Publications"
           create_one: "Why not create one?"
           new_post: "Create new publication"
-          subtitle: 'Discover stories, thinking, and expertise from writers on any topic.'
-          load_more: "Load more posts"
+          subtitle: 'Discover stories, thoughts and expert knowledge from writers on any topic.'
+          load_more: "Load more publications"
           min_read: "min read"
           posts_in_category: "Posts in category %{count}"
           filter:
@@ -240,15 +249,15 @@ en:
         all: 'All categories'
         no_categories: 'No categories'
         no_categories_description: 'No categories yet. Please check back later.'
-        subtitle: 'Explore posts by category and find what you love.'
+        subtitle: 'Explore posts by categories and find what you like.'
         preferences:
-          subscribed: 'Subscribed to %{category}'
-          unsubscribed: 'Unsubscribed from %{category}'
+          subscribed: 'Subscribed to category %{category}'
+          unsubscribed: 'Unsubscribed from category %{category}'
           subscribe: 'Subscribe to category'
           unsubscribe: 'Unsubscribe from category'
           error:
-            subscribe: 'Failed to subscribe to %{category}'
-            unsubscribe: 'Failed to unsubscribe from %{category}'
+            subscribe: 'Failed to subscribe to category %{category}'
+            unsubscribe: 'Failed to unsubscribe from category %{category}'
       likes:
         count:
           one: '%{count} like'
@@ -257,44 +266,63 @@ en:
           like: 'Failed to like post'
           unlike: 'Failed to unlike post'
           user_is_not_post_author: 'You cannot like your own post'
-    
     controllers:
       posts:
         created: 'You created a new post :)'
         updated: 'You updated the post'
         destroyed: 'You deleted the post :('
         changed: 'Edit publication'
-        wrong_pincode: 'Invalid PIN code!'
+        wrong_pincode: 'Wrong PIN!'
         new: 'Create new publication'
         new_description: 'Share your thoughts with the world!'
         not_your_post: 'This is not your post!'
         not_found: 'Post not found!'
       users:
         updated: 'You updated your profile'
-        destroyed: 'User successfully removed :('
+        destroyed: 'User successfully deleted :('
       comments:
         destroyed: 'Comment deleted'
-        created: 'Your comment has been added'
-        error: 'Error with comment'
+        created: 'Your comment added'
+        error: 'Comment error'
       subscriptions:
-        created: 'You have subscribed to this event'
+        created: 'You subscribed to this event'
         destroyed: 'Participant unsubscribed'
-        error: 'Subscription / Unsubscription failed'
+        error: 'Subscribe/Unsubscribe failed'
       photos:
         error: 'Something wrong with the photo'
         created: 'You added a photo to the event'
         destroyed: 'You deleted the photo'
       categories:
         not_found: 'Category not found!'
-    
     errors:
       messages:
         record_invalid: 'Errors occurred: %{errors}'
         restrict_dependent_destroy:
-          has_one: 'Cannot delete record because a dependent exists: %{record}'
-          has_many: 'Cannot delete record because dependents exist: %{record}'
-
-  # --- Custom App Sections ---
+          has_one: 'Cannot delete record because dependent %{record} exists'
+          has_many: 'Cannot delete record because dependent %{record} exist'
+        content_type_invalid: "has invalid content type (allowed types %{authorized_human_content_types})"
+        file_size_out_of_range: "has invalid size (maximum %{max_size})"
+        limit_out_of_range: "file count exceeds limit (maximum %{max})"
+        image_metadata_missing: "is not a valid image"
+        dimension_min_inclusion: "dimensions must be at least %{width} x %{height} pixels"
+        dimension_max_inclusion: "dimensions must be no more than %{width} x %{height} pixels"
+        dimension_width_inclusion: "width must be at least %{min} and no more than %{max} pixels"
+        dimension_height_inclusion: "height must be at least %{min} and no more than %{max} pixels"
+        dimension_width_greater_than_or_equal_to: "width must be greater than or equal to %{length} pixels"
+        dimension_height_greater_than_or_equal_to: "height must be greater than or equal to %{length} pixels"
+        dimension_width_less_than_or_equal_to: "width must be less than or equal to %{length} pixels"
+        dimension_height_less_than_or_equal_to: "height must be less than or equal to %{length} pixels"
+        dimension_width_equal_to: "width must equal %{length} pixels"
+        dimension_height_equal_to: "height must equal %{length} pixels"
+        aspect_ratio_not_square: "must be a square image"
+        aspect_ratio_not_portrait: "must be a portrait image"
+        aspect_ratio_not_landscape: "must be a landscape image"
+        aspect_ratio_is_not: "has aspect ratio %{aspect_ratio}"
+        aspect_ratio_unknown: "has unknown aspect ratio"
+        post:
+          title:
+            blank: "cannot be blank (minimum 10 characters)"
+            short: "too short (minimum 10 characters)"
   app:
     name: 'Post'
     company: 'Help Booost'
@@ -307,36 +335,36 @@ en:
   followers: "Followers"
   notifications:
     no_notifications: "You have no notifications"
-    no_notifications_description: "When you have new notifications, they will show up here"
+    no_notifications_description: "When new notifications appear, you'll see them here"
     notifications: "Notifications"
     new_post: "%{author} published a new post: %{title}"
     new_follower: "%{follower} followed you"
     published: "published"
     followed_you: "followed you"
     view_all_notifications: "View all notifications"
-    post_liked: "%{actor} liked %{title}"
+    post_liked: "%{actor} %{title}"
     post_liked_msg: ' liked your post!)'
     liked_your_post: "liked your post"
     view_profile: "View profile"
   follows:
     created: "You followed %{username}"
     destroyed: "You unfollowed %{username}"
-    error: "Subscription error"
+    error: "Follow error"
     unfollow_error: "Failed to unfollow"
     user_not_found: "User not found"
     unfollow: "Unfollow"
     followings: "Following"
   search:
     search: 'Search...'
-    search_no_results: 'No results found'
-    try_different_query: 'Try changing your query'
+    search_no_results: 'Nothing found'
+    try_different_query: 'Try a different query'
     all_results: 'Show all results'
     search_results_for: 'Search results for'
     found_results: "Found %{count} results"
-    try_different_keywords: 'Try changing the query or check spelling.'
+    try_different_keywords: 'Try a different query or check spelling.'
   ago: "ago"
   post:
-    change: 'Edit'
+    change: 'Change'
     destroy: 'Delete post'
     create: 'Create post'
     save: 'Save'
@@ -349,24 +377,20 @@ en:
     errors:
       messages:
         not_saved:
-          one: "Failed to save due to %{count} error"
-          other: "Failed to save due to %{count} errors"
-  
+          one: "Save failed due to %{count} error"
+          other: "Save failed due to %{count} errors"
   comments:
     comment:
       destroy_confirm: 'Are you sure you want to delete this comment?'
-  
   subscriptions:
     subscription:
       destroy_confirm: 'Are you sure you want to delete this subscription?'
-  
-  # --- Mailers ---
   post_mailer:
     comment:
       title: 'New comment'
       author: 'Author'
       event: 'Event'
-      datetime: 'Occurs at'
+      datetime: 'Will take place'
       owner: 'Organizer'
     subscription:
       title: 'Subscribe'
@@ -374,7 +398,7 @@ en:
       email: 'Email'
       author: 'Author'
       post: 'Event'
-      datetime: 'Occurs at'
+      datetime: 'Will take place'
       owner: 'Organizer'
     photo:
       title: 'New photo'
@@ -383,9 +407,7 @@ en:
       post: 'Event'
       author: 'Author'
       owner: 'Organizer'
-      datetime: 'Occurs at'
-
-  # --- Standard Rails formats and errors ---
+      datetime: 'Will take place'
   date:
     abbr_day_names:
       - Sun
@@ -436,10 +458,9 @@ en:
       - November
       - December
     order:
-      - :year
       - :month
       - :day
-
+      - :year
   datetime:
     distance_in_words:
       about_x_hours:
@@ -486,7 +507,6 @@ en:
       day: Day
       month: Month
       year: Year
-
   errors:
     organize_subscribe: 'You cannot subscribe to your own event!'
     user_email: 'This email address is already registered!'
@@ -526,17 +546,15 @@ en:
     template:
       body: 'There were problems with the following fields:'
       header:
-        one: "%{count} error prohibited this %{model} from being saved"
-        other: "%{count} errors prohibited this %{model} from being saved"
-
+        one: "%{model} could not be saved due to %{count} error"
+        other: "%{model} could not be saved due to %{count} errors"
   helpers:
     select:
-      prompt: 'Select: '
+      prompt: 'Please select'
     submit:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
-
   number:
     currency:
       format:
@@ -546,7 +564,7 @@ en:
         separator: "."
         significant: false
         strip_insignificant_zeros: false
-        unit: $
+        unit: "$"
     format:
       delimiter: ","
       precision: 3
@@ -572,30 +590,29 @@ en:
         format: "%n %u"
         units:
           byte:
-            one: byte
-            other: bytes
+            one: Byte
+            other: Bytes
           gb: "GB"
           kb: "KB"
           mb: "MB"
           tb: "TB"
+          pb: "PB"
     percentage:
       format:
         delimiter: ''
     precision:
       format:
         delimiter: ''
-
   support:
     array:
       last_word_connector: ", and "
       two_words_connector: " and "
       words_connector: ", "
-  
   time:
     am: "am"
     formats:
-      default: "%a, %d %b %Y, %H:%M:%S %z"
-      long: "%B %d, %Y, %H:%M"
-      short: "%d %b, %H:%M"
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
       year: "%Y"
     pm: "pm"

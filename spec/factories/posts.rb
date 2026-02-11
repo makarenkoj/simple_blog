@@ -6,17 +6,16 @@ FactoryBot.define do
 
     trait :with_image do
       after(:build) do |post|
-        # Перевіряємо, чи існує файл, щоб не падало з помилкою
-        file_path = Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
-        
+        file_path = Rails.root.join('spec', 'fixtures', 'files', 'valid_image.png')
+
         if File.exist?(file_path)
           post.cover_image.attach(
             io: File.open(file_path),
-            filename: 'test_image.jpg',
-            content_type: 'image/jpeg'
+            filename: 'valid_image.png',
+            content_type: 'image/png'
           )
         else
-          puts "⚠️ Увага: Файл test_image.jpg не знайдено в spec/fixtures/files/"
+          puts "⚠️ Увага: Файл valid_image.png не знайдено в spec/fixtures/files/"
         end
       end
     end

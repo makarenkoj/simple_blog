@@ -1,5 +1,4 @@
 uk:
-  # --- Загальні ---
   hello: 'Привіт Мир!'
   blog: 'ПУБЛІКАЦІЇ'
   post: 'Публікація'
@@ -12,7 +11,6 @@ uk:
   messages: 'Повідомлення'
   menu: 'Меню'
   users: 'Користувачі'  
-  # --- Кнопки та інтерфейс ---
   buttons:
     remove_image: "Видалити зображення"
     remove_avatar: "Видалити аватар"
@@ -29,13 +27,9 @@ uk:
     ago: "тому"
   alert_destroy:
     photo: 'Точно видалити фото?'
-
-  # --- Flash повідомлення (кастомні) ---
   flash:
     avatar_removed: 'Аватар успішно видалено.'
     not_authorized: 'Ви не маєте права виконувати цю дію.'
-
-  # --- Завантаження файлів ---
   attachments:
     avatar:
       large: 'Дуже важка фоточка, більше 2 мегабайт!'
@@ -121,7 +115,6 @@ uk:
       first_name: "Ім'я"
       last_name: "Прізвище"
       role: 'Роль'
-  # --- Simple Form ---
   simple_form:
     "Yes": "Так"
     "No": "ні"
@@ -158,8 +151,6 @@ uk:
     prompts:
       defaults:
         age: "Виберіть свій вік"
-
-  # --- ActiveRecord ---
   activerecord:
     models:
       user: 'Користувач'
@@ -277,7 +268,6 @@ uk:
           like: 'Не вдалося вподобати пост'
           unlike: 'Не вдалося видалити вподобання поста'
           user_is_not_post_author: 'Ви не можете вподобати власний пост'
-    # Кастомні повідомлення контролерів (з active.uk.yml та uk.yml)
     controllers:
       posts:
         created: 'Ви створили новий пост :)'
@@ -331,7 +321,10 @@ uk:
         aspect_ratio_not_landscape: "має бути горизонтальним зображенням"
         aspect_ratio_is_not: "має співвідношення сторін %{aspect_ratio}"
         aspect_ratio_unknown: "має невідоме співвідношення сторін"
-  # --- Кастомні секції App ---
+        post:
+          title:
+            blank: "не може бути порожнім (мінімум 10 символів)"
+            short: "занадто короткий (мінімум 10 символів)"
   app:
     name: 'Пост'
     company: 'Help Booost'
@@ -390,16 +383,12 @@ uk:
           few: "Збереження не вдалося через %{count} помилок"
           many: "Збереження не вдалося через %{count} помилок"
           other: "Збереження не вдалося через %{count} помилки"
-  
   comments:
     comment:
       destroy_confirm: 'Ви впевнені, що хочете видалити цей комменатрій?'
-  
   subscriptions:
     subscription:
       destroy_confirm: 'Ви впевнені, що хочете видалити цю підписку?'
-  
-  # --- Mailers ---
   post_mailer:
     comment:
       title: 'Новий коментар'
@@ -423,8 +412,6 @@ uk:
       author: 'Автор'
       owner: 'Організатор'
       datetime: 'Відбудеться'
-
-  # --- Стандартні Rails формати та помилки ---
   date:
     abbr_day_names:
       - нд.
@@ -478,7 +465,6 @@ uk:
       - :day
       - :month
       - :year
-
   datetime:
     distance_in_words:
       about_x_hours:
@@ -549,13 +535,10 @@ uk:
       day: День
       month: Місяць
       year: Рік
-
   errors:
-    # Кастомні помилки на рівні додатку
     organize_subscribe: 'Ви не можете підписатися на свою подію!'
     user_email: 'Ця поштова адреса вже зареєстрована!'
     session_expired: "Ваша сесія закінчилася. Будь ласка, увійдіть знову."
-    # Стандартні помилки Rails
     format: "%{attribute} %{message}"
     messages:
       accepted: має бути прийнятий
@@ -601,7 +584,6 @@ uk:
         few: "%{model} не збережено через %{count} помилки"
         many: "%{model} не збережено через %{count} помилок"
         other: "%{model} не збережено через %{count} помилки"
-
   helpers:
     select:
       prompt: 'Оберіть: '
@@ -609,7 +591,6 @@ uk:
       create: Створити %{model}
       submit: Зберегти %{model}
       update: Зберегти %{model}
-
   number:
     currency:
       format:
@@ -679,13 +660,11 @@ uk:
     precision:
       format:
         delimiter: ''
-
   support:
     array:
       last_word_connector: " та "
       two_words_connector: " і "
       words_connector: ", "
-  
   time:
     am: "до полудня"
     formats:
