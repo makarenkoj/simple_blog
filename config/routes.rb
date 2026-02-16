@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     get 'up' => 'rails/health#show', as: :rails_health_check
 
+    authenticate :user, ->(user) { user.role == 'creator' && user.email == ENV['ADMIN_EMAIL'] } do
+      mount MissionControl::Jobs::Engine, at: "/jobs"
+    end
+
     # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
     get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
     get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker

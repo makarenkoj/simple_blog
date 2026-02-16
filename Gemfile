@@ -17,6 +17,7 @@ gem 'jbuilder'
 gem 'kamal', require: false
 gem 'kaminari', '~> 1.2'
 gem 'meta-tags', '~> 2.22'
+gem 'mission_control-jobs', '~> 1.1'
 gem 'pagy'
 gem 'pg'
 gem 'phlex-rails', '~> 1.2'
