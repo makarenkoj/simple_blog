@@ -346,6 +346,7 @@ it:
     post_liked_msg: ' è piaciuto il tuo post!)'
     liked_your_post: "è piaciuto il tuo post"
     view_profile: "Visualizza profilo"
+    destroyed: "Notifica eliminata"
   follows:
     created: "Hai seguito %{username}"
     destroyed: "Hai smesso di seguire %{username}"

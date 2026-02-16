@@ -75,14 +75,14 @@ class ApplicationController < ActionController::Base
   def set_seo_hreflangs
     hreflangs = I18n.available_locales.map do |lang|
       {
-        :href => url_for(locale: lang, only_path: false),
-        :hreflang => lang
+        href: url_for(locale: lang, only_path: false),
+        hreflang: lang
       }
     end
 
     hreflangs << {
-      :href => url_for(locale: I18n.default_locale, only_path: false),
-      :hreflang => 'x-default'
+      href: url_for(locale: I18n.default_locale, only_path: false),
+      hreflang: 'x-default'
     }
 
     set_meta_tags alternate: hreflangs

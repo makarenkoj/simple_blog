@@ -346,6 +346,7 @@ en:
     post_liked_msg: ' liked your post!)'
     liked_your_post: "liked your post"
     view_profile: "View profile"
+    destroyed: "Notification deleted"
   follows:
     created: "You followed %{username}"
     destroyed: "You unfollowed %{username}"
