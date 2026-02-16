@@ -529,7 +529,7 @@ RSpec.describe User, type: :model do
         invalid_usernames.each do |invalid_name|
           user = build(:user, username: invalid_name)
           user.valid?
-          expect(user.errors[:username]).to include("недійсний")
+          expect(user.errors[:username]).to include('недійсний')
         end
       end
     end
@@ -549,8 +549,7 @@ RSpec.describe User, type: :model do
         user = build(:user)
         user.avatar.attach(io: StringIO.new('fake_pdf_content'),
                            filename: 'document.pdf',
-                           content_type: 'application/pdf'
-                           )
+                           content_type: 'application/pdf')
         user.valid?
 
         expect(user.errors[:avatar]).to be_present
@@ -561,8 +560,7 @@ RSpec.describe User, type: :model do
 
         blob = ActiveStorage::Blob.create_and_upload!(io: StringIO.new('x' * 2.1.megabytes),
                                                       filename: 'large.png',
-                                                      content_type: 'image/png'
-                                                      )
+                                                      content_type: 'image/png')
         user.avatar.attach(blob)
 
         user.valid?
