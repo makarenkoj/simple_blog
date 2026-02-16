@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'I18n locales (simple)' do
-  LOCALES = [:en, :uk, :it].freeze
+  LOCALES = %i[en uk it].freeze
 
   describe 'basic setup' do
     it 'has all required locale files' do
       LOCALES.each do |locale|
-        file = Rails.root.join('config', 'locales', "#{locale}", "#{locale}.yml")
+        file = Rails.root.join('config', 'locales', locale.to_s, "#{locale}.yml")
         expect(File.exist?(file)).to be(true), "Missing #{locale}.yml"
       end
     end
@@ -30,8 +30,7 @@ RSpec.describe 'I18n locales (simple)' do
                      'notifications.new_post',
                      'search.search',
                      'errors.messages.blank',
-                     'date.formats.default'
-                    ]
+                     'date.formats.default']
 
     LOCALES.each do |locale|
       context "#{locale} locale" do
@@ -46,10 +45,9 @@ RSpec.describe 'I18n locales (simple)' do
   end
 
   describe 'no missing interpolations' do
-    interpolated_keys = { 'notifications.new_post' => [:author, :title],
+    interpolated_keys = { 'notifications.new_post' => %i[author title],
                           'notifications.new_follower' => [:follower],
-                          'search.found_results' => [:count]
-                        }
+                          'search.found_results' => [:count] }
 
     LOCALES.each do |locale|
       context "#{locale} locale" do
