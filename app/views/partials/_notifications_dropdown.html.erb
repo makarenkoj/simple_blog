@@ -33,7 +33,7 @@
                 <% end %>
                 <div class="flex-1 min-w-0">
                   <p class="text-sm text-slate-900 font-medium line-clamp-2">
-                    <% if notification.action == 'new_post' %>
+                    <% if notification.action == 'new_post' && notification.notifiable %>
                       <span class="font-semibold"><%= notification.actor.full_name %></span>
                       <%= t('notifications.published') %>:
                       <%= notification.notifiable.title %>

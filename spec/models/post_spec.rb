@@ -37,21 +37,21 @@ RSpec.describe Post, type: :model do
         post = build(:post, title: 'AB')
 
         expect(post).not_to be_valid
-        expect(post.errors[:title].first).to include("занадто короткий (мінімум 3 знаку)")
+        expect(post.errors[:title].first).to include('занадто короткий (мінімум 3 знаку)')
       end
 
       it 'is invalid with a title of 101 characters' do
         post = build(:post, title: 'A' * 101)
 
         expect(post).not_to be_valid
-        expect(post.errors[:title].first).to include("занадто довгий (максимум 100 знаку)")
+        expect(post.errors[:title].first).to include('занадто довгий (максимум 100 знаку)')
       end
 
       it 'is invalid without a title' do
         post = build(:post, title: nil)
 
         expect(post).not_to be_valid
-        expect(post.errors[:title].join).to include("не може бути пустимзанадто короткий (мінімум 3 знаку)")
+        expect(post.errors[:title].join).to include('не може бути пустимзанадто короткий (мінімум 3 знаку)')
       end
 
       it 'is invalid with an empty title' do
@@ -99,39 +99,35 @@ RSpec.describe Post, type: :model do
     context 'cover_image' do
       it 'is valid with a PNG image' do
         post = build(:post)
-        post.cover_image.attach(io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'valid_image.png')),
+        post.cover_image.attach(io: File.open(Rails.root.join('spec/fixtures/files/valid_image.png')),
                                 filename: 'valid_image.png',
-                                content_type: 'image/png'
-                                )
+                                content_type: 'image/png')
 
         expect(post).to be_valid
       end
 
       it 'is valid with a JPEG image' do
         post = build(:post)
-        post.cover_image.attach(io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'valid_image.jpg')),
+        post.cover_image.attach(io: File.open(Rails.root.join('spec/fixtures/files/valid_image.jpg')),
                                 filename: 'image.jpg',
-                                content_type: 'image/jpeg'
-                                )
+                                content_type: 'image/jpeg')
         expect(post).to be_valid
       end
 
       it 'is valid with a GIF image' do
         post = build(:post)
-        post.cover_image.attach(io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'valid_image.gif')),
+        post.cover_image.attach(io: File.open(Rails.root.join('spec/fixtures/files/valid_image.gif')),
                                 filename: 'image.gif',
-                                content_type: 'image/gif'
-                                )
+                                content_type: 'image/gif')
 
         expect(post).to be_valid
       end
 
       it 'is valid with a WEBP image' do
         post = build(:post)
-        post.cover_image.attach(io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'valid_image.webp')),
+        post.cover_image.attach(io: File.open(Rails.root.join('spec/fixtures/files/valid_image.webp')),
                                 filename: 'image.webp',
-                                content_type: 'image/webp'
-                              )
+                                content_type: 'image/webp')
 
         expect(post).to be_valid
       end
@@ -140,8 +136,7 @@ RSpec.describe Post, type: :model do
         post = build(:post)
         post.cover_image.attach(io: StringIO.new('fake_pdf_content'),
                                 filename: 'document.pdf',
-                                content_type: 'application/pdf'
-                                )
+                                content_type: 'application/pdf')
 
         expect(post).not_to be_valid
         expect(post.errors[:cover_image]).to be_present
@@ -152,8 +147,7 @@ RSpec.describe Post, type: :model do
         large_file = StringIO.new('A' * 6.megabytes)
         post.cover_image.attach(io: large_file,
                                 filename: 'large_image.jpg',
-                                content_type: 'image/jpeg'
-                                )
+                                content_type: 'image/jpeg')
 
         expect(post).not_to be_valid
         expect(post.errors[:cover_image]).to be_present
@@ -161,14 +155,13 @@ RSpec.describe Post, type: :model do
 
       it 'is valid with a file of exactly 5MB' do
         post = build(:post)
-        minimal_png = Base64.decode64("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==")
+        minimal_png = Base64.decode64('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==')
         padding_size = 5.megabytes - minimal_png.size
         file_content = minimal_png + ('A' * padding_size)
 
         post.cover_image.attach(io: StringIO.new(file_content),
                                 filename: 'image.png',
-                                content_type: 'image/png'
-                                )
+                                content_type: 'image/png')
 
         expect(post).to be_valid
       end
@@ -298,8 +291,7 @@ RSpec.describe Post, type: :model do
         notification = Notification.where(user: follower1,
                                           actor: creator,
                                           notifiable: post,
-                                          action: 'new_post'
-                                          ).first
+                                          action: 'new_post').first
 
         expect(notification).to be_present
       end
@@ -364,8 +356,7 @@ RSpec.describe Post, type: :model do
       post = Post.create(user: user,
                          title: 'Complete Post',
                          body: 'This is a complete post with all attributes filled in properly.',
-                         categories: [category]
-                         )
+                         categories: [category])
 
       expect(post).to be_persisted
       expect(post.user).to eq(user)

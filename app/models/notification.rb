@@ -18,6 +18,8 @@ class Notification < ApplicationRecord
   end
 
   def message
+    return I18n.t('notifications.destroyed') if notifiable.nil?
+
     case action
     when 'new_post'
       I18n.t('notifications.new_post', author: actor.full_name, title: notifiable.title)

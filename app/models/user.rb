@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow', dependent: :destroy, inverse_of: :following
   has_many :followers, through: :follower_relationships, source: :follower
   has_many :notifications, dependent: :destroy
+  has_many :related_notifications, as: :notifiable, dependent: :destroy, class_name: 'Notification'
   has_many :initiated_notifications, foreign_key: :actor_id, class_name: 'Notification', dependent: :destroy, inverse_of: :actor
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_posts, through: :bookmarks, source: :post
