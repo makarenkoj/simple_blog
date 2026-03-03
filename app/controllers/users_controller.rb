@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[show edit update destroy current_profile]
   before_action :set_current_user, only: %i[show edit update destroy delete_avatar]
 
   def show
@@ -28,6 +28,10 @@ class UsersController < ApplicationController
     else
       redirect_back fallback_location: user_path(@user), alert: t('flash.not_authorized', default: 'You are not authorized to perform this action.')
     end
+  end
+
+  def current_profile
+    redirect_to user_path(current_user)
   end
 
   private

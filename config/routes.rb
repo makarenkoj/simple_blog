@@ -52,5 +52,6 @@ Rails.application.routes.draw do
     get 'privacy', to: 'pages#privacy', as: :privacy_policy
     get 'terms', to: 'pages#terms', as: :terms
     get 'about', to: 'pages#about', as: :about
+    get '/profile', to: 'users#current_profile', as: :current_profile
   end
 end
