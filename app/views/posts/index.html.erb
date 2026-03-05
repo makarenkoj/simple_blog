@@ -1,3 +1,29 @@
+<% if turbo_native_app? && controller_name != 'categories' && action_name != 'library'%>
+  <div class="sticky top-0 z-[60] bg-white border-b border-slate-200 px-4 py-2 flex items-center gap-3 shadow-sm">
+    <div class="flex-1 relative">
+      <%= form_with url: search_path, method: :get, data: { controller: "search", turbo_frame: "search_results" }, class: "w-full" do |f| %>
+        <div class="flex items-center w-full px-4 py-1.5 bg-slate-100 rounded-full focus-within:bg-white focus-within:ring-2 focus-within:ring-slate-300 transition-all duration-200">
+          <i class="ri-search-line text-slate-400 text-lg mr-2 flex-shrink-0"></i>
+          <%= f.text_field :query, 
+              placeholder: t('search.search'),
+              class: "w-full bg-transparent border-none focus:ring-0 p-0 text-sm placeholder-slate-500 focus:outline-none",
+              autocomplete: "off",
+              data: { action: "input->search#query focus->search#handleFocus keydown->search#handleKeydown",
+                      search_target: "input" } 
+          %>
+        </div>
+        <div class="absolute top-full left-0 right-0 mt-2 z-50" data-search-target="results">
+          <turbo-frame id="search_results"></turbo-frame>
+        </div>
+      <% end %>
+    </div>
+    <% if user_signed_in? %>
+      <div id="mobile_header_notifications_wrapper" class="flex items-center">
+        <%= render "partials/mobile_header_notifications", user: current_user %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 <div class="min-h-screen bg-white">
   <header class="border-b border-slate-200 bg-white/80 backdrop-blur-md top-16 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

@@ -40,5 +40,21 @@ class Notification < ApplicationRecord
       partial: 'partials/notifications_dropdown',
       locals: { user: user }
     )
+
+    broadcast_replace_to(
+      user,
+      :notifications,
+      target: "profile_notifications_button",
+      partial: "users/profile_notifications_button",
+      locals: { user: user }
+    )
+
+    broadcast_update_to(
+      user,
+      :notifications,
+      target: "mobile_header_notifications_wrapper",
+      partial: "partials/mobile_header_notifications",
+      locals: { user: user }
+    )
   end
 end

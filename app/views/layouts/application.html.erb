@@ -26,6 +26,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   </head>
   <body class="bg-white" data-controller="sidebar">
+    <% if user_signed_in? %>
+      <%= turbo_stream_from current_user, :notifications %>
+    <% end %>
     <% unless turbo_native_app? %>
       <nav class="sticky top-0 z-40 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -109,7 +112,6 @@
                   </div>
                 </div>
               <% if user_signed_in? %>
-                <%= turbo_stream_from current_user, :notifications %>
                 <%= render "partials/notifications_dropdown", user: current_user %>
                 <div class="dropdown" data-controller="dropdown">
                   <button type="button" class="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded-full transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">

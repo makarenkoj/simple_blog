@@ -1,0 +1,7 @@
+<%= link_to notifications_path, data: { turbo: false }, class: "p-2 transition-colors duration-200" do %>  
+  <% if user.unread_notifications_count > 0 %>
+    <i class="ri-notification-3-fill text-2xl text-red-500"></i>
+  <% else %>
+    <i class="ri-notification-3-line text-2xl text-slate-600 hover:text-slate-900"></i>
+  <% end %>
+<% end %>

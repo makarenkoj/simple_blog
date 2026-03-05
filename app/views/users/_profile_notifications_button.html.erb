@@ -1,0 +1,17 @@
+<%= link_to notifications_path, id: "profile_notifications_button", data: { turbo: false }, class: "inline-flex items-center px-4 py-2 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+  <div class="relative flex items-center justify-center mr-2">
+    <i class='bx bx-bell text-lg'></i>
+    <% if user.unread_notifications_count > 0 %>
+      <span class="absolute -top-1 -right-1 flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-2 border-white"></span>
+      </span>
+    <% end %>
+  </div>
+  <span><%= t('notifications.view_all_notifications', default: 'Сповіщення') %></span>
+  <% if user.unread_notifications_count > 0 %>
+    <span class="ml-2 inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
+      <%= user.unread_notifications_count %>
+    </span>
+  <% end %>
+<% end %>
