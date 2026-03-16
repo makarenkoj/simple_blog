@@ -1,7 +1,6 @@
 <turbo-frame id="search_results">
   <% if @posts.any? || @users.any? || @categories.any? %>
-    <div class="py-2 max-h-[80vh] overflow-y-auto custom-scrollbar bg-white rounded-xl shadow-xl border border-slate-100">
-      
+    <div class="py-2 max-h-64 md:max-h-96 overflow-y-auto overscroll-contain custom-scrollbar bg-white rounded-xl shadow-xl border border-slate-100">
       <% if @categories.any? %>
         <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
           <%= t('activerecord.attributes.posts.categories') %>
@@ -15,7 +14,6 @@
           <% end %>
         <% end %>
       <% end %>
-
       <% if @users.any? %>
         <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-2">
           <%= t('users') %>
@@ -36,7 +34,6 @@
           <% end %>
         <% end %>
       <% end %>
-
       <% if @posts.any? %>
         <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-2">
           <%= t('posts') %>
@@ -57,7 +54,6 @@
           <% end %>
         <% end %>
       <% end %>
-      
       <div class="border-t border-slate-100 mt-2">
         <%= link_to search_path(query: @query), class: "block px-4 py-3 text-center text-sm font-medium text-blue-600 hover:bg-slate-50 transition-colors", data: { turbo_frame: "_top" } do %>
           <%= t('search.all_results') %>
