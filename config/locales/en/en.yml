@@ -342,7 +342,7 @@ en:
     published: "published"
     followed_you: "followed you"
     view_all_notifications: "View all notifications"
-    post_liked: "%{actor} %{title}"
+    post_liked: "%{actor} liked yours %{title}"
     post_liked_msg: ' liked your post!)'
     liked_your_post: "liked your post"
     view_profile: "View profile"

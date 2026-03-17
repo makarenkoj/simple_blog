@@ -5,21 +5,21 @@ RSpec.describe Post, type: :model do
   let(:post) { create(:post, user: user) }
 
   describe 'associations' do
-    it { should belong_to(:user) }
-    it { should have_many(:categorizations).dependent(:destroy) }
-    it { should have_many(:categories).through(:categorizations) }
-    it { should have_many(:bookmarks).dependent(:destroy) }
-    it { should have_many(:likes).dependent(:destroy) }
-    it { should have_many(:liking_users).through(:likes).source(:user) }
-    it { should have_rich_text(:body) }
-    it { should have_one_attached(:cover_image) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:categorizations).dependent(:destroy) }
+    it { is_expected.to have_many(:categories).through(:categorizations) }
+    it { is_expected.to have_many(:bookmarks).dependent(:destroy) }
+    it { is_expected.to have_many(:likes).dependent(:destroy) }
+    it { is_expected.to have_many(:liking_users).through(:likes).source(:user) }
+    it { is_expected.to have_rich_text(:body) }
+    it { is_expected.to have_one_attached(:cover_image) }
   end
 
   describe 'validations' do
     context 'title' do
-      it { should validate_presence_of(:title) }
-      it { should validate_length_of(:title).is_at_least(3) }
-      it { should validate_length_of(:title).is_at_most(100) }
+      it { is_expected.to validate_presence_of(:title) }
+      it { is_expected.to validate_length_of(:title).is_at_least(3) }
+      it { is_expected.to validate_length_of(:title).is_at_most(100) }
 
       it 'is valid with a title of 3 characters' do
         post = build(:post, title: 'ABC')
@@ -191,14 +191,14 @@ RSpec.describe Post, type: :model do
 
     it 'can find post by slug' do
       post = create(:post, title: 'Findable Post')
-      found = Post.friendly.find(post.slug)
+      found = described_class.friendly.find(post.slug)
 
       expect(found).to eq(post)
     end
 
     it 'can find post by id' do
       post = create(:post)
-      found = Post.friendly.find(post.id)
+      found = described_class.friendly.find(post.id)
 
       expect(found).to eq(post)
     end
@@ -223,7 +223,7 @@ RSpec.describe Post, type: :model do
       old_slug = post.slug
       post.update(title: 'New Title')
 
-      expect(Post.friendly.find(old_slug)).to eq(post)
+      expect(described_class.friendly.find(old_slug)).to eq(post)
     end
 
     it 'handles special characters in title' do
@@ -258,13 +258,13 @@ RSpec.describe Post, type: :model do
 
   describe '#normalize_friendly_id' do
     it 'transliterates Ukrainian text' do
-      post = Post.new
+      post = described_class.new
 
       expect(post.normalize_friendly_id('Київ')).to match(/kyiv/i)
     end
 
     it 'handles mixed language text' do
-      post = Post.new
+      post = described_class.new
       result = post.normalize_friendly_id('Hello Привіт')
 
       expect(result).to be_a(String)
@@ -315,37 +315,37 @@ RSpec.describe Post, type: :model do
 
   describe 'ransackable attributes' do
     it 'allows searching by id' do
-      expect(Post.ransackable_attributes).to include('id')
+      expect(described_class.ransackable_attributes).to include('id')
     end
 
     it 'allows searching by title' do
-      expect(Post.ransackable_attributes).to include('title')
+      expect(described_class.ransackable_attributes).to include('title')
     end
 
     it 'allows searching by created_at' do
-      expect(Post.ransackable_attributes).to include('created_at')
+      expect(described_class.ransackable_attributes).to include('created_at')
     end
 
     it 'allows searching by updated_at' do
-      expect(Post.ransackable_attributes).to include('updated_at')
+      expect(described_class.ransackable_attributes).to include('updated_at')
     end
 
     it 'does not expose sensitive attributes' do
-      expect(Post.ransackable_attributes).not_to include('user_id')
+      expect(described_class.ransackable_attributes).not_to include('user_id')
     end
   end
 
   describe 'ransackable associations' do
     it 'allows searching through user' do
-      expect(Post.ransackable_associations).to include('user')
+      expect(described_class.ransackable_associations).to include('user')
     end
 
     it 'allows searching through categories' do
-      expect(Post.ransackable_associations).to include('categories')
+      expect(described_class.ransackable_associations).to include('categories')
     end
 
     it 'allows searching through rich_text_body' do
-      expect(Post.ransackable_associations).to include('rich_text_body')
+      expect(described_class.ransackable_associations).to include('rich_text_body')
     end
   end
 
@@ -353,10 +353,10 @@ RSpec.describe Post, type: :model do
     it 'can create a complete post with all attributes' do
       category = create(:category)
 
-      post = Post.create(user: user,
-                         title: 'Complete Post',
-                         body: 'This is a complete post with all attributes filled in properly.',
-                         categories: [category])
+      post = described_class.create(user: user,
+                                    title: 'Complete Post',
+                                    body: 'This is a complete post with all attributes filled in properly.',
+                                    categories: [category])
 
       expect(post).to be_persisted
       expect(post.user).to eq(user)

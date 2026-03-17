@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[show edit update destroy current_profile]
   before_action :set_current_user, only: %i[show edit update destroy delete_avatar]
+  skip_before_action :verify_authenticity_token, only: [:update_fcm_token]
 
   def show
     @user = User.friendly.find(params[:id])
@@ -34,6 +35,16 @@ class UsersController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def update_fcm_token
+    if current_user
+      save_fcm_token(params[:token])
+
+      render json: { status: 'ok', message: 'Token saved' }
+    else
+      render json: { error: 'Not logged in' }, status: :unauthorized
+    end
+  end
+
   private
 
   def set_current_user
@@ -42,5 +53,15 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :avatar, preferred_category_ids: [])
+  end
+
+  def save_fcm_token(token)
+    return if token.blank?
+    return if current_user.fcm_token == token
+
+    User.transaction do
+      User.where(fcm_token: token).where.not(id: current_user.id).update_all(fcm_token: nil)
+      current_user.update(fcm_token: token)
+    end
   end
 end

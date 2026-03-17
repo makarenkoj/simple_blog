@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount_avo
-  get "pages/privacy"
+
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     get 'up' => 'rails/health#show', as: :rails_health_check
 
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
     get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
     get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker
+
     devise_scope :user do
       get 'users/sign_out', to: 'devise/sessions#destroy', as: 'logout'
     end
@@ -24,9 +25,7 @@ Rails.application.routes.draw do
     resources :posts do
       resource :bookmark, only: [:create, :destroy], module: :posts
       resource :like, only: [:create, :destroy], module: :posts
-      collection do
-        get :library
-      end
+      get :library, on: :collection
     end
 
     resources :users, only: [:show] do
@@ -48,10 +47,15 @@ Rails.application.routes.draw do
       resource :preference, only: [:create, :destroy], module: :categories
     end
 
+    controller :pages do
+      get :privacy, as: :privacy_policy
+      get :terms
+      get :about
+    end
+
     get 'search', to: 'search#index'
-    get 'privacy', to: 'pages#privacy', as: :privacy_policy
-    get 'terms', to: 'pages#terms', as: :terms
-    get 'about', to: 'pages#about', as: :about
     get '/profile', to: 'users#current_profile', as: :current_profile
+
+    post 'update_fcm_token', to: 'users#update_fcm_token'
   end
 end

@@ -7,7 +7,7 @@ module Posts
       return redirect_back fallback_location: posts_path, alert: t('activerecord.attributes.likes.errors.user_is_not_post_author') if @post.user_id == current_user.id
 
       if current_user.likes.create(post: @post)
-        Notification.create(user: @post.user, actor: current_user, notifiable: @post.user, action: 'post_liked') # TODO: moove to service and logic
+        Notification.create(user: @post.user, actor: current_user, notifiable: @post, action: 'post_liked') # TODO: moove to service and logic
         flash.now[:notice] = t('activerecord.attributes.posts.liked_flash')
       end
 

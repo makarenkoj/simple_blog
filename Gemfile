@@ -9,7 +9,9 @@ gem 'bootsnap'
 gem 'cssbundling-rails'
 gem 'devise'
 gem 'devise-i18n'
+gem 'dotenv-rails', '~> 3.2'
 gem 'faker', '~> 3.6'
+gem 'fcm', '~> 2.0'
 gem 'friendly_id', '~> 5.6'
 gem 'image_processing', '~> 1.14'
 gem 'importmap-rails'
@@ -48,8 +50,11 @@ group :development, :test do
   gem 'listen'
   gem 'rspec-rails'
   gem 'rubocop'
+  gem 'rubocop-capybara', '~> 2.22'
+  gem 'rubocop-factory_bot', '~> 2.28'
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', '~> 2.32'
   gem 'spring'
   gem 'spring-watcher-listen'
 end

@@ -342,7 +342,7 @@ it:
     published: "ha pubblicato"
     followed_you: "ti ha seguito"
     view_all_notifications: "Visualizza tutte le notifiche"
-    post_liked: "%{actor} %{title}"
+    post_liked: "%{actor} è piaciuto il tuo %{title}"
     post_liked_msg: ' è piaciuto il tuo post!)'
     liked_your_post: "è piaciuto il tuo post"
     view_profile: "Visualizza profilo"
