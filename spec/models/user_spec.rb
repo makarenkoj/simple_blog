@@ -7,10 +7,10 @@ RSpec.describe User, type: :model do
   let(:third_creator) { create(:user, role: :creator, username: 'third_creator', email: 'creator3@example.com') }
 
   describe 'validations' do
+    subject { create(:user) }
+
     it { is_expected.to validate_presence_of(:username) }
     it { is_expected.to validate_length_of(:username).is_at_least(3).is_at_most(20) }
-
-    subject { create(:user) }
 
     it { is_expected.to validate_uniqueness_of(:username).case_insensitive }
   end
@@ -43,11 +43,11 @@ RSpec.describe User, type: :model do
 
     describe '#creator?' do
       it 'return true for creator' do
-        expect(creator.creator?).to be_truthy
+        expect(creator).to be_creator
       end
 
       it 'return false for reader' do
-        expect(reader.creator?).to be_falsey
+        expect(reader).not_to be_creator
       end
     end
 
@@ -613,14 +613,14 @@ RSpec.describe User, type: :model do
     describe '.ransackable_attributes' do
       it 'returns the allowed attributes for search' do
         expected_attributes = %w[id username email first_name last_name role created_at]
-        expect(User.ransackable_attributes).to match_array(expected_attributes)
+        expect(described_class.ransackable_attributes).to match_array(expected_attributes)
       end
     end
 
     describe '.ransackable_associations' do
       it 'returns the allowed associations for search' do
         expected_associations = %w[posts followers followings preferred_categories]
-        expect(User.ransackable_associations).to match_array(expected_associations)
+        expect(described_class.ransackable_associations).to match_array(expected_associations)
       end
     end
   end

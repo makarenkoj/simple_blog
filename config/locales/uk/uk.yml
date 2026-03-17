@@ -344,7 +344,7 @@ uk:
     published: "опублікував"
     followed_you: "підписався на вас"
     view_all_notifications: "Переглянути всі сповіщення"
-    post_liked: "%{actor} %{title}"
+    post_liked: "%{actor} сподобался ваш %{title}"
     post_liked_msg: ' сподобался ваш пост!)'
     liked_your_post: "сподобався ваш пост"
     view_profile: "Переглянути профіль"

@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <meta name="turbo-cache-control" content="no-cache">
+<% end %>
 <div class="min-h-screen bg-white">
   <div class="border-b border-slate-200">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -35,6 +38,7 @@
           </div>
           <% if @user == current_user %>
             <div class="flex flex-wrap gap-3">
+              <%= render "users/profile_notifications_button", user: current_user %>
               <%= link_to edit_user_registration_path, class: "inline-flex items-center px-4 py-2 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
                 <i class='bx bx-edit text-lg mr-2'></i>
                 <%= t('activerecord.attributes.user.edit_profile') %>

@@ -161,7 +161,10 @@ GEM
       rails-i18n
     diff-lcs (1.6.2)
     docile (1.4.1)
-    dotenv (3.1.8)
+    dotenv (3.2.0)
+    dotenv-rails (3.2.0)
+      dotenv (= 3.2.0)
+      railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
     erb (6.0.1)
@@ -175,6 +178,15 @@ GEM
       railties (>= 6.1.0)
     faker (3.6.0)
       i18n (>= 1.8.11, < 2)
+    faraday (2.14.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
+    fcm (2.0.1)
+      faraday (>= 1.0.0, < 3.0)
+      googleauth (~> 1)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -188,6 +200,18 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-cloud-env (2.3.1)
+      base64 (~> 0.2)
+      faraday (>= 1.0, < 3.a)
+    google-logging-utils (0.2.0)
+    googleauth (1.16.2)
+      faraday (>= 1.0, < 3.a)
+      google-cloud-env (~> 2.2)
+      google-logging-utils (~> 0.1)
+      jwt (>= 1.4, < 4.0)
+      multi_json (~> 1.11)
+      os (>= 0.9, < 2.0)
+      signet (>= 0.16, < 2.a)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -210,6 +234,8 @@ GEM
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
     json (2.18.1)
+    jwt (3.1.2)
+      base64
     kamal (2.7.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -268,6 +294,9 @@ GEM
       stimulus-rails
       turbo-rails
     msgpack (1.8.0)
+    multi_json (1.19.1)
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     net-imap (0.5.9)
       date
       net-protocol
@@ -296,6 +325,7 @@ GEM
     nokogiri (1.19.0-x86_64-linux-musl)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    os (1.1.4)
     ostruct (0.6.2)
     pagy (9.4.0)
     parallel (1.27.0)
@@ -422,6 +452,12 @@ GEM
     rubocop-ast (1.45.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
+    rubocop-capybara (2.22.1)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
+    rubocop-factory_bot (2.28.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     rubocop-rails (2.32.0)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
@@ -431,6 +467,10 @@ GEM
     rubocop-rspec (3.6.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
+    rubocop-rspec_rails (2.32.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
+      rubocop-rspec (~> 3.5)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.4)
       ffi (~> 1.12)
@@ -446,6 +486,11 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (7.0.1)
       activesupport (>= 7.1)
+    signet (0.21.0)
+      addressable (~> 2.8)
+      faraday (>= 0.17.5, < 3.a)
+      jwt (>= 1.5, < 4.0)
+      multi_json (~> 1.10)
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -555,8 +600,10 @@ DEPENDENCIES
   devise
   devise-i18n
   dotenv (~> 3.1)
+  dotenv-rails (~> 3.2)
   factory_bot_rails
   faker (~> 3.6)
+  fcm (~> 2.0)
   friendly_id (~> 5.6)
   image_processing (~> 1.14)
   importmap-rails
@@ -576,8 +623,11 @@ DEPENDENCIES
   ransack (~> 4.4)
   rspec-rails
   rubocop
+  rubocop-capybara (~> 2.22)
+  rubocop-factory_bot (~> 2.28)
   rubocop-rails
   rubocop-rspec
+  rubocop-rspec_rails (~> 2.32)
   ruby_ui
   selenium-webdriver
   shoulda-matchers

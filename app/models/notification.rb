@@ -32,6 +32,7 @@ class Notification < ApplicationRecord
     end
   end
 
+  after_create_commit :send_mobile_push
   after_create_commit do
     broadcast_replace_to(
       user,
@@ -40,5 +41,29 @@ class Notification < ApplicationRecord
       partial: 'partials/notifications_dropdown',
       locals: { user: user }
     )
+
+    broadcast_replace_to(
+      user,
+      :notifications,
+      target: 'profile_notifications_button',
+      partial: 'users/profile_notifications_button',
+      locals: { user: user }
+    )
+
+    broadcast_update_to(
+      user,
+      :notifications,
+      target: 'mobile_header_notifications_wrapper',
+      partial: 'partials/mobile_header_notifications',
+      locals: { user: user }
+    )
+  end
+
+  private
+
+  def send_mobile_push
+    Thread.new do
+      FcmService.send_notification(self)
+    end
   end
 end
