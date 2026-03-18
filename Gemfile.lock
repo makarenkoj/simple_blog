@@ -81,10 +81,10 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.8.8)
+    addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
-    avo (3.29.0)
+    avo (3.30.3)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -94,7 +94,7 @@ GEM
       docile
       meta-tags
       pagy (>= 7.0.0, < 43)
-      prop_initializer (>= 0.2.0)
+      prop_initializer (>= 0.3.0)
       turbo-rails (>= 2.0.0)
       turbo_power (>= 0.6.0)
       view_component (>= 3.7.0)
@@ -303,7 +303,7 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.9.0)
-    prop_initializer (0.2.0)
+    prop_initializer (0.3.0)
       zeitwerk (>= 2.6.18)
     propshaft (1.1.0)
       actionpack (>= 7.0.0)
@@ -313,7 +313,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    public_suffix (7.0.2)
+    public_suffix (7.0.5)
     puma (6.6.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
@@ -491,7 +491,7 @@ GEM
     thruster (0.1.14)
     thruster (0.1.14-aarch64-linux)
     thruster (0.1.14-x86_64-linux)
-    timeout (0.6.0)
+    timeout (0.6.1)
     tsort (0.2.0)
     turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
@@ -505,7 +505,7 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.1.1)
     useragent (0.16.11)
-    view_component (4.2.0)
+    view_component (4.5.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
       concurrent-ruby (~> 1)
@@ -536,7 +536,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_storage_validations (~> 3.0)
-  avo (~> 3.29)
+  avo (~> 3.30)
   aws-sdk-s3 (~> 1.213)
   babosa (~> 2.0)
   bootsnap
