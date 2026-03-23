@@ -81,7 +81,7 @@ production:
     database: helpbooost_production
     username: helpbooost
     password: <%= ENV["POSTGRES_PASSWORD"] %>
-    host: <%= ENV.fetch("DB_HOST", "localhost") %>
+    host: <%= ENV.fetch("DB_HOST", "helpbooost-db") %>
     port: 5432
 
   queue:

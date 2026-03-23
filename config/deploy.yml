@@ -24,7 +24,7 @@ builder:
 
 env:
   clear:
-    DB_HOST: 206.189.107.151
+    DB_HOST: helpbooost-db
     RAILS_SERVE_STATIC_FILES: true
     RAILS_LOG_TO_STDOUT: true
 
@@ -43,6 +43,7 @@ env:
     CLIENT_ID: 115265296648281310210
 
   secret:
+    - KAMAL_REGISTRY_PASSWORD
     - RAILS_MASTER_KEY
     - POSTGRES_PASSWORD
     - ppp
