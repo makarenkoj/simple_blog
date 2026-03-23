@@ -19,6 +19,9 @@ registry:
 ssh:
   user: deploy
 
+builder:
+  arch: amd64
+
 env:
   clear:
     DB_HOST: 206.189.107.151
