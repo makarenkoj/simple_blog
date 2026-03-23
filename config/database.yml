@@ -78,9 +78,9 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: simple_blog_production
-    username: simple_blog
-    password: <%= ENV['SIMPL_BLOG_DATABASE_PASSWORD'] %>
+    database: helpbooost_production
+    username: helpbooost
+    password: <%= ENV["POSTGRES_PASSWORD"] %>
     host: <%= ENV.fetch("DB_HOST", "localhost") %>
     port: 5432
 
