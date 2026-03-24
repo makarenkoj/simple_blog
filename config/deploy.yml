@@ -21,9 +21,12 @@ ssh:
 
 builder:
   arch: amd64
+  local: false
+  remote: ssh://deploy@206.189.107.151
 
 env:
   clear:
+    RAILS_ENV: production
     DB_HOST: helpbooost-db
     RAILS_SERVE_STATIC_FILES: true
     RAILS_LOG_TO_STDOUT: true
