@@ -16,6 +16,7 @@ gem 'friendly_id', '~> 5.6'
 gem 'image_processing', '~> 1.14'
 gem 'importmap-rails'
 gem 'jbuilder'
+gem 'jsbundling-rails', '~> 1.3'
 gem 'kamal', require: false
 gem 'kaminari', '~> 1.2'
 gem 'meta-tags', '~> 2.22'

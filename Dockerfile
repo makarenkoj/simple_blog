@@ -1,29 +1,30 @@
-FROM ruby:3.0
+FROM ruby:3.4.3
 
 USER root
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update -qq && apt-get install -y nodejs postgresql-client vim && \
-    apt-get install -y yarn && \
-    apt-get install -y imagemagick && \
-    apt-get install -y libvips-tools && \
-    apt-get install -y locales
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get update -qq && \
+    apt-get install -y postgresql-client vim imagemagick libvips-tools locales nodejs && \
+    npm install -g yarn
 
 RUN mkdir /myapp
 WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
-# RUN gem update
-RUN gem install bundler
-RUN bundle check || bundle install
+
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler && bundle check || bundle install
+
 COPY package.json yarn.lock ./
+RUN yarn install
+
 COPY . /myapp
-RUN yarn add bootstrap jquery popper.js
+
+RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+EXPOSE 80
+ENV TARGET_URL=http://0.0.0.0:3000
+
+CMD ["bundle", "exec", "thrust", "./bin/rails", "server"]
