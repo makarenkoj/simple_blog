@@ -75,6 +75,11 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
 
+      - name: Install system dependencies for ActiveStorage
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libvips imagemagick libvips-tools
+
       - name: Cache assets
         uses: actions/cache@v4
         with:
