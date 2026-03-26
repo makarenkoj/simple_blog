@@ -1,12 +1,11 @@
 FROM ruby:3.4.3-slim
 
 ENV TZ=UTC
-RUN apk add --no-cache tzdata
-
 USER root
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get update -qq && \
+RUN apt-get update -qq && \
+    apt-get install -y curl tzdata && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y postgresql-client vim imagemagick libvips-tools locales nodejs && \
     npm install -g yarn
 
