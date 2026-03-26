@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 plugins:
   - rubocop-rails
   - rubocop-capybara
@@ -38,3 +40,21 @@ Metrics/MethodLength:
 
 Metrics/AbcSize:
   Max: 30
+
+RSpec/ExampleLength:
+  Max: 15
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive

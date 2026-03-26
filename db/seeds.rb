@@ -14,39 +14,62 @@ if env['RAILS_ENV'] == 'development'
   puts "Creating Categories with images..."
   puts "📂 Створення категорій..."
 
-  # categories_list = [
-  #   { name: 'Technology', query: 'technology,computer' },
-  #   { name: 'Travel', query: 'travel,nature' },
-  #   { name: 'Food', query: 'food,cooking' },
-  #   { name: 'Lifestyle', query: 'lifestyle,people' },
-  #   { name: 'Health', query: 'health,fitness' },
-  #   { name: 'Fashion', query: 'fashion,style' },
-  #   { name: 'Business', query: 'business,office' },
-  #   { name: 'Education', query: 'education,book' },
-  #   { name: 'Sports', query: 'sports,game' },
-  #   { name: 'Art', query: 'art,painting' },
-  #   { name: 'Music', query: 'music,concert' },
-  #   { name: 'Cinema', query: 'cinema,movie' }
-  # ]
+  categories_list = [
+    { name: 'Technology', query: 'technology,computer' },
+    { name: 'Travel', query: 'travel,nature' },
+    { name: 'Food', query: 'food,cooking' },
+    { name: 'Lifestyle', query: 'lifestyle,people' },
+    { name: 'Health', query: 'health,fitness' },
+    { name: 'Fashion', query: 'fashion,style' },
+    { name: 'Business', query: 'business,office' },
+    { name: 'Education', query: 'education,book' },
+    { name: 'Sports', query: 'sports,game' },
+    { name: 'Art', query: 'art,painting' },
+    { name: 'Music', query: 'music,concert' },
+    { name: 'Cinema', query: 'cinema,movie' },
+    { name: 'Comparasion', query: 'comparison,versus' },
+    { name: 'Guides', query: 'guides,tutorial' },
+    { name: 'Reviews', query: 'reviews,opinion' },
+    { name: 'Personal', query: 'personal,diary' },
+    { name: 'News', query: 'news,breaking' },
+    { name: 'Humor', query: 'humor,funny' },
+    { name: 'Science', query: 'science,experiment' },
+    { name: 'History', query: 'history,ancient' },
+    { name: 'Politics', query: 'politics,government' },
+    { name: 'Finance', query: 'finance,money' },
+    { name: 'Environment', query: 'environment,ecology' },
+    { name: 'Books', query: 'books,reading' },
+    { name: 'Parenting', query: 'parenting,family' },
+    { name: 'DIY', query: 'diy,crafts' },
+    { name: 'Photography', query: 'photography,camera' },
+    { name: 'Gaming', query: 'gaming,video games' },
+    { name: 'Automotive', query: 'automotive,cars' },
+    { name: 'Pets', query: 'pets,animals' },
+    { name: 'Relationships', query: 'relationships,love' },
+    { name: 'Spirituality', query: 'spirituality,meditation' },
+    { name: 'Productivity', query: 'productivity,work' },
+    { name: 'Best', query: 'best,products' },
+    { name: 'Others', query: 'miscellaneous,random' }
+  ]
 
   created_categories = []
 
-  # categories_list.each do |cat_data|
-  #   category = Category.find_or_create_by!(name: cat_data[:name].downcase)
-  #   created_categories << category
+  categories_list.each do |cat_data|
+    category = Category.find_or_create_by!(name: cat_data[:name].downcase)
+    created_categories << category
     
-  #   unless category.cover_image.attached?
-  #     puts "  - Downloading image for #{cat_data[:name]}..."
-  #     begin
-  #       image_url = "https://loremflickr.com/320/320/#{cat_data[:name].downcase}/all" 
-  #       downloaded_image = URI.open(image_url)
-  #       category.cover_image.attach(io: downloaded_image, filename: "#{cat_data[:name].downcase}.jpg")
-  #       print "."
-  #     rescue => e
-  #       puts "\n⚠️ Не вдалося завантажити фото для категорії #{cat_data[:name]}: #{e.message}"
-  #     end
-  #   end
-  # end
+    unless category.cover_image.attached?
+      puts "  - Downloading image for #{cat_data[:name]}..."
+      begin
+        image_url = "https://loremflickr.com/320/320/#{cat_data[:name].downcase}/all" 
+        downloaded_image = URI.open(image_url)
+        category.cover_image.attach(io: downloaded_image, filename: "#{cat_data[:name].downcase}.jpg")
+        print "."
+      rescue => e
+        puts "\n⚠️ Не вдалося завантажити фото для категорії #{cat_data[:name]}: #{e.message}"
+      end
+    end
+  end
 
   # puts "\n✅ Створено #{Category.count} категорій."
 
