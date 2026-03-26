@@ -1,4 +1,4 @@
-FROM ruby:3.4.3-alpine AS base
+FROM ruby:3.4.3-slim
 
 ENV TZ=UTC
 RUN apk add --no-cache tzdata
