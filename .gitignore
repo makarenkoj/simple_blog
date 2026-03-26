@@ -71,3 +71,5 @@ yarn-debug.log*
 /node_modules
 
 storage/
+
+config/firebase_credentials.json

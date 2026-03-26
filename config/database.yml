@@ -4,50 +4,94 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  adapter: postgresql
-  encoding: unicode
-  host: localhost
-  port: 5432
-  database: simple_blog
-  username: postgres
-  password: postgres
-  pool: 5
+  primary:
+    <<: *default
+    database: simple_blog
+    username: postgres
+    password: postgres
+    host: localhost
+    port: 5432
+  
+  queue:
+    <<: *default
+    database: simple_blog_queue
+    username: postgres
+    password: postgres
+    host: localhost
+    port: 5432
+    migrations_paths: db/queue_migrate
+
+  cache:
+    <<: *default
+    database: simple_blog_cache
+    username: postgres
+    password: postgres
+    host: localhost
+    port: 5432
+    migrations_paths: db/cache_migrate
+
+  cable:
+    <<: *default
+    database: simple_blog_cable
+    username: postgres
+    password: postgres
+    host: localhost
+    port: 5432
+    migrations_paths: db/cable_migrate
 
 test:
-  <<: *default
-  encoding: unicode
-  host: 127.0.0.1
-  port: 5432
-  database: simple_blog_test
-  username: postgres
-  password: postgres
-  pool: 5
+  primary:
+    <<: *default
+    database: simple_blog_test
+    username: postgres
+    password: postgres
+    host: 127.0.0.1
+    port: 5432
+  
+  queue:
+    <<: *default
+    database: simple_blog_test_queue
+    username: postgres
+    password: postgres
+    host: 127.0.0.1
+    port: 5432
+    migrations_paths: db/queue_migrate
+
+  cache:
+    <<: *default
+    database: simple_blog_test_cache
+    username: postgres
+    password: postgres
+    host: 127.0.0.1
+    port: 5432
+    migrations_paths: db/cache_migrate
+
+  cable:
+    <<: *default
+    database: simple_blog_test_cable
+    username: postgres
+    password: postgres
+    host: 127.0.0.1
+    port: 5432
+    migrations_paths: db/cable_migrate
 
 production:
-  <<: *default
-  database: simple_blog_production
-  username: simple_blog
-  password: <%= ENV['SIMPL_BLOG_DATABASE_PASSWORD'] %>
+  primary: &primary_production
+    <<: *default
+    database: helpbooost_production
+    username: helpbooost
+    password: <%= ENV["POSTGRES_PASSWORD"] %>
+    host: <%= ENV.fetch("DB_HOST", "helpbooost-db") %>
+    port: 5432
 
+  queue:
+    <<: *primary_production
+    migrations_paths: db/queue_migrate
 
-# default: &default
-#   adapter: postgresql
-#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-#   timeout: 5000
+  cache:
+    <<: *primary_production
+    migrations_paths: db/cache_migrate
 
-# development:
-#   adapter: postgresql
-#   encoding: unicode
-#   # host: db
-#   # port: 5432
-#   database: simple_blog
-#   username: postgres
-#   password: postgres
-#   pool: 5
-
-# test:
-#   <<: *default
-
-# production:
-#   <<: *default
-#   url: <%= ENV['DATABASE'] %>
+  cable:
+    <<: *primary_production
+    migrations_paths: db/cable_migrate

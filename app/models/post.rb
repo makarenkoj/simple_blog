@@ -9,16 +9,18 @@ class Post < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liking_users, through: :likes, source: :user
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   has_rich_text :body
 
   has_one_attached :cover_image
 
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }
-  validates :body, presence: true, length: { minimum: 10 }
   validates :cover_image, content_type: %w[image/png image/gif image/jpeg image/webp],
                           size: { less_than_or_equal_to: 5.megabytes, message: I18n.t('attachments.cover_image.large') },
                           dimension: { width: { max: 2000 }, height: { max: 2000 }, message: I18n.t('attachments.cover_image.dimension') }
+
+  validate :body_content_length
 
   after_create :notify_followers
 
@@ -35,7 +37,7 @@ class Post < ApplicationRecord
   end
 
   def normalize_friendly_id(input)
-    input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s
+    input.to_s.to_slug.transliterate(:ukrainian).normalize.to_s
   end
 
   private
@@ -46,6 +48,16 @@ class Post < ApplicationRecord
                           actor: user,
                           notifiable: self,
                           action: 'new_post')
+    end
+  end
+
+  def body_content_length
+    plain_text = body&.to_plain_text&.strip
+
+    if plain_text.blank?
+      errors.add(:body, I18n.t('activerecord.errors.messages.post.title.blank'))
+    elsif plain_text.length < 10
+      errors.add(:body, I18n.t('activerecord.errors.messages.post.title.short'))
     end
   end
 end

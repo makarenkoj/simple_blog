@@ -3,14 +3,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center space-x-6">
-          <%= link_to posts_path, class: "flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 group" do %>
-            <svg class="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            <span class="hidden sm:inline font-medium"><%= t('activerecord.post.back', default: 'Назад') %></span>
+          <% unless turbo_native_app? %>
+            <%= link_to posts_path, class: "flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 group" do %>
+              <svg class="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+              </svg>
+              <span class="hidden sm:inline font-medium"><%= t('activerecord.post.back', default: 'Назад') %></span>
+            <% end %>
+            <div class="h-6 w-px bg-slate-200"></div> 
           <% end %>
           <% if user_signed_in? %>
-            <div class="h-6 w-px bg-slate-200"></div> <%= render "posts/likes/button", post: @post %>
+            <%= render "posts/likes/button", post: @post %>
           <% else %>
             <%= link_to new_user_session_path, class: "flex items-center space-x-2 text-slate-600" do %>
               <i class='bx bx-like text-2xl'></i>

@@ -28,6 +28,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
+
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :cloudflare
 
@@ -72,4 +75,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   config.assets.paths << Rails.root.join('app/assets/builds')
+
+  config.hosts.clear
 end

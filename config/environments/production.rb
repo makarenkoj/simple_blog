@@ -58,7 +58,8 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
   # config.active_job.queue_name_prefix = "simple_blog_production"
 
   config.action_mailer.delivery_method = :smtp
@@ -68,8 +69,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { address:              'smtp.gmail.com',
                                          port:                 587,
                                          domain:               'gmail.com',
-                                         user_name:            ENV.fetch('GMAIL_USERNAME'),
-                                         password:             ENV.fetch('GMAIL_PASSWORD'),
+                                         user_name:            ENV.fetch('GMAIL_USERNAME', ''),
+                                         password:             ENV.fetch('GMAIL_PASSWORD', ''),
                                          authentication:       'plain',
                                          enable_starttls_auto: true
                                         }
