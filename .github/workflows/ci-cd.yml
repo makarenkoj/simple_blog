@@ -164,7 +164,7 @@ jobs:
 
       - name: Deploy
         env:
-          KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }} 
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }} 
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
