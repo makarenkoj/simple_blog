@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     return if current_user.fcm_token == token
 
     User.transaction do
-      User.where(fcm_token: token).where.not(id: current_user.id).update_all(fcm_token: nil)
+      User.where(fcm_token: token).where.not(id: current_user.id).each { |user| user.update(fcm_token: nil) }
       current_user.update(fcm_token: token)
     end
   end
