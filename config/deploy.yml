@@ -1,6 +1,6 @@
 service: helpbooost
 
-image: makarenkoj/helpbooost
+image: makarenkoj/simple_blog
 
 servers:
   web:

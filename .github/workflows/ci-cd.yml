@@ -10,7 +10,7 @@ env:
   RUBY_VERSION: 3.4.3
   NODE_VERSION: 20
   REGISTRY: ghcr.io
-  IMAGE_NAME: makarenkoj/helpbooost
+  IMAGE_NAME: makarenkoj/simple_blog
 
 jobs:
   lint:
