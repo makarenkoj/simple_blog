@@ -124,52 +124,13 @@ jobs:
           file: ./coverage/coverage.json
           fail_ci_if_error: false
 
-  build-image:
-    name: Build Docker Image
-    runs-on: ubuntu-latest
-    needs: [lint, test]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
-
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=sha,prefix={{branch}}-
-            type=ref,event=branch
-            type=semver,pattern={{version}}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
-
   deploy:
     name: Deploy to Production
     runs-on: ubuntu-latest
-    needs: build-image
+    needs: [lint, test]
     environment:
       name: production
-      # url: https://helpbooost.com # Поки закоментуємо, доки не підключимо домен
+      # url: https://helpbooost.com
 
     steps:
       - uses: actions/checkout@v4
@@ -199,7 +160,7 @@ jobs:
 
       - name: Deploy
         env:
-          KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }} 
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
@@ -214,7 +175,7 @@ jobs:
           CACHE_DATABASE_URL: ${{ secrets.CACHE_DATABASE_URL }}
           CABLE_DATABASE_URL: ${{ secrets.CABLE_DATABASE_URL }}
         run: |
-          kamal deploy --skip-push
+          kamal deploy
           kamal app exec 'bin/rails db:migrate'
           kamal app exec 'bin/rails sitemap:refresh'
 
