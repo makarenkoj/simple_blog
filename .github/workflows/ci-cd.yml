@@ -197,26 +197,22 @@ jobs:
           EOF
           chmod 400 ~/.ssh/config
 
-      - name: Create .env
-        run: |
-          cat > .env << 'EOF'
-          KAMAL_REGISTRY_PASSWORD=${{ secrets.GITHUB_TOKEN }}
-          RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
-          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-          GMAIL_PASSWORD=${{ secrets.GMAIL_PASSWORD }}
-          R2_ACCESS_KEY_ID=${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY=${{ secrets.R2_SECRET_ACCESS_KEY }}
-          FIREBASE_PRIVATE_KEY=${{ secrets.FIREBASE_PRIVATE_KEY }}
-          FIREBASE_PRIVATE_KEY_ID=${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
-          FIREBASE_CREDENTIALS_BASE64=${{ secrets.FIREBASE_CREDENTIALS_BASE64 }}
-          FCM_TOKEN=${{ secrets.FCM_TOKEN }}
-          DATABASE_URL=${{ secrets.DATABASE_URL }}
-          QUEUE_DATABASE_URL=${{ secrets.QUEUE_DATABASE_URL }}
-          CACHE_DATABASE_URL=${{ secrets.CACHE_DATABASE_URL }}
-          CABLE_DATABASE_URL=${{ secrets.CABLE_DATABASE_URL }}
-          EOF
-
       - name: Deploy
+        env:
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+          FIREBASE_CREDENTIALS_BASE64: ${{ secrets.FIREBASE_CREDENTIALS_BASE64 }}
+          FCM_TOKEN: ${{ secrets.FCM_TOKEN }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          QUEUE_DATABASE_URL: ${{ secrets.QUEUE_DATABASE_URL }}
+          CACHE_DATABASE_URL: ${{ secrets.CACHE_DATABASE_URL }}
+          CABLE_DATABASE_URL: ${{ secrets.CABLE_DATABASE_URL }}
         run: |
           kamal deploy --skip-push
           kamal app exec 'bin/rails db:migrate'
