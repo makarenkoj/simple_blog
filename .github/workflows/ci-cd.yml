@@ -186,6 +186,7 @@ jobs:
           CACHE_DATABASE_URL: ${{ secrets.CACHE_DATABASE_URL }}
           CABLE_DATABASE_URL: ${{ secrets.CABLE_DATABASE_URL }}
         run: |
+          kamal proxy reboot
           kamal deploy
           kamal app exec 'bin/rails db:migrate'
           kamal app exec 'bin/rails sitemap:refresh'
