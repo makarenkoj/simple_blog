@@ -187,10 +187,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Add known hosts
+      - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H 206.189.107.151 >> ~/.ssh/known_hosts
+          cat >> ~/.ssh/config << EOF
+          Host *
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+          EOF
+          chmod 400 ~/.ssh/config
 
       - name: Create .env
         run: |
