@@ -12,8 +12,11 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <% @categories.each do |category| %>
-        <div class="group relative bg-slate-900 rounded-xl overflow-hidden h-56 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-          <div class="absolute inset-0 z-0">
+        <div data-controller="category-card" 
+             data-category-card-url-value="<%= category_path(category) %>"
+             data-action="click->category-card#navigate"
+             class="group relative bg-slate-900 rounded-xl overflow-hidden h-56 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+          <div class="absolute inset-0 z-0 pointer-events-none">
             <% if category.cover_image.attached? %>
               <%= image_tag category.cover_image.variant(resize_to_fill: [400, 300]),
                   class: "w-full h-full object-cover opacity-60 group-hover:opacity-50 group-hover:scale-110 transition-transform duration-700",
@@ -23,18 +26,17 @@
             <% end %>
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
           </div>
-          <div class="absolute top-3 right-3 z-30">
+          <div class="absolute top-3 right-3 z-30 pointer-events-auto"
+               data-action="click->category-card#stopPropagation">
             <div class="bg-white/90 backdrop-blur-sm rounded-full shadow-md flex items-center justify-center hover:bg-white transition-colors">
               <%= render "categories/preferences/button", category: category %>
             </div>
           </div>
-          <div class="relative z-10 h-full flex flex-col justify-between p-5">
+          <div class="relative z-10 h-full flex flex-col justify-between p-5 pointer-events-none">
             <div>
-              <%= link_to category_path(category), class: "block group-hover:text-blue-200 transition-colors duration-200" do %>
-                <h3 class="text-2xl font-serif font-bold text-white mb-2 leading-tight drop-shadow-md">
-                  <%= category.name.capitalize %>
-                </h3>
-              <% end %>
+              <h3 class="text-2xl font-serif font-bold text-white mb-2 leading-tight drop-shadow-md group-hover:text-blue-200 transition-colors duration-200">
+                <%= category.name.capitalize %>
+              </h3>
             </div>
             <div class="space-y-4">
               <div class="flex items-center space-x-4 text-slate-300 text-sm font-medium">
@@ -49,14 +51,14 @@
               </div>
               <% unless user_signed_in? %>
                 <%= link_to new_user_session_path, 
-                    class: "block w-full px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-semibold rounded-lg hover:bg-white hover:text-slate-900 transition-all duration-200 text-center" do %>
+                    data: { action: "click->category-card#stopPropagation" },
+                    class: "block w-full px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-semibold rounded-lg hover:bg-white hover:text-slate-900 transition-all duration-200 text-center pointer-events-auto" do %>
                   <i class='bx bx-log-in-circle mr-1 align-middle'></i>
                   <%= t('sign_in_to_subscribe', default: 'Увійти, щоб підписатися') %>
                 <% end %>
               <% end %>
             </div>
           </div>
-          <%= link_to "", category_path(category), class: "absolute inset-0 z-0", "aria-label": category.name.capitalize %>
         </div>
       <% end %>
     </div>
