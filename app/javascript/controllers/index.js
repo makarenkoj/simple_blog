@@ -7,6 +7,9 @@ import { application } from "./application"
 import AutohideController from "./autohide_controller"
 application.register("autohide", AutohideController)
 
+import CategoryCardController from "./category_card_controller"
+application.register("category-card", CategoryCardController)
+
 import CookieConsentController from "./cookie_consent_controller"
 application.register("cookie-consent", CookieConsentController)
 
