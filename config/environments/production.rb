@@ -104,6 +104,13 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  host = ENV.fetch("DEFAULT_HOST", "206.189.107.151")
+
+  config.action_controller.default_url_options = { host: host }
+  config.action_mailer.default_url_options = { host: host }
+
+  Rails.application.routes.default_url_options[:host] = host
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write

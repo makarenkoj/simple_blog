@@ -35,7 +35,7 @@ env:
     DOMAIN_NAME: helpbooost.com
     PROD_DOMAIN_NAME: helpbooost.com
     ADMIN_EMAIL: help.booost@gmail.com
-    DEFAULT_HOST: helpbooost.com
+    DEFAULT_HOST: 206.189.107.151 #helpbooost.com
 
     R2_BUCKET_NAME: help-boost
     R2_ENDPOINT: https://7c6c19a404b012f7db489c6a0ea46e23.r2.cloudflarestorage.com
