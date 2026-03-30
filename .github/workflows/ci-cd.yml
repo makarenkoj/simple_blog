@@ -197,7 +197,8 @@ jobs:
         run: |
           # kamal proxy reboot -y
           kamal deploy
-          kamal app exec 'bin/rails db:migrate'
+          # kamal app exec 'bin/rails db:migrate'
+          kamal app exec 'bin/rails db:prepare'
           kamal app exec 'bin/rails sitemap:refresh'
 
       - name: Verify deployment
