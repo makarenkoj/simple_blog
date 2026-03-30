@@ -40,6 +40,7 @@ env:
     R2_BUCKET_NAME: help-boost
     R2_ENDPOINT: https://7c6c19a404b012f7db489c6a0ea46e23.r2.cloudflarestorage.com
 
+    ADMIN_EMAIL: makarenkoj53@gmail.com
     AVO_LICENSE_KEY: community
     FIREBASE_PROJECT_ID: helpbooost-b1905
     FIREBASE_CLIENT_EMAIL: firebase-adminsdk-fbsvc@helpbooost-b1905.iam.gserviceaccount.com

@@ -122,7 +122,7 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           file: ./coverage/coverage.json
-          fail_ci_if_error: false
+          fail_ci_if_error: falseAdobe Firefly
 
   deploy:
     name: Deploy to Production
@@ -195,7 +195,7 @@ jobs:
           CACHE_DATABASE_URL: ${{ secrets.CACHE_DATABASE_URL }}
           CABLE_DATABASE_URL: ${{ secrets.CABLE_DATABASE_URL }}
         run: |
-          kamal proxy reboot -y
+          # kamal proxy reboot -y
           kamal deploy
           kamal app exec 'bin/rails db:migrate'
           kamal app exec 'bin/rails sitemap:refresh'
