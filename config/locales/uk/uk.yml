@@ -198,6 +198,7 @@ uk:
         preferred_categories: 'Улюблені категоріі'
       posts:
         title: 'Назва'
+        title_placeholder: 'Введіть яскравий заголовок, який зацікавить читача'
         address: 'Місце проведення'
         datetime: 'Дата і час'
         description: 'Опис'
@@ -208,6 +209,7 @@ uk:
         back: "Назад"
         cover_image: "Обкладинка"
         categories: "Категорії"
+        categories_hint: "Оберіть одну або кілька категорій, щоб читачам було легше знайти ваш пост"
         actions: "Дії з публікаціями"
         creators: "Мої публікації"
         library: "Моя бібліотека"
@@ -384,6 +386,26 @@ uk:
           few: "Збереження не вдалося через %{count} помилок"
           many: "Збереження не вдалося через %{count} помилок"
           other: "Збереження не вдалося через %{count} помилки"
+    editor:
+      attachments_hint: "Через скріпку можна додавати зображення прямо в текст"
+      toolbar:
+        bold: "Жирний"
+        italic: "Курсив"
+        strike: "Закреслений"
+        link: "Посилання"
+        heading: "Заголовок"
+        quote: "Цитата"
+        code: "Код"
+        bullet_list: "Маркований список"
+        number_list: "Нумерований список"
+        attach: "Додати файл"
+        undo: "Скасувати"
+        redo: "Повторити"
+      link:
+        placeholder: "Вставте URL"
+        label: "URL посилання"
+        apply: "Застосувати"
+        remove: "Прибрати"
   comments:
     comment:
       destroy_confirm: 'Ви впевнені, що хочете видалити цей комменатрій?'

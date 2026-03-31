@@ -13,6 +13,9 @@ application.register("category-card", CategoryCardController)
 import CookieConsentController from "./cookie_consent_controller"
 application.register("cookie-consent", CookieConsentController)
 
+import CoverImagePreviewController from "./cover_image_preview_controller"
+application.register("cover-image-preview", CoverImagePreviewController)
+
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)
 

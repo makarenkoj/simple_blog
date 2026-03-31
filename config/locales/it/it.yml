@@ -198,6 +198,7 @@ it:
         preferred_categories: 'Categorie preferite'
       posts:
         title: 'Titolo'
+        title_placeholder: 'Inserisci un titolo chiaro e interessante per il tuo post'
         address: 'Luogo'
         datetime: 'Data e ora'
         description: 'Descrizione'
@@ -208,6 +209,7 @@ it:
         back: "Indietro"
         cover_image: "Copertina"
         categories: "Categorie"
+        categories_hint: "Seleziona una o più categorie per aiutare i lettori a trovare il tuo post"
         actions: "Azioni post"
         creators: "Le mie pubblicazioni"
         library: "La mia libreria"
