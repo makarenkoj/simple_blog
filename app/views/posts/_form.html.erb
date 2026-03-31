@@ -81,23 +81,24 @@
           </div>
         </div>
         <!-- Title Section -->
-        <div class="form-section">
-          <div class="flex items-center mb-3">
+        <div class="form-section" style="display: flex; flex-direction: column; gap: 0.9rem;">
+          <div class="flex items-center" style="margin-bottom: 0.35rem;">
             <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
             </svg>
-            <h2 class="text-lg font-bold text-slate-800">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               <%= t('activerecord.attributes.post.title', default: 'Заголовок') %>
             </h2>
           </div>
           <%= f.input_field :title,
               required: true,
-              class: "w-full px-4 py-3.5 text-base sm:text-lg font-semibold border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-white hover:border-slate-400",
-              placeholder: t('activerecord.attributes.post.title_placeholder', default: 'Введіть заголовок вашого поста...') %>
+              class: "post-title-input w-full px-5 py-4 text-lg sm:text-2xl font-semibold border-2 border-slate-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-slate-50 hover:border-emerald-300 placeholder-slate-400",
+              style: "margin-top: 0.4rem;",
+              placeholder: t('activerecord.attributes.posts.title_placeholder', default: 'Введіть заголовок вашого поста...') %>
         </div>
         <!-- Categories Section -->
-        <div class="form-section">
-          <div class="flex items-center mb-3">
+        <div class="form-section mt-4">
+          <div class="flex items-center mb-4">
             <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
             </svg>
@@ -105,8 +106,12 @@
               <%= t('activerecord.attributes.posts.categories', default: 'Категорії') %>
             </h2>
           </div>
-          <div class="bg-gradient-to-br from-slate-50 to-emerald-50 rounded-2xl p-5 border border-slate-200">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div class="bg-gradient-to-br from-slate-50 to-emerald-50 rounded-2xl p-5 border border-slate-200 shadow-sm">
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <p class="text-xs sm:text-sm text-slate-600" style="margin-bottom: 0.25rem;">
+                <%= t('activerecord.attributes.posts.categories_hint', default: 'Оберіть кілька категорій, щоб читачам було легше знайти ваш пост') %>
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style="column-gap: 0.75rem; row-gap: 1rem;">
               <%= f.collection_check_boxes :category_ids, Category.all.order(:name), :id, :name do |b| %>
                 <label class="flex items-center space-x-3 p-3.5 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200 cursor-pointer group border border-transparent hover:border-emerald-200">
                   <%= b.check_box(class: "w-5 h-5 text-emerald-600 border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 transition-all duration-200 cursor-pointer") %>
@@ -115,6 +120,7 @@
                   </span>
                 </label>
               <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -135,7 +141,7 @@
                   <button type="button" class="trix-button trix-button--icon trix-button--icon-bold" data-trix-attribute="bold" title="<%= t('post.editor.toolbar.bold') %>" tabindex="-1"><%= t('post.editor.toolbar.bold') %></button>
                   <button type="button" class="trix-button trix-button--icon trix-button--icon-italic" data-trix-attribute="italic" title="<%= t('post.editor.toolbar.italic') %>" tabindex="-1"><%= t('post.editor.toolbar.italic') %></button>
                   <button type="button" class="trix-button trix-button--icon trix-button--icon-strike" data-trix-attribute="strike" title="<%= t('post.editor.toolbar.strike') %>" tabindex="-1"><%= t('post.editor.toolbar.strike') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-link" data-trix-attribute="href" title="<%= t('post.editor.toolbar.link') %>" tabindex="-1"><%= t('post.editor.toolbar.link') %></button>
+                  <button type="button" class="trix-button trix-button--icon trix-button--icon-link" data-trix-attribute="href" data-trix-action="link" title="<%= t('post.editor.toolbar.link') %>" tabindex="-1"><%= t('post.editor.toolbar.link') %></button>
                 </span>
                 <span class="trix-button-group trix-button-group--block-tools">
                   <button type="button" class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-attribute="heading1" title="<%= t('post.editor.toolbar.heading') %>" tabindex="-1"><%= t('post.editor.toolbar.heading') %></button>
@@ -153,9 +159,9 @@
                 </span>
               </div>
               <div class="trix-dialogs" data-trix-dialogs>
-                <div class="trix-dialog trix-dialog--link" data-trix-dialog="href">
+                <div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">
                   <div class="trix-dialog__link-fields">
-                    <input type="url" name="href" class="trix-input trix-input--dialog" placeholder="<%= t('post.editor.link.placeholder') %>" aria-label="<%= t('post.editor.link.label') %>" data-trix-input>
+                    <input type="url" name="href" class="trix-input trix-input--dialog" placeholder="<%= t('post.editor.link.placeholder') %>" aria-label="<%= t('post.editor.link.label') %>" required data-trix-input>
                     <div class="trix-button-group">
                       <input type="button" class="trix-button trix-button--dialog" value="<%= t('post.editor.link.apply') %>" data-trix-method="setAttribute">
                       <input type="button" class="trix-button trix-button--dialog" value="<%= t('post.editor.link.remove') %>" data-trix-method="removeAttribute">
@@ -184,8 +190,10 @@
       <div class="mt-10 pt-8 border-t-2 border-slate-200">
         <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
           <!-- Back Button -->
-          <div class="order-2 sm:order-1">
-            <%= link_to :back, class: "inline-flex items-center justify-center px-6 py-3.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300" do %>
+          <div class="order-2 sm:order-1 flex-1">
+            <%= link_to :back,
+                class: "w-full inline-flex items-center justify-center px-6 py-3.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300",
+                style: "width: 100%; min-height: 52px;" do %>
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
               </svg>
@@ -193,14 +201,10 @@
             <% end %>
           </div>
           <!-- Save Button -->
-          <div class="order-1 sm:order-2">
-            <%= f.button :submit,
-                class: "w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 font-bold rounded-xl shadow-lg hover:shadow-xl hover:from-emerald-700 hover:to-teal-700 transform hover:-translate-y-0.5 transition-all duration-300" do %>
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-              <span><%= t('activerecord.post.save', default: 'Зберегти пост') %></span>
-            <% end %>
+          <div class="order-1 sm:order-2 flex-1">
+            <%= f.submit t('activerecord.post.save', default: 'Зберегти пост'),
+                class: "post-submit-button w-full inline-flex items-center justify-center px-6 py-3.5 border-2 border-emerald-600 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 hover:border-emerald-700 transition-all duration-300 cursor-pointer",
+                style: "width: 100%; min-height: 52px; background-color: #059669; color: #ffffff; border: 2px solid #047857;" %>
           </div>
         </div>
       </div>
