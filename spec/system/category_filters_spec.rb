@@ -6,8 +6,8 @@ RSpec.describe 'Category Post Filtering', type: :system do
   let!(:tech_category) { create(:category, name: 'Tech') }
 
   before do
-    # driven_by(:selenium_chrome_headless)
-    driven_by(:selenium_chrome)
+    driven_by(:selenium_chrome_headless)
+    # driven_by(:selenium_chrome)
     create(:post, title: 'Art meets Business').tap do |post|
       post.categories << [art_category, business_category]
     end
