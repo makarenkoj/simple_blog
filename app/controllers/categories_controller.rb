@@ -4,7 +4,13 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show]
 
   def show
-    @pagy, @posts = pagy(@category.posts.includes(:user, :rich_text_body).order(created_at: :desc), limit: 5)
+    query = @category.posts.includes(:user, :rich_text_body)
+    query = query.joins(:categories).where(categories: { id: params[:category_ids] }).distinct if params[:category_ids].present?
+    @pagy, @posts = pagy(query.order(created_at: :desc), limit: 5)
+    post_ids = @category.posts.select(:id)
+    @category_counts = Category.joins(:posts).where(posts: { id: post_ids }).where.not(id: @category.id).group('categories.id').count
+    @filter_categories = Category.where(id: @category_counts.keys).order(:name)
+
     render 'posts/index'
   end
 

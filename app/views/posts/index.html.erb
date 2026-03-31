@@ -48,7 +48,11 @@
             <% end %>
           </p>
         </div>
-        <% unless controller_name == 'categories' %>
+        <% if controller_name == 'categories' %>
+          <div class="flex-shrink-0 mt-2 md:mt-0">
+            <%= render 'posts/filter_category_dropdown' %>
+          </div>
+        <% else %>
           <div class="flex-shrink-0 mt-2 md:mt-0">
             <%= render 'posts/filter_dropdown' %>
           </div>
