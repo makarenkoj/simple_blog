@@ -35,7 +35,7 @@ RSpec.describe 'Post Creation Form', type: :system do
       find('trix-editor').click
       find('trix-editor').send_keys('Це контент мого поста.')
 
-      click_button 'Зберегти пост'
+      click_button 'Зберегти'
 
       expect(page).to have_content('Ви створили новий пост')
       expect(page).to have_content('Мій перший системний тест')
@@ -47,7 +47,7 @@ RSpec.describe 'Post Creation Form', type: :system do
     end
 
     it 'shows validation errors when submitting an empty form' do
-      click_button 'Зберегти пост'
+      click_button 'Зберегти'
 
       expect(page).to have_css('.bg-red-50')
       expect(page).to have_content('Збереження не вдалося')
