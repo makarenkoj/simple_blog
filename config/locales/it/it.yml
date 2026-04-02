@@ -220,6 +220,8 @@ it:
         destroy_confirm: "Sei sicuro di voler eliminare questa pubblicazione?"
         liked_flash: "Ti è piaciuto questo post!"
         copy_link: 'Copia link'
+        admin_mode: 'Modalità amministratore'
+        admin_mode_desc: 'Puoi modificare o eliminare questo post'
         index:
           title: "Tutte le pubblicazioni"
           no_posts: "Nessuna pubblicazione trovata."

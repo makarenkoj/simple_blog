@@ -220,6 +220,8 @@ en:
         destroy_confirm: "Are you sure you want to delete this publication?"
         liked_flash: "You liked this post!"
         copy_link: 'Copy link'
+        admin_mode: 'Admin mode'
+        admin_mode_desc: 'You can edit or delete this post'
         index:
           title: "All publications"
           no_posts: "No publications found."
