@@ -14,6 +14,8 @@ it:
   buttons:
     remove_image: "Rimuovi immagine"
     remove_avatar: "Rimuovi avatar"
+    click_to_upload: "Clicca per caricare"
+    image_formats: "PNG, JPG, GIF, WEBP fino a 5MB"
     languages:
       uk: "Українська"
       en: "English"
@@ -222,6 +224,9 @@ it:
         copy_link: 'Copia link'
         admin_mode: 'Modalità amministratore'
         admin_mode_desc: 'Puoi modificare o eliminare questo post'
+        body: 'Contenuto'
+        body_hint: 'Usa la barra degli strumenti per formattare il tuo testo'
+        attachments_hint: 'Attraverso la graffetta puoi aggiungere immagini direttamente nel testo'
         index:
           title: "Tutte le pubblicazioni"
           no_posts: "Nessuna pubblicazione trovata."

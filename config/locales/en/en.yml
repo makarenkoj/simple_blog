@@ -14,6 +14,8 @@ en:
   buttons:
     remove_image: "Remove image"
     remove_avatar: "Remove avatar"
+    click_to_upload: "Click to upload"
+    image_formats: "PNG, JPG, GIF, WEBP up to 5MB"
     languages:
       uk: "Ukrainian"
       en: "English"
@@ -222,6 +224,9 @@ en:
         copy_link: 'Copy link'
         admin_mode: 'Admin mode'
         admin_mode_desc: 'You can edit or delete this post'
+        body: 'Content'
+        body_hint: 'Use the toolbar to format your text'
+        attachments_hint: 'You can add images directly into the text using the paperclip'
         index:
           title: "All publications"
           no_posts: "No publications found."
