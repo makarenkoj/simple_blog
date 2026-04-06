@@ -356,6 +356,8 @@ it:
     liked_your_post: "è piaciuto il tuo post"
     view_profile: "Visualizza profilo"
     destroyed: "Notifica eliminata"
+    marked_as_read: "Notifica segnata come letta"
+    not_found: "Notifica non trovata"
   follows:
     created: "Hai seguito %{username}"
     destroyed: "Hai smesso di seguire %{username}"

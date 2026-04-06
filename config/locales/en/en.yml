@@ -356,6 +356,8 @@ en:
     liked_your_post: "liked your post"
     view_profile: "View profile"
     destroyed: "Notification deleted"
+    marked_as_read: "Notification marked as read"
+    not_found: "Notification not found"
   follows:
     created: "You followed %{username}"
     destroyed: "You unfollowed %{username}"
