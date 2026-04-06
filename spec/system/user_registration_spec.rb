@@ -6,7 +6,7 @@ RSpec.describe 'User Registration', type: :system do
     # driven_by(:selenium_chrome)
   end
 
-  # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+  # rubocop:disable RSpec/MultipleExpectations
   it 'displays all translations correctly on the page including error states' do
     visit new_user_registration_path
     click_button I18n.t('cookies.accept') if page.has_button?(I18n.t('cookies.accept'))
@@ -26,7 +26,7 @@ RSpec.describe 'User Registration', type: :system do
 
     expect(page).not_to have_text(/translation missing/i)
   end
-  # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
+  # rubocop:enable RSpec/MultipleExpectations
 
   it 'allows a user to sign up' do
     visit new_user_registration_path

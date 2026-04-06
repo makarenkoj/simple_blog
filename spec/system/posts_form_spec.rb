@@ -58,7 +58,7 @@ RSpec.describe 'Post Creation Form', type: :system do
     # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
     it 'displays all translations correctly on the page including flash messages' do
       expect(page).not_to have_text(/translation missing/i)
-      expect(page).to have_text(I18n.t('activerecord.controllers.posts.new', default: 'Створити новий пост'))
+      expect(page).to have_text(I18n.t('activerecord.controllers.posts.new'))
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.cover_image'))
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.title'))
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.categories'))
@@ -71,6 +71,7 @@ RSpec.describe 'Post Creation Form', type: :system do
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.back'))
       expect(page).to have_button(I18n.t('activerecord.attributes.posts.save'))
       expect(page).to have_field('post[title]', placeholder: I18n.t('activerecord.attributes.posts.title_placeholder'))
+      expect(page).to have_css("trix-editor[placeholder='#{I18n.t('activerecord.attributes.posts.body_placeholder')}']")
       expect(page).to have_css("button[title='#{I18n.t('post.editor.toolbar.bold')}']")
       expect(page).to have_css("button[title='#{I18n.t('post.editor.toolbar.link')}']")
 

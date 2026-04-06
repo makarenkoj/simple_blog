@@ -227,6 +227,8 @@ en:
         body: 'Content'
         body_hint: 'Use the toolbar to format your text'
         attachments_hint: 'You can add images directly into the text using the paperclip'
+        no_posts_in_category: 'There are no posts in this category yet'
+        body_placeholder: 'Write something interesting...'
         index:
           title: "All publications"
           no_posts: "No publications found."
