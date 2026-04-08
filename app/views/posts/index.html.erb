@@ -91,7 +91,7 @@
               </svg>
             </div>
             <h3 class="text-2xl font-serif font-bold text-slate-900 mb-3">
-              <%= controller_name == 'categories' ? t('no_posts_in_category', default: 'У цій категорії поки немає постів') : t('activerecord.attributes.posts.index.no_posts') %>
+              <%= controller_name == 'categories' ? t('activerecord.attributes.posts.no_posts_in_category') : t('activerecord.attributes.posts.index.no_posts') %>
             </h3>
             <% if current_user&.creator? && action_name != 'library' && controller_name != 'categories' %>
               <p class="text-lg text-slate-600 mb-8">

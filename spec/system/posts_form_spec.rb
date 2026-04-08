@@ -7,6 +7,7 @@ RSpec.describe 'Post Creation Form', type: :system do
     create(:category, name: 'Технології')
     create(:category, name: 'Новини')
     driven_by(:selenium_chrome_headless)
+    # driven_by(:selenium_chrome)
     sign_in current_user
   end
 
@@ -53,5 +54,36 @@ RSpec.describe 'Post Creation Form', type: :system do
       expect(page).to have_content('Збереження не вдалося')
       expect(page).to have_content(/не може бути порожнім/i)
     end
+
+    # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+    it 'displays all translations correctly on the page including flash messages' do
+      expect(page).not_to have_text(/translation missing/i)
+      expect(page).to have_text(I18n.t('activerecord.controllers.posts.new'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.cover_image'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.title'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.categories'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.body'))
+      expect(page).to have_text(I18n.t('buttons.click_to_upload'))
+      expect(page).to have_text(I18n.t('buttons.image_formats'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.categories_hint'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.body_hint'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.attachments_hint'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.back'))
+      expect(page).to have_button(I18n.t('activerecord.attributes.posts.save'))
+      expect(page).to have_field('post[title]', placeholder: I18n.t('activerecord.attributes.posts.title_placeholder'))
+      expect(page).to have_css("trix-editor[placeholder='#{I18n.t('activerecord.attributes.posts.body_placeholder')}']")
+      expect(page).to have_css("button[title='#{I18n.t('post.editor.toolbar.bold')}']")
+      expect(page).to have_css("button[title='#{I18n.t('post.editor.toolbar.link')}']")
+
+      click_button I18n.t('activerecord.attributes.posts.save')
+
+      expect(page).not_to have_text(/translation missing/i)
+      expect(page).to have_css('.bg-red-50')
+
+      error_message_pattern = I18n.t('post.errors.messages.not_saved', count: 3, default: 'Виникли помилки')
+
+      expect(page).to have_text(error_message_pattern)
+    end
+    # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
   end
 end
