@@ -229,6 +229,22 @@ en:
         attachments_hint: 'You can add images directly into the text using the paperclip'
         no_posts_in_category: 'There are no posts in this category yet'
         body_placeholder: 'Write something interesting...'
+        status: "Post status"
+        status_hint: "Drafts are visible only to you. Published posts are visible to everyone."
+        draft: "Draft"
+        published: "Published"
+        archived: "Archived"
+        change_status_title: "Change post status"
+        draft_short: "Draft"
+        published_short: "Published"
+        status_badge:
+          draft: "Draft"
+          published: "Published"
+          archived: "Archived"
+        statuses:
+          draft: "Save as draft"
+          published: "Publish to everyone"
+          archived: "Archive (not visible to readers)"
         index:
           title: "All publications"
           no_posts: "No publications found."

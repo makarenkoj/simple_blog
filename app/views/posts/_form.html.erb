@@ -185,6 +185,27 @@
             <%= t('activerecord.attributes.posts.attachments_hint') %>
           </p>
         </div>
+        <div class="form-section mt-4">
+          <div class="flex items-center mb-3">
+            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <h2 class="text-lg font-bold text-slate-800">
+              <%= t('activerecord.attributes.posts.status') %>
+            </h2>
+          </div>
+          
+          <div class="max-w-sm bg-slate-50 rounded-2xl p-2 border border-slate-200 shadow-sm">
+            <%= f.input :status,
+                collection: Post.statuses.keys.map { |s| [t("activerecord.attributes.posts.statuses.#{s}", default: s.humanize), s] },
+                include_blank: false,
+                label: false,
+                input_html: { class: "w-full px-4 py-3 text-slate-700 font-medium border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-white cursor-pointer" } %>
+          </div>
+          <p class="mt-2 text-xs text-slate-500">
+            <%= t('activerecord.attributes.posts.status_hint') %>
+          </p>
+        </div>
       </div>
       <!-- Action Buttons -->
       <div class="mt-10 pt-8 border-t-2 border-slate-200">

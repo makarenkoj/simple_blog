@@ -23,7 +23,28 @@
         </div>
         <div class="flex items-center space-x-3">
           <% if current_user_can_edit?(@post) %>
-            <%= link_to edit_post_path(@post), class: "px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
+            <div class="relative inline-block text-left mr-1 sm:mr-2" data-controller="dropdown">
+              <button type="button" 
+                      class='inline-flex items-center px-4 py-2 bg-white border border-slate-200 rounded-md text-xs font-medium hover:bg-slate-50 transition-colors text-slate-700'
+                      data-action="click->dropdown#toggle"
+                      data-dropdown-target="toggle"
+                      title="<%= t('activerecord.attributes.posts.change_status_title') %>">
+                <span>
+                  <%= t("activerecord.attributes.posts.status_badge.#{@post.status}", default: t("activerecord.attributes.posts.statuses.#{@post.status}", default: @post.status.to_s.capitalize)) %>
+                </span>
+                <svg class="ml-2 w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              <div class="dropdown-hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-50 p-1" data-dropdown-target="menu">
+                <% Post.statuses.keys.reject { |s| s == @post.status.to_s }.each do |target_status| %>
+                  <%= button_to post_path(@post), method: :patch, params: { post: { status: target_status } }, form: { data: { turbo: false } }, class: 'w-full text-left px-3 py-2 text-sm hover:bg-slate-50 rounded-md transition-colors text-slate-500' do %>
+                    <%= t("activerecord.attributes.posts.statuses.#{target_status}") %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <%= link_to edit_post_path(@post), class: "px-2 sm:px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
               <%= t('activerecord.attributes.posts.edit') %>
             <% end %>
           <% end %>
@@ -66,31 +87,12 @@
                   <%= l @post.created_at, format: :long %>
                 </time>
                 <span>·</span>
-                <span><%= @post.body.to_plain_text.split.size / 200 %> min read</span>
+                <span><%= @post.body.to_plain_text.split.size / 200 %> <%= t('activerecord.attributes.posts.index.min_read') %></span>
               </div>
             </div>
           <% end %>
         <% end %>
       </div>
-      <!-- Interaction Bar (Medium style) -->
-      <!--<div class="flex items-center justify-between pt-8 mt-8 border-t border-slate-200">
-        <div class="flex items-center space-x-6">
-          <button class="flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 group">
-            <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
-            </svg>
-            <span class="text-sm font-medium">51</span>
-          </button>
-        </div>
-        <div class="flex items-center space-x-4">
-          <%= render "posts/bookmarks/button", post: @post, source: local_assigns[:source] %>
-          <button class="text-slate-600 hover:text-slate-900 transition-colors duration-200">
-            <svg class="w-6 h-6 hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
-            </svg>
-          </button>
-        </div>
-      </div>-->
     </header>
     <% if @post.cover_image.attached? %>
       <figure class="mb-12">
@@ -115,21 +117,6 @@
         </div>
       </div>
     <% end %>
-    <!-- Bottom Interaction Bar -->
-    <!-- <div class="px-6 sm:px-8 pb-12">
-      <div class="flex items-center justify-between py-8 border-y border-slate-200">
-        <div class="flex items-center space-x-6">
-          <button class="flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 group">
-            <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-            </svg>
-            <span class="text-sm font-medium">9</span>
-          </button>
-        </div>
-        <div class="flex items-center space-x-4">
-        </div>
-      </div>
-    </div> -->
     <% if @post.user.present? %>
       <div class="px-6 sm:px-8 pb-16">
         <%= link_to user_path(@post.user), class: "flex items-start space-x-4 p-6 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors duration-200 group" do %>
@@ -146,8 +133,8 @@
               <%= @post.user.username %>
             </p>
             <div class="flex items-center space-x-4 mt-3">
-              <span class="text-xs text-slate-500">1.2k <%= t('followers', default: 'підписників') %></span>
-              <span class="text-xs text-slate-500">· 42 <%= t('posts', default: 'постів') %></span>
+              <span class="text-xs text-slate-500">1.2k <%= t('followers') %></span>
+              <span class="text-xs text-slate-500">· 42 <%= t('posts') %></span>
             </div>
           </div>
         <% end %>
@@ -162,10 +149,10 @@
             </svg>
             <div>
               <h3 class="text-sm font-semibold text-amber-900 mb-1">
-                <%= t('activerecord.attributes.posts.admin_mode', default: 'Режим адміністратора') %>
+                <%= t('activerecord.attributes.posts.admin_mode') %>
               </h3>
               <p class="text-sm text-amber-700 mb-4">
-                <%= t('activerecord.attributes.posts.admin_mode_desc', default: 'Ви можете редагувати або видалити цю публікацію') %>
+                <%= t('activerecord.attributes.posts.admin_mode_desc') %>
               </p>
               <div class="flex flex-wrap gap-3">
                 <%= link_to edit_post_path(@post), class: 'inline-flex items-center px-4 py-2 bg-white border border-amber-300 rounded-md text-sm font-medium text-amber-900 hover:bg-amber-100 transition-colors duration-200' do %>
@@ -174,7 +161,7 @@
                   </svg>
                   <%= t('activerecord.attributes.posts.edit') %>
                 <% end %>
-                <%= link_to post_path(@post), data: { turbo_confirm: t('activerecord.post.destroy_confirm', default: 'Ви впевнені?'), turbo_method: :delete }, class: 'inline-flex items-center px-4 py-2 bg-white border border-red-300 rounded-md text-sm font-medium text-red-900 hover:bg-red-50 transition-colors duration-200' do %>
+                <%= link_to post_path(@post), data: { turbo_confirm: t('activerecord.post.destroy_confirm'), turbo_method: :delete }, class: 'inline-flex items-center px-4 py-2 bg-white border border-red-300 rounded-md text-sm font-medium text-red-900 hover:bg-red-50 transition-colors duration-200' do %>
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                   </svg>
@@ -218,7 +205,7 @@
                 <% end %>
               </p>
               <div class="flex items-center text-xs text-slate-500 space-x-2">
-                <span><%= (post.body.to_plain_text.split.size / 200.0).ceil %> <%= t('min_read', default: 'хв') %></span>
+                <span><%= (post.body.to_plain_text.split.size / 200.0).ceil %> <%= t('min_read') %></span>
                 <span>·</span>
                 <time datetime="<%= post.created_at.iso8601 %>">
                   <%= l(post.created_at, format: :short) %>

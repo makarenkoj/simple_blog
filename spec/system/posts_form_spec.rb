@@ -36,6 +36,8 @@ RSpec.describe 'Post Creation Form', type: :system do
       find('trix-editor').click
       find('trix-editor').send_keys('Це контент мого поста.')
 
+      select I18n.t('activerecord.attributes.posts.statuses.published'), from: 'post[status]'
+
       click_button 'Зберегти'
 
       expect(page).to have_content('Ви створили новий пост')
@@ -45,6 +47,7 @@ RSpec.describe 'Post Creation Form', type: :system do
 
       expect(created_post.categories.count).to eq(2)
       expect(created_post.cover_image).to be_attached
+      expect(created_post.status).to eq('published')
     end
 
     it 'shows validation errors when submitting an empty form' do
@@ -63,6 +66,10 @@ RSpec.describe 'Post Creation Form', type: :system do
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.title'))
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.categories'))
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.body'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.status'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.status_hint'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.statuses.draft'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.statuses.published'))
       expect(page).to have_text(I18n.t('buttons.click_to_upload'))
       expect(page).to have_text(I18n.t('buttons.image_formats'))
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.categories_hint'))
@@ -70,6 +77,7 @@ RSpec.describe 'Post Creation Form', type: :system do
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.attachments_hint'))
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.back'))
       expect(page).to have_button(I18n.t('activerecord.attributes.posts.save'))
+
       expect(page).to have_field('post[title]', placeholder: I18n.t('activerecord.attributes.posts.title_placeholder'))
       expect(page).to have_css("trix-editor[placeholder='#{I18n.t('activerecord.attributes.posts.body_placeholder')}']")
       expect(page).to have_css("button[title='#{I18n.t('post.editor.toolbar.bold')}']")
