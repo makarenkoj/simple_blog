@@ -29,15 +29,20 @@
         <time datetime="<%= post.created_at.iso8601 %>">
           <%= l post.created_at, format: :short %>
         </time>
-        <span>·</span>
         <span><%= post.body.to_plain_text.split.size / 200 %> <%= t('activerecord.attributes.posts.index.min_read') %></span>
         <% if post.categories.any? %>
-          <span>·</span>
-          <% post.categories.sample(3).each do |category| %>
-            <%= link_to category_path(category), class: "px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700 hover:bg-slate-200 transition-colors" do %>
-              <%= category.name %>
+          <span class="max-sm:hidden">
+            <% post.categories.sample(3).each do |category| %>
+              <%= link_to category_path(category), class: "px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700 hover:bg-slate-200 transition-colors" do %>
+                <%= category.name %>
+              <% end %>
             <% end %>
-          <% end %>
+          </span>
+          <span class="sm:hidden">
+            <%= link_to category_path(post.categories.first.name), class: "px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700 hover:bg-slate-200 transition-colors" do %>
+              <%= post.categories.first.name %>
+            <% end %>
+          </span>
         <% end %>
         <div class="ml-auto flex items-center space-x-4">
           <% if user_signed_in? && current_user == post.user %>
@@ -47,7 +52,12 @@
                       data-action="click->dropdown#toggle"
                       data-dropdown-target="toggle"
                       title="<%= t('activerecord.attributes.posts.change_status_title') %>">
+                <span class="max-sm:hidden">
                   <%= t("activerecord.attributes.posts.status_badge.#{post.status}") %>
+                </span>
+                <span class="sm:hidden">
+                  <%= t("activerecord.attributes.posts.#{post.status}_short") %>
+                </span>
                 <svg class="ml-1.5 w-3 h-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>

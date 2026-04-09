@@ -236,7 +236,8 @@ en:
         archived: "Archived"
         change_status_title: "Change post status"
         draft_short: "Draft"
-        published_short: "Published"
+        published_short: "Live"
+        archived_short: "Arch."
         status_badge:
           draft: "Draft"
           published: "Published"
