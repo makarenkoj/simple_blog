@@ -237,6 +237,7 @@ uk:
         change_status_title: "Змінити статус"
         draft_short: "Черн."
         published_short: "Опубл."
+        archived_short: "Архів."
         status_badge:
           draft: "Чернетка"
           published: "Опубліковано"

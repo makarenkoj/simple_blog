@@ -236,7 +236,8 @@ it:
         archived: "Archiviato"
         change_status_title: "Cambia stato"
         draft_short: "Bozza"
-        published_short: "Pubblicato"
+        published_short: "Pubbl."
+        archived_short: "Arch."
         status_badge:
           draft: "Bozza"
           published: "Pubblicato"
