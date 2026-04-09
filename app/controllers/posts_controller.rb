@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   before_action :popular_creators, only: %i[index show library]
 
   def index
-    @posts_scope = Post.includes(:user, :categories).with_attached_cover_image.order(created_at: :desc)
+    @posts_scope = Post.published.includes(:user, :categories).with_attached_cover_image.order(created_at: :desc)
 
     @posts_scope = @posts_scope.joins(:categories).where(categories: { id: params[:category_ids] }) if params[:category_ids].present?
 
@@ -47,14 +47,26 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: I18n.t('activerecord.controllers.posts.updated')
+      respond_to do |format|
+        # Стандартна поведінка (наприклад, при збереженні форми редагування)
+        format.html { redirect_to @post, notice: I18n.t('activerecord.controllers.posts.updated') }
+
+        # Магія Turbo: замінює <article id="post_123"> на новий відрендерений паршал
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            @post,
+            partial: 'posts/post',
+            locals: { post: @post }
+          )
+        end
+      end
     else
       render :edit
     end
   end
 
   def library
-    scope = current_user.bookmarked_posts.includes(:user, :rich_text_body).order('bookmarks.created_at DESC')
+    scope = current_user.bookmarked_posts.published.includes(:user, :rich_text_body).order('bookmarks.created_at DESC')
     @pagy, @posts = pagy(scope, limit: 5)
 
     respond_to do |format|
@@ -78,9 +90,13 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.friendly.find(params[:id])
+
+    return unless @post && !@post.published? && !current_user_can_edit?(@post)
+
+    redirect_to posts_path, alert: t('activerecord.controllers.posts.not_your_post')
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :cover_image, category_ids: [])
+    params.require(:post).permit(:title, :body, :status, :cover_image, category_ids: [])
   end
 end

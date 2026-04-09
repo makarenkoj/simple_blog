@@ -33,7 +33,7 @@ class NotificationsController < ApplicationController
   def destroy
     @notification.destroy
 
-    redirect_to notifications_path, notice: t('notifications.deleted')
+    redirect_to notifications_path, notice: t('notifications.destroyed')
   end
 
   private

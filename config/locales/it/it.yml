@@ -14,6 +14,8 @@ it:
   buttons:
     remove_image: "Rimuovi immagine"
     remove_avatar: "Rimuovi avatar"
+    click_to_upload: "Clicca per caricare"
+    image_formats: "PNG, JPG, GIF, WEBP fino a 5MB"
     languages:
       uk: "Українська"
       en: "English"
@@ -220,6 +222,29 @@ it:
         destroy_confirm: "Sei sicuro di voler eliminare questa pubblicazione?"
         liked_flash: "Ti è piaciuto questo post!"
         copy_link: 'Copia link'
+        admin_mode: 'Modalità amministratore'
+        admin_mode_desc: 'Puoi modificare o eliminare questo post'
+        body: 'Contenuto'
+        body_hint: 'Usa la barra degli strumenti per formattare il tuo testo'
+        attachments_hint: 'Attraverso la graffetta puoi aggiungere immagini direttamente nel testo'
+        no_posts_in_category: 'In questa categoria non ci sono ancora post'
+        body_placeholder: 'Scrivi qualcosa di interessante...'
+        status: "Stato del post"
+        status_hint: "Le bozze sono visibili solo a te. I post pubblicati sono visibili a tutti."
+        draft: "Bozza"
+        published: "Pubblicato"
+        archived: "Archiviato"
+        change_status_title: "Cambia stato"
+        draft_short: "Bozza"
+        published_short: "Pubblicato"
+        status_badge:
+          draft: "Bozza"
+          published: "Pubblicato"
+          archived: "Archiviato"
+        statuses:
+          draft: "Salva come bozza"
+          published: "Pubblica per tutti"
+          archived: "Archivia (non visibile ai lettori)"
         index:
           title: "Tutte le pubblicazioni"
           no_posts: "Nessuna pubblicazione trovata."
@@ -349,6 +374,8 @@ it:
     liked_your_post: "è piaciuto il tuo post"
     view_profile: "Visualizza profilo"
     destroyed: "Notifica eliminata"
+    marked_as_read: "Notifica segnata come letta"
+    not_found: "Notifica non trovata"
   follows:
     created: "Hai seguito %{username}"
     destroyed: "Hai smesso di seguire %{username}"

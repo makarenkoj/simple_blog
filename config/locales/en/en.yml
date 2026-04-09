@@ -14,6 +14,8 @@ en:
   buttons:
     remove_image: "Remove image"
     remove_avatar: "Remove avatar"
+    click_to_upload: "Click to upload"
+    image_formats: "PNG, JPG, GIF, WEBP up to 5MB"
     languages:
       uk: "Ukrainian"
       en: "English"
@@ -220,6 +222,29 @@ en:
         destroy_confirm: "Are you sure you want to delete this publication?"
         liked_flash: "You liked this post!"
         copy_link: 'Copy link'
+        admin_mode: 'Admin mode'
+        admin_mode_desc: 'You can edit or delete this post'
+        body: 'Content'
+        body_hint: 'Use the toolbar to format your text'
+        attachments_hint: 'You can add images directly into the text using the paperclip'
+        no_posts_in_category: 'There are no posts in this category yet'
+        body_placeholder: 'Write something interesting...'
+        status: "Post status"
+        status_hint: "Drafts are visible only to you. Published posts are visible to everyone."
+        draft: "Draft"
+        published: "Published"
+        archived: "Archived"
+        change_status_title: "Change post status"
+        draft_short: "Draft"
+        published_short: "Published"
+        status_badge:
+          draft: "Draft"
+          published: "Published"
+          archived: "Archived"
+        statuses:
+          draft: "Save as draft"
+          published: "Publish to everyone"
+          archived: "Archive (not visible to readers)"
         index:
           title: "All publications"
           no_posts: "No publications found."
@@ -349,6 +374,8 @@ en:
     liked_your_post: "liked your post"
     view_profile: "View profile"
     destroyed: "Notification deleted"
+    marked_as_read: "Notification marked as read"
+    not_found: "Notification not found"
   follows:
     created: "You followed %{username}"
     destroyed: "You unfollowed %{username}"
