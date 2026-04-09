@@ -24,6 +24,8 @@ class Post < ApplicationRecord
 
   after_create :notify_followers
 
+  enum :status, { draft: 0, published: 1, archived: 2 }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[id title created_at updated_at]
   end

@@ -229,6 +229,22 @@ uk:
         attachments_hint: 'Через скріпку можно добавлять изображения прямо в текст'
         no_posts_in_category: 'У цій категорії поки немає постів'
         body_placeholder: 'Напишіть щось цікаве...'
+        status: "Статус публікації"
+        status_hint: "Чернетки бачите лише ви. Опубліковані пости бачать усі."
+        draft: "Чернетка"
+        published: "Опубліковано"
+        archived: "Архивировано"
+        change_status_title: "Змінити статус"
+        draft_short: "Черн."
+        published_short: "Опубл."
+        status_badge:
+          draft: "Чернетка"
+          published: "Опубліковано"
+          archived: "Архивировано"
+        statuses:
+          draft: "Зберегти як чернетку"
+          published: "Опублікувати для всіх"
+          archived: "Архивировать (не видно читателям)"
         index:
           title: "Усі публікації"
           no_posts: "Публікацій не знайдено."
