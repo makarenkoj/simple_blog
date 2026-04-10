@@ -8,15 +8,15 @@ module Api
       private
 
       def authenticate_api_user!
-        authenticate_or_request_with_http_token do |token, _options|
+        authenticate_with_http_token do |token, _options|
           user = User.find_by(api_token: token)
 
-          if user && (user.api_token_expires_at.nil? || user.api_token_expires_at > Time.current)
-            @current_user = user
-          else
-            false
-          end
+          @current_user = user if user && (user.api_token_expires_at.nil? || user.api_token_expires_at > Time.current)
         end
+
+        return if @current_user
+
+        render json: { message: 'Unauthorized access' }, status: :unauthorized
       end
 
       attr_reader :current_user

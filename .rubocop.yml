@@ -58,3 +58,7 @@ RSpec/MultipleMemoizedHelpers:
 
 RSpec/MessageSpies:
   EnforcedStyle: receive
+
+RSpec/VariableName:
+  Exclude:
+    - 'spec/integration/**/*_spec.rb'

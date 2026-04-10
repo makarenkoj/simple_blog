@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   mount_avo
 
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do

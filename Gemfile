@@ -28,6 +28,7 @@ gem 'propshaft'
 gem 'puma'
 gem 'rails', '~> 8.0.2'
 gem 'ransack', '~> 4.4'
+gem 'rswag'
 gem 'ruby_ui', group: :development, require: false
 gem 'simple_form'
 gem 'sitemap_generator', '~> 6.3'
