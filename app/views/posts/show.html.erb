@@ -29,8 +29,11 @@
                       data-action="click->dropdown#toggle"
                       data-dropdown-target="toggle"
                       title="<%= t('activerecord.attributes.posts.change_status_title') %>">
-                <span>
-                  <%= t("activerecord.attributes.posts.status_badge.#{@post.status}", default: t("activerecord.attributes.posts.statuses.#{@post.status}", default: @post.status.to_s.capitalize)) %>
+                <span class="max-sm:hidden">
+                  <%= t("activerecord.attributes.posts.status_badge.#{@post.status}") %>
+                </span>
+                <span class="sm:hidden">
+                  <%= t("activerecord.attributes.posts.#{@post.status}_short") %>
                 </span>
                 <svg class="ml-2 w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -133,8 +136,8 @@
               <%= @post.user.username %>
             </p>
             <div class="flex items-center space-x-4 mt-3">
-              <span class="text-xs text-slate-500">1.2k <%= t('followers') %></span>
-              <span class="text-xs text-slate-500">· 42 <%= t('posts') %></span>
+              <span class="text-xs text-slate-500"><%= @post.user.followers.size %> <%= t('followers') %></span>
+              <span class="text-xs text-slate-500"><%= @post.user.posts.size %> <%= t('posts') %></span>
             </div>
           </div>
         <% end %>
