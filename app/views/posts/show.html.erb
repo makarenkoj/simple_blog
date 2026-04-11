@@ -67,9 +67,9 @@
   </nav>
   <article class="mx-auto" style="max-width: 680px;">
     <header class="px-6 sm:px-8 pt-12 sm:pt-16 pb-8">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-slate-900 leading-tight mb-8 tracking-tight">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 leading-tight tracking-tight group-hover:underline line-clamp-2">
         <%= @post.title %>
-      </h1>
+      </h2>
       <div class="flex items-center justify-between flex-wrap gap-4">
         <% if @post.user.present? %>
           <%= link_to user_path(@post.user), class: "flex items-center space-x-3 group" do %>

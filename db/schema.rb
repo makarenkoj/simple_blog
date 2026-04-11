@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_08_194159) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_09_183522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -159,6 +159,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_08_194159) do
     t.string "last_name", default: ""
     t.string "slug"
     t.string "fcm_token"
+    t.string "api_token"
+    t.datetime "api_token_expires_at"
+    t.index ["api_token"], name: "index_users_on_api_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["fcm_token"], name: "index_users_on_fcm_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

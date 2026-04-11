@@ -26,17 +26,15 @@ RSpec.describe 'Post Show Page', type: :system do
   describe 'Viewing as a Guest (Unauthenticated)' do
     before { visit post_path(main_post, locale: :uk) }
 
-    # rubocop:disable RSpec/MultipleExpectations
     it 'displays all post content correctly' do
       expect(page).not_to have_text(/translation missing/i)
-      expect(page).to have_selector('h1', text: 'Головна тестова стаття')
+      expect(page).to have_selector('h2', text: 'Головна тестова стаття')
       expect(page).to have_text('Це дуже цікавий контент нашої статті.')
       expect(page).to have_text(/Технології/i)
       expect(page).to have_text('super_author')
       expect(page).to have_css("img[alt='Головна тестова стаття']")
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.more_from_author', author: author.username))
     end
-    # rubocop:enable RSpec/MultipleExpectations
 
     it 'does NOT show admin controls or status dropdown' do
       expect(page).not_to have_text(I18n.t('activerecord.attributes.posts.admin_mode', default: 'Режим адміністратора'))
