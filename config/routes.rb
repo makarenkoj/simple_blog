@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   mount_avo
 
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
@@ -57,5 +59,12 @@ Rails.application.routes.draw do
     get '/profile', to: 'users#current_profile', as: :current_profile
 
     post 'update_fcm_token', to: 'users#update_fcm_token'
+
+    namespace :api do
+      namespace :v1 do
+        resources :posts, only: [:create]
+        resources :categories, only: [:index]
+      end
+    end
   end
 end

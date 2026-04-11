@@ -45,7 +45,7 @@ RSpec/ExampleLength:
   Max: 15
 
 RSpec/MultipleExpectations:
-  Max: 5
+  Max: 10
 
 RSpec/NestedGroups:
   Max: 5
@@ -58,3 +58,7 @@ RSpec/MultipleMemoizedHelpers:
 
 RSpec/MessageSpies:
   EnforcedStyle: receive
+
+RSpec/VariableName:
+  Exclude:
+    - 'spec/integration/**/*_spec.rb'

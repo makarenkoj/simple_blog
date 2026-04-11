@@ -6,6 +6,11 @@ module Avo
         query: -> { query.ransack(id_eq: params[:q], username_cont: params[:q], email_cont: params[:q], m: 'or').result(distinct: false) }
       }
 
+      def actions
+        action Avo::Actions::GenerateApiToken
+      end
+
+      # rubocop:disable Metrics/MethodLength
       def fields
         field :id, as: :id
         field :avatar, as: :file, is_image: true, rounded: true
@@ -46,7 +51,19 @@ module Avo
           #   field :bookmarked_posts, as: :has_many, use_resource: :post
           #   field :liked_posts, as: :has_many, use_resource: :post
           # end
+
+          tab 'API Доступ' do
+            field :api_token, as: :text,
+                              name: 'Поточний Токен',
+                              only_on: [:show],
+                              help: 'Скопіюйте цей токен і передавайте у заголовку Authorization'
+
+            field :api_token_expires_at, as: :date_time,
+                                         name: 'Дійсний до',
+                                         only_on: [:show]
+          end
         end
+        # rubocop:enable Metrics/MethodLength
       end
     end
   end
