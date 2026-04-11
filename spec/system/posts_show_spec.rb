@@ -28,7 +28,7 @@ RSpec.describe 'Post Show Page', type: :system do
 
     it 'displays all post content correctly' do
       expect(page).not_to have_text(/translation missing/i)
-      expect(page).to have_selector('h1', text: 'Головна тестова стаття')
+      expect(page).to have_selector('h2', text: 'Головна тестова стаття')
       expect(page).to have_text('Це дуже цікавий контент нашої статті.')
       expect(page).to have_text(/Технології/i)
       expect(page).to have_text('super_author')

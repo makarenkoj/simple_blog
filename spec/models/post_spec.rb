@@ -282,12 +282,14 @@ RSpec.describe Post, type: :model do
         follower2.follow(creator)
       end
 
-      it 'creates notifications for all followers after create' do
-        expect { create(:post, user: creator) }.to change(Notification, :count).by(2)
+      it 'creates notifications for all followers after publish' do
+        post = create(:post, user: creator)
+        expect { post.update(status: :published) }.to change(Notification, :count).by(2)
       end
 
       it 'creates notifications with correct attributes' do
         post = create(:post, user: creator)
+        post.update(status: :published)
         notification = Notification.where(user: follower1,
                                           actor: creator,
                                           notifiable: post,
@@ -308,7 +310,9 @@ RSpec.describe Post, type: :model do
           follower.follow(creator)
         end
 
-        expect { create(:post, user: creator) }.to change(Notification, :count).by(102)
+        post = create(:post, user: creator)
+
+        expect { post.update(status: :published) }.to change(Notification, :count).by(102)
       end
     end
   end

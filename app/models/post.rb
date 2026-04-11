@@ -22,7 +22,7 @@ class Post < ApplicationRecord
 
   validate :body_content_length
 
-  after_create :notify_followers
+  after_commit :notify_followers, if: -> { saved_change_to_status? && published? }
 
   enum :status, { draft: 0, published: 1, archived: 2 }
 
