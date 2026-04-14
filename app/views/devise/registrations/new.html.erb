@@ -36,24 +36,24 @@
         prompt: t('select_role'),
         label: t('activerecord.attributes.user.role'),
         input_html: {
-          class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-3 focus:ring-blue-500"
+          class: "w-full px-3 py-2 text-sm border text-gray-900 border-gray-300 rounded-md bg-white focus:outline-none focus:ring-3 focus:ring-blue-500"
         } %>
 
       <%= f.input :role, as: :hidden, input_html: { value: 'reader' } %>
       <%= f.input :first_name,
         label: t('activerecord.attributes.user.first_name'),
         input_html: {
-          class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
+          class: "w-full px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
         } %>
       <%= f.input :last_name,
         label: t('activerecord.attributes.user.last_name'),
         input_html: {
-          class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
+          class: "w-full px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
         } %>
       <%= f.input :username,
         label: t('activerecord.attributes.user.username'),
         input_html: {
-          class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
+          class: "w-full px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
         } %>
       <%= f.input :email,
         required: false,
@@ -61,25 +61,45 @@
         label: t('activerecord.attributes.user.email'),
         input_html: {
           autocomplete: "email",
-          class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
+          class: "w-full px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
         } %>
-      <%= f.input :password,
-        required: false,
-        label: t('activerecord.attributes.user.password'),
-        input_html: {
-          autocomplete: "new-password",
-          class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
-        } %>
-      <%= f.input :password_confirmation,
-        required: true,
-        label: t('activerecord.attributes.user.password_confirmation'),
-        input_html: {
-          autocomplete: "new-password",
-          class: "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500"
-        } %>
+      <%= f.input :password, required: false, label: t('activerecord.attributes.user.password') do %>
+        <div class="relative" data-controller="password-visibility">
+          <%= f.input_field :password,
+                autocomplete: "new-password",
+                data: { password_visibility_target: "input" },
+                class: "w-full px-3 py-2 pr-12 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500" %>
+          <button type="button" class="absolute inset-y-0 right-1 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none" data-action="click->password-visibility#toggle">
+            <svg class="h-5 w-5" data-password-visibility-target="eye" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <svg class="h-5 w-5 hidden" data-password-visibility-target="eyeSlash" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+            </svg>
+          </button>
+        </div>
+      <% end %>
+      <%= f.input :password_confirmation, required: true, label: t('activerecord.attributes.user.password_confirmation') do %>
+        <div class="relative" data-controller="password-visibility">
+          <%= f.input_field :password_confirmation,
+                autocomplete: "new-password",
+                data: { password_visibility_target: "input" },
+                class: "w-full px-3 py-2 pr-12 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500" %>
+          <button type="button" class="absolute inset-y-0 right-1 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none" data-action="click->password-visibility#toggle">
+            <svg class="h-5 w-5" data-password-visibility-target="eye" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <svg class="h-5 w-5 hidden" data-password-visibility-target="eyeSlash" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+            </svg>
+          </button>
+        </div>
+      <% end %>
     </div>
     <div class="form-actions mt-6">
-      <%= f.button :submit, t('activerecord.attributes.user.sign_up'), class: 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-gray-900 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' %>
+      <%= f.button :submit, t('activerecord.attributes.user.sign_up'), class: 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-gray-900 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer' %>
     </div>
   <% end %>
   <div class="mt-8 text-center text-sm text-gray-600 space-y-2">
