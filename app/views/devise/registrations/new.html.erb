@@ -99,7 +99,9 @@
       <% end %>
     </div>
     <div class="form-actions mt-6">
-      <%= f.button :submit, t('activerecord.attributes.user.sign_up'), class: 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-gray-900 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer' %>
+      <button type="submit" class="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium  bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer transition-colors duration-200">
+        <%= t('activerecord.attributes.user.sign_up') %>
+      </button>
     </div>
   <% end %>
   <div class="mt-8 text-center text-sm text-gray-600 space-y-2">

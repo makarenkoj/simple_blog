@@ -169,6 +169,7 @@ it:
         email: "Email"
         password: "Password"
         password_confirmation: "Conferma password"
+        new_password: "Nuova password"
         role: "Ruolo"
         name: 'Nome'
         avatar: 'Avatar'
