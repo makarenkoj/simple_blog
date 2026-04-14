@@ -6,8 +6,8 @@ RSpec.describe 'User Edit Profile Form', type: :system do
   let!(:category2) { create(:category, name: 'Технології') }
 
   before do
-    # driven_by(:selenium_chrome_headless)
-    driven_by(:selenium_chrome)
+    driven_by(:selenium_chrome_headless)
+    # driven_by(:selenium_chrome)
     create(:category, name: 'Новини')
     sign_in current_user
     visit edit_user_registration_path
