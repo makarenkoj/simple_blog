@@ -38,6 +38,14 @@ en:
         subject: "Email Changed"
       password_change:
         subject: "Password Changed"
+      reset_password_instructions:
+        subject: "Account recovery instructions"
+        greeting: "Hello, %{name}!"
+        instruction: "We received a request to reset the password for your account (@%{username}). To create a new password, click the button below:"
+        action: "Reset my password"
+        security_warning: "If you did not make this request, do not click the link! Your password will remain safe."
+        support_html: "If you suspect someone is trying to access your account, please contact our <a href='mailto:%{support_email}' style='color: #e11d48; text-decoration: underline;'>support team</a> immediately."
+        our_company: "Best regards, HelpBooost Team.\nAll rights reserved."
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."

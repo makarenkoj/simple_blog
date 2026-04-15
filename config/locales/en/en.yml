@@ -146,7 +146,7 @@ en:
     hints:
       defaults:
         username: "Username for login."
-        password: "Please do not use special characters."
+        password: "Minimum 6 characters (special characters are recommended)."
     include_blanks:
       defaults:
         age: "Better not say"
