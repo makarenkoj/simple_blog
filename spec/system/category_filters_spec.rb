@@ -34,7 +34,6 @@ RSpec.describe 'Category Page', type: :system do
       visit category_path(art_category, locale: :uk)
     end
 
-    # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
     it 'displays all translations and elements correctly on the category page' do
       expect(page).not_to have_text(/translation missing/i)
       expect(page).to have_selector('h1', text: 'Art')
@@ -58,7 +57,6 @@ RSpec.describe 'Category Page', type: :system do
         expect(page).not_to have_text(/translation missing/i)
       end
     end
-    # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
 
     it 'shows the correct initial posts for the category' do
       expect(page).to have_text('Art meets Business')
