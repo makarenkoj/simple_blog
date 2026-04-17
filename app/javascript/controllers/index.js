@@ -25,6 +25,9 @@ application.register("fullscreen", FullscreenController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import PasswordVisibilityController from "./password_visibility_controller"
+application.register("password-visibility", PasswordVisibilityController)
+
 import ProfileFormController from "./profile_form_controller"
 application.register("profile-form", ProfileFormController)
 

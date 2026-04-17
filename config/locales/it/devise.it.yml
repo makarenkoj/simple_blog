@@ -36,6 +36,14 @@ it:
         subject: "Istruzioni per lo sblocco dell'account"
       password_change:
         subject: "La password è stata modificata"
+      reset_password_instructions:
+        subject: "Istruzioni per il recupero dell'account"
+        greeting: "Ciao, %{name}!"
+        instruction: "Abbiamo ricevuto una richiesta per reimpostare la password del tuo account (@%{username}). Per creare una nuova password, clicca sul pulsante qui sotto:"
+        action: "Reimposta la password"
+        security_warning: "Se non hai effettuato tu questa richiesta, non cliccare sul link! La tua password rimarrà al sicuro."
+        support_html: "Se sospetti che qualcuno stia cercando di accedere al tuo account, contatta immediatamente il nostro <a href='mailto:%{support_email}' style='color: #e11d48; text-decoration: underline;'>team di supporto</a>."
+        our_company: "Cordiali saluti, il team di HelpBooost.\nTutti i diritti riservati."
     omniauth_callbacks:
       failure: "Impossibile autenticarti da %{kind} perché \"%{reason}\"."
       success: "Autenticato con successo dall'account %{kind}."

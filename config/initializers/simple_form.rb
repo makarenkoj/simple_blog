@@ -46,7 +46,8 @@ SimpleForm.setup do |config|
   end
 
   # Default configuration for submit buttons
-  config.button_class = 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-gray-900 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+  # config.button_class = 'w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-gray-900 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+  config.button_class = 'btn-primary' # Або залиште порожнім: config.button_class = ''
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
