@@ -28,7 +28,7 @@ RSpec.describe 'Post Show Page', type: :system do
 
     it 'displays all post content correctly' do
       expect(page).not_to have_text(/translation missing/i)
-      expect(page).to have_selector('h2', text: 'Головна тестова стаття')
+      expect(page).to have_selector('h1', text: 'Головна тестова стаття')
       expect(page).to have_text('Це дуже цікавий контент нашої статті.')
       expect(page).to have_text(/Технології/i)
       expect(page).to have_text('super_author')
@@ -37,8 +37,8 @@ RSpec.describe 'Post Show Page', type: :system do
     end
 
     it 'does NOT show admin controls or status dropdown' do
-      expect(page).not_to have_text(I18n.t('activerecord.attributes.posts.admin_mode', default: 'Режим адміністратора'))
-      expect(page).not_to have_button(I18n.t('activerecord.attributes.posts.change_status_title', default: 'Змінити статус'))
+      expect(page).not_to have_text(I18n.t('activerecord.attributes.posts.admin_mode'))
+      expect(page).not_to have_button(I18n.t('activerecord.attributes.posts.change_status_title'))
     end
   end
 
@@ -49,8 +49,8 @@ RSpec.describe 'Post Show Page', type: :system do
     end
 
     it 'does NOT show admin controls or status dropdown for other users posts' do
-      expect(page).not_to have_text(I18n.t('activerecord.attributes.posts.admin_mode', default: 'Режим адміністратора'))
-      expect(page).not_to have_button(I18n.t('activerecord.attributes.posts.change_status_title', default: 'Змінити статус'))
+      expect(page).not_to have_text(I18n.t('activerecord.attributes.posts.admin_mode'))
+      expect(page).not_to have_button(I18n.t('activerecord.attributes.posts.change_status_title'))
     end
   end
 
@@ -61,21 +61,21 @@ RSpec.describe 'Post Show Page', type: :system do
     end
 
     it 'shows admin controls and edit/destroy links' do
-      expect(page).to have_text(I18n.t('activerecord.attributes.posts.admin_mode', default: 'Режим адміністратора'))
-      expect(page).to have_link(I18n.t('activerecord.attributes.posts.edit', default: 'Редагувати'))
-      expect(page).to have_link(I18n.t('activerecord.attributes.posts.destroy', default: 'Видалити'))
+      expect(page).to have_text(I18n.t('activerecord.attributes.posts.admin_mode'))
+      expect(page).to have_link(I18n.t('activerecord.attributes.posts.edit'))
+      expect(page).to have_link(I18n.t('activerecord.attributes.posts.destroy'))
     end
 
     it 'successfully changes the post status using the dropdown menu' do
-      published_text = I18n.t('activerecord.attributes.posts.status_badge.published', default: 'Published')
+      published_text = I18n.t('activerecord.attributes.posts.status_badge.published')
       expect(page).to have_button(text: /#{published_text}/i)
 
-      find("button[title='#{I18n.t('activerecord.attributes.posts.change_status_title', default: 'Змінити статус')}']").click
+      find("button[title='#{I18n.t('activerecord.attributes.posts.change_status_title')}']").click
 
-      draft_option_text = I18n.t('activerecord.attributes.posts.statuses.draft', default: 'Draft')
+      draft_option_text = I18n.t('activerecord.attributes.posts.statuses.draft')
       click_button draft_option_text
 
-      draft_badge_text = I18n.t('activerecord.attributes.posts.status_badge.draft', default: 'Draft')
+      draft_badge_text = I18n.t('activerecord.attributes.posts.status_badge.draft')
 
       expect(page).to have_button(text: /#{draft_badge_text}/i)
       expect(main_post.reload.draft?).to be true
