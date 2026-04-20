@@ -200,7 +200,7 @@
           <%= t('activerecord.attributes.posts.more_from_author', author: @post.user&.username) %>
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <% @post.user.posts.where.not(id: @post.id).order("RANDOM()").limit(3).each do |post| %>
+          <% @more_from_author.each do |post| %>
             <%= link_to post_path(post), title: post.title, class: "group cursor-pointer block" do %>
               <div class="aspect-video bg-slate-200 rounded-lg mb-4 overflow-hidden relative">
                 <% if post.cover_image.attached? %>
