@@ -1,10 +1,25 @@
+<% content_for :title, @post.title %>
+<% title @post.title %>
+<% description truncate(strip_tags(@post.body.to_s), length: 160) %>
+<% set_meta_tags(og: { title: @post.title,
+                       type: 'article',
+                       image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
+                     },
+                     twitter: {
+                       card: 'summary_large_image',
+                       title: @post.title,
+                       description: truncate(strip_tags(@post.body.to_s), length: 160),
+                       image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
+                     }
+                   ) %>
+
 <div class="min-h-screen bg-white">
   <nav class="sticky top-0 z-[50] bg-white border-b border-slate-200 backdrop-blur-sm bg-white/95">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center space-x-6">
           <% unless turbo_native_app? %>
-            <%= link_to posts_path, class: "flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 group" do %>
+            <%= link_to posts_path, title: t('app.home'), class: "flex items-center space-x-2 text-slate-600 hover:text-slate-900 transition-colors duration-200 group" do %>
               <svg class="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
               </svg>
@@ -15,7 +30,7 @@
           <% if user_signed_in? %>
             <%= render "posts/likes/button", post: @post %>
           <% else %>
-            <%= link_to new_user_session_path, class: "flex items-center space-x-2 text-slate-600" do %>
+            <%= link_to new_user_session_path, title: t('activerecord.attributes.user.sign_in'), class: "flex items-center space-x-2 text-slate-600" do %>
               <i class='bx bx-like text-2xl'></i>
               <span class="text-sm font-medium"><%= @post.likes.count %></span>
             <% end %>
@@ -47,14 +62,14 @@
                 <% end %>
               </div>
             </div>
-            <%= link_to edit_post_path(@post), class: "px-2 sm:px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
+            <%= link_to edit_post_path(@post), title: t('activerecord.attributes.posts.edit'), class: "px-2 sm:px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
               <%= t('activerecord.attributes.posts.edit') %>
             <% end %>
           <% end %>
           <% if user_signed_in? %>
             <%= render "posts/bookmarks/button", post: @post, source: local_assigns[:source] %>
           <% else %>
-            <%= link_to new_user_session_path, class: "text-slate-400 hover:text-slate-900 transition-colors duration-200" do %>
+            <%= link_to new_user_session_path, title: t('activerecord.attributes.user.sign_in'), class: "text-slate-400 hover:text-slate-900 transition-colors duration-200" do %>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
               </svg>
@@ -72,10 +87,10 @@
       </h1>
       <div class="flex items-center justify-between flex-wrap gap-4">
         <% if @post.user.present? %>
-          <%= link_to user_path(@post.user), class: "flex items-center space-x-3 group" do %>
+          <%= link_to user_path(@post.user), title: t('activerecord.attributes.user.profile') + " " + @post.user.username, class: "flex items-center space-x-3 group" do %>
             <% if @post.user.avatar.attached? %>
               <%= image_tag @post.user.avatar.representation(resize_to_limit: [48, 48]),
-                  class: "w-12 h-12 rounded-full object-cover" %>
+                  class: "w-12 h-12 rounded-full object-cover", alt: @post.user.username, title: @post.user.username %>
             <% else %>
               <div class="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold">
                 <%= @post.user.username&.first&.upcase || '?' %>
@@ -101,7 +116,8 @@
       <figure class="mb-12">
         <%= image_tag @post.cover_image.representation(resize_to_limit: [1400, 800]),
             class: "w-full h-auto",
-            alt: @post.title %>
+            alt: @post.title,
+            title: @post.title %>
       </figure>
     <% end %>
     <div class="px-6 sm:px-8 pb-16">
@@ -113,7 +129,7 @@
       <div class="px-6 sm:px-8 pb-8">
         <div class="flex flex-wrap gap-2">
           <% @post.categories.each do |category| %>
-            <%= link_to '#', class: "px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full text-sm font-medium transition-colors duration-200" do %>
+            <%= link_to '#', title: category.name, class: "px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full text-sm font-medium transition-colors duration-200" do %>
               <%= category.name %>
             <% end %>
           <% end %>
@@ -122,10 +138,10 @@
     <% end %>
     <% if @post.user.present? %>
       <div class="px-6 sm:px-8 pb-16">
-        <%= link_to user_path(@post.user), class: "flex items-start space-x-4 p-6 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors duration-200 group" do %>
+        <%= link_to user_path(@post.user), title: t('activerecord.attributes.user.profile') + " " + @post.user.username, class: "flex items-start space-x-4 p-6 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors duration-200 group" do %>
           <% if @post.user.avatar.attached? %>
             <%= image_tag @post.user.avatar.representation(resize_to_limit: [80, 80]),
-                class: "w-20 h-20 rounded-full object-cover flex-shrink-0" %>
+                class: "w-20 h-20 rounded-full object-cover flex-shrink-0", alt: @post.user.username, title: @post.user.username %>
           <% else %>
             <div class="w-20 h-20 rounded-full bg-slate-900 flex items-center justify-center text-white font-bold text-2xl flex-shrink-0">
               <%= @post.user.username&.first&.upcase || '?' %>
@@ -158,13 +174,13 @@
                 <%= t('activerecord.attributes.posts.admin_mode_desc') %>
               </p>
               <div class="flex flex-wrap gap-3">
-                <%= link_to edit_post_path(@post), class: 'inline-flex items-center px-4 py-2 bg-white border border-amber-300 rounded-md text-sm font-medium text-amber-900 hover:bg-amber-100 transition-colors duration-200' do %>
+                <%= link_to edit_post_path(@post), title: t('activerecord.attributes.posts.edit'), class: 'inline-flex items-center px-4 py-2 bg-white border border-amber-300 rounded-md text-sm font-medium text-amber-900 hover:bg-amber-100 transition-colors duration-200' do %>
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                   </svg>
                   <%= t('activerecord.attributes.posts.edit') %>
                 <% end %>
-                <%= link_to post_path(@post), data: { turbo_confirm: t('activerecord.post.destroy_confirm'), turbo_method: :delete }, class: 'inline-flex items-center px-4 py-2 bg-white border border-red-300 rounded-md text-sm font-medium text-red-900 hover:bg-red-50 transition-colors duration-200' do %>
+                <%= link_to post_path(@post), title: t('activerecord.attributes.posts.destroy'), data: { turbo_confirm: t('activerecord.post.destroy_confirm'), turbo_method: :delete }, class: 'inline-flex items-center px-4 py-2 bg-white border border-red-300 rounded-md text-sm font-medium text-red-900 hover:bg-red-50 transition-colors duration-200' do %>
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                   </svg>
@@ -185,12 +201,12 @@
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <% @post.user.posts.where.not(id: @post.id).order("RANDOM()").limit(3).each do |post| %>
-            <%= link_to post_path(post), class: "group cursor-pointer block" do %>
+            <%= link_to post_path(post), title: post.title, class: "group cursor-pointer block" do %>
               <div class="aspect-video bg-slate-200 rounded-lg mb-4 overflow-hidden relative">
                 <% if post.cover_image.attached? %>
                   <%= image_tag post.cover_image.variant(resize_to_fill: [400, 225]), 
                       class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300",
-                      loading: "lazy" %>
+                      loading: "lazy", alt: post.title, title: post.title %>
                 <% else %>
                   <div class="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
                     <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
