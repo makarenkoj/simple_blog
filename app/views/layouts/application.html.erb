@@ -31,7 +31,7 @@
       <%= turbo_stream_from current_user, :notifications %>
     <% end %>
     <% unless turbo_native_app? %>
-      <nav class="sticky top-0 z-40 bg-white border-b border-slate-200">
+      <nav class="<%= (controller_name == 'posts' && action_name == 'show') ? 'relative' : 'sticky top-0' %> z-50 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-center justify-between h-16">
             <div class="flex items-center space-x-4">
@@ -80,7 +80,7 @@
                       <%= I18n.locale.to_s.upcase %>
                     </span>
                   </button>
-                  <div class="dropdown-menu shadow-xl border border-slate-200 z-35 dropdown-hidden w-48 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
+                  <div class="dropdown-menu shadow-xl border border-slate-200 z-50 dropdown-hidden w-48 bg-white rounded-lg overflow-hidden" data-dropdown-target="menu">
                     <div class="p-2">
                       <%= link_to url_for(locale: :uk), title: t('buttons.languages.uk'), class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 #{'bg-slate-100' if I18n.locale == :uk}" do %>
                         <span class="text-2xl">🇺🇦</span>
