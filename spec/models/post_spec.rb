@@ -37,21 +37,21 @@ RSpec.describe Post, type: :model do
         post = build(:post, title: 'AB')
 
         expect(post).not_to be_valid
-        expect(post.errors[:title].first).to include('занадто короткий (мінімум 3 знаку)')
+        expect(post.errors[:title].first).to include(I18n.t('errors.messages.too_short', count: 3))
       end
 
       it 'is invalid with a title of 101 characters' do
         post = build(:post, title: 'A' * 101)
 
         expect(post).not_to be_valid
-        expect(post.errors[:title].first).to include('занадто довгий (максимум 100 знаку)')
+        expect(post.errors[:title].first).to include(I18n.t('errors.messages.too_long', count: 100))
       end
 
       it 'is invalid without a title' do
         post = build(:post, title: nil)
 
         expect(post).not_to be_valid
-        expect(post.errors[:title].join).to include('не може бути пустимзанадто короткий (мінімум 3 знаку)')
+        expect(post.errors[:title].join).to include(I18n.t('errors.messages.blank'))
       end
 
       it 'is invalid with an empty title' do

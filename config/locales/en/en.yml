@@ -16,6 +16,11 @@ en:
     remove_avatar: "Remove avatar"
     click_to_upload: "Click to upload"
     image_formats: "PNG, JPG, GIF, WEBP up to 5MB"
+    share:
+      to_telegram: "Share on Telegram"
+      to_facebook: "Share on Facebook"
+      to_twitter: "Share on Twitter"
+      to_whatsapp: "Share on WhatsApp"
     languages:
       uk: "Ukrainian"
       en: "English"
@@ -239,6 +244,12 @@ en:
         draft_short: "Draft"
         published_short: "Live"
         archived_short: "Arch."
+        view_post: "View post"
+        sign_in_to_bookmark: "Sign in to save post to library"
+        like_own_post: "You cannot like your own post"
+        bookmark_remove: "Remove from library"
+        bookmark_add: "Add to library"
+        sign_in_to_bookmark: "Sign in to save post to library"
         status_badge:
           draft: "Draft"
           published: "Published"
@@ -279,6 +290,7 @@ en:
         no_categories: 'No categories'
         no_categories_description: 'No categories yet. Please check back later.'
         subtitle: 'Explore posts by categories and find what you like.'
+        open: 'Open category %{category}'
         preferences:
           subscribed: 'Subscribed to category %{category}'
           unsubscribed: 'Unsubscribed from category %{category}'

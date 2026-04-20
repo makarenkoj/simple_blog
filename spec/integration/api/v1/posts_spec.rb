@@ -50,7 +50,7 @@ RSpec.describe 'Api::V1::Posts', type: :request do
 
         run_test! do |response|
           expect(response).to have_http_status(:unprocessable_entity)
-          expect(data['errors']).to eq({ 'body' => ['занадто короткий (мінімум 10 символів)'] })
+          expect(data['errors']).to eq({ 'body' => [I18n.t('activerecord.errors.messages.post.title.short')] })
         end
       end
 

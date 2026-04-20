@@ -16,6 +16,11 @@ uk:
     remove_avatar: "Видалити аватар"
     click_to_upload: "Натисніть, щоб завантажити"
     image_formats: "PNG, JPG, GIF, WEBP до 5МБ"
+    share:
+      to_telegram: "Поділитися в Telegram"
+      to_facebook: "Поділитися в Facebook"
+      to_twitter: "Поділитися в Twitter"
+      to_whatsapp: "Поділитися в WhatsApp"
     languages:
       uk: "Українська"
       en: "English"
@@ -239,6 +244,12 @@ uk:
         draft_short: "Черн."
         published_short: "Опубл."
         archived_short: "Архів."
+        view_post: "Переглянути пост"
+        sign_in_to_bookmark: "Увійдіть, щоб зберегти пост в бібліотеку"
+        like_own_post: "Ви не можете лайкати свій пост"
+        bookmark_remove: "Видалити з бібліотеки"
+        bookmark_add: "Додати в бібліотеку"
+        sign_in_to_bookmark: "Увійдіть, щоб зберегти пост в бібліотеку"
         status_badge:
           draft: "Чернетка"
           published: "Опубліковано"
@@ -279,6 +290,7 @@ uk:
         no_categories: 'Немає категорій'
         no_categories_description: 'Поки що немає категорій. Будь ласка, перевірте пізніше.'
         subtitle: 'Досліджуйте пости за категоріями та знаходьте те, що вам до душі.'
+        open: 'Відкрити категорію %{category}'
         preferences:
           subscribed: 'Підписані на категорію %{category}'
           unsubscribed: 'Відписалися від категорії %{category}'

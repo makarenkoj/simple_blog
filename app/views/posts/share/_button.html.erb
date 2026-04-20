@@ -31,28 +31,28 @@
 
       <div class="h-px bg-slate-100 my-1"></div>
 
-      <%= link_to share_url(:telegram, url, title), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors group" do %>
+      <%= link_to share_url(:telegram, url, title), title: t('buttons.share.to_telegram'), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors group" do %>
         <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 group-hover:bg-blue-200 transition-colors">
           <i class='bx bxl-telegram text-xl'></i>
         </div>
         <span class="text-sm font-medium text-slate-700 group-hover:text-blue-700">Telegram</span>
       <% end %>
 
-      <%= link_to share_url(:twitter, url, title), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors group" do %>
+      <%= link_to share_url(:twitter, url, title), title: t('buttons.share.to_twitter'), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors group" do %>
         <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-800 group-hover:bg-slate-200 transition-colors">
           <i class='bx bxl-twitter text-xl'></i>
         </div>
         <span class="text-sm font-medium text-slate-700 group-hover:text-slate-900">Twitter</span>
       <% end %>
 
-      <%= link_to share_url(:facebook, url, title), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors group" do %>
+      <%= link_to share_url(:facebook, url, title), title: t('buttons.share.to_facebook'), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors group" do %>
         <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-100 transition-colors">
           <i class='bx bxl-facebook text-xl'></i>
         </div>
         <span class="text-sm font-medium text-slate-700 group-hover:text-blue-800">Facebook</span>
       <% end %>
       
-      <%= link_to share_url(:whatsapp, url, title), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-green-50 transition-colors group" do %>
+      <%= link_to share_url(:whatsapp, url, title), title: t('buttons.share.to_whatsapp'), target: "_blank", class: "flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-green-50 transition-colors group" do %>
         <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-600 group-hover:bg-green-100 transition-colors">
           <i class='bx bxl-whatsapp text-xl'></i>
         </div>
