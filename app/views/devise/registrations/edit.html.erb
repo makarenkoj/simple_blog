@@ -20,6 +20,7 @@
           <%= link_to t('buttons.remove_avatar'),
                       rails_blob_path(f.object.avatar, disposition: "attachment"),
                       data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_avatar') },
+                      title: t('buttons.remove_avatar'),
                       class: "block text-red-600 hover:underline text-sm mt-2" %>
         <% else %>
           <div class="rounded-full w-32 h-32 bg-gray-300 flex items-center justify-center mx-auto mb-4 text-gray-600 text-5xl font-bold">
@@ -86,7 +87,7 @@
     </div>
   <% end %>
   <div class="mt-4 pt-2 text-center space-y-4">
-    <%= link_to t("simple_form.button.back"), :back, class: "text-sm text-blue-600 hover:underline inline-block" %>
+    <%= link_to t("simple_form.button.back"), :back, title: t("simple_form.button.back"), class: "text-sm text-blue-600 hover:underline inline-block" %>
   </div>
   <div class="mt-8 pt-6 border-t border-gray-200 text-center space-y-4">
     <%= button_to t("simple_form.labels.defaults.cancel"), 

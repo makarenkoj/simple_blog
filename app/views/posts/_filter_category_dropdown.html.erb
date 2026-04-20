@@ -19,7 +19,7 @@
           <%= t('activerecord.attributes.posts.index.filter.choose_category') %>
         </span>
         <% if params[:category_ids].present? %>
-          <%= link_to request.path, class: "text-xs text-red-600 hover:text-red-700 font-medium transition-colors" do %>
+          <%= link_to request.path, title: t('activerecord.attributes.posts.index.filter.reset_all'), class: "text-xs text-red-600 hover:text-red-700 font-medium transition-colors" do %>
             <%= t('activerecord.attributes.posts.index.filter.reset_all') %>
           <% end %>
         <% end %>
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="p-3 border-t border-slate-100 bg-slate-50/50 rounded-b-xl">
-        <%= button_tag type: 'submit', class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium bg-slate-900 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 transition-all" do %>
+        <%= button_tag type: 'submit', title: t('activerecord.attributes.posts.index.filter.show_results'), class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium bg-slate-900 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 transition-all" do %>
           <%= t('activerecord.attributes.posts.index.filter.show_results') %>
         <% end %>
       </div>

@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "like_button_#{post.id}" do %>
   <% if user_signed_in? %>
     <% if post.user_id == current_user.id %>
-      <div class="flex items-center space-x-2 text-slate-400 cursor-default" title="Ви не можете лайкати свій пост">
+      <div class="flex items-center space-x-2 text-slate-400 cursor-default" title="<%= t('activerecord.attributes.posts.like_own_post') %>">
         <i class='bx bx-like text-2xl'></i>
         <span class="text-sm font-medium"><%= post.likes.count %></span>
       </div>
