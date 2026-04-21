@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.friendly.find(params[:id])
+    @posts = @user == current_user ? @user.posts.order(created_at: :desc) : @user.posts.published.order(created_at: :desc)
   end
 
   def edit; end

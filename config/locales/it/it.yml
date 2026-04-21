@@ -16,6 +16,11 @@ it:
     remove_avatar: "Rimuovi avatar"
     click_to_upload: "Clicca per caricare"
     image_formats: "PNG, JPG, GIF, WEBP fino a 5MB"
+    share:
+      to_telegram: "Condividi su Telegram"
+      to_facebook: "Condividi su Facebook"
+      to_twitter: "Condividi su Twitter"
+      to_whatsapp: "Condividi su WhatsApp"
     languages:
       uk: "Українська"
       en: "English"
@@ -239,6 +244,12 @@ it:
         draft_short: "Bozza"
         published_short: "Pubbl."
         archived_short: "Arch."
+        view_post: "Visualizza post"
+        sign_in_to_bookmark: "Accedi per salvare il post nella tua libreria"
+        like_own_post: "Non puoi mettere mi piace al tuo stesso post"
+        bookmark_remove: "Rimuovi dalla libreria"
+        bookmark_add: "Aggiungi alla libreria"
+        sign_in_to_bookmark: "Accedi per salvare il post nella tua libreria"
         status_badge:
           draft: "Bozza"
           published: "Pubblicato"
@@ -279,6 +290,7 @@ it:
         no_categories: 'Nessuna categoria'
         no_categories_description: 'Non ci sono ancora categorie. Ricontrolla più tardi.'
         subtitle: 'Esplora i post per categorie e trova ciò che ti piace.'
+        open: 'Apri categoria %{category}'
         preferences:
           subscribed: 'Iscritto alla categoria %{category}'
           unsubscribed: 'Disiscritto dalla categoria %{category}'

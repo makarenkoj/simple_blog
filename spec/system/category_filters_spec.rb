@@ -8,30 +8,26 @@ RSpec.describe 'Category Page', type: :system do
   let!(:business_category) { create(:category, name: 'Business') }
   let!(:tech_category) { create(:category, name: 'Tech') }
 
-  before do
-    driven_by(:selenium_chrome_headless)
-    # driven_by(:selenium_chrome)
-
-    create(:post, title: 'Art meets Business').tap do |post|
-      post.categories << [art_category, business_category]
-    end
-
-    create(:post, title: 'Pure Art Post').tap do |post|
-      post.categories << art_category
-    end
-
-    create(:post, title: 'Tech Only').tap do |post|
-      post.categories << tech_category
-    end
-
-    sign_in current_user
-  end
-
   describe 'Full Category Page & Translations' do
     before do
-      page.current_window.resize_to(1440, 900)
+      driven_by(:selenium_chrome_headless)
+      # driven_by(:selenium_chrome)
 
-      visit category_path(art_category, locale: :uk)
+      create(:post, title: 'Art meets Business', status: :published, body: 'Текст поста 1').tap do |post|
+        post.categories << [art_category, business_category]
+      end
+
+      create(:post, title: 'Pure Art Post', status: :published, body: 'Текст поста 2').tap do |post|
+        post.categories << art_category
+      end
+
+      create(:post, title: 'Tech Only', status: :published, body: 'Текст поста 3').tap do |post|
+        post.categories << tech_category
+      end
+
+      sign_in current_user
+      page.current_window.resize_to(1440, 900)
+      visit category_path(art_category, locale: locale)
     end
 
     it 'displays all translations and elements correctly on the category page' do
@@ -92,7 +88,7 @@ RSpec.describe 'Category Page', type: :system do
 
     it 'shows empty state message when the category has no posts' do
       empty_cat = create(:category, name: 'EmptySpace')
-      visit category_path(empty_cat, locale: :uk)
+      visit category_path(empty_cat, locale: locale)
 
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.no_posts_in_category'))
       expect(page).not_to have_text(/translation missing/i)

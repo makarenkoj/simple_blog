@@ -529,7 +529,7 @@ RSpec.describe User, type: :model do
         invalid_usernames.each do |invalid_name|
           user = build(:user, username: invalid_name)
           user.valid?
-          expect(user.errors[:username]).to include('недійсний')
+          expect(user.errors[:username]).to include('is invalid')
         end
       end
     end

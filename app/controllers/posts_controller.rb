@@ -28,6 +28,12 @@ class PostsController < ApplicationController
                     type: 'article',
                     image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
                   }
+
+    @more_from_author = if @post.user
+                          @post.user.posts.published.where.not(id: @post.id).order('RANDOM()').limit(3)
+                        else
+                          []
+                        end
   end
 
   def new

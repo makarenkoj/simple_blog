@@ -7,9 +7,9 @@
         &copy; <%= Date.current.year %>
       </div>
       <nav class="flex flex-wrap justify-center gap-6 text-sm text-slate-600">
-        <%= link_to t('about.title', default: 'Про нас'), about_path, class: "hover:text-slate-900 hover:underline transition-colors" %>
-        <%= link_to t('terms.title', default: 'Правила'), terms_path, class: "hover:text-slate-900 hover:underline transition-colors" %>
-        <%= link_to t('privacy.title', default: 'Конфіденційність'), privacy_policy_path, class: "hover:text-slate-900 hover:underline transition-colors" %>
+        <%= link_to t('about.title'), about_path, title: t('about.title'), class: "hover:text-slate-900 hover:underline transition-colors" %>
+        <%= link_to t('terms.title'), terms_path, title: t('terms.title'), class: "hover:text-slate-900 hover:underline transition-colors" %>
+        <%= link_to t('privacy.title'), privacy_policy_path, title: t('privacy.title'), class: "hover:text-slate-900 hover:underline transition-colors" %>
       </nav>
     </div>
   </div>

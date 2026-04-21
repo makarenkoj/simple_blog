@@ -5,7 +5,7 @@
     <div class="text-sm text-slate-600">
       <p>
         <%= t('cookies.consent_text') %>
-        <%= link_to t('cookies.privacy_policy'), privacy_policy_path, class: "underline text-slate-900 hover:text-blue-600", data: { turbo: false } %>
+        <%= link_to t('cookies.privacy_policy'), privacy_policy_path, title: t('cookies.privacy_policy'), class: "underline text-slate-900 hover:text-blue-600", data: { turbo: false } %>
       </p>
     </div>
     <div class="flex items-center gap-3">
