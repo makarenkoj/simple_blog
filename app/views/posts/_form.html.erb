@@ -1,5 +1,5 @@
 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 animate-slideUp">
-  <%= simple_form_for @post, html: { class: "post-form" } do |f| %>
+  <%= simple_form_for @post, html: { class: "post-form" }, data: { turbo: "false" } do |f| %>
     <!-- Error Notification -->
     <% if f.object.errors.any? %>
       <div class="bg-red-50 border-l-4 border-red-500 p-4 m-6 rounded-r-lg animate-shake">
