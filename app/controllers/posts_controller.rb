@@ -54,10 +54,8 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       respond_to do |format|
-        # Стандартна поведінка (наприклад, при збереженні форми редагування)
         format.html { redirect_to @post, notice: I18n.t('activerecord.controllers.posts.updated') }
 
-        # Магія Turbo: замінює <article id="post_123"> на новий відрендерений паршал
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
             @post,
