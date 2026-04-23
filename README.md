@@ -197,13 +197,9 @@ SitemapGenerator::Sitemap.default_host = "[https://helpbooost.com](https://helpb
 * `Faker::Lorem.paragraph(sentence_count: 5)` — текст для поста
 * `Faker::Internet.slug` — слаг
 
-```
 
-### Що робити далі?
-1.  Створи файл `README.md` у корені проєкту.
-2.  Встав туди цей текст.
-3.  Закоміть його: `git add README.md && git commit -m "Add project documentation"`.
+## Connect to server
 
-Тепер ти не забудеш команди через місяць! 😉
+* using ssh: `ssh deploy@206.189.107.151`
 
-```
+* 
