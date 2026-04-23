@@ -8,7 +8,7 @@ servers:
 
 proxy:
   ssl: true
-  host:
+  hosts:
     - helpbooost.com
     - www.helpbooost.com
 
