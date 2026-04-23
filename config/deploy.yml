@@ -7,8 +7,10 @@ servers:
     - 206.189.107.151
 
 proxy:
-  ssl: false
-  host: 206.189.107.151
+  ssl: true
+  hosts:
+    - helpbooost.com
+    - www.helpbooost.com
 
 registry:
   server: ghcr.io
@@ -35,12 +37,12 @@ env:
     DOMAIN_NAME: helpbooost.com
     PROD_DOMAIN_NAME: helpbooost.com
     ADMIN_EMAIL: help.booost@gmail.com
-    DEFAULT_HOST: 206.189.107.151 #helpbooost.com
+    DEFAULT_HOST: helpbooost.com #206.189.107.151
 
     R2_BUCKET_NAME: help-boost
     R2_ENDPOINT: https://7c6c19a404b012f7db489c6a0ea46e23.r2.cloudflarestorage.com
 
-    ADMIN_EMAIL: makarenkoj53@gmail.com
+    AVO_EMAIL: makarenkoj53@gmail.com
     AVO_LICENSE_KEY: community
     FIREBASE_PROJECT_ID: helpbooost-b1905
     FIREBASE_CLIENT_EMAIL: firebase-adminsdk-fbsvc@helpbooost-b1905.iam.gserviceaccount.com

@@ -20,7 +20,7 @@ Avo.configure do |config|
   ## == Authentication ==
   config.current_user_method = :current_user
   config.authenticate_with do
-    allowed_email = ENV.fetch('ADMIN_EMAIL')
+    allowed_email = ENV.fetch('AVO_EMAIL')
 
     if _current_user.nil? || _current_user.email != allowed_email
       redirect_to main_app.root_path, alert: t('avo.admin.not_access')
