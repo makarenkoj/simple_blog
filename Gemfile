@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'active_storage_validations', '~> 3.0'
-gem 'avo', '~> 3.29'
+gem 'avo', '~> 3.31'
 gem 'aws-sdk-s3', '~> 1.213'
 gem 'babosa', '~> 2.0'
 gem 'bootsnap'
