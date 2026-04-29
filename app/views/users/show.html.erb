@@ -6,7 +6,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
         <% if @user.avatar.attached? %>
-          <%= image_tag @user.avatar.representation(resize_to_limit: [128, 128]), 
+          <%= image_tag @user.avatar.representation(resize_to_limit: [128, 128], format: :webp).processed, alt: @user.username, title: @user.username,
               class: "w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover flex-shrink-0" %>
         <% else %>
           <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-slate-900 flex items-center justify-center text-white text-4xl sm:text-5xl font-bold flex-shrink-0">

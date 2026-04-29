@@ -207,7 +207,7 @@ jobs:
       - name: Verify deployment
         run: |
           sleep 10
-          curl -f http://206.189.107.151 || exit 1 # Перевіряємо по IP замість домену
+          curl -f https://helpbooost.com || exit 1
 
       - name: Create deployment summary
         run: |

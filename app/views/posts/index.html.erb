@@ -142,7 +142,7 @@
                 <%= turbo_frame_tag "recommended_user_#{creator.id}", class: "block" do %>
                   <div class="flex items-center space-x-3 group cursor-pointer">
                     <% if creator.avatar.attached? %>
-                      <%= image_tag creator.avatar.variant(resize_to_fill: [80, 80]), class: "w-10 h-10 rounded-full object-cover flex-shrink-0", alt: creator.username, title: creator.username %>
+                      <%= image_tag creator.avatar.variant(resize_to_fill: [80, 80], format: :webp).processed, class: "w-10 h-10 rounded-full object-cover flex-shrink-0", alt: creator.username, title: creator.username %>
                     <% else %>
                       <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
                         <%= creator.username&.first&.upcase || '?' %>

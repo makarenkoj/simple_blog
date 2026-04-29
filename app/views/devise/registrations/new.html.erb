@@ -16,7 +16,7 @@
     <div class="form-inputs space-y-4">
       <div class="form-group text-center mb-6">
         <% if f.object.persisted? && f.object.avatar.attached? %>
-          <%= image_tag f.object.avatar.representation(resize_to_limit: [150, 150]), class: "rounded-full w-32 h-32 object-cover mx-auto mb-4 shadow-md" %>
+          <%= image_tag f.object.avatar.representation(resize_to_limit: [150, 150], format: :webp).processed, title: f.object.username, alt: f.object.username, class: "rounded-full w-32 h-32 object-cover mx-auto mb-4 shadow-md" %>
           <%= link_to t('buttons.remove_avatar'),
                       rails_blob_path(f.object.avatar, disposition: "attachment"),
                       data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_avatar') },
