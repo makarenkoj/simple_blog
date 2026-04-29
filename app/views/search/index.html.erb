@@ -38,7 +38,7 @@
           <% @users.each do |user| %>
             <%= link_to user_path(user), class: "flex items-center space-x-4 p-4 rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all bg-white" do %>
               <% if user.avatar.attached? %>
-                <%= image_tag user.avatar.variant(resize_to_limit: [60, 60]), class: "w-14 h-14 rounded-full object-cover" %>
+                <%= image_tag user.avatar.variant(resize_to_limit: [60, 60], format: :webp).processed, class: "w-14 h-14 rounded-full object-cover", alt: user.username, title: user.username %>
               <% else %>
                 <div class="w-14 h-14 rounded-full bg-slate-900 flex items-center justify-center text-white text-xl font-bold">
                   <%= user.username&.first&.upcase %>
@@ -64,7 +64,7 @@
             <%= link_to post_path(post), class: "group block" do %>
               <div class="aspect-video bg-slate-100 rounded-xl overflow-hidden mb-4 relative">
                 <% if post.cover_image.attached? %>
-                  <%= image_tag post.cover_image.variant(resize_to_limit: [600, 400]), class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" %>
+                  <%= image_tag post.cover_image.variant(resize_to_limit: [600, 400], format: :webp).processed, class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500", alt: post.title, title: post.title %>
                 <% else %>
                   <div class="w-full h-full flex items-center justify-center bg-slate-200 text-slate-400">
                     <i class='bx bx-image text-4xl'></i>

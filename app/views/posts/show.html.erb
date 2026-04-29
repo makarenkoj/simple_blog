@@ -89,7 +89,7 @@
         <% if @post.user.present? %>
           <%= link_to user_path(@post.user), title: t('activerecord.attributes.user.profile') + " " + @post.user.username, class: "flex items-center space-x-3 group" do %>
             <% if @post.user.avatar.attached? %>
-              <%= image_tag @post.user.avatar.representation(resize_to_limit: [48, 48]),
+              <%= image_tag @post.user.avatar.representation(resize_to_limit: [48, 48], format: :webp).processed,
                   class: "w-12 h-12 rounded-full object-cover", alt: @post.user.username, title: @post.user.username %>
             <% else %>
               <div class="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold">
@@ -114,8 +114,9 @@
     </header>
     <% if @post.cover_image.attached? %>
       <figure class="mb-12">
-        <%= image_tag @post.cover_image.representation(resize_to_limit: [1400, 800]),
+        <%= image_tag @post.cover_image.representation(resize_to_limit: [1400, 800], format: :webp).processed,
             class: "w-full h-auto",
+            loading: "eager",
             alt: @post.title,
             title: @post.title %>
       </figure>
@@ -140,7 +141,7 @@
       <div class="px-6 sm:px-8 pb-16">
         <%= link_to user_path(@post.user), title: t('activerecord.attributes.user.profile') + " " + @post.user.username, class: "flex items-start space-x-4 p-6 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors duration-200 group" do %>
           <% if @post.user.avatar.attached? %>
-            <%= image_tag @post.user.avatar.representation(resize_to_limit: [80, 80]),
+            <%= image_tag @post.user.avatar.representation(resize_to_limit: [80, 80], format: :webp).processed,
                 class: "w-20 h-20 rounded-full object-cover flex-shrink-0", alt: @post.user.username, title: @post.user.username %>
           <% else %>
             <div class="w-20 h-20 rounded-full bg-slate-900 flex items-center justify-center text-white font-bold text-2xl flex-shrink-0">
@@ -204,7 +205,7 @@
             <%= link_to post_path(post), title: post.title, class: "group cursor-pointer block" do %>
               <div class="aspect-video bg-slate-200 rounded-lg mb-4 overflow-hidden relative">
                 <% if post.cover_image.attached? %>
-                  <%= image_tag post.cover_image.variant(resize_to_fill: [400, 225]), 
+                  <%= image_tag post.cover_image.variant(resize_to_fill: [400, 225], format: :webp).processed,
                       class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300",
                       loading: "lazy", alt: post.title, title: post.title %>
                 <% else %>
