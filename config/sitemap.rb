@@ -4,6 +4,10 @@ SitemapGenerator::Sitemap.default_host = "https://#{ENV.fetch('DEFAULT_HOST', 'h
 Rails.application.routes.default_url_options[:host] = ENV.fetch('DEFAULT_HOST', 'helpbooost.com')
 Rails.application.routes.default_url_options[:protocol] = 'https'
 
+if defined?(ActiveStorage::Current)
+  ActiveStorage::Current.url_options = { host: ENV.fetch('DEFAULT_HOST', 'helpbooost.com'), protocol: 'https' }
+end
+
 SitemapGenerator::Sitemap.sitemaps_host = ENV.fetch('R2_PUB_DEV_URL', 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev')
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/' 
