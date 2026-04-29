@@ -1,7 +1,7 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "https://#{ENV.fetch('DEFAULT_HOST', 'helpbooost.com')}"
 
-SitemapGenerator::Sitemap.sitemaps_host = "https://assets.helpbooost.com"
+SitemapGenerator::Sitemap.sitemaps_host = ENV.fetch('R2_PUB_DEV_URL', 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev')
 
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 
