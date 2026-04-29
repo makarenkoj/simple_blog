@@ -207,7 +207,7 @@
                 <% if post.cover_image.attached? %>
                   <%= image_tag post.cover_image.variant(resize_to_fill: [400, 225], format: :webp).processed,
                       class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300",
-                      loading: "lazy", alt: post.title, title: post.title %>
+                      loading: "eager", alt: post.title, title: post.title %>
                 <% else %>
                   <div class="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
                     <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
