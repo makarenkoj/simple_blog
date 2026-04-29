@@ -1,16 +1,18 @@
-# Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "https://#{ENV.fetch('DEFAULT_HOST', 'helpbooost.com')}"
+host = ENV.fetch('DEFAULT_HOST', 'helpbooost.com')
+protocol = 'https'
 
-Rails.application.routes.default_url_options[:host] = ENV.fetch('DEFAULT_HOST', 'helpbooost.com')
-Rails.application.routes.default_url_options[:protocol] = 'https'
-
-if defined?(ActiveStorage::Current)
-  ActiveStorage::Current.url_options = { host: ENV.fetch('DEFAULT_HOST', 'helpbooost.com'), protocol: 'https' }
-end
-
+SitemapGenerator::Sitemap.default_host = "#{protocol}://#{host}"
 SitemapGenerator::Sitemap.sitemaps_host = ENV.fetch('R2_PUB_DEV_URL', 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev')
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/' 
+
+Rails.application.routes.default_url_options = { host: host, protocol: protocol }
+Rails.application.default_url_options = { host: host, protocol: protocol }
+ActionController::Base.default_url_options = { host: host, protocol: protocol }
+
+if defined?(ActiveStorage)
+  ActiveStorage::Current.url_options = { host: host, protocol: protocol }
+end
 
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(
   ENV.fetch('R2_BUCKET_NAME'),
@@ -19,6 +21,8 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(
   aws_region: 'auto',
   endpoint: ENV.fetch('R2_ENDPOINT')
 )
+
+SitemapGenerator::Sitemap.ping_search_engines = false
 
 SitemapGenerator::Sitemap.create(compress: true, include_root: false) do
   [:uk, :en, :it].each do |locale|
