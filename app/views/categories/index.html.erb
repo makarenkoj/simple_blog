@@ -32,8 +32,9 @@
              class="group relative bg-slate-900 rounded-xl overflow-hidden h-56 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer">
           <div class="absolute inset-0 z-0 pointer-events-none">
             <% if category.cover_image.attached? %>
-              <%= image_tag category.cover_image.variant(resize_to_fill: [400, 300]),
+              <%= image_tag category.cover_image.variant(resize_to_fill: [400, 300], format: :webp).processed,
                   class: "w-full h-full object-cover opacity-60 group-hover:opacity-50 group-hover:scale-110 transition-transform duration-700",
+                  title: category.name.capitalize,
                   alt: category.name.capitalize %>
             <% else %>
               <div class="w-full h-full bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900"></div>
