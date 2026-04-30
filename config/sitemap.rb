@@ -2,8 +2,14 @@ bucket_name = ENV.fetch('R2_BUCKET_NAME')
 sitemaps_host = ENV.fetch('R2_PUB_DEV_URL', 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev')
 default_host = ENV.fetch('DEFAULT_HOST', 'helpbooost.com')
 
-Rails.application.routes.default_url_options[:host] = default_host
-Rails.application.routes.default_url_options[:protocol] = 'https'
+options = { host: default_host, protocol: 'https' }
+Rails.application.routes.default_url_options = options
+Rails.application.default_url_options = options
+ActionController::Base.default_url_options = options
+
+if defined?(ActiveStorage::Current)
+  ActiveStorage::Current.url_options = options
+end
 
 SitemapGenerator::Sitemap.default_host = "https://#{default_host}"
 SitemapGenerator::Sitemap.sitemaps_host = sitemaps_host
@@ -23,9 +29,7 @@ SitemapGenerator::Sitemap.create(compress: true, include_root: false) do
     add root_path(locale: locale), changefreq: 'daily', priority: 1.0
 
     Post.find_each do |post|
-      add post_path(post, locale: locale), 
-          lastmod: post.updated_at, 
-          changefreq: 'weekly'
+      add post_path(post, locale: locale), lastmod: post.updated_at, changefreq: 'weekly'
     end
 
     Category.find_each do |category|
