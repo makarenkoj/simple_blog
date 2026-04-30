@@ -22,8 +22,6 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(
   endpoint: ENV.fetch('R2_ENDPOINT')
 )
 
-SitemapGenerator::Sitemap.ping_search_engines = false
-
 SitemapGenerator::Sitemap.create(compress: true, include_root: false) do
   [:uk, :en, :it].each do |locale|
     add root_path(locale: locale), changefreq: 'daily', priority: 1.0
