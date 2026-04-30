@@ -202,7 +202,7 @@ jobs:
           kamal deploy
           # kamal app exec 'bin/rails db:migrate'
           kamal app exec 'bin/rails db:prepare'
-          kamal app exec 'bin/rails sitemap:refresh'
+          kamal app exec 'bin/rails sitemap:create'
 
       - name: Verify deployment
         run: |
