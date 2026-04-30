@@ -1,6 +1,8 @@
 bucket_name = ENV.fetch('R2_BUCKET_NAME')
 sitemaps_host = ENV.fetch('R2_PUB_DEV_URL', 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev')
 default_host = ENV.fetch('DEFAULT_HOST', 'helpbooost.com')
+default_url_options[:host] = default_host
+default_url_options[:protocol] = 'https'
 
 SitemapGenerator::Sitemap.default_host = "https://#{default_host}"
 SitemapGenerator::Sitemap.sitemaps_host = sitemaps_host
