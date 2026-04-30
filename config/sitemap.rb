@@ -1,5 +1,11 @@
 require 'aws-sdk-s3'
 
+SitemapGenerator::Interpreter.class_eval do
+  def default_url_options
+    { host: ENV.fetch('DEFAULT_HOST', 'helpbooost.com'), protocol: 'https' }
+  end
+end
+
 class R2Adapter
   def initialize(bucket, options = {})
     @bucket = bucket
@@ -30,9 +36,8 @@ end
 bucket_name = ENV.fetch('R2_BUCKET_NAME')
 sitemaps_host = ENV.fetch('R2_PUB_DEV_URL', 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev')
 default_host = ENV.fetch('DEFAULT_HOST', 'helpbooost.com')
-host_url = "https://#{default_host}"
 
-SitemapGenerator::Sitemap.default_host = host_url
+SitemapGenerator::Sitemap.default_host = "https://#{default_host}"
 SitemapGenerator::Sitemap.sitemaps_host = sitemaps_host
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
@@ -46,15 +51,14 @@ SitemapGenerator::Sitemap.adapter = R2Adapter.new(bucket_name,
 
 SitemapGenerator::Sitemap.create(compress: true, include_root: false) do
   [:uk, :en, :it].each do |locale|
-    add "/#{locale}", changefreq: 'daily', priority: 1.0
+    add root_path(locale: locale), changefreq: 'daily', priority: 1.0
 
     Post.find_each do |post|
-      add "/#{locale}/posts/#{post.id}", lastmod: post.updated_at, changefreq: 'weekly'
+      add post_path(post, locale: locale), lastmod: post.updated_at, changefreq: 'weekly'
     end
 
     Category.find_each do |category|
-      add "/#{locale}/categories/#{category.id}", changefreq: 'weekly'
+      add category_path(category, locale: locale), changefreq: 'weekly'
     end
-    
   end
 end
