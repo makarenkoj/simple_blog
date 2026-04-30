@@ -22,7 +22,7 @@ class R2Adapter
                         key: location.path_in_public,
                         body: file,
                         content_type: mime_type
-                        )
+                      )
     end
   end
 end
@@ -30,6 +30,15 @@ end
 bucket_name = ENV.fetch('R2_BUCKET_NAME')
 sitemaps_host = ENV.fetch('R2_PUB_DEV_URL', 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev')
 default_host = ENV.fetch('DEFAULT_HOST', 'helpbooost.com')
+
+options = { host: default_host, protocol: 'https' }
+Rails.application.routes.default_url_options = options
+Rails.application.default_url_options = options
+ActionController::Base.default_url_options = options
+
+if defined?(ActiveStorage::Current)
+  ActiveStorage::Current.url_options = options
+end
 
 SitemapGenerator::Sitemap.default_host = "https://#{default_host}"
 SitemapGenerator::Sitemap.sitemaps_host = sitemaps_host
