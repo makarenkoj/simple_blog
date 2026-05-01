@@ -46,7 +46,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  # gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'debug', '~> 1.11'
   gem 'dotenv', '~> 3.1'
   gem 'factory_bot_rails'
   gem 'listen'

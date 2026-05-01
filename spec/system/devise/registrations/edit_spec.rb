@@ -32,16 +32,63 @@ RSpec.describe 'User Edit Profile Form', type: :system do
       expect(current_user.preferred_category_ids).to include(category2.id)
     end
 
-    it 'does not allow updating profile without entering current password' do
+    it 'updating profile name without entering current password' do
       fill_in 'user_first_name', with: 'Петро'
 
       click_button I18n.t('simple_form.button.update')
 
-      expect(page).to have_css('form.edit_user')
-      expect(page).to have_content('не може бути пустим')
+      current_user.reload
+      expect(current_user.first_name).to eq('Петро')
+    end
+
+    it 'allow updating profile email with entering current password' do
+      fill_in 'user_email', with: 'newemail@example.com'
+      fill_in 'user_current_password', with: 'Password123!'
+
+      click_button I18n.t('simple_form.button.update')
+
+      expect(page).to have_content(I18n.t('devise.registrations.updated'))
 
       current_user.reload
-      expect(current_user.first_name).to eq('Yura')
+      expect(current_user.email).to eq('newemail@example.com')
+    end
+
+    it 'allow updating profile password with entering current password' do
+      fill_in 'user_password', with: 'NewSuperSecret456!'
+      fill_in 'user_password_confirmation', with: 'NewSuperSecret456!'
+      fill_in 'user_current_password', with: 'Password123!'
+
+      click_button I18n.t('simple_form.button.update')
+
+      expect(page).to have_content(I18n.t('devise.registrations.updated'))
+
+      current_user.reload
+      expect(current_user.email).to eq('makarenkoj53@gmail.com')
+    end
+
+    it 'does not allow updating profile email without entering current password' do
+      fill_in 'user_email', with: 'newemail@example.com'
+
+      click_button I18n.t('simple_form.button.update')
+
+      expect(page).to have_css('form.edit_user')
+      expect(page).to have_content(I18n.t('errors.messages.blank'))
+
+      current_user.reload
+      expect(current_user.email).to eq('makarenkoj53@gmail.com')
+    end
+
+    it 'does not allow updating profile password without entering current password' do
+      fill_in 'user_password', with: 'NewSuperSecret456!'
+      fill_in 'user_password_confirmation', with: 'NewSuperSecret456!'
+
+      click_button I18n.t('simple_form.button.update')
+
+      expect(page).to have_css('form.edit_user')
+      expect(page).to have_content(I18n.t('errors.messages.blank'))
+
+      current_user.reload
+      expect(current_user.email).to eq('makarenkoj53@gmail.com')
     end
 
     it 'allows successfully changing the password' do
