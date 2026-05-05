@@ -5,7 +5,7 @@
         <% if post.user.present? %>
           <%= link_to user_path(post.user), title: t('notifications.view_profile') do %>
             <% if post.user.avatar.attached? %>
-              <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24], format: :webp).processed, title: post.user.username, alt: post.user.username, class: "w-6 h-6 rounded-full object-cover" %>
+              <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24], format: :webp).processed, loading: "lazy", title: post.user.username, alt: post.user.username, class: "w-6 h-6 rounded-full object-cover" %>
             <% else %>
               <div class="w-6 h-6 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-semibold">
                 <%= post.user.username&.first&.upcase || '?' %>
