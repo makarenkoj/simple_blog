@@ -81,7 +81,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_url(format: :html), notice: I18n.t('activerecord.controllers.posts.destroyed'), status: :see_other
+    redirect_to user_path(current_user, format: :html), notice: I18n.t('activerecord.controllers.posts.destroyed'), status: :see_other
   end
 
   private
