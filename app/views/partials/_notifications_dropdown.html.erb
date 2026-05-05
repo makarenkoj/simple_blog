@@ -24,7 +24,7 @@
             <%= link_to click_notification_path(notification), class: "block px-4 py-3 hover:bg-slate-50 transition-colors duration-200 #{notification.read ? '' : 'bg-blue-50'}" do %>
               <div class="flex items-start space-x-3">
                 <% if notification.actor.avatar.attached? %>
-                  <%= image_tag notification.actor.avatar.variant(resize_to_limit: [40, 40], format: :webp).processed, alt: notification.actor.username, title: notification.actor.username,
+                  <%= image_tag notification.actor.avatar.variant(resize_to_limit: [40, 40], format: :webp).processed, loading: "lazy", alt: notification.actor.username, title: notification.actor.username,
                       class: "w-10 h-10 rounded-full object-cover flex-shrink-0" %>
                 <% else %>
                   <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">

@@ -21,7 +21,7 @@
         <% @users.each do |user| %>
           <%= link_to user_path(user), class: "block px-4 py-2 hover:bg-slate-50 transition-colors flex items-center space-x-3", data: { turbo: false } do %>
             <% if user.avatar.attached? %>
-              <%= image_tag user.avatar.variant(resize_to_limit: [32, 32], format: :webp).processed, title: user.username, alt: user.username, class: "w-8 h-8 rounded-full object-cover" %>
+              <%= image_tag user.avatar.variant(resize_to_limit: [32, 32], format: :webp).processed, loading: "eager", title: user.username, alt: user.username, class: "w-8 h-8 rounded-full object-cover" %>
             <% else %>
               <div class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-bold">
                 <%= user.username&.first&.upcase %>
@@ -45,7 +45,7 @@
             </p>
             <div class="flex items-center space-x-2 mt-1 text-xs text-slate-500">
               <% if post.user.avatar.attached? %>
-                <%= image_tag post.user.avatar.variant(resize_to_limit: [20, 20], format: :webp).processed, title: post.user.username, alt: post.user.username, class: "w-5 h-5 rounded-full" %>
+                <%= image_tag post.user.avatar.variant(resize_to_limit: [20, 20], format: :webp).processed, loading: "eager", title: post.user.username, alt: post.user.username, class: "w-5 h-5 rounded-full" %>
               <% end %>
               <span><%= post.user.username %></span>
               <span>•</span>

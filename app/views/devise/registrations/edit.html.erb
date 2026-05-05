@@ -16,7 +16,7 @@
     <div class="form-inputs space-y-4">
       <div class="form-group text-center mb-6">
         <% if f.object.persisted? && f.object.avatar.attached? %>
-          <%= image_tag f.object.avatar.representation(resize_to_limit: [150, 150], format: :webp).processed, title: f.object.username, alt: f.object.username, class: "rounded-full w-32 h-32 object-cover mx-auto mb-4 shadow-md" %>
+          <%= image_tag f.object.avatar.representation(resize_to_limit: [150, 150], format: :webp).processed, loading: "lazy", title: f.object.username, alt: f.object.username, class: "rounded-full w-32 h-32 object-cover mx-auto mb-4 shadow-md" %>
           <%= link_to t('buttons.remove_avatar'),
                       rails_blob_path(f.object.avatar, disposition: "attachment"),
                       data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_avatar') },
@@ -69,7 +69,7 @@
           </button>
         </div>
       <% end %>
-      <%= f.input :current_password, required: true, label: t('activerecord.attributes.user.current_password') do %>
+      <%= f.input :current_password, required: false, label: t('activerecord.attributes.user.current_password') do %>
         <div class="relative" data-controller="password-visibility">
           <%= f.input_field :current_password, autocomplete: "current-password", data: { password_visibility_target: "input" }, class: "w-full px-3 py-2 pr-12 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-3 focus:ring-blue-500" %>
           <button type="button" class="absolute inset-y-0 right-1 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none" data-action="click->password-visibility#toggle">

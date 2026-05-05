@@ -28,5 +28,19 @@ module Users
     def after_update_path_for(resource)
       user_path(resource)
     end
+
+    def update_resource(resource, params)
+      changing_password = params[:password].present?
+      changing_email = params[:email].present? && params[:email] != resource.email
+
+      if changing_password || changing_email
+        resource.update_with_password(params)
+      else
+        params.delete(:current_password)
+        params.delete(:password)
+        params.delete(:password_confirmation)
+        resource.update_without_password(params)
+      end
+    end
   end
 end
