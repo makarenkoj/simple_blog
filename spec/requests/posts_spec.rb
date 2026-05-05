@@ -121,7 +121,7 @@ RSpec.describe 'Posts', type: :request do
       sign_in current_user
 
       expect { delete post_path(published_post) }.to change(Post, :count).by(-1)
-      expect(response).to redirect_to(posts_url(format: :html))
+      expect(response).to redirect_to(user_path(current_user, format: :html))
     end
 
     it 'prevents other users from deleting' do
