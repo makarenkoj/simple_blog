@@ -117,9 +117,9 @@
     </header>
     <% if @post.cover_image.attached? %>
       <figure class="mb-12">
-        <%= image_tag @post.cover_image.representation(resize_to_limit: [1400, 800], format: :webp).processed,
+        <%= image_tag @post.cover_image.representation(resize_to_limit: [1400, 800], format: :webp, saver: { quality: 80 }).processed,
             class: "w-full h-auto",
-            loading: "eager",
+            fetchpriority: "high",
             alt: @post.title,
             title: @post.title %>
       </figure>

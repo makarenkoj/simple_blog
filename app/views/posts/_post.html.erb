@@ -5,7 +5,7 @@
         <% if post.user.present? %>
           <%= link_to user_path(post.user), title: t('notifications.view_profile') do %>
             <% if post.user.avatar.attached? %>
-              <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24], format: :webp).processed, loading: "lazy", title: post.user.username, alt: post.user.username, class: "w-6 h-6 rounded-full object-cover" %>
+              <%= image_tag post.user.avatar.representation(resize_to_limit: [24, 24], format: :webp, saver: { quality: 80 }).processed, width: 24, height: 24, loading: "lazy", title: post.user.username, alt: post.user.username, class: "w-6 h-6 rounded-full object-cover" %>
             <% else %>
               <div class="w-6 h-6 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-semibold">
                 <%= post.user.username&.first&.upcase || '?' %>
@@ -86,7 +86,21 @@
     </div>
     <% if post.cover_image.attached? %>
       <div class="w-full sm:w-48 h-32 sm:h-32 flex-shrink-0 order-first sm:order-last">
-        <%= image_tag post.cover_image.representation(resize_to_limit: [400, 300], format: :webp).processed, class: "w-full h-full object-cover rounded-xl shadow-sm border border-slate-100", loading: "lazy", alt: post.title, title: post.title %>
+        <% if local_assigns[:post_counter] == 0 %>
+          <%= image_tag post.cover_image.representation(resize_to_limit: [400, 300], format: :webp, saver: { quality: 80 }).processed,
+                        class: "w-full h-full object-cover rounded-xl shadow-sm border border-slate-100", 
+                        fetchpriority: "high",
+                        alt: post.title, 
+                        title: post.title %>
+        <% else %>
+          <%= image_tag post.cover_image.representation(resize_to_limit: [400, 300],
+                        format: :webp,
+                        saver: { quality: 80 }).processed,
+                        class: "w-full h-full object-cover rounded-xl shadow-sm border border-slate-100",
+                        loading: "lazy",
+                        alt: post.title,
+                        title: post.title %>
+        <% end %>
       </div>
     <% end %>
   </div>
