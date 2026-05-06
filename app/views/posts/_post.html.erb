@@ -33,13 +33,13 @@
         <% if post.categories.any? %>
           <span class="max-sm:hidden">
             <% post.categories.sample(3).each do |category| %>
-              <%= link_to category_path(category), title: category.name, class: "px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700 hover:bg-slate-200 transition-colors" do %>
+              <%= link_to category_path(category), title: category.name, class: "px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-800 hover:bg-slate-200 transition-colors" do %>
                 <%= category.name %>
               <% end %>
             <% end %>
           </span>
           <span class="sm:hidden">
-            <%= link_to category_path(post.categories.first.name), title: post.categories.first.name, class: "px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-700 hover:bg-slate-200 transition-colors" do %>
+            <%= link_to category_path(post.categories.first.name), title: post.categories.first.name, class: "px-2 py-1 bg-slate-100 rounded-md text-xs font-medium text-slate-800 hover:bg-slate-200 transition-colors" do %>
               <%= post.categories.first.name %>
             <% end %>
           </span>
@@ -48,7 +48,7 @@
           <% if user_signed_in? && current_user == post.user %>
             <div class="relative inline-block text-left" data-controller="dropdown">
               <button type="button" 
-                      class='inline-flex items-center px-4 py-2 bg-white border border-slate-200 rounded-md text-xs font-medium hover:bg-slate-50 transition-colors text-slate-700'
+                      class='inline-flex items-center px-4 py-2 bg-white border border-slate-200 rounded-md text-xs font-medium hover:bg-slate-50 transition-colors text-slate-800'
                       data-action="click->dropdown#toggle"
                       data-dropdown-target="toggle"
                       title="<%= t('activerecord.attributes.posts.change_status_title') %>">
@@ -64,7 +64,7 @@
               </button>
               <div class="dropdown-hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-50 p-1" data-dropdown-target="menu">
                 <% Post.statuses.keys.reject { |s| s == post.status.to_s }.each do |target_status| %>
-                  <%= button_to post_path(post), method: :patch, params: { post: { status: target_status } }, title: t("activerecord.attributes.posts.statuses.#{target_status}"), class: 'w-full text-left px-3 py-2 text-sm hover:bg-slate-50 rounded-md transition-colors flex items-center group text-slate-700' do %>
+                  <%= button_to post_path(post), method: :patch, params: { post: { status: target_status } }, title: t("activerecord.attributes.posts.statuses.#{target_status}"), class: 'w-full text-left px-3 py-2 text-sm hover:bg-slate-50 rounded-md transition-colors flex items-center group text-slate-800' do %>
                     <%= t("activerecord.attributes.posts.statuses.#{target_status}") %>
                   <% end %>
                 <% end %>
