@@ -118,7 +118,7 @@
               <%= f.collection_check_boxes :category_ids, Category.all.order(:name), :id, :name do |b| %>
                 <label class="flex items-center space-x-3 p-3.5 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200 cursor-pointer group border border-transparent hover:border-emerald-200">
                   <%= b.check_box(class: "w-5 h-5 text-emerald-600 border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 transition-all duration-200 cursor-pointer") %>
-                  <span class="text-sm font-medium text-slate-700 group-hover:text-emerald-700 transition-colors duration-200">
+                  <span class="text-sm font-medium text-slate-800 group-hover:text-emerald-700 transition-colors duration-200">
                     <%= b.text %>
                   </span>
                 </label>
@@ -203,7 +203,7 @@
                 collection: Post.statuses.keys.map { |s| [t("activerecord.attributes.posts.statuses.#{s}", default: s.humanize), s] },
                 include_blank: false,
                 label: false,
-                input_html: { class: "w-full px-4 py-3 text-slate-700 font-medium border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-white cursor-pointer" } %>
+                input_html: { class: "w-full px-4 py-3 text-slate-800 font-medium border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-white cursor-pointer" } %>
           </div>
           <p class="mt-2 text-xs text-slate-500">
             <%= t('activerecord.attributes.posts.status_hint') %>
@@ -217,7 +217,7 @@
           <div class="order-2 sm:order-1 flex-1">
             <%= link_to :back,
                 title: t('activerecord.attributes.posts.back'),
-                class: "w-full inline-flex items-center justify-center px-6 py-3.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300",
+                class: "w-full inline-flex items-center justify-center px-6 py-3.5 border-2 border-slate-300 text-slate-800 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300",
                 style: "width: 100%; min-height: 52px;" do %>
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>

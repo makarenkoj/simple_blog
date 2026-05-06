@@ -40,7 +40,7 @@
           <% if current_user_can_edit?(@post) %>
             <div class="relative inline-block text-left mr-1 sm:mr-2" data-controller="dropdown">
               <button type="button" 
-                      class='inline-flex items-center px-4 py-2 bg-white border border-slate-200 rounded-md text-xs font-medium hover:bg-slate-50 transition-colors text-slate-700'
+                      class='inline-flex items-center px-4 py-2 bg-white border border-slate-200 rounded-md text-xs font-medium hover:bg-slate-50 transition-colors text-slate-800'
                       data-action="click->dropdown#toggle"
                       data-dropdown-target="toggle"
                       title="<%= t('activerecord.attributes.posts.change_status_title') %>">
@@ -56,13 +56,13 @@
               </button>
               <div class="dropdown-hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-50 p-1" data-dropdown-target="menu">
                 <% Post.statuses.keys.reject { |s| s == @post.status.to_s }.each do |target_status| %>
-                  <%= button_to post_path(@post), method: :patch, params: { post: { status: target_status } }, form: { data: { turbo: false } }, class: 'w-full text-left px-3 py-2 text-sm hover:bg-slate-50 rounded-md transition-colors text-slate-500' do %>
+                  <%= button_to post_path(@post), method: :patch, params: { post: { status: target_status } }, form: { data: { turbo: false } }, class: 'w-full text-left px-3 py-2 text-sm hover:bg-slate-50 rounded-md transition-colors text-slate-800' do %>
                     <%= t("activerecord.attributes.posts.statuses.#{target_status}") %>
                   <% end %>
                 <% end %>
               </div>
             </div>
-            <%= link_to edit_post_path(@post), title: t('activerecord.attributes.posts.edit'), class: "px-2 sm:px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200" do %>
+            <%= link_to edit_post_path(@post), title: t('activerecord.attributes.posts.edit'), class: "px-2 sm:px-4 py-2 text-sm font-medium text-slate-800 hover:text-slate-900 transition-colors duration-200" do %>
               <%= t('activerecord.attributes.posts.edit') %>
             <% end %>
           <% end %>
@@ -117,9 +117,9 @@
     </header>
     <% if @post.cover_image.attached? %>
       <figure class="mb-12">
-        <%= image_tag @post.cover_image.representation(resize_to_limit: [1400, 800], format: :webp).processed,
+        <%= image_tag @post.cover_image.representation(resize_to_limit: [1400, 800], format: :webp, saver: { quality: 80 }).processed,
             class: "w-full h-auto",
-            loading: "eager",
+            fetchpriority: "high",
             alt: @post.title,
             title: @post.title %>
       </figure>
@@ -133,7 +133,7 @@
       <div class="px-6 sm:px-8 pb-8">
         <div class="flex flex-wrap gap-2">
           <% @post.categories.each do |category| %>
-            <%= link_to '#', title: category.name, class: "px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full text-sm font-medium transition-colors duration-200" do %>
+            <%= link_to '#', title: category.name, class: "px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full text-sm font-medium transition-colors duration-200" do %>
               <%= category.name %>
             <% end %>
           <% end %>
