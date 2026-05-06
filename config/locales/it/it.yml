@@ -371,6 +371,7 @@ it:
     simple: 'Help'
     blog: 'Booost'
     home: 'Home'
+    description: 'Scopri i migliori articoli, recensioni e guide su helpbooost.com'
   follow: "Segui"
   following: "Seguiti"
   followers: "Follower"

@@ -1,4 +1,4 @@
-<%= link_to notifications_path, id: "profile_notifications_button", data: { turbo: false }, class: "inline-flex items-center px-4 py-2 border border-slate-300 rounded-full text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors duration-200" do %>
+<%= link_to notifications_path, id: "profile_notifications_button", data: { turbo: false }, class: "inline-flex items-center px-4 py-2 border border-slate-300 rounded-full text-sm font-medium text-slate-800 hover:bg-slate-50 transition-colors duration-200" do %>
   <div class="relative flex items-center justify-center mr-2">
     <i class='bx bx-bell text-lg'></i>
     <% if user.unread_notifications_count > 0 %>

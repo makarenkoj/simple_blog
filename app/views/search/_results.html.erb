@@ -10,7 +10,7 @@
             <div class="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center">
               <i class='bx bx-hash'></i>
             </div>
-            <span class="text-sm font-medium text-slate-700"><%= category.name %></span>
+            <span class="text-sm font-medium text-slate-800"><%= category.name %></span>
           <% end %>
         <% end %>
       <% end %>
@@ -21,14 +21,14 @@
         <% @users.each do |user| %>
           <%= link_to user_path(user), class: "block px-4 py-2 hover:bg-slate-50 transition-colors flex items-center space-x-3", data: { turbo: false } do %>
             <% if user.avatar.attached? %>
-              <%= image_tag user.avatar.variant(resize_to_limit: [32, 32], format: :webp).processed, loading: "eager", title: user.username, alt: user.username, class: "w-8 h-8 rounded-full object-cover" %>
+              <%= image_tag user.avatar.variant(resize_to_limit: [32, 32], format: :webp).processed, loading: "eager", title: user.username, width: 40, height: 40, alt: user.username, class: "w-8 h-8 rounded-full object-cover" %>
             <% else %>
               <div class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-bold">
                 <%= user.username&.first&.upcase %>
               </div>
             <% end %>
             <div>
-              <p class="text-sm font-medium text-slate-700"><%= user.full_name %></p>
+              <p class="text-sm font-medium text-slate-800"><%= user.full_name %></p>
               <p class="text-xs text-slate-500">@<%= user.username %></p>
             </div>
           <% end %>
