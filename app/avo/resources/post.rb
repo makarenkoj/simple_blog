@@ -11,6 +11,7 @@ module Avo
         field :user_id, as: :number
         field :cover_image, as: :file, is_image: true
         field :user, as: :belongs_to, searchable: true
+        field :status, as: :select, enum: ::Post.statuses
         field :categorizations, as: :has_many
         field :categories, as: :has_many, through: :categorizations
         field :bookmarks, as: :has_many
