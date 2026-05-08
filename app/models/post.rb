@@ -10,6 +10,7 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liking_users, through: :likes, source: :user
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :post_views, dependent: :destroy
 
   has_rich_text :body
 
