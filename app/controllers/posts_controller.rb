@@ -29,6 +29,7 @@ class PostsController < ApplicationController
                     image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
                   }
 
+    PostViewTracker.new(@post, request, current_user).track
     @more_from_author = if @post.user
                           @post.user.posts.published.where.not(id: @post.id).order('RANDOM()').limit(3)
                         else

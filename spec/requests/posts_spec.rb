@@ -25,6 +25,17 @@ RSpec.describe 'Posts', type: :request do
         expect(response).to have_http_status(:success)
         expect(response.body).to include(published_post.title)
       end
+
+      it 'calls the PostViewTracker service' do
+        mock_tracker = instance_double(PostViewTracker)
+
+        allow(PostViewTracker).to receive(:new).and_return(mock_tracker)
+        expect(mock_tracker).to receive(:track)
+
+        get post_path(published_post)
+
+        expect(response).to be_successful
+      end
     end
 
     context 'when the post is a DRAFT' do
