@@ -4,8 +4,8 @@ RSpec.describe PostViewTracker do
   let(:author) { create(:user) }
   let(:viewer) { create(:user) }
   let(:post) { create(:post, user: author) }
-  
-  let(:request) { double('request', remote_ip: '127.0.0.1') }
+
+  let(:request) { instance_double(ActionDispatch::Request, remote_ip: '127.0.0.1') }
   let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
 
   before do
@@ -24,7 +24,7 @@ RSpec.describe PostViewTracker do
       it 'does not write to cache' do
         tracker.track
         cache_key = "post_view:#{post.id}:#{request.remote_ip}"
-        expect(Rails.cache.exist?(cache_key)).to be_falsey
+        expect(Rails.cache).not_to exist(cache_key)
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe PostViewTracker do
         tracker.track
 
         cache_key = "post_view:#{post.id}:#{request.remote_ip}"
-        expect(Rails.cache.exist?(cache_key)).to be_truthy
+        expect(Rails.cache).to exist(cache_key)
       end
     end
 

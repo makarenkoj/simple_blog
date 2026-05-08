@@ -29,7 +29,7 @@ RSpec.describe 'Posts', type: :request do
       it 'calls the PostViewTracker service' do
         mock_tracker = instance_double(PostViewTracker)
 
-        expect(PostViewTracker).to receive(:new).and_return(mock_tracker)
+        allow(PostViewTracker).to receive(:new).and_return(mock_tracker)
         expect(mock_tracker).to receive(:track)
 
         get post_path(published_post)

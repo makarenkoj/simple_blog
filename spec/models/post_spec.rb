@@ -13,7 +13,7 @@ RSpec.describe Post, type: :model do
     it { is_expected.to have_many(:liking_users).through(:likes).source(:user) }
     it { is_expected.to have_rich_text(:body) }
     it { is_expected.to have_one_attached(:cover_image) }
-    it { should have_many(:post_views).dependent(:destroy) }
+    it { is_expected.to have_many(:post_views).dependent(:destroy) }
   end
 
   describe 'validations' do

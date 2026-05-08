@@ -6,6 +6,6 @@ class TrackPostViewJob < ApplicationJob
     return unless post
 
     PostView.create!(post: post, user_id: user_id, ip_address: ip_address)
-    Post.increment_counter(:views_count, post.id)
+    Post.increment_counter(:views_count, post.id) # rubocop:disable Rails/SkipsModelValidations
   end
 end
