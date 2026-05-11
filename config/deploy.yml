@@ -5,6 +5,10 @@ image: makarenkoj/simple_blog
 servers:
   web:
     - 206.189.107.151
+  job:
+    hosts:
+      - 206.189.107.151
+    cmd: bin/jobs
 
 proxy:
   ssl: true
