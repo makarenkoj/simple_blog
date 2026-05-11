@@ -175,10 +175,15 @@ cloudflare:
 
 
 2. **Sitemap config:** У `config/sitemap.rb` має стояти реальний домен:
+
 ```ruby
+
 SitemapGenerator::Sitemap.default_host = "[https://helpbooost.com](https://helpbooost.com)"
 
 ```
+
+  * url for download: https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev/sitemaps/sitemap.xml.gz
+
 
 
 3. **Robots.txt:** Перевір, що в `public/robots.txt` є посилання на sitemap і закриті адмінські шляхи.

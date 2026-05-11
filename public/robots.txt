@@ -15,4 +15,4 @@ Disallow: /avo/
 Disallow: /search
 Disallow: /*?*q=
 
-Sitemap: https://helpbooost.com/sitemap.xml.gz
+Sitemap: https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev/sitemaps/sitemap.xml.gz
