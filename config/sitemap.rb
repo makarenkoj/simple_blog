@@ -33,9 +33,10 @@ class R2Adapter
   end
 end
 
-bucket_name = ENV.fetch('R2_BUCKET_NAME')
-sitemaps_host = ENV.fetch('R2_PUB_DEV_URL', 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev')
-default_host = ENV.fetch('DEFAULT_HOST', 'helpbooost.com')
+bucket_name = ENV['R2_BUCKET_NAME'].presence || 'help-boost'
+sitemaps_host = ENV['R2_PUB_DEV_URL'].presence || 'https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev'
+sitemaps_host = sitemaps_host.start_with?('http') ? sitemaps_host : "https://#{sitemaps_host}"
+default_host = ENV['DEFAULT_HOST'].presence || 'helpbooost.com'
 
 SitemapGenerator::Sitemap.default_host = "https://#{default_host}"
 SitemapGenerator::Sitemap.sitemaps_host = sitemaps_host
