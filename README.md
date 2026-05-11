@@ -202,4 +202,10 @@ SitemapGenerator::Sitemap.default_host = "[https://helpbooost.com](https://helpb
 
 * using ssh: `ssh deploy@206.189.107.151`
 
-* 
+* kamal app exec -i 'bin/rails console'
+
+* set -a; source .env; set +a; kamal app exec -i 'bin/rails c'
+
+* bundle exec dotenv kamal app exec -i 'bin/rails c'
+
+* KAMAL_REGISTRY_PASSWORD="ваш_токен_від_github" kamal app exec -i 'bin/rails c'
