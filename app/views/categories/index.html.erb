@@ -68,10 +68,10 @@
               <% unless user_signed_in? %>
                 <%= link_to new_user_session_path, 
                     data: { action: "click->category-card#stopPropagation", turbo: "false" },
-                    title: t('sign_in_to_subscribe'),
+                    title: t('activerecord.attributes.posts.sign_in_to_subscribe'),
                     class: "block w-full px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-semibold rounded-lg hover:bg-white hover:text-slate-900 transition-all duration-200 text-center pointer-events-auto" do %>
                   <i class='bx bx-log-in-circle mr-1 align-middle'></i>
-                  <%= t('sign_in_to_subscribe', default: 'Увійти, щоб підписатися') %>
+                  <%= t('activerecord.attributes.posts.sign_in_to_subscribe') %>
                 <% end %>
               <% end %>
             </div>

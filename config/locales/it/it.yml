@@ -250,6 +250,7 @@ it:
         bookmark_remove: "Rimuovi dalla libreria"
         bookmark_add: "Aggiungi alla libreria"
         sign_in_to_bookmark: "Accedi per salvare il post nella tua libreria"
+        sign_in_to_subscribe: "Accedi per iscriverti alla categoria"
         status_badge:
           draft: "Bozza"
           published: "Pubblicato"
@@ -371,7 +372,7 @@ it:
     simple: 'Help'
     blog: 'Booost'
     home: 'Home'
-    description: 'Scopri i migliori articoli, recensioni e guide su helpbooost.com'
+    description: "Scopri recensioni di esperti, guide all'acquisto e articoli sulle ultime tecnologie, gadget, periferiche per computer e attrezzature per il fitness. Migliora il tuo stile di vita con Help Booost."
   follow: "Segui"
   following: "Seguiti"
   followers: "Follower"

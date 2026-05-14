@@ -19,22 +19,11 @@ class PostsController < ApplicationController
   end
 
   def show
-    set_meta_tags title: @post.title,
-                  description: @post.body.to_plain_text.truncate(160),
-                  keywords: @post.categories.map(&:name).join(', '),
-                  canonical: request.original_url,
-                  og: {
-                    title: @post.title,
-                    type: 'article',
-                    image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
-                  }
+    prepare_meta_tags
 
     PostViewTracker.new(@post, request, current_user).track
-    @more_from_author = if @post.user
-                          @post.user.posts.published.where.not(id: @post.id).order('RANDOM()').limit(3)
-                        else
-                          []
-                        end
+
+    @more_from_author = fetch_more_from_author
   end
 
   def new
@@ -103,5 +92,35 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body, :status, :cover_image, category_ids: [])
+  end
+
+  def prepare_meta_tags
+    cover_url = @post.cover_image.attached? ? url_for(@post.cover_image) : nil
+    plain_description = @post.body.to_plain_text.truncate(160)
+
+    set_meta_tags title: @post.title,
+                  description: plain_description,
+                  keywords: @post.categories.map(&:name).join(', '),
+                  canonical: request.original_url,
+                  author: @post.user&.username,
+                  og: {
+                    title: @post.title,
+                    description: plain_description,
+                    type: 'article',
+                    url: request.original_url,
+                    image: cover_url
+                  },
+                  twitter: {
+                    card: 'summary_large_image',
+                    title: @post.title,
+                    description: plain_description,
+                    image: cover_url
+                  }
+  end
+
+  def fetch_more_from_author
+    return [] unless @post.user
+
+    @post.user.posts.published.where.not(id: @post.id).order('RANDOM()').limit(3)
   end
 end

@@ -250,6 +250,7 @@ en:
         bookmark_remove: "Remove from library"
         bookmark_add: "Add to library"
         sign_in_to_bookmark: "Sign in to save post to library"
+        sign_in_to_subscribe: "Sign in to subscribe to category"
         status_badge:
           draft: "Draft"
           published: "Published"
@@ -371,7 +372,7 @@ en:
     simple: 'Help'
     blog: 'Booost'
     home: 'Home'
-    description: 'Discover the best articles, reviews and guides on helpbooost.com'
+    description: "Discover expert reviews, buying guides, and articles on the latest tech, gadgets, computer peripherals, and home fitness equipment. Boost your lifestyle with Help Booost."
   follow: "Follow"
   following: "Following"
   followers: "Followers"
