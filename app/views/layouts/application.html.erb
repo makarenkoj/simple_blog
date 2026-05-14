@@ -61,7 +61,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-center justify-between h-16">
             <div class="flex items-center space-x-4">
-              <button type="button" class="lg:hidden text-slate-800 hover:text-slate-900 transition-colors duration-200" data-action="click->sidebar#toggleSidebar">
+              <button type="button" aria-label="<%= t('menu') %>" class="lg:hidden text-slate-800 hover:text-slate-900 transition-colors duration-200" data-action="click->sidebar#toggleSidebar">
                 <i class="ri-menu-line text-2xl"></i>
               </button>
               <%= link_to root_path, title: t('app.company'), class: "flex items-center space-x-2 group" do %>
@@ -91,7 +91,7 @@
             </div>
             <div class="flex items-center space-x-2 sm:space-x-3">
               <% if user_signed_in? %>
-                <button type="button" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200">
+                <button type="button" aria-label="<%= t('search.search') %>" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200">
                   <i class="ri-search-line text-xl"></i>
                 </button>
                 <%= link_to library_posts_path, title: t('activerecord.attributes.posts.library'), class: "hidden lg:!inline-block p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" do %>
@@ -210,7 +210,7 @@
             <div class="text-lg font-serif font-bold text-slate-900">
               <%= t('menu') %>
             </div>
-            <button type="button" aria-label="Toggle sidebar" class="text-slate-400 hover:text-slate-900" data-action="click->sidebar#hideSidebar">
+            <button type="button" aria-label="Toggle sidebar" class="text-slate-500 hover:text-slate-900" data-action="click->sidebar#hideSidebar">
               <i class="ri-close-line text-2xl"></i>
             </button>
           </div>
