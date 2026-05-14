@@ -14,7 +14,7 @@
             <div class="flex items-start space-x-4">
               <% if notification.actor.avatar.attached? %>
                 <%= link_to click_notification_path(notification) do %>
-                  <%= image_tag notification.actor.avatar.variant(resize_to_limit: [48, 48], format: :webp).processed, loading: "lazy", class: "w-12 h-12 rounded-full object-cover", alt: notification.actor.username, title: notification.actor.username %>
+                  <%= image_tag notification.actor.avatar.variant(resize_to_limit: [48, 48], format: :webp).processed, loading: "lazy", class: "w-12 h-12 rounded-full object-cover", width: 48, height: 48, alt: notification.actor.username, title: notification.actor.username %>
                       class: "w-12 h-12 rounded-full object-cover flex-shrink-0" %>
                 <% end %>
               <% else %>
