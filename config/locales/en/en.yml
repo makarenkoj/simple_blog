@@ -250,6 +250,7 @@ en:
         bookmark_remove: "Remove from library"
         bookmark_add: "Add to library"
         sign_in_to_bookmark: "Sign in to save post to library"
+        sign_in_to_subscribe: "Sign in to subscribe to category"
         status_badge:
           draft: "Draft"
           published: "Published"

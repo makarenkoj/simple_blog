@@ -250,6 +250,7 @@ uk:
         bookmark_remove: "Видалити з бібліотеки"
         bookmark_add: "Додати в бібліотеку"
         sign_in_to_bookmark: "Увійдіть, щоб зберегти пост в бібліотеку"
+        sign_in_to_subscribe: "Увійдіть, щоб підписатися на категорію"
         status_badge:
           draft: "Чернетка"
           published: "Опубліковано"

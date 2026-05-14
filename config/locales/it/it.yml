@@ -250,6 +250,7 @@ it:
         bookmark_remove: "Rimuovi dalla libreria"
         bookmark_add: "Aggiungi alla libreria"
         sign_in_to_bookmark: "Accedi per salvare il post nella tua libreria"
+        sign_in_to_subscribe: "Accedi per iscriverti alla categoria"
         status_badge:
           draft: "Bozza"
           published: "Pubblicato"
