@@ -25,7 +25,7 @@
           <%= truncate(post.body.to_plain_text, length: 120, separator: ' ') %>
         </p>
       <% end %>
-      <div class="flex items-center space-x-4 text-sm text-slate-500">
+      <div class="flex items-center space-x-4 text-sm text-slate-600">
         <time datetime="<%= post.created_at.iso8601 %>">
           <%= l post.created_at, format: :short %>
         </time>
@@ -58,7 +58,7 @@
                 <span class="sm:hidden">
                   <%= t("activerecord.attributes.posts.#{post.status}_short") %>
                 </span>
-                <svg class="ml-1.5 w-3 h-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="ml-1.5 w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>
               </button>
@@ -74,7 +74,7 @@
           <% if user_signed_in? %>
             <%= render "posts/bookmarks/button", post: post, source: local_assigns[:source] %>
           <% else %>
-            <%= link_to new_user_session_path, title: t('activerecord.attributes.posts.sign_in_to_bookmark'), class: "text-slate-400 hover:text-slate-900 transition-colors duration-200" do %>
+            <%= link_to new_user_session_path, title: t('activerecord.attributes.posts.sign_in_to_bookmark'), class: "text-slate-600 hover:text-slate-900 transition-colors duration-200" do %>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
               </svg>

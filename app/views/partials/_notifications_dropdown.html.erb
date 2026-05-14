@@ -25,7 +25,7 @@
               <div class="flex items-start space-x-3">
                 <% if notification.actor.avatar.attached? %>
                   <%= image_tag notification.actor.avatar.variant(resize_to_limit: [40, 40], format: :webp).processed, loading: "lazy", alt: notification.actor.username, title: notification.actor.username,
-                      class: "w-10 h-10 rounded-full object-cover flex-shrink-0" %>
+                      class: "w-10 h-10 rounded-full object-cover flex-shrink-0", width: 40, height: 40 %>
                 <% else %>
                   <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-semibold flex-shrink-0">
                     <%= notification.actor.username&.first&.upcase || '?' %>

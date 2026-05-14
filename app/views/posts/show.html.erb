@@ -266,3 +266,32 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "<%= request.original_url %>"
+  },
+  "headline": "<%= j @post.title %>",
+  "description": "<%= j @post.body.to_plain_text.truncate(160) %>",
+  "image": [
+    "<%= @post.cover_image.attached? ? url_for(@post.cover_image) : request.base_url + '/icon.png' %>"
+  ],
+  "datePublished": "<%= @post.created_at.iso8601 %>",
+  "dateModified": "<%= @post.updated_at.iso8601 %>",
+  "author": {
+    "@type": "Person",
+    "name": "<%= j(@post.user&.username || 'Help Booost') %>"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Help Booost",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "<%= request.base_url %>/icon.png"
+    }
+  }
+}
+</script>
