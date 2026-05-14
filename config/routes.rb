@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
     get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
     get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker
+    get '/sitemap.xml.gz', to: redirect('https://pub-b5117945ddf24c73be1b37aa13e64f80.r2.dev/sitemaps/sitemap.xml.gz')
 
     devise_scope :user do
       get 'users/sign_out', to: 'devise/sessions#destroy', as: 'logout'

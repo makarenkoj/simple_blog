@@ -24,7 +24,7 @@ RSpec.describe 'Category Cards interaction', type: :system do
 
     it "does not navigate to category when clicking 'Sign in to subscribe'" do
       within("[data-controller='category-card']") do
-        click_link 'Увійти, щоб підписатися'
+        click_link I18n.t('activerecord.attributes.posts.sign_in_to_subscribe', locale: locale)
       end
 
       expect(page).to have_current_path(new_user_session_path(locale: locale))
