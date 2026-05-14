@@ -19,14 +19,26 @@ class PostsController < ApplicationController
   end
 
   def show
+    cover_url = @post.cover_image.attached? ? url_for(@post.cover_image) : nil
+    plain_description = @post.body.to_plain_text.truncate(160)
+
     set_meta_tags title: @post.title,
-                  description: @post.body.to_plain_text.truncate(160),
+                  description: plain_description,
                   keywords: @post.categories.map(&:name).join(', '),
                   canonical: request.original_url,
+                  author: @post.user&.username,
                   og: {
                     title: @post.title,
+                    description: plain_description,
                     type: 'article',
-                    image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
+                    url: request.original_url,
+                    image: cover_url
+                  },
+                  twitter: {
+                    card: 'summary_large_image',
+                    title: @post.title,
+                    description: plain_description,
+                    image: cover_url
                   }
 
     PostViewTracker.new(@post, request, current_user).track

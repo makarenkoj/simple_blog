@@ -1,18 +1,3 @@
-<% content_for :title, @post.title %>
-<% title @post.title %>
-<% description truncate(strip_tags(@post.body.to_s), length: 160) %>
-<% set_meta_tags(og: { title: @post.title,
-                       type: 'article',
-                       image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
-                     },
-                     twitter: {
-                       card: 'summary_large_image',
-                       title: @post.title,
-                       description: truncate(strip_tags(@post.body.to_s), length: 160),
-                       image: @post.cover_image.attached? ? url_for(@post.cover_image) : nil
-                     }
-                   ) %>
-
 <div class="min-h-screen bg-white">
   <nav class="sticky top-0 z-40 bg-white border-b border-slate-200 backdrop-blur-sm bg-white/95">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
