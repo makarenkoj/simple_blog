@@ -284,6 +284,7 @@ it:
       photo:
         photo: 'Foto'
       categories:
+        categories: 'Categorie'
         name: 'Nome categoria'
         favorites: 'Categorie preferite'
         popular: 'Categorie popolari'

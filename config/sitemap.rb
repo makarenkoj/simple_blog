@@ -51,15 +51,25 @@ SitemapGenerator::Sitemap.adapter = R2Adapter.new(bucket_name,
                                                 )
 
 SitemapGenerator::Sitemap.create(compress: true, include_root: false) do
-  [:uk, :en, :it].each do |locale|
-    add root_path(locale: locale), changefreq: 'daily', priority: 1.0
+  # [:uk, :it].each do |locale|
+  #   add root_path(locale: locale), changefreq: 'daily', priority: 1.0
 
-    Post.find_each do |post|
-      add post_path(post, locale: locale), lastmod: post.updated_at, changefreq: 'weekly'
-    end
+  #   Post.find_each do |post|
+  #     add post_path(post, locale: locale), lastmod: post.updated_at, changefreq: 'weekly'
+  #   end
 
-    Category.find_each do |category|
-      add category_path(category, locale: locale), changefreq: 'weekly'
-    end
+  #   Category.find_each do |category|
+  #     add category_path(category, locale: locale), changefreq: 'weekly'
+  #   end
+  # end
+
+  add root_path, changefreq: 'daily', priority: 1.0
+
+  Post.find_each do |post|
+    add post_path(post), lastmod: post.updated_at, changefreq: 'weekly'
+  end
+
+  Category.find_each do |category|
+    add category_path(category), changefreq: 'weekly'
   end
 end

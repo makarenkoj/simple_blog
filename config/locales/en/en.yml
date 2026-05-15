@@ -284,6 +284,7 @@ en:
       photo:
         photo: 'Photo'
       categories:
+        categories: 'Categories'
         name: 'Category name'
         favorites: 'Favorite categories'
         popular: 'Popular categories'

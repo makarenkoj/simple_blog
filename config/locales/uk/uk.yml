@@ -284,6 +284,7 @@ uk:
       photo:
         photo: 'Фотография'
       categories:
+        categories: 'Категорії'
         name: 'Назва категорії'
         favorites: 'Улюблені категорії'
         popular: 'Популярні категорії'
