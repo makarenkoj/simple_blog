@@ -67,14 +67,14 @@ RSpec.describe 'Posts', type: :request do
       it 'redirects permanently (301) to the clean post path without locale uk' do
         get "/uk/posts/#{published_post.slug}"
 
-        expect(response).to have_http_status(:moved_permanently) 
+        expect(response).to have_http_status(:moved_permanently)
         expect(response).to redirect_to(post_path(published_post))
       end
 
       it 'redirects permanently (301) to the clean post path without locale en' do
         get "/en/posts/#{published_post.slug}"
 
-        expect(response).to have_http_status(:moved_permanently) 
+        expect(response).to have_http_status(:moved_permanently)
         expect(response).to redirect_to(post_path(published_post))
       end
     end

@@ -23,7 +23,7 @@ RSpec.describe 'User Registrations', type: :system do
       attach_file 'user_avatar', Rails.root.join('spec/fixtures/files/valid_test_image.png')
 
       expect { click_button I18n.t('activerecord.attributes.user.sign_up') }.to change(User, :count).by(1)
-      expect(page).to have_current_path(root_path(locale: locale))
+      expect(page).to have_current_path(root_path)
       expect(page).to have_content(I18n.t('devise.registrations.signed_up'))
       expect(User.last.avatar).to be_attached
     end
