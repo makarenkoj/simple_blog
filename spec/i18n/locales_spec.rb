@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'I18n locales (simple)' do
-  LOCALES = %i[en uk it].freeze
+  LOCALES = I18n.available_locales.freeze
 
   describe 'basic setup' do
     it 'has all required locale files' do

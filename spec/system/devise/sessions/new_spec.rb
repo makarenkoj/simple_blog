@@ -18,7 +18,7 @@ RSpec.describe 'User Sign In Form', type: :system do
 
       click_button I18n.t('devise.sessions.new.sign_in')
 
-      expect(page).to have_current_path(root_path(locale: locale))
+      expect(page).to have_current_path(root_path)
       expect(page).to have_content(I18n.t('devise.sessions.signed_in'))
     end
 
@@ -28,7 +28,7 @@ RSpec.describe 'User Sign In Form', type: :system do
 
       click_button I18n.t('devise.sessions.new.sign_in')
 
-      expect(page).to have_current_path(new_user_session_path(locale: locale))
+      expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_content(I18n.t('devise.failure.invalid', authentication_keys: 'email'))
     end
   end
@@ -51,12 +51,12 @@ RSpec.describe 'User Sign In Form', type: :system do
   describe 'Navigation links' do
     it 'navigates to the registration page' do
       click_link I18n.t('devise.shared.links.sign_up')
-      expect(page).to have_current_path(new_user_registration_path(locale: locale))
+      expect(page).to have_current_path(new_user_registration_path)
     end
 
     it 'navigates to the password reset page' do
       click_link I18n.t('devise.shared.links.forgot_your_password')
-      expect(page).to have_current_path(new_user_password_path(locale: locale))
+      expect(page).to have_current_path(new_user_password_path)
     end
   end
 end

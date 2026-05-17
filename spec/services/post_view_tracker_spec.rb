@@ -5,7 +5,24 @@ RSpec.describe PostViewTracker do
   let(:viewer) { create(:user) }
   let(:post) { create(:post, user: author) }
 
-  let(:request) { instance_double(ActionDispatch::Request, remote_ip: '127.0.0.1') }
+  let(:request) do
+    instance_double(
+      ActionDispatch::Request,
+      remote_ip: '127.0.0.1',
+      user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+      referer: 'https://example.com',
+      query_parameters: {}
+    )
+  end
+
+  let(:expected_request_data) do
+    {
+      referer: 'https://example.com',
+      user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+      device_type: 'desktop'
+    }
+  end
+
   let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
 
   before do
@@ -32,7 +49,7 @@ RSpec.describe PostViewTracker do
       let(:tracker) { described_class.new(post, request, viewer) }
 
       it 'enqueues a TrackPostViewJob' do
-        expect { tracker.track }.to have_enqueued_job(TrackPostViewJob).with(post.id, viewer.id, request.remote_ip)
+        expect { tracker.track }.to have_enqueued_job(TrackPostViewJob).with(post.id, viewer.id, request.remote_ip, expected_request_data)
       end
 
       it 'writes to the cache to prevent duplicate counting' do
@@ -61,6 +78,30 @@ RSpec.describe PostViewTracker do
         travel 61.minutes do
           expect { tracker.track }.to have_enqueued_job(TrackPostViewJob)
         end
+      end
+    end
+
+    context 'when the request is from a bot' do
+      let(:bot_request) do
+        instance_double(
+          ActionDispatch::Request,
+          remote_ip: '127.0.0.1',
+          user_agent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+          referer: nil,
+          query_parameters: {}
+        )
+      end
+
+      let(:tracker) { described_class.new(post, bot_request, viewer) }
+
+      it 'does not enqueue a job' do
+        expect { tracker.track }.not_to have_enqueued_job(TrackPostViewJob)
+      end
+
+      it 'does not write to cache' do
+        tracker.track
+        cache_key = "post_view:#{post.id}:#{bot_request.remote_ip}"
+        expect(Rails.cache).not_to exist(cache_key)
       end
     end
   end

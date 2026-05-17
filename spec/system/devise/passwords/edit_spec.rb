@@ -12,7 +12,7 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
 
   describe 'Change password' do
     before do
-      visit edit_user_password_path(reset_password_token: raw_token, locale: locale)
+      visit edit_user_password_path(reset_password_token: raw_token)
     end
 
     it 'successfully changes the password when valid data is entered' do
@@ -21,7 +21,7 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
 
       click_button I18n.t('devise.passwords.edit.submit')
 
-      expect(page).to have_current_path(root_path(locale: locale))
+      expect(page).to have_current_path(root_path)
       expect(page).to have_content(I18n.t('devise.passwords.updated'))
 
       current_user.reload
@@ -41,12 +41,14 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
 
   describe 'Invalid token handling' do
     it 'shows an error if the token is invalid or expired' do
-      visit edit_user_password_path(reset_password_token: 'fake_invalid_token', locale: locale)
+      visit edit_user_password_path(reset_password_token: 'fake_invalid_token')
 
       fill_in 'user_password', with: 'NewSecurePassword123!'
       fill_in 'user_password_confirmation', with: 'NewSecurePassword123!'
 
       click_button I18n.t('devise.passwords.edit.submit')
+
+      expect(page).to have_current_path(user_password_path, ignore_query: true)
 
       expect(page).to have_content(I18n.t('errors.messages.invalid'))
     end
@@ -54,7 +56,7 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
 
   describe 'Stimulus Password Visibility Controller (eyes)' do
     before do
-      visit edit_user_password_path(reset_password_token: raw_token, locale: locale)
+      visit edit_user_password_path(reset_password_token: raw_token)
     end
 
     it 'toggles visibility for both fields independently' do
@@ -83,7 +85,7 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
 
   describe 'Navigation links' do
     before do
-      visit edit_user_password_path(reset_password_token: raw_token, locale: locale)
+      visit edit_user_password_path(reset_password_token: raw_token)
     end
 
     it 'performs navigation to the sign-in page' do
@@ -91,7 +93,7 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
         click_link I18n.t('devise.shared.links.sign_in')
       end
 
-      expect(page).to have_current_path(new_user_session_path(locale: locale))
+      expect(page).to have_current_path(new_user_session_path)
     end
   end
 end
