@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_07_132716) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_17_200238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -139,8 +139,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_07_132716) do
     t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "request_data", default: {}, null: false
     t.index ["post_id", "ip_address", "created_at"], name: "index_post_views_on_post_id_and_ip_address_and_created_at"
     t.index ["post_id"], name: "index_post_views_on_post_id"
+    t.index ["request_data"], name: "index_post_views_on_request_data", using: :gin
     t.index ["user_id"], name: "index_post_views_on_user_id"
   end
 

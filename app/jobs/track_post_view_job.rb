@@ -1,11 +1,11 @@
 class TrackPostViewJob < ApplicationJob
   queue_as :low_priority
 
-  def perform(post_id, user_id, ip_address)
+  def perform(post_id, user_id, ip_address, request_data = {})
     post = Post.find_by(id: post_id)
     return unless post
 
-    PostView.create!(post: post, user_id: user_id, ip_address: ip_address)
+    PostView.create!(post: post, user_id: user_id, ip_address: ip_address, request_data: request_data)
     Post.increment_counter(:views_count, post.id) # rubocop:disable Rails/SkipsModelValidations
   end
 end
