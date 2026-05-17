@@ -18,7 +18,7 @@ RSpec.describe 'User Forgot Password Form (Request Instructions)', type: :system
         expect(page).to have_content(I18n.t('devise.passwords.send_instructions'))
       end.to change { ActionMailer::Base.deliveries.count }.by(1)
 
-      expect(page).to have_current_path(new_user_session_path(locale: locale))
+      expect(page).to have_current_path(new_user_session_path)
     end
 
     it 'shows an error if email not found' do
@@ -47,7 +47,7 @@ RSpec.describe 'User Forgot Password Form (Request Instructions)', type: :system
         click_link I18n.t('devise.shared.links.sign_in')
       end
 
-      expect(page).to have_current_path(new_user_session_path(locale: locale))
+      expect(page).to have_current_path(new_user_session_path)
     end
 
     it 'goes to the sign up page' do
@@ -55,7 +55,7 @@ RSpec.describe 'User Forgot Password Form (Request Instructions)', type: :system
         click_link I18n.t('devise.shared.links.sign_up')
       end
 
-      expect(page).to have_current_path(new_user_registration_path(locale: locale))
+      expect(page).to have_current_path(new_user_registration_path)
     end
   end
 end

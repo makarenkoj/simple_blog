@@ -27,7 +27,7 @@ RSpec.describe 'Category Page', type: :system do
 
       sign_in current_user
       page.current_window.resize_to(1440, 900)
-      visit category_path(art_category, locale: locale)
+      visit category_path(art_category)
     end
 
     it 'displays all translations and elements correctly on the category page' do
@@ -88,7 +88,7 @@ RSpec.describe 'Category Page', type: :system do
 
     it 'shows empty state message when the category has no posts' do
       empty_cat = create(:category, name: 'EmptySpace')
-      visit category_path(empty_cat, locale: locale)
+      visit category_path(empty_cat)
 
       expect(page).to have_text(I18n.t('activerecord.attributes.posts.no_posts_in_category'))
       expect(page).not_to have_text(/translation missing/i)

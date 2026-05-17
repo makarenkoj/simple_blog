@@ -3,7 +3,16 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   mount_avo
 
-  scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+  # scope '(:locale)', locale: /it|uk/ do
+    get '/:locale(/*path)',
+        to: redirect { |_params, request|
+          path = request.path.sub(%r{^/(uk|it|en)}, '')
+          path = '/' if path.blank?
+          path
+        },
+        constraints: { locale: /uk|it|en/ },
+        status: 301
+
     get 'up' => 'rails/health#show', as: :rails_health_check
 
     authenticate :user, ->(user) { user.role == 'creator' && user.email == ENV['AVO_EMAIL'] } do
@@ -67,5 +76,5 @@ Rails.application.routes.draw do
         resources :categories, only: [:index]
       end
     end
-  end
+  # end
 end

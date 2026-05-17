@@ -4,8 +4,8 @@ RSpec.describe 'Post Creation Form', type: :system do
   include_context 'base'
 
   before do
-    create(:category, name: 'Технології')
-    create(:category, name: 'Новини')
+    create(:category, name: 'Technology')
+    create(:category, name: 'News')
     driven_by(:selenium_chrome_headless)
     # driven_by(:selenium_chrome)
     sign_in current_user
@@ -13,7 +13,7 @@ RSpec.describe 'Post Creation Form', type: :system do
 
   describe 'Creating a new post' do
     before do
-      visit new_post_path(locale: :uk)
+      visit new_post_path
     end
 
     it 'shows image preview when a cover image is selected' do
@@ -27,21 +27,21 @@ RSpec.describe 'Post Creation Form', type: :system do
     end
 
     it 'successfully creates a post and saves it to the database' do
-      fill_in 'post[title]', with: 'Мій перший системний тест'
-      check 'технології', allow_label_click: true
-      check 'новини', allow_label_click: true
+      fill_in 'post[title]', with: 'My first system test'
+      check 'technology', allow_label_click: true
+      check 'news', allow_label_click: true
 
       attach_file('post[cover_image]', Rails.root.join('spec/fixtures/files/valid_test_image.png'), make_visible: true)
 
       find('trix-editor').click
-      find('trix-editor').send_keys('Це контент мого поста.')
+      find('trix-editor').send_keys('This is the content of my post.')
 
       select I18n.t('activerecord.attributes.posts.statuses.published'), from: 'post[status]'
 
-      click_button 'Зберегти'
+      click_button 'Save'
 
-      expect(page).to have_content('Ви створили новий пост')
-      expect(page).to have_content('Мій перший системний тест')
+      expect(page).to have_content('You created a new post')
+      expect(page).to have_content('My first system test')
 
       created_post = Post.order(created_at: :desc).first
 
@@ -51,11 +51,11 @@ RSpec.describe 'Post Creation Form', type: :system do
     end
 
     it 'shows validation errors when submitting an empty form' do
-      click_button 'Зберегти'
+      click_button 'Save'
 
       expect(page).to have_css('.bg-red-50')
-      expect(page).to have_content('Збереження не вдалося')
-      expect(page).to have_content(/не може бути порожнім/i)
+      expect(page).to have_content('Save failed')
+      expect(page).to have_content(/can't be blank/i)
     end
 
     # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
@@ -88,7 +88,7 @@ RSpec.describe 'Post Creation Form', type: :system do
       expect(page).not_to have_text(/translation missing/i)
       expect(page).to have_css('.bg-red-50')
 
-      error_message_pattern = I18n.t('post.errors.messages.not_saved', count: 3, default: 'Виникли помилки')
+      error_message_pattern = I18n.t('post.errors.messages.not_saved', count: 3)
 
       expect(page).to have_text(error_message_pattern)
     end

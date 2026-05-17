@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe 'User Edit Profile Form', type: :system do
   include_context 'base'
 
-  let!(:category2) { create(:category, name: 'Технології') }
+  let!(:category2) { create(:category, name: 'Technology') }
 
   before do
     driven_by(:selenium_chrome_headless)
     # driven_by(:selenium_chrome)
-    create(:category, name: 'Новини')
+    create(:category, name: 'News')
     sign_in current_user
     visit edit_user_registration_path
   end
@@ -140,7 +140,7 @@ RSpec.describe 'User Edit Profile Form', type: :system do
         click_button I18n.t('simple_form.labels.defaults.cancel')
       end
 
-      expect(page).to have_current_path(root_path(locale: locale))
+      expect(page).to have_current_path(root_path)
       expect(page).to have_content(I18n.t('devise.registrations.destroyed'))
       expect(User).not_to exist(current_user.id)
     end

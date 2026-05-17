@@ -10,7 +10,7 @@ RSpec.describe 'Users', type: :request do
     context 'when the user is not authorized' do
       it 'redirects to the login page' do
         get user_path(user)
-        expect(response).to redirect_to(new_user_session_path(locale: 'uk'))
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
@@ -19,7 +19,15 @@ RSpec.describe 'Users', type: :request do
 
       it 'successfully opens the profile page' do
         get user_path(user)
+
         expect(response).to have_http_status(:success)
+      end
+
+      it 'redirects to their own profile page when click old profile link' do
+        get "/it/users/#{user.username}"
+
+        expect(response).to have_http_status(:moved_permanently)
+        expect(response).to redirect_to(user_path(user))
       end
     end
   end
@@ -28,7 +36,7 @@ RSpec.describe 'Users', type: :request do
     context 'when the user is not authorized' do
       it 'redirects to the login page' do
         get current_profile_path
-        expect(response).to redirect_to(new_user_session_path(locale: 'uk'))
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 

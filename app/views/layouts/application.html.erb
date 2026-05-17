@@ -100,6 +100,10 @@
                   <span class="text-sm font-medium"><%= t('activerecord.attributes.posts.library') %></span>
                 <% end %>
               <% end %>
+              <%= link_to categories_path, title: t('activerecord.attributes.categories.categories'), class: "hidden lg:!inline-block p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" do %>
+                <span class="text-sm font-medium"><%= t('activerecord.attributes.categories.categories') %></span>
+              <% end %>
+              <% if false %> <!-- Language switcher is currently disabled -->
                 <div class="dropdown" data-controller="dropdown">
                   <button type="button" aria-label="Toggle user menu" class="flex items-center space-x-1 p-2 text-slate-600 hover:text-slate-900 transition-colors duration-200" data-action="click->dropdown#toggle" data-dropdown-target="toggle">
                     <i class="ri-global-line text-xl"></i>
@@ -139,6 +143,7 @@
                     </div>
                   </div>
                 </div>
+              <% end %>
               <% if user_signed_in? %>
                 <%= render "partials/notifications_dropdown", user: current_user %>
                 <div class="dropdown" data-controller="dropdown">
