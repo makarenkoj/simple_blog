@@ -1,10 +1,11 @@
 class SearchService
-  attr_reader :query, :limit, :scope
+  attr_reader :query, :limit, :scope, :current_user
 
-  def initialize(query:, limit: 20, scope: :all)
+  def initialize(query:, limit: 20, scope: :all, current_user: nil)
     @query = query.to_s.strip
     @limit = limit
     @scope = scope
+    @current_user = current_user
   end
 
   def call
@@ -21,16 +22,18 @@ class SearchService
   def search_posts
     return [] unless search_scope?(:posts)
 
-    Post.where("title ILIKE :query OR
-                body ILIKE :query OR
-                EXISTS (SELECT 1 FROM action_text_rich_texts
-                        WHERE record_type = 'Post'
-                        AND record_id = posts.id
-                        AND body ILIKE :query
-                        )",
-               query: "%#{sanitized_query}%").includes(:user, :categories, cover_image_attachment: :blob)
-        .order(created_at: :desc)
-        .limit(limit)
+    visible_posts
+      .where("posts.title ILIKE :query OR
+              posts.body ILIKE :query OR
+              EXISTS (SELECT 1 FROM action_text_rich_texts
+                      WHERE record_type = 'Post'
+                      AND record_id = posts.id
+                      AND body ILIKE :query
+                      )",
+             query: "%#{sanitized_query}%")
+      .includes(:user, :categories, cover_image_attachment: :blob)
+      .order(created_at: :desc)
+      .limit(limit)
   end
 
   def search_users
@@ -41,7 +44,8 @@ class SearchService
                 last_name ILIKE :query OR
                 email ILIKE :query OR
                 CONCAT(first_name, ' ', last_name) ILIKE :query",
-               query: "%#{sanitized_query}%").includes(avatar_attachment: :blob)
+               query: "%#{sanitized_query}%")
+        .includes(avatar_attachment: :blob)
         .order(created_at: :desc)
         .limit(limit)
   end
@@ -49,14 +53,22 @@ class SearchService
   def search_categories
     return [] unless search_scope?(:categories)
 
-    Category.where('name ILIKE :query',
-                   query: "%#{sanitized_query}%").includes(cover_image_attachment: :blob)
+    Category.where('name ILIKE :query', query: "%#{sanitized_query}%")
+            .includes(cover_image_attachment: :blob)
             .order(name: :asc)
             .limit(limit)
   end
 
+  def visible_posts
+    if current_user.present?
+      Post.where(status: :published).or(Post.where(status: :draft, user_id: current_user.id))
+    else
+      Post.where(status: :published)
+    end
+  end
+
   def total_count
-    @total_count ||= search_posts.count + search_users.count + search_categories.count
+    @total_count ||= search_posts.size + search_users.size + search_categories.size
   end
 
   def sanitized_query

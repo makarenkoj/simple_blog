@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 
     if @query.present?
       limit = turbo_frame_request? ? 5 : 25
-      results = SearchService.new(query: @query, limit: limit).call
+      results = SearchService.new(query: @query, limit: limit, current_user: current_user).call
 
       @posts = results[:posts]
       @users = results[:users]
