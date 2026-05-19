@@ -375,6 +375,9 @@ it:
     home: 'Home'
     tagline: "Recensioni di tecnologia e gadget"
     description: "Scopri recensioni di esperti, guide all'acquisto e articoli sulle ultime tecnologie, gadget, periferiche per computer e attrezzature per il fitness. Migliora il tuo stile di vita con Help Booost."
+    crafted_with: "Crafted with"
+    by: "by"
+    author: "Makarenkoj"
   follow: "Segui"
   following: "Seguiti"
   followers: "Follower"
