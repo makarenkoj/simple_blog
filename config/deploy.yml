@@ -68,6 +68,7 @@ env:
     - QUEUE_DATABASE_URL
     - CACHE_DATABASE_URL
     - CABLE_DATABASE_URL
+    - SENTRY_DSN
 
 accessories:
   db:

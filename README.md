@@ -214,3 +214,7 @@ SitemapGenerator::Sitemap.default_host = "[https://helpbooost.com](https://helpb
 * bundle exec dotenv kamal app exec -i 'bin/rails c'
 
 * KAMAL_REGISTRY_PASSWORD="ваш_токен_від_github" kamal app exec -i 'bin/rails c'
+
+## API documentations
+
+ * https://helpbooost.com/api-docs/index.html

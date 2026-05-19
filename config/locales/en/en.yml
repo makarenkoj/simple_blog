@@ -375,6 +375,9 @@ en:
     home: 'Home'
     tagline: "Tech and Gadgets Reviews"
     description: "Discover expert reviews, buying guides, and articles on the latest tech, gadgets, computer peripherals, and home fitness equipment. Boost your lifestyle with Help Booost."
+    crafted_with: "Crafted with"
+    by: "by"
+    author: "Makarenkoj"
   follow: "Follow"
   following: "Following"
   followers: "Followers"
