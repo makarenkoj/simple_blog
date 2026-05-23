@@ -22,16 +22,16 @@
           <div class="flex items-center space-x-6 text-sm text-slate-600 mb-6">
             <% if @user.creator? %>
               <div>
-                <span class="font-semibold text-slate-900"><%= @user.posts.count %></span>
+                <span class="font-semibold text-slate-900"><%= @user.posts.size %></span>
                 <%= t('activerecord.attributes.user.posts') %>
               </div>
               <div>
-                <span id="followers_count_<%= @user.id %>" class="font-semibold text-slate-900"><%= @user.followers.count %></span>
+                <span id="followers_count_<%= @user.id %>" class="font-semibold text-slate-900"><%= @user.followers.size %></span>
                 <%= t('activerecord.attributes.user.followers') %>
               </div>
             <% end %>
             <div>
-              <span id="following_count_<%= @user.id %>" class="font-semibold text-slate-900"><%= @user.followings.count %></span>
+              <span id="following_count_<%= @user.id %>" class="font-semibold text-slate-900"><%= @user.followings.size %></span>
               <%= t('follows.followings') %>
             </div>
           </div>

@@ -40,7 +40,7 @@
           </h1>
           <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
             <% if controller_name == 'categories' %>
-              <%= t('activerecord.attributes.posts.index.posts_in_category', count: @category.posts.count) %>
+              <%= t('activerecord.attributes.posts.index.posts_in_category', count: @category.posts.size) %>
             <% elsif action_name == 'library' %>
               <%= t('activerecord.attributes.posts.library_subtitle') %>
             <% else %>
@@ -121,7 +121,7 @@
                           <%= category.name.capitalize %>
                         </h4>
                         <p class="text-xs text-slate-500 mt-0.5">
-                          <%= category.posts.count %> <%= t('activerecord.attributes.posts.index.posts') %>
+                          <%= category.posts_count %> <%= t('activerecord.attributes.posts.index.posts') %>
                         </p>
                       </div>
                     </div>
@@ -155,7 +155,7 @@
                         </p>
                       <% end %>
                       <p class="text-xs text-slate-500 truncate">
-                        <%= creator.followers.count %> <%= t('followers') %>
+                        <%= creator.followers_count %> <%= t('followers') %>
                       </p>
                     </div>
                     <% if user_signed_in? %>

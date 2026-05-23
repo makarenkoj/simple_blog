@@ -5,7 +5,7 @@
         <%= t('search.search_results_for') %>: "<span class="text-blue-600"><%= @query %></span>"
       </h1>
       <p class="text-slate-600">
-        <%= t('search.found_results', count: @posts.count + @users.count + @categories.count) %>
+        <%= t('search.found_results', count: @posts.size + @users.size + @categories.size) %>
       </p>
     </div>
   </div>
