@@ -4,12 +4,11 @@ class PostsController < ApplicationController
   before_action :authorize_owner!, only: %i[edit update destroy]
   before_action :popular_categories, only: %i[index show library]
   before_action :popular_creators, only: %i[index show library]
+  before_action :set_filter_categories, only: %i[index library]
 
   def index
     @posts_scope = Post.published.includes(:user, :categories).with_attached_cover_image.order(created_at: :desc)
-
-    @posts_scope = @posts_scope.joins(:categories).where(categories: { id: params[:category_ids] }) if params[:category_ids].present?
-
+    @posts_scope = @posts_scope.joins(:categories).where(categories: { id: params[:category_ids] }).distinct if params[:category_ids].present?
     @pagy, @posts = pagy(@posts_scope, limit: 5)
 
     respond_to do |format|
@@ -20,9 +19,7 @@ class PostsController < ApplicationController
 
   def show
     prepare_meta_tags
-
     PostViewTracker.new(@post, request, current_user).track
-
     @more_from_author = fetch_more_from_author
   end
 
@@ -47,11 +44,7 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: I18n.t('activerecord.controllers.posts.updated') }
 
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(
-            @post,
-            partial: 'posts/post',
-            locals: { post: @post }
-          )
+          render turbo_stream: turbo_stream.replace(@post, partial: 'posts/post', locals: { post: @post })
         end
       end
     else
@@ -103,24 +96,17 @@ class PostsController < ApplicationController
                   keywords: @post.categories.map(&:name).join(', '),
                   canonical: request.original_url,
                   author: @post.user&.username,
-                  og: {
-                    title: @post.title,
-                    description: plain_description,
-                    type: 'article',
-                    url: request.original_url,
-                    image: cover_url
-                  },
-                  twitter: {
-                    card: 'summary_large_image',
-                    title: @post.title,
-                    description: plain_description,
-                    image: cover_url
-                  }
+                  og: { title: @post.title, description: plain_description, type: 'article', url: request.original_url, image: cover_url },
+                  twitter: { card: 'summary_large_image', title: @post.title, description: plain_description, image: cover_url }
   end
 
   def fetch_more_from_author
     return [] unless @post.user
 
     @post.user.posts.published.where.not(id: @post.id).order('RANDOM()').limit(3)
+  end
+
+  def set_filter_categories
+    @filter_categories = Category.with_posts_count.order(:name)
   end
 end

@@ -66,7 +66,7 @@ class User < ApplicationRecord
   end
 
   def unread_notifications_count
-    notifications.unread.count
+    notifications.unread.size
   end
 
   def bookmarked?(post)

@@ -27,7 +27,6 @@
       <div class="p-2 max-h-64 overflow-y-auto custom-scrollbar">
         <div class="space-y-1">
           <% @filter_categories.each do |category| %>
-            <% posts_count = @category_counts[category.id] %>
             <label class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer group transition-colors">
               <div class="flex items-center">
                 <%= check_box_tag "category_ids[]", 
@@ -41,7 +40,7 @@
                 </span>
               </div>
               <span class="text-xs text-slate-400 font-medium bg-slate-100 px-2 py-0.5 rounded-full">
-                <%= posts_count %>
+                <%= category.posts_count %>
               </span>
             </label>
           <% end %>

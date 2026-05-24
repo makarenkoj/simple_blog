@@ -23,6 +23,10 @@ class Category < ApplicationRecord
     ['posts']
   end
 
+  scope :with_posts_count, lambda {
+    left_joins(:posts).where('posts.id IS NULL OR posts.status = ?', Post.statuses[:published]).group('categories.id').select('categories.*, COUNT(posts.id) AS posts_count')
+  }
+
   private
 
   def downcase_name
