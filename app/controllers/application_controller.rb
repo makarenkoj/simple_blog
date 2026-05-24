@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
     scope = scope.where.not(id: current_user.category_preferences.select(:category_id)) if user_signed_in?
 
     @categories = scope.group('categories.id')
+                       .select('categories.*, COUNT(posts.id) AS posts_count')
                        .order('COUNT(posts.id) DESC')
                        .limit(5)
   end
@@ -45,6 +46,7 @@ class ApplicationController < ActionController::Base
     scope = scope.where.not(id: current_user.followings.select(:id)).where.not(id: current_user.id) if user_signed_in?
 
     @creators = scope.group('users.id')
+                     .select('users.*, COUNT(follows.id) AS followers_count')
                      .order('COUNT(follows.id) DESC')
                      .limit(5)
   end

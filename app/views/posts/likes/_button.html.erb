@@ -3,23 +3,23 @@
     <% if post.user_id == current_user.id %>
       <div class="flex items-center space-x-2 text-slate-400 cursor-default" title="<%= t('activerecord.attributes.posts.like_own_post') %>">
         <i class='bx bx-like text-2xl'></i>
-        <span class="text-sm font-medium"><%= post.likes.count %></span>
+        <span class="text-sm font-medium"><%= post.likes.size %></span>
       </div>
     <% elsif current_user.liked?(post) %>
       <%= button_to post_like_path(post), method: :delete, class: "flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors duration-200 group" do %>
         <i class='bx bxs-like text-2xl group-hover:scale-110 transition-transform duration-200'></i>
-        <span class="text-sm font-medium"><%= post.likes.count %></span>
+        <span class="text-sm font-medium"><%= post.likes.size %></span>
       <% end %>
     <% else %>
       <%= button_to post_like_path(post), method: :post, class: "flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200 group" do %>
         <i class='bx bx-like text-2xl group-hover:scale-110 transition-transform duration-200'></i>
-        <span class="text-sm font-medium"><%= post.likes.count %></span>
+        <span class="text-sm font-medium"><%= post.likes.size %></span>
       <% end %>
     <% end %>
   <% else %>
     <%= link_to new_user_session_path, class: "flex items-center space-x-2 text-slate-600" do %>
       <i class='bx bx-like text-2xl'></i>
-      <span class="text-sm font-medium"><%= post.likes.count %></span>
+      <span class="text-sm font-medium"><%= post.likes.size %></span>
     <% end %>
   <% end %>
 <% end %>

@@ -17,7 +17,7 @@
           <% else %>
             <%= link_to new_user_session_path, title: t('activerecord.attributes.user.sign_in'), class: "flex items-center space-x-2 text-slate-600" do %>
               <i class='bx bx-like text-2xl'></i>
-              <span class="text-sm font-medium"><%= @post.likes.count %></span>
+              <span class="text-sm font-medium"><%= @post.likes.size %></span>
             <% end %>
           <% end %>
         </div>

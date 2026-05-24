@@ -4,12 +4,11 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show]
 
   def show
-    query = @category.posts.published.includes(:user, :rich_text_body)
+    query = @category.posts.published.includes(:user, :rich_text_body, :categories).with_attached_cover_image
     query = query.joins(:categories).where(categories: { id: params[:category_ids] }).distinct if params[:category_ids].present?
     @pagy, @posts = pagy(query.order(created_at: :desc), limit: 5)
-    post_ids = @category.posts.select(:id)
-    @category_counts = Category.joins(:posts).where(posts: { id: post_ids }).where.not(id: @category.id).group('categories.id').count
-    @filter_categories = Category.where(id: @category_counts.keys).order(:name)
+
+    set_filter_categories
 
     render 'posts/index'
   end
@@ -23,5 +22,14 @@ class CategoriesController < ApplicationController
   def set_category
     @category = Category.find_by(name: params[:id])
     redirect_back fallback_location: posts_path, alert: t('activerecord.controllers.categories.not_found') unless @category
+  end
+
+  def set_filter_categories
+    @filter_categories = Category.joins(:posts)
+                                 .where(posts: { id: @category.posts.select(:id) })
+                                 .where.not(id: @category.id)
+                                 .group('categories.id')
+                                 .select('categories.*, COUNT(posts.id) AS posts_count')
+                                 .order(:name)
   end
 end
