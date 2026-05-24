@@ -46,7 +46,8 @@ RSpec.describe 'User Registrations', type: :system do
       toggle_button = find('#user_password').sibling('button')
       toggle_button.click
 
-      expect(password_input['type']).to eq('text')
+      # expect(password_input['type']).to eq('text')
+      expect(page).to have_field('user[password]', type: 'text')
 
       toggle_button.click
 
