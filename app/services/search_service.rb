@@ -22,18 +22,10 @@ class SearchService
   def search_posts
     return [] unless search_scope?(:posts)
 
-    visible_posts
-      .where("posts.title ILIKE :query OR
-              posts.body ILIKE :query OR
-              EXISTS (SELECT 1 FROM action_text_rich_texts
-                      WHERE record_type = 'Post'
-                      AND record_id = posts.id
-                      AND body ILIKE :query
-                      )",
-             query: "%#{sanitized_query}%")
-      .includes(:user, :categories, cover_image_attachment: :blob)
-      .order(created_at: :desc)
-      .limit(limit)
+    visible_posts.where('posts.title ILIKE :query OR posts.body_html ILIKE :query', query: "%#{sanitized_query}%")
+                 .includes(:user, :categories, cover_image_attachment: :blob)
+                 .order(created_at: :desc)
+                 .limit(limit)
   end
 
   def search_users
