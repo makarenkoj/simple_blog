@@ -68,30 +68,30 @@ RSpec.describe Post, type: :model do
       end
     end
 
-    context 'body' do
-      it 'is valid with a body of 10 characters' do
-        post = build(:post, body: 'A' * 10)
+    context 'body_html' do
+      it 'is valid with a body_html of 10 characters' do
+        post = build(:post, body_html: 'A' * 10)
 
         expect(post).to be_valid
       end
 
-      it 'is invalid with a body of 9 characters' do
-        post = build(:post, body: 'A' * 9)
+      it 'is invalid with a body_html of 9 characters' do
+        post = build(:post, body_html: 'A' * 9)
 
         expect(post).not_to be_valid
-        expect(post.errors[:body]).to include(I18n.t('activerecord.errors.messages.post.title.short'))
+        expect(post.errors[:body_html]).to include(I18n.t('activerecord.errors.messages.post.title.short'))
       end
 
       it 'is invalid without a body' do
-        post = build(:post, body: nil)
+        post = build(:post, body_html: nil)
 
         expect(post).not_to be_valid
-        expect(post.errors[:body]).to include(I18n.t('activerecord.errors.messages.post.title.blank'))
+        expect(post.errors[:body_html]).to include(I18n.t('activerecord.errors.messages.post.title.blank'))
       end
 
       it 'accepts rich text content' do
         post = build(:post)
-        post.body = '<p>Rich text content</p>'
+        post.body_html = '<p>Rich text content</p>'
 
         expect(post).to be_valid
       end
@@ -348,10 +348,6 @@ RSpec.describe Post, type: :model do
     it 'allows searching through categories' do
       expect(described_class.ransackable_associations).to include('categories')
     end
-
-    it 'allows searching through rich_text_body' do
-      expect(described_class.ransackable_associations).to include('rich_text_body')
-    end
   end
 
   describe 'post lifecycle' do
@@ -360,7 +356,7 @@ RSpec.describe Post, type: :model do
 
       post = described_class.create(user: user,
                                     title: 'Complete Post',
-                                    body: 'This is a complete post with all attributes filled in properly.',
+                                    body_html: 'This is a complete post with all attributes filled in properly.',
                                     categories: [category])
 
       expect(post).to be_persisted

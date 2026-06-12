@@ -20,16 +20,16 @@
       <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2 leading-tight group-hover:underline line-clamp-2">
         <%= link_to post.title, post_path(post), title: t('activerecord.attributes.posts.view_post') %>
       </h2>
-      <% if post.body.present? %>
+      <% if post.body_html.present? %>
         <p class="text-slate-600 text-base mb-4 line-clamp-2 hidden sm:block">
-          <%= truncate(post.body.to_plain_text, length: 120, separator: ' ') %>
+          <%= truncate(post.body_plain_text, length: 120) %>
         </p>
       <% end %>
       <div class="flex items-center space-x-4 text-sm text-slate-600">
         <time datetime="<%= post.created_at.iso8601 %>">
           <%= l post.created_at, format: :short %>
         </time>
-        <span><%= post.body.to_plain_text.split.size / 200 %> <%= t('activerecord.attributes.posts.index.min_read') %></span>
+        <span><%= post.body_plain_text.split.size / 200 %> <%= t('activerecord.attributes.posts.index.min_read') %></span>
         <% if post.categories.any? %>
           <span class="max-sm:hidden">
             <% post.categories.sample(3).each do |category| %>

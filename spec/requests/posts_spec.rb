@@ -97,7 +97,7 @@ RSpec.describe 'Posts', type: :request do
 
   describe 'POST /posts (Create)' do
     it 'creates a new post for the logged-in user' do
-      valid_params = { post: { title: 'New Post', body: 'Content' * 100, status: 'draft' } }
+      valid_params = { post: { title: 'New Post', body_html: 'Content' * 100, status: 'draft' } }
 
       sign_in current_user
 
