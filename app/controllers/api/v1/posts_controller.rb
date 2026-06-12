@@ -21,7 +21,7 @@ module Api
           slug: post.slug,
           title: post.title,
           status: post.status,
-          body: post.body.to_s,
+          body_html: post.body_html.to_s,
           category_ids: post.category_ids,
           cover_url: cover_image_url(post),
           created_at: post.created_at
@@ -35,7 +35,7 @@ module Api
       end
 
       def post_params
-        params.require(:post).permit(:title, :body, :status, :cover_image, category_ids: [])
+        params.require(:post).permit(:title, :body_html, :status, :cover_image, category_ids: [])
       end
     end
   end

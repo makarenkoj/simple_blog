@@ -1,5 +1,7 @@
 class Post < ApplicationRecord
   extend FriendlyId
+  include ActionView::Helpers::SanitizeHelper
+
   friendly_id :title, use: %i[slugged history]
 
   belongs_to :user
@@ -32,7 +34,7 @@ class Post < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[user categories rich_text_body]
+    %w[user categories]
   end
 
   def should_generate_new_friendly_id?
@@ -41,6 +43,10 @@ class Post < ApplicationRecord
 
   def normalize_friendly_id(input)
     input.to_s.to_slug.transliterate(:ukrainian).normalize.to_s
+  end
+
+  def body_plain_text
+    ActionController::Base.helpers.strip_tags(body_html.to_s)
   end
 
   private
@@ -55,12 +61,12 @@ class Post < ApplicationRecord
   end
 
   def body_content_length
-    plain_text = body&.to_plain_text&.strip
+    plain_text = body_html&.strip
 
     if plain_text.blank?
-      errors.add(:body, I18n.t('activerecord.errors.messages.post.title.blank'))
+      errors.add(:body_html, I18n.t('activerecord.errors.messages.post.title.blank'))
     elsif plain_text.length < 10
-      errors.add(:body, I18n.t('activerecord.errors.messages.post.title.short'))
+      errors.add(:body_html, I18n.t('activerecord.errors.messages.post.title.short'))
     end
   end
 end

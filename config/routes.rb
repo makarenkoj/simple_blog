@@ -76,5 +76,7 @@ Rails.application.routes.draw do
         resources :categories, only: [:index]
       end
     end
+
+    resources :uploads, only: [:create]
   # end
 end

@@ -1,0 +1,21 @@
+uk:
+  post:
+    editor:
+      toolbar:
+        bold: "Жирний"
+        italic: "Курсив"
+        underline: "Підкреслений"
+        strike: "Закреслений"
+        h2: "Заголовок 2"
+        h3: "Заголовок 3"
+        code: "Блок коду"
+        link: "Посилання"
+        align_left: "По лівому краю"
+        align_center: "По центру"
+        bullet_list: "Маркований список"
+        ordered_list: "Нумерований список"
+        outdent: "Зменшити відступ"
+        indent: "Збільшити відступ"
+        table: "Таблиця"
+        image: "Зображення"
+        color: "Колір тексту"

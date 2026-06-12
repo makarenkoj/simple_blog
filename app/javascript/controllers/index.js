@@ -42,3 +42,6 @@ application.register("sidebar", SidebarController)
 
 import TabsController from "./tabs_controller"
 application.register("tabs", TabsController)
+
+import TiptapController from "./tiptap_controller"
+application.register("tiptap", TiptapController)
