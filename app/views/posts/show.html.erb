@@ -93,7 +93,7 @@
                   <%= l @post.created_at, format: :long %>
                 </time>
                 <span>·</span>
-                <span><%= @post.body.to_plain_text.split.size / 200 %> <%= t('activerecord.attributes.posts.index.min_read') %></span>
+                <span><%= @post.body_plain_text.split.size / 200 %> <%= t('activerecord.attributes.posts.index.min_read') %></span>
               </div>
             </div>
           <% end %>
@@ -111,7 +111,21 @@
     <% end %>
     <div class="px-6 sm:px-8 pb-16">
       <div class="prose prose-lg max-w-none medium-prose">
-        <%= @post.body %>
+        <div class="prose prose-slate max-w-none">
+          <%= sanitize @post.body_html,
+              tags: %w[
+                p br strong em u s
+                h1 h2 h3 h4 h5 h6
+                ul ol li
+                blockquote
+                pre code
+                table thead tbody tr td th
+                a img
+                span
+              ],
+              attributes: %w[href src class colspan rowspan style]
+          %>
+        </div>
       </div>
     </div>
     <% if @post.categories.any? %>
@@ -213,12 +227,12 @@
                 <%= post.title %>
               </h3>
               <p class="text-sm text-slate-600 mb-3 line-clamp-2">
-                <% if post.body.present? %>
-                  <%= truncate(post.body.to_plain_text, length: 120) %>
+                <% if post.body_html.present? %>
+                  <%= truncate(post.body_plain_text, length: 120) %>
                 <% end %>
               </p>
               <div class="flex items-center text-xs text-slate-500 space-x-2">
-                <span><%= (post.body.to_plain_text.split.size / 200.0).ceil %> <%= t('min_read') %></span>
+                <span><%= (post.body_plain_text.split.size / 200.0).ceil %> <%= t('min_read') %></span>
                 <span>·</span>
                 <time datetime="<%= post.created_at.iso8601 %>">
                   <%= l(post.created_at, format: :short) %>
@@ -275,7 +289,7 @@
     "@id": "<%= request.original_url %>"
   },
   "headline": "<%= j @post.title %>",
-  "description": "<%= j @post.body.to_plain_text.truncate(160) %>",
+  "description": "<%= j @post.body_plain_text.truncate(160) %>",
   "image": [
     "<%= @post.cover_image.attached? ? url_for(@post.cover_image) : request.base_url + '/icon.png' %>"
   ],

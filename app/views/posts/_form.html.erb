@@ -1,6 +1,6 @@
-<div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 animate-slideUp">
+<div class="bg-white rounded-3xl shadow-xl border border-slate-100 animate-slideUp">
+  <div class="hidden bg-emerald-100 text-emerald-700"></div>
   <%= simple_form_for @post, html: { class: "post-form" }, data: { turbo: "false" } do |f| %>
-    <!-- Error Notification -->
     <% if f.object.errors.any? %>
       <div class="bg-red-50 border-l-4 border-red-500 p-4 m-6 rounded-r-lg animate-shake">
         <div class="flex items-start">
@@ -22,215 +22,148 @@
     <% end %>
     <div class="px-6 sm:px-8 lg:px-10 py-8">
       <div class="space-y-8">
-        <!-- Cover Image Section -->
-        <div class="form-section"
-             data-controller="cover-image-preview"
-             data-cover-image-preview-max-size-value="<%= 5.megabytes %>"
-             data-cover-image-preview-invalid-type-message-value="<%= t('errors.messages.content_type_invalid', authorized_human_content_types: 'PNG, JPG, GIF, WEBP') %>"
-             data-cover-image-preview-invalid-size-message-value="<%= t('attachments.cover_image.large') %>">
+        <div class="form-section" data-controller="cover-image-preview" data-cover-image-preview-max-size-value="<%= 5.megabytes %>" data-cover-image-preview-invalid-type-message-value="<%= t('errors.messages.content_type_invalid', authorized_human_content_types: 'PNG, JPG, GIF, WEBP') %>" data-cover-image-preview-invalid-size-message-value="<%= t('attachments.cover_image.large') %>">
           <div class="flex items-center mb-4">
             <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
-            <h2 class="text-lg font-bold text-slate-800">
-              <%= t('activerecord.attributes.posts.cover_image') %>
-            </h2>
+            <h2 class="text-lg font-bold text-slate-800"><%= t('activerecord.attributes.posts.cover_image') %></h2>
           </div>
           <% if f.object.cover_image.attached? && f.object.cover_image.persisted? %>
             <div class="mb-4 relative group">
-              <%= image_tag f.object.cover_image.representation(resize_to_limit: [800, 500], format: :webp).processed,
-                                                                                             loading: "lazy",
-                                                                                             alt: t('activerecord.attributes.posts.cover_image'),
-                                                                                             title: t('activerecord.attributes.posts.cover_image'),
-                                                                                             class: "w-full h-48 sm:h-64 lg:h-80 object-cover rounded-2xl shadow-lg border-2 border-slate-200" %>
+              <%= image_tag f.object.cover_image.representation(resize_to_limit: [800, 500], format: :webp).processed, loading: "lazy", alt: t('activerecord.attributes.posts.cover_image'), title: t('activerecord.attributes.posts.cover_image'), class: "w-full h-48 sm:h-64 lg:h-80 object-cover rounded-2xl shadow-lg border-2 border-slate-200" %>
               <div class="absolute top-4 right-4">
-                <%= link_to rails_blob_path(f.object.cover_image, disposition: "attachment"),
-                    data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_image') },
-                    class: "inline-flex items-center px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg shadow-lg transition-all duration-200" do %>
-                  <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                  </svg>
+                <%= link_to rails_blob_path(f.object.cover_image, disposition: "attachment"), data: { turbo_method: :delete, turbo_confirm: t('confirm_remove_image') }, class: "inline-flex items-center px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg shadow-lg transition-all duration-200" do %>
+                  <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                   <%= t('buttons.remove_image') %>
                 <% end %>
               </div>
             </div>
           <% end %>
           <label class="relative flex flex-col items-center justify-center w-full min-h-[160px] px-4 py-6 border-2 border-dashed border-slate-300 rounded-2xl cursor-pointer hover:border-emerald-400 hover:bg-emerald-50 transition-all duration-300 group">
-            <%= f.file_field :cover_image,
-                class: "hidden",
-                accept: "image/png,image/jpeg,image/gif,image/webp",
-                data: {
-                  action: "change->cover-image-preview#selectFile",
-                  cover_image_preview_target: "input"
-                } %>
+            <%= f.file_field :cover_image, class: "hidden", accept: "image/png,image/jpeg,image/gif,image/webp", data: { action: "change->cover-image-preview#selectFile", cover_image_preview_target: "input" } %>
             <div class="text-center">
-              <svg class="w-12 h-12 mx-auto text-slate-400 group-hover:text-emerald-500 transition-colors duration-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-              </svg>
-              <p class="text-sm font-semibold text-slate-600 group-hover:text-emerald-600 transition-colors duration-300 mb-1">
-                <%= t('buttons.click_to_upload') %>
-              </p>
-              <p class="text-xs text-slate-500">
-                <%= t('buttons.image_formats') %>
-              </p>
+              <svg class="w-12 h-12 mx-auto text-slate-400 group-hover:text-emerald-500 transition-colors duration-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+              <p class="text-sm font-semibold text-slate-600 group-hover:text-emerald-600 transition-colors duration-300 mb-1"><%= t('buttons.click_to_upload') %></p>
+              <p class="text-xs text-slate-500"><%= t('buttons.image_formats') %></p>
             </div>
           </label>
           <p class="mt-3 hidden text-sm text-red-600 font-medium" data-cover-image-preview-target="error"></p>
           <p class="mt-3 hidden text-sm text-slate-600" data-cover-image-preview-target="size"></p>
           <div class="mt-4 hidden" data-cover-image-preview-target="previewWrapper">
-            <img alt="Cover preview"
-                 class="w-full h-48 sm:h-64 object-cover rounded-2xl border border-slate-200 shadow-sm"
-                 data-cover-image-preview-target="previewImage">
+            <img alt="Cover preview" class="w-full h-48 sm:h-64 object-cover rounded-2xl border border-slate-200 shadow-sm" data-cover-image-preview-target="previewImage">
           </div>
         </div>
-        <!-- Title Section -->
         <div class="form-section" style="display: flex; flex-direction: column; gap: 0.9rem;">
           <div class="flex items-center" style="margin-bottom: 0.35rem;">
-            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
-            </svg>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-              <%= t('activerecord.attributes.posts.title') %>
-            </h2>
+            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight"><%= t('activerecord.attributes.posts.title') %></h2>
           </div>
-          <%= f.input_field :title,
-              required: true,
-              class: "post-title-input w-full px-5 py-4 text-lg sm:text-2xl font-semibold border-2 border-slate-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-slate-50 hover:border-emerald-300 placeholder-slate-400",
-              style: "margin-top: 0.4rem;",
-              placeholder: t('activerecord.attributes.posts.title_placeholder') %>
+          <%= f.input_field :title, required: true, class: "post-title-input w-full px-5 py-4 text-lg sm:text-2xl font-semibold border-2 border-slate-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 bg-slate-50 hover:border-emerald-300 placeholder-slate-400", style: "margin-top: 0.4rem;", placeholder: t('activerecord.attributes.posts.title_placeholder') %>
         </div>
-        <!-- Categories Section -->
         <div class="form-section mt-4">
           <div class="flex items-center mb-4">
-            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-            </svg>
-            <h2 class="text-lg font-bold text-slate-800">
-              <%= t('activerecord.attributes.posts.categories') %>
-            </h2>
+            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+            <h2 class="text-lg font-bold text-slate-800"><%= t('activerecord.attributes.posts.categories') %></h2>
           </div>
           <div class="bg-gradient-to-br from-slate-50 to-emerald-50 rounded-2xl p-5 border border-slate-200 shadow-sm">
             <div style="display: flex; flex-direction: column; gap: 1rem;">
-              <p class="text-xs sm:text-sm text-slate-600" style="margin-bottom: 0.25rem;">
-                <%= t('activerecord.attributes.posts.categories_hint') %>
-              </p>
+              <p class="text-xs sm:text-sm text-slate-600" style="margin-bottom: 0.25rem;"><%= t('activerecord.attributes.posts.categories_hint') %></p>
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style="column-gap: 0.75rem; row-gap: 1rem;">
               <%= f.collection_check_boxes :category_ids, Category.all.order(:name), :id, :name do |b| %>
                 <label class="flex items-center space-x-3 p-3.5 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200 cursor-pointer group border border-transparent hover:border-emerald-200">
                   <%= b.check_box(class: "w-5 h-5 text-emerald-600 border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 transition-all duration-200 cursor-pointer") %>
-                  <span class="text-sm font-medium text-slate-800 group-hover:text-emerald-700 transition-colors duration-200">
-                    <%= b.text %>
-                  </span>
+                  <span class="text-sm font-medium text-slate-800 group-hover:text-emerald-700 transition-colors duration-200"><%= b.text %></span>
                 </label>
               <% end %>
               </div>
             </div>
           </div>
         </div>
-        <!-- Body/Content Section -->
         <div class="form-section">
           <div class="flex items-center mb-3">
-            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
-            <h2 class="text-lg font-bold text-slate-800">
-              <%= t('activerecord.attributes.posts.body') %>
-            </h2>
+            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <h2 class="text-lg font-bold text-slate-800"><%= t('activerecord.attributes.posts.body') %></h2>
           </div>
-          <div class="rich-text-wrapper border-2 border-slate-300 rounded-xl overflow-hidden hover:border-emerald-400 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500 transition-all duration-200">
-            <trix-toolbar id="post-body-toolbar">
-              <div class="trix-button-row">
-                <span class="trix-button-group trix-button-group--text-tools">
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-bold" data-trix-attribute="bold" title="<%= t('post.editor.toolbar.bold') %>" tabindex="-1"><%= t('post.editor.toolbar.bold') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-italic" data-trix-attribute="italic" title="<%= t('post.editor.toolbar.italic') %>" tabindex="-1"><%= t('post.editor.toolbar.italic') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-strike" data-trix-attribute="strike" title="<%= t('post.editor.toolbar.strike') %>" tabindex="-1"><%= t('post.editor.toolbar.strike') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-link" data-trix-attribute="href" data-trix-action="link" title="<%= t('post.editor.toolbar.link') %>" tabindex="-1"><%= t('post.editor.toolbar.link') %></button>
-                </span>
-                <span class="trix-button-group trix-button-group--block-tools">
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-attribute="heading1" title="<%= t('post.editor.toolbar.heading') %>" tabindex="-1"><%= t('post.editor.toolbar.heading') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-quote" data-trix-attribute="quote" title="<%= t('post.editor.toolbar.quote') %>" tabindex="-1"><%= t('post.editor.toolbar.quote') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-code" data-trix-attribute="code" title="<%= t('post.editor.toolbar.code') %>" tabindex="-1"><%= t('post.editor.toolbar.code') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-bullet-list" data-trix-attribute="bullet" title="<%= t('post.editor.toolbar.bullet_list') %>" tabindex="-1"><%= t('post.editor.toolbar.bullet_list') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-number-list" data-trix-attribute="number" title="<%= t('post.editor.toolbar.number_list') %>" tabindex="-1"><%= t('post.editor.toolbar.number_list') %></button>
-                </span>
-                <span class="trix-button-group trix-button-group--file-tools">
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-attach" data-trix-action="attachFiles" title="<%= t('post.editor.toolbar.attach') %>" tabindex="-1"><%= t('post.editor.toolbar.attach') %></button>
-                </span>
-                <span class="trix-button-group trix-button-group--history-tools">
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-undo" data-trix-action="undo" title="<%= t('post.editor.toolbar.undo') %>" tabindex="-1"><%= t('post.editor.toolbar.undo') %></button>
-                  <button type="button" class="trix-button trix-button--icon trix-button--icon-redo" data-trix-action="redo" title="<%= t('post.editor.toolbar.redo') %>" tabindex="-1"><%= t('post.editor.toolbar.redo') %></button>
-                </span>
+          <div data-controller="tiptap" onclick="document.querySelector('.ProseMirror').focus()" class="border-2 border-slate-300 rounded-xl focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500 transition-all duration-200 bg-white relative prose-sm">
+            <%= f.hidden_field :body_html, data: { tiptap_target: "input" }, id: "post_body_hidden" %>
+            <div class="sticky top-16 z-40 flex items-center flex-wrap gap-1 p-2 border-b border-slate-200 bg-slate-50/95 backdrop-blur-sm rounded-t-xl shadow-sm">
+              <button type="button" data-action="click->tiptap#toggleBold" data-tiptap-target="boldBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.bold') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z"/><path d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#toggleItalic" data-tiptap-target="italicBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.italic') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 4h-9M14 20H5M15 4L9 20"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#toggleUnderline" data-tiptap-target="underlineBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.underline') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a6 6 0 006 6 6 6 0 006-6V3M4 21h16"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#toggleStrike" data-tiptap-target="strikeBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.strike') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M16 6a4 4 0 00-8 0 4 4 0 001.5 3.5c1.5 1 3.5 1 5 2.5A4 4 0 0110 18"/></svg>
+              </button>
+              <div class="w-px h-6 bg-slate-300 mx-1"></div>
+              <button type="button" data-action="click->tiptap#toggleH2" data-tiptap-target="h2Btn" class="p-2 rounded hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-colors" title="<%= t('post.editor.toolbar.h2') %>">H2</button>
+              <button type="button" data-action="click->tiptap#toggleH3" data-tiptap-target="h3Btn" class="p-2 rounded hover:bg-slate-200 text-slate-700 font-semibold flex items-center justify-center transition-colors" title="<%= t('post.editor.toolbar.h3') %>">H3</button>
+              <button type="button" data-action="click->tiptap#toggleCodeBlock" data-tiptap-target="codeBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.code') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#setLink" data-tiptap-target="linkBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.link') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              </button>
+              <div class="w-px h-6 bg-slate-300 mx-1"></div>
+              <button type="button" data-action="click->tiptap#alignLeft" data-tiptap-target="alignLeftBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.align_left') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#alignCenter" data-tiptap-target="alignCenterBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.align_center') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M7 12h10M4 18h16"/></svg>
+              </button>
+              <div class="w-px h-6 bg-slate-300 mx-1"></div>
+              <button type="button" data-action="click->tiptap#toggleBulletList" data-tiptap-target="bulletListBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.bullet_list') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11M5 6v.01M5 12v.01M5 18v.01"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#toggleOrderedList" data-tiptap-target="orderedListBtn" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.ordered_list') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6h10M10 12h10M10 18h10M4 6h1v4M4 10h2M4 14h1.5v1.5L4 17h2M4 21h2v-2h-2"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#liftList" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.outdent') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 6h9M11 12h9M11 18h9M7 8l-4 4 4 4"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#sinkList" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.indent') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 6h7M13 12h7M13 18h7M3 8l4 4-4 4"/></svg>
+              </button>
+              <div class="w-px h-6 bg-slate-300 mx-1"></div>
+              <button type="button" data-action="click->tiptap#insertTable" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.table') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM3 9h18M9 3v18M15 3v18"/></svg>
+              </button>
+              <button type="button" data-action="click->tiptap#insertImage" class="p-2 rounded hover:bg-slate-200 text-slate-700 transition-colors" title="<%= t('post.editor.toolbar.image') %>">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </button>
+              <div class="flex items-center ml-1 border border-slate-300 rounded p-0.5 hover:border-emerald-400 transition-colors" title="<%= t('post.editor.toolbar.color') %>">
+                <input type="color" data-action="input->tiptap#setColor" class="w-6 h-6 p-0 border-0 rounded cursor-pointer bg-transparent">
               </div>
-              <div class="trix-dialogs" data-trix-dialogs>
-                <div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">
-                  <div class="trix-dialog__link-fields">
-                    <input type="url" name="href" class="trix-input trix-input--dialog" placeholder="<%= t('post.editor.link.placeholder') %>" aria-label="<%= t('post.editor.link.label') %>" required data-trix-input>
-                    <div class="trix-button-group">
-                      <input type="button" class="trix-button trix-button--dialog" value="<%= t('post.editor.link.apply') %>" data-trix-method="setAttribute">
-                      <input type="button" class="trix-button trix-button--dialog" value="<%= t('post.editor.link.remove') %>" data-trix-method="removeAttribute">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </trix-toolbar>
-            <%= f.rich_text_area :body,
-                toolbar: "post-body-toolbar",
-                class: "w-full min-h-[300px] px-4 py-3 focus:outline-none",
-                placeholder: t('activerecord.attributes.posts.body_placeholder') %>
+            </div>
+            <div data-tiptap-target="editor" class="w-full h-full p-6 prose max-w-none focus:outline-none rounded-b-xl"></div>
           </div>
-          <p class="mt-2 text-xs text-slate-500 flex items-center">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <%= t('activerecord.attributes.posts.body_hint') %>
-          </p>
-          <p class="mt-1 text-xs text-slate-500">
-            <%= t('activerecord.attributes.posts.attachments_hint') %>
-          </p>
         </div>
         <div class="form-section mt-4">
           <div class="flex items-center mb-3">
-            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <h2 class="text-lg font-bold text-slate-800">
-              <%= t('activerecord.attributes.posts.status') %>
-            </h2>
+            <svg class="w-5 h-5 text-emerald-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <h2 class="text-lg font-bold text-slate-800"><%= t('activerecord.attributes.posts.status') %></h2>
           </div>
-          
           <div class="max-w-sm bg-slate-50 rounded-2xl p-2 border border-slate-200 shadow-sm">
-            <%= f.input :status,
-                collection: Post.statuses.keys.map { |s| [t("activerecord.attributes.posts.statuses.#{s}", default: s.humanize), s] },
-                include_blank: false,
-                label: false,
-                input_html: { class: "w-full px-4 py-3 text-slate-800 font-medium border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-white cursor-pointer" } %>
+            <%= f.input :status, collection: Post.statuses.keys.map { |s| [t("activerecord.attributes.posts.statuses.#{s}", default: s.humanize), s] }, include_blank: false, label: false, input_html: { class: "w-full px-4 py-3 text-slate-800 font-medium border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-white cursor-pointer" } %>
           </div>
-          <p class="mt-2 text-xs text-slate-500">
-            <%= t('activerecord.attributes.posts.status_hint') %>
-          </p>
+          <p class="mt-2 text-xs text-slate-500"><%= t('activerecord.attributes.posts.status_hint') %></p>
         </div>
       </div>
-      <!-- Action Buttons -->
       <div class="mt-10 pt-8 border-t-2 border-slate-200">
         <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
-          <!-- Back Button -->
           <div class="order-2 sm:order-1 flex-1">
-            <%= link_to :back,
-                title: t('activerecord.attributes.posts.back'),
-                class: "w-full inline-flex items-center justify-center px-6 py-3.5 border-2 border-slate-300 text-slate-800 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300",
-                style: "width: 100%; min-height: 52px;" do %>
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-              </svg>
-              <span><%= t('activerecord.attributes.posts.back',) %></span>
+            <%= link_to :back, title: t('activerecord.attributes.posts.back'), class: "w-full inline-flex items-center justify-center px-6 py-3.5 border-2 border-slate-300 text-slate-800 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300", style: "width: 100%; min-height: 52px;" do %>
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+              <span><%= t('activerecord.attributes.posts.back') %></span>
             <% end %>
           </div>
-          <!-- Save Button -->
           <div class="order-1 sm:order-2 flex-1">
-            <%= f.submit t('activerecord.attributes.posts.save'),
-                title: t('activerecord.attributes.posts.save'),
-                class: "post-submit-button w-full inline-flex items-center justify-center px-6 py-3.5 border-2 border-emerald-600 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 hover:border-emerald-700 transition-all duration-300 cursor-pointer",
-                style: "width: 100%; min-height: 52px; background-color: #059669; color: #ffffff; border: 2px solid #047857;" %>
+            <%= f.submit t('activerecord.attributes.posts.save'), title: t('activerecord.attributes.posts.save'), class: "post-submit-button w-full inline-flex items-center justify-center px-6 py-3.5 border-2 border-emerald-600 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 hover:border-emerald-700 transition-all duration-300 cursor-pointer", style: "width: 100%; min-height: 52px; background-color: #059669; color: #ffffff; border: 2px solid #047857;" %>
           </div>
         </div>
       </div>

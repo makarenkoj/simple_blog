@@ -7,9 +7,9 @@ module Avo
       def fields
         field :id, as: :id
         field :title, as: :text, required: true
-        field :body, as: :trix, always_show: true
-        field :user_id, as: :number
         field :cover_image, as: :file, is_image: true
+        field :body_html, as: :code, language: 'xml', always_show: true
+        field :user_id, as: :number
         field :user, as: :belongs_to, searchable: true
         field :status, as: :select, enum: ::Post.statuses
         field :views_count, as: :number

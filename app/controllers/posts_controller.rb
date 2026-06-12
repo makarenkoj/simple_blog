@@ -53,7 +53,7 @@ class PostsController < ApplicationController
   end
 
   def library
-    scope = current_user.bookmarked_posts.published.includes(:user, :rich_text_body).order('bookmarks.created_at DESC')
+    scope = current_user.bookmarked_posts.published.includes(:user).order('bookmarks.created_at DESC')
     @pagy, @posts = pagy(scope, limit: 5)
 
     respond_to do |format|
@@ -84,12 +84,12 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :status, :cover_image, category_ids: [])
+    params.require(:post).permit(:title, :body_html, :status, :cover_image, category_ids: [])
   end
 
   def prepare_meta_tags
     cover_url = @post.cover_image.attached? ? url_for(@post.cover_image) : nil
-    plain_description = @post.body.to_plain_text.truncate(160)
+    plain_description = view_context.strip_tags(@post.body_html.to_s).truncate(160)
 
     set_meta_tags title: @post.title,
                   description: plain_description,

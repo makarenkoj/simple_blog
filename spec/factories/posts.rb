@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :post do
     association :user
     title { Faker::Book.title }
-    body { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
+    body_html { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
 
     trait :with_image do
       after(:build) do |post|

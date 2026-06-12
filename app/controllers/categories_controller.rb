@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show]
 
   def show
-    query = @category.posts.published.includes(:user, :rich_text_body, :categories).with_attached_cover_image
+    query = @category.posts.published.includes(:user, :categories).with_attached_cover_image
     query = query.joins(:categories).where(categories: { id: params[:category_ids] }).distinct if params[:category_ids].present?
     @pagy, @posts = pagy(query.order(created_at: :desc), limit: 5)
 
