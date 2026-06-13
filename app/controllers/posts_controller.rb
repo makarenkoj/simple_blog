@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   before_action :set_filter_categories, only: %i[index library]
 
   def index
-    @posts_scope = Post.published.includes(:user, :categories).with_attached_cover_image.order(created_at: :desc)
+    @posts_scope = Post.published.includes(:categories, user: { avatar_attachment: :blob }, cover_image_attachment: :blob).order(created_at: :desc)
     @posts_scope = @posts_scope.joins(:categories).where(categories: { id: params[:category_ids] }).distinct if params[:category_ids].present?
     @pagy, @posts = pagy(@posts_scope, limit: 5)
 
@@ -53,7 +53,7 @@ class PostsController < ApplicationController
   end
 
   def library
-    scope = current_user.bookmarked_posts.published.includes(:user).order('bookmarks.created_at DESC')
+    scope = current_user.bookmarked_posts.published.includes(:categories, user: { avatar_attachment: :blob }, cover_image_attachment: :blob).order('bookmarks.created_at DESC')
     @pagy, @posts = pagy(scope, limit: 5)
 
     respond_to do |format|
