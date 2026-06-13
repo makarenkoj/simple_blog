@@ -23,7 +23,7 @@ class SearchService
     return [] unless search_scope?(:posts)
 
     visible_posts.where('posts.title ILIKE :query OR posts.body_html ILIKE :query', query: "%#{sanitized_query}%")
-                 .includes(:user, :categories, cover_image_attachment: :blob)
+                 .includes(:categories, user: { avatar_attachment: :blob }, cover_image_attachment: :blob)
                  .order(created_at: :desc)
                  .limit(limit)
   end

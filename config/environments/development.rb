@@ -1,4 +1,16 @@
 Rails.application.configure do
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.alert         = true
+    Bullet.bullet_logger = true
+    Bullet.console       = true
+    Bullet.rails_logger  = true
+    Bullet.add_footer    = true
+    Bullet.add_safelist type: :unused_eager_loading, class_name: 'ActiveStorage::Attachment', association: :blob
+    Bullet.add_safelist type: :unused_eager_loading, class_name: 'ActiveStorage::VariantRecord', association: :image_attachment
+    Bullet.add_safelist type: :unused_eager_loading, class_name: 'ActiveStorage::Blob', association: :preview_image_attachment
+  end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

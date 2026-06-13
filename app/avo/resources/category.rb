@@ -1,8 +1,7 @@
 module Avo
   module Resources
     class Category < Avo::BaseResource
-      # self.includes = []
-      # self.attachments = []
+      self.includes = [{ cover_image_attachment: :blob }]
       self.search = {
         query: -> { query.ransack(id_eq: params[:q], name_cont: params[:q], m: 'or').result(distinct: false) }
       }
