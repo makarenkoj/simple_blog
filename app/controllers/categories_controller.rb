@@ -14,7 +14,11 @@ class CategoriesController < ApplicationController
   end
 
   def index
-    @categories = Category.includes(:posts).order(:name)
+    @categories = Category.select('categories.*')
+                          .select('(SELECT COUNT(*) FROM categorizations WHERE categorizations.category_id = categories.id) AS virtual_posts_count')
+                          .select('(SELECT COUNT(*) FROM category_preferences WHERE category_preferences.category_id = categories.id) AS virtual_followers_count')
+                          .includes(cover_image_attachment: :blob)
+                          .order(:name)
   end
 
   private
