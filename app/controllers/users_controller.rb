@@ -4,8 +4,11 @@ class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:update_fcm_token]
 
   def show
-    @user = User.friendly.find(params[:id])
-    @posts = @user == current_user ? @user.posts.order(created_at: :desc) : @user.posts.published.order(created_at: :desc)
+    @user = User.friendly.includes(avatar_attachment: :blob).find(params[:id])
+
+    posts_scope = @user.posts.includes(:categories, cover_image_attachment: :blob)
+
+    @posts = @user == current_user ? posts_scope.order(created_at: :desc) : posts_scope.published.order(created_at: :desc)
   end
 
   def edit; end

@@ -76,7 +76,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.friendly.find(params[:id])
+    @post = Post.friendly.includes(:categories, user: { avatar_attachment: :blob }, cover_image_attachment: :blob).find(params[:id])
 
     return unless @post && !@post.published? && !current_user_can_edit?(@post)
 
@@ -103,7 +103,7 @@ class PostsController < ApplicationController
   def fetch_more_from_author
     return [] unless @post.user
 
-    @post.user.posts.published.where.not(id: @post.id).order('RANDOM()').limit(3)
+    @post.user.posts.published.where.not(id: @post.id).with_attached_cover_image.order('RANDOM()').limit(3)
   end
 
   def set_filter_categories

@@ -7,7 +7,6 @@ export default class extends Controller {
   popperInstance = null;
 
   connect() {
-    console.log("Dropdown Stimulus controller connected!");
     this.initializePopper();
   }
 
