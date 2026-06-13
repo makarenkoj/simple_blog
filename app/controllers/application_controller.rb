@@ -47,6 +47,7 @@ class ApplicationController < ActionController::Base
 
     @creators = scope.group('users.id')
                      .select('users.*, COUNT(follows.id) AS followers_count')
+                     .includes(avatar_attachment: :blob)
                      .order('COUNT(follows.id) DESC')
                      .limit(5)
   end

@@ -1,6 +1,7 @@
 module Avo
   module Resources
     class User < Avo::BaseResource
+      self.includes = [{ avatar_attachment: :blob }]
       self.title = :username
       self.search = {
         query: -> { query.ransack(id_eq: params[:q], username_cont: params[:q], email_cont: params[:q], m: 'or').result(distinct: false) }

@@ -1,6 +1,7 @@
 module Avo
   module Resources
     class Post < Avo::BaseResource
+      self.includes = [:user, { cover_image_attachment: :blob }]
       self.title = :title
       self.search = { query: -> { query.ransack(id_eq: params[:q], title_cont: params[:q], m: 'or').result(distinct: false) } }
 

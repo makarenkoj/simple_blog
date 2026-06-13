@@ -58,11 +58,11 @@
               <div class="flex items-center space-x-4 text-slate-300 text-sm font-medium">
                 <div class="flex items-center space-x-1.5" title="<%= t('activerecord.attributes.posts.index.posts') %>">
                   <i class='bx bx-file text-lg'></i>
-                  <span><%= category.posts.count %></span>
+                  <span><%= category.virtual_posts_count %></span>
                 </div>
                 <div class="flex items-center space-x-1.5" title="<%= t('followers') %>">
                   <i class='bx bx-user text-lg'></i>
-                  <span><%= category.category_preferences.count %></span>
+                  <span><%= category.virtual_followers_count %></span>
                 </div>
               </div>
               <% unless user_signed_in? %>

@@ -44,6 +44,8 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development do
+  gem 'bullet', '~> 8.1'
+  gem 'rack-mini-profiler', '~> 4.0'
   gem 'web-console'
 end
 

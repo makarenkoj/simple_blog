@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show]
 
   def show
-    query = @category.posts.published.includes(:user, :categories).with_attached_cover_image
+    query = @category.posts.published.includes(:categories, user: { avatar_attachment: :blob }, cover_image_attachment: :blob).order(created_at: :desc)
     query = query.joins(:categories).where(categories: { id: params[:category_ids] }).distinct if params[:category_ids].present?
     @pagy, @posts = pagy(query.order(created_at: :desc), limit: 5)
 
@@ -14,7 +14,11 @@ class CategoriesController < ApplicationController
   end
 
   def index
-    @categories = Category.includes(:posts).order(:name)
+    @categories = Category.select('categories.*')
+                          .select('(SELECT COUNT(*) FROM categorizations WHERE categorizations.category_id = categories.id) AS virtual_posts_count')
+                          .select('(SELECT COUNT(*) FROM category_preferences WHERE category_preferences.category_id = categories.id) AS virtual_followers_count')
+                          .includes(cover_image_attachment: :blob)
+                          .order(:name)
   end
 
   private
