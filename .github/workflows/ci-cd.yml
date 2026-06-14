@@ -122,7 +122,7 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           file: ./coverage/coverage.json
-          fail_ci_if_error: falseAdobe Firefly
+          fail_ci_if_error: false
 
   deploy:
     name: Deploy to Production
@@ -171,6 +171,8 @@ jobs:
           Host *
             StrictHostKeyChecking no
             UserKnownHostsFile /dev/null
+            ServerAliveInterval 60
+            ServerAliveCountMax 120
           EOF
           chmod 400 ~/.ssh/config
 

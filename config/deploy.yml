@@ -24,9 +24,6 @@ registry:
 
 ssh:
   user: deploy
-  keepalive: true
-  keepalive_interval: 60
-  keepalive_maxcount: 120
 
 builder:
   arch: amd64
