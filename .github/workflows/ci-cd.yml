@@ -171,8 +171,9 @@ jobs:
           Host *
             StrictHostKeyChecking no
             UserKnownHostsFile /dev/null
-            ServerAliveInterval 60
+            ServerAliveInterval 30
             ServerAliveCountMax 120
+            TCPKeepAlive yes
           EOF
           chmod 400 ~/.ssh/config
 
