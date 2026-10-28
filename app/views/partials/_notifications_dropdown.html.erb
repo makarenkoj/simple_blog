@@ -17,7 +17,7 @@
       <% end %>
     </div>
     <ul class="max-h-96 overflow-y-auto custom-scrollbar">
-      <% recent_notifications = user.notifications.recent.limit(5) %>
+      <% recent_notifications = user.notifications.recent.includes(:notifiable, actor: { avatar_attachment: { blob: { variant_records: { image_attachment: :blob } } } }).limit(5) %>
       <% if recent_notifications.any? %>
         <% recent_notifications.each do |notification| %>
           <li>

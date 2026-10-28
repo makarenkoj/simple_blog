@@ -18,13 +18,6 @@ RSpec.describe 'Categories', type: :request do
       sign_in current_user
     end
 
-    def queries_during(&)
-      sql = []
-      callback = ->(*, payload) { sql << payload[:sql] unless payload[:name] == 'SCHEMA' }
-      ActiveSupport::Notifications.subscribed(callback, 'sql.active_record', &)
-      sql
-    end
-
     it 'does not run per-category queries for variants or follow state' do
       sql = queries_during { get categories_path }
 
@@ -38,5 +31,31 @@ RSpec.describe 'Categories', type: :request do
 
       expect(response.body.scan('name="_method" value="delete"').size).to eq(1)
     end
+  end
+
+  describe 'GET /categories/:id (Show)' do
+    let(:category) { create(:category, name: 'productivity') }
+
+    before do
+      create_list(:user, 3, :creator).each do |creator|
+        creator.avatar.attach(io: file_fixture('valid_image.jpg').open, filename: 'avatar.jpg', content_type: 'image/jpeg')
+        variation = creator.avatar.variant(resize_to_fill: [80, 80], format: :webp).variation
+        creator.avatar.blob.variant_records.create!(variation_digest: variation.digest)
+      end
+    end
+
+    it 'does not run per-creator queries for avatar variants' do
+      sql = queries_during { get category_path(category) }
+
+      expect(response).to have_http_status(:success)
+      expect(sql.grep(/FROM "active_storage_variant_records" WHERE/).size).to eq(1)
+    end
+  end
+
+  def queries_during(&)
+    sql = []
+    callback = ->(*, payload) { sql << payload[:sql] unless payload[:name] == 'SCHEMA' }
+    ActiveSupport::Notifications.subscribed(callback, 'sql.active_record', &)
+    sql
   end
 end
