@@ -12,8 +12,11 @@ RUN apt-get update -qq && \
 RUN mkdir /myapp
 WORKDIR /myapp
 
+# Production image doesn't need the development/test gems (rspec, selenium, rubocop, ...)
+ENV BUNDLE_WITHOUT=development:test
+
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle check || bundle install
+RUN gem install bundler && bundle check || bundle install --jobs 4
 
 COPY package.json yarn.lock ./
 RUN yarn install
