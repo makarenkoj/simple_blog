@@ -7,7 +7,7 @@ RSpec.describe 'Api::V1::Categories', type: :request do
     get 'Get a list of categories' do
       tags 'Categories'
       produces 'application/json'
-      security [bearerAuth: []]
+      security [{ bearerAuth: [] }]
 
       response '200', 'successfully returns a list of categories' do
         let(:Authorization) { "Bearer #{ApiTokenService.generate!(current_user)}" }
