@@ -36,9 +36,12 @@ module Categories
     private
 
     def set_category
-      @category = Category.find_by(name: params[:category_id])
-      return if @category
+      @category = Category.friendly.find(params[:category_id])
+    rescue ActiveRecord::RecordNotFound
+      render_category_not_found
+    end
 
+    def render_category_not_found
       message = t('activerecord.controllers.categories.not_found', default: 'Категорію не знайдено')
       respond_to do |format|
         format.html do

@@ -52,6 +52,37 @@ RSpec.describe 'Categories', type: :request do
     end
   end
 
+  describe 'category URLs' do
+    let!(:multi_word) { create(:category, name: 'Web Development') }
+    let!(:cyrillic) { create(:category, name: 'Подорожі') }
+
+    it 'builds readable slugs from the name' do
+      expect(category_path(multi_word)).to eq('/categories/web-development')
+      expect(category_path(cyrillic)).to eq('/categories/podorozhi')
+    end
+
+    it 'opens categories with multi-word and cyrillic names' do
+      [multi_word, cyrillic].each do |category|
+        get category_path(category)
+
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    it 'redirects back for an unknown category' do
+      get category_path('missing')
+
+      expect(response).to redirect_to(posts_path)
+    end
+
+    it 'lets a user follow a multi-word category' do
+      sign_in current_user
+
+      expect { post category_preference_path(multi_word) }
+        .to change { current_user.preferred_categories.reload.include?(multi_word) }.from(false).to(true)
+    end
+  end
+
   def queries_during(&)
     sql = []
     callback = ->(*, payload) { sql << payload[:sql] unless payload[:name] == 'SCHEMA' }

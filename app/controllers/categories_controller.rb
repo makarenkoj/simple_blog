@@ -25,8 +25,9 @@ class CategoriesController < ApplicationController
   private
 
   def set_category
-    @category = Category.find_by(name: params[:id])
-    redirect_back fallback_location: posts_path, alert: t('activerecord.controllers.categories.not_found') unless @category
+    @category = Category.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: posts_path, alert: t('activerecord.controllers.categories.not_found')
   end
 
   def set_filter_categories
