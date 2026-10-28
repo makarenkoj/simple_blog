@@ -9,11 +9,11 @@ min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
 threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# Puma picks the host itself: a dual-stack "::" (IPv4 + IPv6) when the machine has IPv6, and
+# "0.0.0.0" otherwise. Don't add separate 0.0.0.0 and [::] binds: Puma 8 rewrites a [::] bind to
+# 0.0.0.0 inside containers without IPv6, and the duplicate bind crashes on boot.
 #
-# port        ENV.fetch('PORT') { 3000 }
-
-bind "tcp://0.0.0.0:#{ENV.fetch('PORT', 3000)}"
-bind "tcp://[::]:#{ENV.fetch('PORT', 3000)}"
+port ENV.fetch('PORT', 3000)
 
 # Specifies the `environment` that Puma will run in.
 #
