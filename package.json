@@ -28,11 +28,9 @@
     "@tiptap/extension-underline": "^3.26.0",
     "@tiptap/pm": "^3.26.0",
     "@tiptap/starter-kit": "^3.26.0",
-    "@toast-ui/editor": "^3.2.2",
     "flag-icons": "^7.2.1",
     "highlight.js": "^11.9.0",
     "jquery": "^3.7.1",
-    "sass": "^1.89.2",
     "trix": "^2.1.15"
   },
   "version": "0.1.0",

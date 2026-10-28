@@ -34,8 +34,8 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
 
       click_button I18n.t('devise.passwords.edit.submit')
 
-      expect(page).to have_field('user_password')
       expect(page).to have_content(I18n.t('errors.messages.confirmation'))
+      expect(page).to have_field('user_password')
     end
   end
 

@@ -37,6 +37,8 @@ RSpec.describe 'User Edit Profile Form', type: :system do
 
       click_button I18n.t('simple_form.button.update')
 
+      expect(page).to have_content(I18n.t('devise.registrations.updated'))
+
       current_user.reload
       expect(current_user.first_name).to eq('Петро')
     end
@@ -71,8 +73,8 @@ RSpec.describe 'User Edit Profile Form', type: :system do
 
       click_button I18n.t('simple_form.button.update')
 
-      expect(page).to have_css('form.edit_user')
       expect(page).to have_content(I18n.t('errors.messages.blank'))
+      expect(page).to have_css('form.edit_user')
 
       current_user.reload
       expect(current_user.email).to eq('makarenkoj53@gmail.com')
@@ -84,8 +86,8 @@ RSpec.describe 'User Edit Profile Form', type: :system do
 
       click_button I18n.t('simple_form.button.update')
 
-      expect(page).to have_css('form.edit_user')
       expect(page).to have_content(I18n.t('errors.messages.blank'))
+      expect(page).to have_css('form.edit_user')
 
       current_user.reload
       expect(current_user.email).to eq('makarenkoj53@gmail.com')

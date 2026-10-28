@@ -63,7 +63,7 @@ RSpec.describe 'Api::V1::Posts', type: :request do
   path '/api/v1/posts' do
     post 'Create a new article' do
       tags 'Posts'
-      security [bearerAuth: []]
+      security [{ bearerAuth: [] }]
       consumes 'multipart/form-data'
       produces 'application/json'
 

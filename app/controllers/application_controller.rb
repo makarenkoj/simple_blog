@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_can_edit?
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :handle_expired_session
+  rescue_from Pagy::VariableError, with: :handle_invalid_page
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(
@@ -24,9 +25,9 @@ class ApplicationController < ActionController::Base
 
   def current_user_can_edit?(model)
     user_signed_in? && (
-    model.user == current_user ||
-        (model.try(:post).present? && model.post.user == current_user)
-  )
+      model.user == current_user ||
+          (model.try(:post).present? && model.post.user == current_user)
+    )
   end
 
   private
@@ -47,7 +48,7 @@ class ApplicationController < ActionController::Base
 
     @creators = scope.group('users.id')
                      .select('users.*, COUNT(follows.id) AS followers_count')
-                     .includes(avatar_attachment: :blob)
+                     .includes(avatar_attachment: { blob: { variant_records: { image_attachment: :blob } } })
                      .order('COUNT(follows.id) DESC')
                      .limit(5)
   end
@@ -70,6 +71,10 @@ class ApplicationController < ActionController::Base
 
   def handle_expired_session
     redirect_to new_user_session_path, alert: t('errors.session_expired')
+  end
+
+  def handle_invalid_page
+    redirect_to "#{request.path}?#{request.query_parameters.merge('page' => 1).to_query}"
   end
 
   def after_sign_out_path_for(_resource_or_scope)

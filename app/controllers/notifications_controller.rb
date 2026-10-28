@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   before_action :set_notification, only: %i[click mark_as_read destroy]
 
   def index
-    @notifications = current_user.notifications.recent.includes(:actor, :notifiable).page(params[:page]).per(20)
+    @notifications = current_user.notifications.recent.includes(:notifiable, actor: { avatar_attachment: { blob: { variant_records: { image_attachment: :blob } } } }).page(params[:page]).per(20)
 
     # current_user.notifications.unread.update_all(read: true)
   end

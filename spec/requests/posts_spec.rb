@@ -15,6 +15,12 @@ RSpec.describe 'Posts', type: :request do
       expect(response.body).to include(published_post.title)
       expect(response.body).not_to include(draft_post.title)
     end
+
+    it 'redirects to the first page when page param is invalid' do
+      get posts_path(page: "'><asdf alt=\"\">-f3f3")
+
+      expect(response).to redirect_to("#{posts_path}?page=1")
+    end
   end
 
   describe 'GET /posts/:id (Show)' do

@@ -17,15 +17,17 @@ class CategoriesController < ApplicationController
     @categories = Category.select('categories.*')
                           .select('(SELECT COUNT(*) FROM categorizations WHERE categorizations.category_id = categories.id) AS virtual_posts_count')
                           .select('(SELECT COUNT(*) FROM category_preferences WHERE category_preferences.category_id = categories.id) AS virtual_followers_count')
-                          .includes(cover_image_attachment: :blob)
+                          .includes(cover_image_attachment: { blob: { variant_records: { image_attachment: :blob } } })
                           .order(:name)
+    @followed_category_ids = user_signed_in? ? current_user.category_preferences.pluck(:category_id).to_set : Set.new
   end
 
   private
 
   def set_category
-    @category = Category.find_by(name: params[:id])
-    redirect_back fallback_location: posts_path, alert: t('activerecord.controllers.categories.not_found') unless @category
+    @category = Category.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: posts_path, alert: t('activerecord.controllers.categories.not_found')
   end
 
   def set_filter_categories
