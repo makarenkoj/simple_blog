@@ -36,8 +36,9 @@ RSpec.describe 'User Forgot Password Form (Request Instructions)', type: :system
       fill_in 'user_email', with: ''
       click_button I18n.t('devise.passwords.new.submit')
 
-      expect(page).to have_css('form#new_user')
+      # Wait for the reloaded page first; the old form is still in the DOM right after the click
       expect(page).to have_content(I18n.t('errors.messages.blank'))
+      expect(page).to have_css('form#new_user')
     end
   end
 
