@@ -138,9 +138,10 @@ RSpec.describe 'User Edit Profile Form', type: :system do
 
   describe 'Account deletion' do
     it 'allows the user to delete their account' do
-      accept_confirm do
-        click_button I18n.t('simple_form.labels.defaults.cancel')
-      end
+      # Find the button first so the modal wait only covers the click, and give the native
+      # confirm() more than the default 2s to show up on slow CI runners.
+      delete_button = find_button(I18n.t('simple_form.labels.defaults.cancel'))
+      accept_confirm(wait: 5) { delete_button.click }
 
       expect(page).to have_current_path(root_path)
       expect(page).to have_content(I18n.t('devise.registrations.destroyed'))

@@ -30,6 +30,11 @@ ssh:
 sshkit:
   pool_idle_timeout: 60
 
+# The app boots twice on start (db:migrate in entrypoint.sh, then the server), and the 1 vCPU
+# droplet is still busy right after building the image itself, so booting can take well over
+# the default 30s. Give the new container more time before kamal-proxy gives up on it.
+deploy_timeout: 120
+
 builder:
   arch: amd64
   local: false

@@ -117,6 +117,14 @@ jobs:
         run: |
           bundle exec rspec --format documentation --color
 
+      - name: Upload failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capybara-screenshots-${{ matrix.ruby }}
+          path: tmp/capybara/
+          if-no-files-found: ignore
+
       - name: Upload coverage to Codecov
         if: matrix.ruby == '3.4.3'
         uses: codecov/codecov-action@v4
