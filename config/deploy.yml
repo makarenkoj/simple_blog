@@ -25,6 +25,11 @@ registry:
 ssh:
   user: deploy
 
+# The remote image build can take 10+ minutes, during which pooled SSH connections sit idle
+# and get dropped by the server. Reconnect instead of reusing them (Kamal's default is 900s).
+sshkit:
+  pool_idle_timeout: 60
+
 builder:
   arch: amd64
   local: false
