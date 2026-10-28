@@ -17,6 +17,8 @@ gem 'image_processing', '~> 1.14'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'jsbundling-rails', '~> 1.3'
+# json 3.x drops the quirks_mode option that ActiveSupport 8.0 still passes
+gem 'json', '~> 2.19', '>= 2.19.9'
 gem 'kamal', require: false
 gem 'kaminari', '~> 1.2'
 gem 'meta-tags', '~> 2.22'
