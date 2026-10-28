@@ -1,0 +1,42 @@
+require 'rails_helper'
+
+RSpec.describe 'Categories', type: :request do
+  include_context 'base'
+
+  describe 'GET /categories (Index)' do
+    let!(:categories) do
+      create_list(:category, 3).each do |category|
+        category.cover_image.attach(io: file_fixture('valid_image.jpg').open, filename: 'cover.jpg', content_type: 'image/jpeg')
+        # Pretend the variant is already processed so the spec doesn't need libvips
+        variation = category.cover_image.variant(resize_to_fill: [400, 300], format: :webp).variation
+        category.cover_image.blob.variant_records.create!(variation_digest: variation.digest)
+      end
+    end
+
+    before do
+      current_user.preferred_categories << categories.first
+      sign_in current_user
+    end
+
+    def queries_during(&)
+      sql = []
+      callback = ->(*, payload) { sql << payload[:sql] unless payload[:name] == 'SCHEMA' }
+      ActiveSupport::Notifications.subscribed(callback, 'sql.active_record', &)
+      sql
+    end
+
+    it 'does not run per-category queries for variants or follow state' do
+      sql = queries_during { get categories_path }
+
+      expect(response).to have_http_status(:success)
+      expect(sql.grep(/FROM "active_storage_variant_records" WHERE/).size).to eq(1)
+      expect(sql.grep(/INNER JOIN "category_preferences"/)).to be_empty
+    end
+
+    it 'shows the followed state for each category' do
+      get categories_path
+
+      expect(response.body.scan('name="_method" value="delete"').size).to eq(1)
+    end
+  end
+end
