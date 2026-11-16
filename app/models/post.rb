@@ -12,6 +12,9 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liking_users, through: :likes, source: :user
   has_many :notifications, as: :notifiable, dependent: :destroy
+
+  # Everything a post card renders, variant records included (see User::AVATAR_WITH_VARIANTS).
+  scope :for_cards, -> { with_attached_cover_image.includes(:categories, user: User::AVATAR_WITH_VARIANTS) }
   has_many :post_views, dependent: :destroy
 
   has_rich_text :body
@@ -52,12 +55,7 @@ class Post < ApplicationRecord
   private
 
   def notify_followers
-    user.followers.find_each do |follower|
-      Notification.create(user: follower,
-                          actor: user,
-                          notifiable: self,
-                          action: 'new_post')
-    end
+    NotifyFollowersJob.perform_later(self)
   end
 
   def body_content_length

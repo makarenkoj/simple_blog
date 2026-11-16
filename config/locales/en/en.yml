@@ -44,6 +44,9 @@ en:
     cover_image:
       large: 'Cover is too large, over 5 megabytes!'
       dimension: 'Cover must be smaller than 2000x2000 pixels.'
+    editor_image:
+      type: 'Only PNG, JPEG, GIF or WebP images can be inserted.'
+      large: 'Image is too large, over 5 megabytes!'
   cookies:
     accept: 'Accept'
     privacy_policy: 'Privacy Policy'

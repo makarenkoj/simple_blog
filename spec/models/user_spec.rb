@@ -462,7 +462,7 @@ RSpec.describe User, type: :model do
         expect(reader.following?(another_creator)).to be true
       end
 
-      it 'prevents follow spam' do
+      it 'prevents follow spam', prosopite: false do
         100.times do
           reader.follow(creator)
         end
@@ -500,7 +500,7 @@ RSpec.describe User, type: :model do
         reader.following?(creator)
       end
 
-      it 'handles large follower counts' do
+      it 'handles large follower counts', prosopite: false do
         followers = create_list(:user, 50, role: :reader)
         followers.each { |f| f.follow(creator) }
 

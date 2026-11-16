@@ -25,6 +25,12 @@ module SimpleBlog
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
+    # kamal-proxy appends the real peer to X-Forwarded-For but passes a client's own
+    # Client-IP header through. remote_ip picks the right-most untrusted X-Forwarded-For
+    # entry, so a forged Client-IP cannot win; the spoofing check only turned bots'
+    # forged headers into 500s (Sentry IpSpoofAttackError).
+    config.action_dispatch.ip_spoofing_check = false
+
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_lib(ignore: %w[assets tasks])
 

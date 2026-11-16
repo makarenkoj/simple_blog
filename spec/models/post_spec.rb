@@ -275,45 +275,20 @@ RSpec.describe Post, type: :model do
   describe 'callbacks' do
     describe '#notify_followers' do
       let(:creator) { create(:user, :creator) }
-      let(:follower1) { create(:user, :reader) }
-      let(:follower2) { create(:user, :reader) }
 
-      before do
-        follower1.follow(creator)
-        follower2.follow(creator)
+      before { Follow.create!(follower: create(:user, :reader), following: creator) }
+
+      it 'hands the fan-out to a background job when a post is published' do
+        post = create(:post, user: creator, status: :draft)
+
+        expect { post.update(status: :published) }.to have_enqueued_job(NotifyFollowersJob).with(post)
+        expect(Notification.where(notifiable: post)).to be_empty
       end
 
-      it 'creates notifications for all followers after publish' do
-        post = create(:post, user: creator)
-        expect { post.update(status: :published) }.to change(Notification, :count).by(2)
-      end
+      it 'does not notify again when a published post is edited' do
+        post = create(:post, user: creator, status: :published)
 
-      it 'creates notifications with correct attributes' do
-        post = create(:post, user: creator)
-        post.update(status: :published)
-        notification = Notification.where(user: follower1,
-                                          actor: creator,
-                                          notifiable: post,
-                                          action: 'new_post').first
-
-        expect(notification).to be_present
-      end
-
-      it 'does not create notifications if user has no followers' do
-        lonely_creator = create(:user, :creator)
-
-        expect { create(:post, user: lonely_creator) }.not_to change(Notification, :count)
-      end
-
-      it 'handles large number of followers efficiently' do
-        100.times do
-          follower = create(:user, :reader)
-          follower.follow(creator)
-        end
-
-        post = create(:post, user: creator)
-
-        expect { post.update(status: :published) }.to change(Notification, :count).by(102)
+        expect { post.update(title: 'Edited title') }.not_to have_enqueued_job(NotifyFollowersJob)
       end
     end
   end
@@ -436,19 +411,6 @@ RSpec.describe Post, type: :model do
       post = build(:post, user: nil)
 
       expect(post).not_to be_valid
-    end
-  end
-
-  describe 'performance' do
-    it 'notifies many followers efficiently' do
-      creator = create(:user, :creator)
-      50.times { create(:user, :reader).follow(creator) }
-
-      time = Benchmark.realtime do
-        create(:post, user: creator)
-      end
-
-      expect(time).to be < 1.0
     end
   end
 end
