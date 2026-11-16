@@ -56,13 +56,20 @@ RSpec.describe SearchService do
     end
 
     context 'Search users' do
-      it 'finds users by name, last name, username or email' do
+      it 'finds users by name, last name or username' do
         aggregate_failures do
           expect(described_class.new(query: 'Yura').call[:users]).to include(current_user)
           expect(described_class.new(query: 'makarenkoj').call[:users]).to include(current_user)
           expect(described_class.new(query: 'Makarenko').call[:users]).to include(current_user)
-          expect(described_class.new(query: 'makarenkoj53@gmail.com').call[:users]).to include(current_user)
           expect(described_class.new(query: 'Jane').call[:users]).to include(other_user)
+        end
+      end
+
+      it 'does not reveal users by email, so accounts cannot be enumerated' do
+        aggregate_failures do
+          expect(described_class.new(query: current_user.email).call[:users]).to be_empty
+          expect(described_class.new(query: '@gmail.com').call[:users]).to be_empty
+          expect(described_class.new(query: '@example.com').call[:users]).to be_empty
         end
       end
     end
