@@ -161,7 +161,7 @@ export default class extends Controller {
   insertImage() {
     const input = document.createElement("input")
     input.type = "file"
-    input.accept = "image/*"
+    input.accept = "image/png,image/jpeg,image/gif,image/webp"
     input.click()
 
     input.onchange = async () => {
@@ -180,6 +180,10 @@ export default class extends Controller {
       })
 
       const data = await response.json()
+      if (!response.ok) {
+        alert(data.error)
+        return
+      }
 
       this.editor
         .chain()
