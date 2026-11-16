@@ -23,7 +23,7 @@ Bundler.require(*Rails.groups)
 module SimpleBlog
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 8.0
+    config.load_defaults 8.1
 
     # kamal-proxy appends the real peer to X-Forwarded-For but passes a client's own
     # Client-IP header through. remote_ip picks the right-most untrusted X-Forwarded-For
