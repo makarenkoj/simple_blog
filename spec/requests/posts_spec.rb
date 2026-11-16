@@ -32,6 +32,18 @@ RSpec.describe 'Posts', type: :request do
         expect(response.body).to include(published_post.title)
       end
 
+      # Sentry: IpSpoofAttackError when a client sends Client-IP that disagrees with
+      # the X-Forwarded-For kamal-proxy appends. The proxy's entry is the truth.
+      it 'serves the post and tracks the proxy-reported IP when Client-IP is forged' do
+        expect do
+          get post_path(published_post), headers: { 'HTTP_CLIENT_IP' => '1.131.208.254',
+                                                    'HTTP_X_FORWARDED_FOR' => '45.138.12.42, 172.18.0.2',
+                                                    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Linux x86_64) Firefox/140.0' }
+        end.to have_enqueued_job(TrackPostViewJob).with(published_post.id, nil, '45.138.12.42', anything)
+
+        expect(response).to have_http_status(:success)
+      end
+
       it 'calls the PostViewTracker service' do
         mock_tracker = instance_double(PostViewTracker)
 
@@ -138,6 +150,16 @@ RSpec.describe 'Posts', type: :request do
 
       expect(published_post.reload.title).to eq('Updated Title')
       expect(response).to redirect_to(post_path(published_post))
+    end
+
+    # Sentry: "No previewer found and can't transform blob ... image/svg+xml" and
+    # "svgload: operation is blocked" — a rejected SVG must re-render the form, not 500.
+    it 'rejects an SVG cover image and re-renders the form' do
+      sign_in current_user
+      patch post_path(published_post), params: { post: { cover_image: fixture_file_upload('image.svg', 'image/svg+xml') } }
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(published_post.reload.cover_image).not_to be_attached
     end
 
     it 'prevents other users from updating' do

@@ -48,7 +48,7 @@ class PostsController < ApplicationController
         end
       end
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
