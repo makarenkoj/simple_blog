@@ -28,7 +28,7 @@ gem 'pg'
 gem 'phlex-rails', '~> 1.2'
 gem 'propshaft'
 gem 'puma'
-gem 'rails', '~> 8.0.2'
+gem 'rails', '~> 8.1.4'
 gem 'ransack', '~> 4.4'
 gem 'rswag'
 gem 'ruby_ui', group: :development, require: false
