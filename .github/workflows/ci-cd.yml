@@ -30,10 +30,12 @@ jobs:
         run: |
           bundle exec rubocop --parallel --format progress
 
+      - name: Check gems for known vulnerabilities
+        run: bundle exec bundler-audit check --update
+
+      # Non-blocking until the Rails 8.1 upgrade: Brakeman flags Rails 8.0 as end-of-life.
       - name: Check for security issues
-        run: |
-          gem install brakeman
-          brakeman --no-pager
+        run: bundle exec brakeman --no-pager
         continue-on-error: true
 
   test:

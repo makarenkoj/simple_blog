@@ -66,6 +66,14 @@ group :development, :test do
   gem 'rubocop-rspec_rails', '~> 2.32'
   gem 'spring'
   gem 'spring-watcher-listen'
+
+  # Security gates: known-vulnerable gems and static analysis
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
+
+  # N+1 gate in specs: flags repeated SQL fingerprints (see spec/support/prosopite.rb)
+  gem 'pg_query', '~> 6.2'
+  gem 'prosopite', '~> 2.5'
 end
 
 group :test do
