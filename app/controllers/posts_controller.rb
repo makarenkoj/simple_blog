@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  include UploadedFilesOnly
+
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authorize_owner!, only: %i[edit update destroy]
@@ -84,7 +86,8 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body_html, :status, :cover_image, category_ids: [])
+    uploaded_files_only(params.require(:post).permit(:title, :body_html, :status, :cover_image, category_ids: []),
+                        :cover_image)
   end
 
   def prepare_meta_tags

@@ -1,6 +1,8 @@
 module Api
   module V1
     class PostsController < BaseController
+      include UploadedFilesOnly
+
       def create
         @post = current_user.posts.build(post_params)
 
@@ -35,7 +37,8 @@ module Api
       end
 
       def post_params
-        params.require(:post).permit(:title, :body_html, :status, :cover_image, category_ids: [])
+        uploaded_files_only(params.require(:post).permit(:title, :body_html, :status, :cover_image, category_ids: []),
+                            :cover_image)
       end
     end
   end

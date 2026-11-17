@@ -1,5 +1,7 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    include UploadedFilesOnly
+
     before_action :configure_permitted_parameters
 
     def create
@@ -16,9 +18,17 @@ module Users
 
     protected
 
+    def sign_up_params
+      uploaded_files_only(super, :avatar)
+    end
+
+    def account_update_params
+      uploaded_files_only(super, :avatar)
+    end
+
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :username, :role, :avatar, { preferred_category_ids: [] }])
-      devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :username, :role, :avatar, { preferred_category_ids: [] }])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :username, :avatar, { preferred_category_ids: [] }])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :username, :avatar, { preferred_category_ids: [] }])
     end
 
     def after_sign_up_path_for(_resource)

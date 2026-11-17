@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # Active Storage direct uploads are not used, and they let any client register a blob with
+  # a self-declared content type (SAM1-23). App routes match before the engine's, so this wins.
+  match '/rails/active_storage/direct_uploads', to: ->(_env) { [404, { 'content-type' => 'text/plain' }, ['Not Found']] },
+                                                via: :all
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   mount_avo
