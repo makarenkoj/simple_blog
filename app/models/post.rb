@@ -17,8 +17,6 @@ class Post < ApplicationRecord
   scope :for_cards, -> { with_attached_cover_image.includes(:categories, user: User::AVATAR_WITH_VARIANTS) }
   has_many :post_views, dependent: :destroy
 
-  has_rich_text :body
-
   has_one_attached :cover_image
 
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }

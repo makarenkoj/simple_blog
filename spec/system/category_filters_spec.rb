@@ -13,15 +13,15 @@ RSpec.describe 'Category Page', type: :system do
       driven_by(:selenium_chrome_headless)
       # driven_by(:selenium_chrome)
 
-      create(:post, title: 'Art meets Business', status: :published, body: 'Текст поста 1').tap do |post|
+      create(:post, title: 'Art meets Business', status: :published, body_html: 'Текст поста 1').tap do |post|
         post.categories << [art_category, business_category]
       end
 
-      create(:post, title: 'Pure Art Post', status: :published, body: 'Текст поста 2').tap do |post|
+      create(:post, title: 'Pure Art Post', status: :published, body_html: 'Текст поста 2').tap do |post|
         post.categories << art_category
       end
 
-      create(:post, title: 'Tech Only', status: :published, body: 'Текст поста 3').tap do |post|
+      create(:post, title: 'Tech Only', status: :published, body_html: 'Текст поста 3').tap do |post|
         post.categories << tech_category
       end
 

@@ -11,7 +11,6 @@ RSpec.describe Post, type: :model do
     it { is_expected.to have_many(:bookmarks).dependent(:destroy) }
     it { is_expected.to have_many(:likes).dependent(:destroy) }
     it { is_expected.to have_many(:liking_users).through(:likes).source(:user) }
-    it { is_expected.to have_rich_text(:body) }
     it { is_expected.to have_one_attached(:cover_image) }
     it { is_expected.to have_many(:post_views).dependent(:destroy) }
   end
@@ -251,7 +250,7 @@ RSpec.describe Post, type: :model do
 
     it 'returns false when title does not change' do
       post = create(:post)
-      post.body = 'New body content that is long enough'
+      post.body_html = '<p>New body content that is long enough</p>'
 
       expect(post.should_generate_new_friendly_id?).to be false
     end
@@ -383,13 +382,13 @@ RSpec.describe Post, type: :model do
     end
 
     it 'handles very short valid body' do
-      post = build(:post, body: 'A' * 10)
+      post = build(:post, body_html: 'A' * 10)
 
       expect(post).to be_valid
     end
 
     it 'handles very long body' do
-      post = build(:post, body: 'A' * 100_000)
+      post = build(:post, body_html: 'A' * 100_000)
 
       expect(post).to be_valid
     end
