@@ -1,4 +1,4 @@
-FROM ruby:3.4.3-slim
+FROM ruby:3.4.12-slim
 
 ENV TZ=UTC
 USER root

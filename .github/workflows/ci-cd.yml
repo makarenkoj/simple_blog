@@ -7,7 +7,7 @@ on:
     branches: [main, master]
 
 env:
-  RUBY_VERSION: 3.4.3
+  RUBY_VERSION: 3.4.12
   NODE_VERSION: 20
   REGISTRY: ghcr.io
   IMAGE_NAME: makarenkoj/simple_blog
@@ -43,7 +43,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['3.4.3']
+        ruby: ['3.4.12']
 
     services:
       postgres:
@@ -126,7 +126,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Upload coverage to Codecov
-        if: matrix.ruby == '3.4.3'
+        if: matrix.ruby == '3.4.12'
         uses: codecov/codecov-action@v4
         with:
           file: ./coverage/coverage.json
