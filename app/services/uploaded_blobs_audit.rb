@@ -2,31 +2,40 @@
 # anything that is not a web image, or is larger than the upload limit.
 # Until the editor endpoint was restricted it stored any file, unattached, and
 # the only trace of where it is used is its URL inside a post's HTML.
+#
+# A blob's stored type is only trustworthy when the server identified it from the
+# bytes (metadata "identified"). Blobs registered through direct uploads carry the
+# client's claim, so their content is read and judged instead (SAM1-23).
 class UploadedBlobsAudit
   Finding = Data.define(:blob, :reasons, :attachments, :posts)
 
   def call
-    suspicious_blobs.map do |blob|
-      Finding.new(blob: blob, reasons: reasons_for(blob),
-                  attachments: blob.attachments.to_a, posts: posts_embedding(blob))
+    ActiveStorage::Blob.includes(:attachments).order(:id).filter_map do |blob|
+      reasons = reasons_for(blob)
+      next if reasons.empty?
+
+      Finding.new(blob: blob, reasons: reasons, attachments: blob.attachments.to_a, posts: posts_embedding(blob))
     end
   end
 
   private
 
-  def suspicious_blobs
-    ActiveStorage::Blob.where.not(content_type: UploadsController::ALLOWED_TYPES)
-                       .or(ActiveStorage::Blob.where(content_type: nil))
-                       .or(ActiveStorage::Blob.where(byte_size: (UploadsController::MAX_SIZE + 1)..))
-                       .includes(:attachments)
-                       .order(:id)
-  end
-
   def reasons_for(blob)
     reasons = []
-    reasons << :type unless UploadsController::ALLOWED_TYPES.include?(blob.content_type)
+    reasons << :type unless web_image?(blob.content_type)
+    reasons.concat(content_reasons(blob)) if reasons.empty? && !blob.metadata['identified']
     reasons << :size if blob.byte_size > UploadsController::MAX_SIZE
     reasons
+  end
+
+  def content_reasons(blob)
+    web_image?(Marcel::MimeType.for(StringIO.new(blob.download))) ? [] : [:disguised]
+  rescue ActiveStorage::FileNotFoundError
+    [:missing_file]
+  end
+
+  def web_image?(content_type)
+    UploadsController::ALLOWED_TYPES.include?(content_type)
   end
 
   # Editor URLs carry the blob's signed id (redirect and proxy routes alike).
