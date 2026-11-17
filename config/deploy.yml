@@ -25,20 +25,23 @@ registry:
 ssh:
   user: deploy
 
-# The remote image build can take 10+ minutes, during which pooled SSH connections sit idle
-# and get dropped by the server. Reconnect instead of reusing them (Kamal's default is 900s).
+# Pooled SSH connections sit idle during long steps and get dropped by the server. Reconnect
+# instead of reusing them (Kamal's default is 900s).
 sshkit:
   pool_idle_timeout: 60
 
-# The app boots twice on start (db:migrate in entrypoint.sh, then the server), and the 1 vCPU
-# droplet is still busy right after building the image itself, so booting can take well over
-# the default 30s. Give the new container more time before kamal-proxy gives up on it.
+# The app boots twice on start (db:migrate in entrypoint.sh, then the server) on a 1 vCPU
+# droplet, so booting can take well over the default 30s. Give the new container more time
+# before kamal-proxy gives up on it.
 deploy_timeout: 120
 
+# Build on the CI runner (4 vCPU) instead of the 1 vCPU droplet, which was slow and filled its
+# disk with build cache. Layers are cached in the registry so unchanged steps are reused.
 builder:
   arch: amd64
-  local: false
-  remote: ssh://deploy@206.189.107.151
+  cache:
+    type: registry
+    options: mode=max
 
 env:
   clear:
