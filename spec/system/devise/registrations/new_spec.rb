@@ -22,20 +22,26 @@ RSpec.describe 'User Registrations', type: :system do
 
       attach_file 'user_avatar', Rails.root.join('spec/fixtures/files/valid_test_image.png')
 
-      expect { click_button I18n.t('activerecord.attributes.user.sign_up') }.to change(User, :count).by(1)
+      # The browser submits asynchronously: wait for the result page before reading the database,
+      # or the check can run before the server has created the user.
+      click_button I18n.t('activerecord.attributes.user.sign_up')
       expect(page).to have_current_path(root_path)
       expect(page).to have_content(I18n.t('devise.registrations.signed_up'))
-      expect(User.last.avatar).to be_attached
+
+      expect(User.find_by(email: 'alex@example.com').avatar).to be_attached
     end
 
     it 'shows errors when invalid data is entered' do
       fill_in 'user_password', with: 'password123'
       fill_in 'user_password_confirmation', with: 'wrongpassword'
 
-      expect { click_button I18n.t('activerecord.attributes.user.sign_up') }.not_to change(User, :count)
+      users_before = User.count
+      click_button I18n.t('activerecord.attributes.user.sign_up')
       expect(page).to have_css('.bg-red-100.text-red-700')
       expect(page).to have_content(I18n.t('errors.messages.blank'))
       expect(page).to have_content(I18n.t('errors.messages.confirmation'))
+
+      expect(User.count).to eq(users_before)
     end
 
     it 'toggles password visibility when clicking on the icon (eye)' do
