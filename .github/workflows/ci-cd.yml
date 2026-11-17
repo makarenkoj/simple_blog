@@ -150,22 +150,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Free disk space
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          sudo apt-get clean
-          docker system prune -af
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
       - name: Install Kamal
-        run: gem install kamal
+        run: gem install kamal -v 2.12.0 --no-document
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.9.0
@@ -210,17 +201,14 @@ jobs:
           CABLE_DATABASE_URL: ${{ secrets.CABLE_DATABASE_URL }}
           DEFAULT_HOST: ${{ secrets.DEFAULT_HOST }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-        run: |
-          # kamal proxy reboot -y
-          kamal deploy
-          # kamal app exec 'bin/rails db:migrate'
-          kamal app exec 'bin/rails db:prepare'
-          # kamal app exec 'bin/rails sitemap:create'
+        # The image is built here on the runner (see builder in config/deploy.yml). Migrations
+        # run in entrypoint.sh before the new container's server starts, so the schema is ready
+        # before kamal-proxy sends it traffic; no separate db:prepare container is needed.
+        run: kamal deploy
 
       - name: Verify deployment
-        run: |
-          sleep 10
-          curl -f https://helpbooost.com || exit 1
+        # kamal deploy only finishes after the new container passed its /up health check.
+        run: curl -fsS --retry 3 --retry-delay 5 https://helpbooost.com/up
 
       - name: Create deployment summary
         run: |
