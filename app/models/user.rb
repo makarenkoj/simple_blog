@@ -21,6 +21,10 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  # Preload for rendering avatars of associated users: `variant(...).processed` looks
+  # up a variant record per image unless the records are loaded with the blob.
+  AVATAR_WITH_VARIANTS = { avatar_attachment: { blob: { variant_records: { image_attachment: :blob } } } }.freeze
+
   enum :role, { reader: 0, creator: 1 }
 
   validates :first_name, length: { maximum: 50 }
@@ -65,8 +69,9 @@ class User < ApplicationRecord
     followers.include?(user)
   end
 
+  # Shown by several partials of one page; counted once per loaded user.
   def unread_notifications_count
-    notifications.unread.size
+    @unread_notifications_count ||= notifications.unread.count
   end
 
   def bookmarked?(post)

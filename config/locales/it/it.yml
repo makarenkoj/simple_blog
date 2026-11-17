@@ -44,6 +44,9 @@ it:
     cover_image:
       large: 'Copertina troppo grande, oltre 5 megabyte!'
       dimension: 'La copertina deve essere più piccola di 2000x2000 pixel.'
+    editor_image:
+      type: 'Si possono inserire solo immagini PNG, JPEG, GIF o WebP.'
+      large: 'Immagine troppo grande, oltre 5 megabyte!'
   cookies:
     accept: 'Accetta'
     privacy_policy: 'Privacy Policy'

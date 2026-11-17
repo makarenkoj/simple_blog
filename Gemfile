@@ -28,7 +28,7 @@ gem 'pg'
 gem 'phlex-rails', '~> 1.2'
 gem 'propshaft'
 gem 'puma'
-gem 'rails', '~> 8.0.2'
+gem 'rails', '~> 8.1.4'
 gem 'ransack', '~> 4.4'
 gem 'rswag'
 gem 'ruby_ui', group: :development, require: false
@@ -66,6 +66,14 @@ group :development, :test do
   gem 'rubocop-rspec_rails', '~> 2.32'
   gem 'spring'
   gem 'spring-watcher-listen'
+
+  # Security gates: known-vulnerable gems and static analysis
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
+
+  # N+1 gate in specs: flags repeated SQL fingerprints (see spec/support/prosopite.rb)
+  gem 'pg_query', '~> 6.2'
+  gem 'prosopite', '~> 2.5'
 end
 
 group :test do

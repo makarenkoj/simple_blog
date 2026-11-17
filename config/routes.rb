@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
     get 'up' => 'rails/health#show', as: :rails_health_check
 
-    authenticate :user, ->(user) { user.role == 'creator' && user.email == ENV['AVO_EMAIL'] } do
+    authenticate :user, ->(user) { user.admin? } do
       mount MissionControl::Jobs::Engine, at: "/jobs"
     end
 

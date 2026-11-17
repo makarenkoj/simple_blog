@@ -33,8 +33,9 @@ class Notification < ApplicationRecord
   end
 
   after_create_commit :send_mobile_push
+  # Rendered in background jobs: a post's fan-out creates one notification per follower.
   after_create_commit do
-    broadcast_replace_to(
+    broadcast_replace_later_to(
       user,
       :notifications,
       target: 'notifications_dropdown',
@@ -42,7 +43,7 @@ class Notification < ApplicationRecord
       locals: { user: user }
     )
 
-    broadcast_replace_to(
+    broadcast_replace_later_to(
       user,
       :notifications,
       target: 'profile_notifications_button',
@@ -50,7 +51,7 @@ class Notification < ApplicationRecord
       locals: { user: user }
     )
 
-    broadcast_update_to(
+    broadcast_update_later_to(
       user,
       :notifications,
       target: 'mobile_header_notifications_wrapper',
@@ -62,8 +63,6 @@ class Notification < ApplicationRecord
   private
 
   def send_mobile_push
-    Thread.new do
-      FcmService.send_notification(self)
-    end
+    PushNotificationJob.perform_later(self)
   end
 end

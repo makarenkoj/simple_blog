@@ -23,9 +23,7 @@ class SearchService
     return [] unless search_scope?(:posts)
 
     visible_posts.where('posts.title ILIKE :query OR posts.body_html ILIKE :query', query: "%#{sanitized_query}%")
-                 .includes(:categories,
-                           user: { avatar_attachment: { blob: { variant_records: { image_attachment: :blob } } } },
-                           cover_image_attachment: { blob: { variant_records: { image_attachment: :blob } } })
+                 .for_cards
                  .order(created_at: :desc)
                  .limit(limit)
   end
@@ -36,10 +34,9 @@ class SearchService
     User.where("username ILIKE :query OR
                 first_name ILIKE :query OR
                 last_name ILIKE :query OR
-                email ILIKE :query OR
                 CONCAT(first_name, ' ', last_name) ILIKE :query",
                query: "%#{sanitized_query}%")
-        .includes(avatar_attachment: { blob: { variant_records: { image_attachment: :blob } } })
+        .includes(User::AVATAR_WITH_VARIANTS)
         .order(created_at: :desc)
         .limit(limit)
   end
