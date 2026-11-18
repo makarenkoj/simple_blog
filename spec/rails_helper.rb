@@ -11,6 +11,7 @@ require 'rspec/rails'
 require 'benchmark'
 require 'support/shared_contexts/base'
 require 'support/capybara_selenium'
+require 'support/cookie_banner'
 require 'support/prosopite'
 # Add additional requires below this line. Rails is not loaded until this point!
 
