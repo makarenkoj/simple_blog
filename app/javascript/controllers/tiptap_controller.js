@@ -1,8 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
-import { Underline } from '@tiptap/extension-underline'
-import { Link } from '@tiptap/extension-link'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Table } from '@tiptap/extension-table'
 import { TableRow } from '@tiptap/extension-table-row'
@@ -11,13 +9,15 @@ import { TableHeader } from '@tiptap/extension-table-header'
 import { TextStyle } from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import { Image } from '@tiptap/extension-image'
+import { Youtube } from '@tiptap/extension-youtube'
 
 export default class extends Controller {
   static targets = [
     "editor", "input", 
     "boldBtn", "italicBtn", "strikeBtn", "h2Btn", "h3Btn", "codeBtn",
     "underlineBtn", "linkBtn", 
-    "alignLeftBtn", "alignCenterBtn", "bulletListBtn", "orderedListBtn"
+    "alignLeftBtn", "alignCenterBtn", "bulletListBtn", "orderedListBtn",
+    "tableControls", "imageInput"
   ]
 
   connect() {
@@ -33,13 +33,14 @@ export default class extends Controller {
           },
           listItem: {
             HTMLAttributes: { class: 'pl-1' },
-          }
-        }),
-        Underline,
-        Link.configure({
-          openOnClick: false,
-          HTMLAttributes: {
-            class: 'text-emerald-600 underline hover:text-emerald-800 transition-colors cursor-pointer',
+          },
+          // StarterKit v3 already includes Link and Underline; configure them here instead
+          // of registering them twice.
+          link: {
+            openOnClick: false,
+            HTMLAttributes: {
+              class: 'text-emerald-600 underline hover:text-emerald-800 transition-colors cursor-pointer',
+            },
           },
         }),
         TextAlign.configure({
@@ -66,7 +67,15 @@ export default class extends Controller {
           },
         }),
         TextStyle,
-        Color
+        Color,
+        // youtube-nocookie.com is the only frame source the server keeps (PostBodySanitizer).
+        Youtube.configure({
+          nocookie: true,
+          controls: true,
+          width: 640,
+          height: 360,
+          HTMLAttributes: { class: 'w-full aspect-video rounded-lg my-4' },
+        })
       ],
       content: this.inputTarget.value,
       onUpdate: ({ editor }) => {
@@ -128,6 +137,20 @@ export default class extends Controller {
     }
   }
 
+  addRowAfter() { this.editor.chain().focus().addRowAfter().run() }
+  addColumnAfter() { this.editor.chain().focus().addColumnAfter().run() }
+  deleteRow() { this.editor.chain().focus().deleteRow().run() }
+  deleteColumn() { this.editor.chain().focus().deleteColumn().run() }
+  deleteTable() { this.editor.chain().focus().deleteTable().run() }
+
+  insertYoutube() {
+    const url = window.prompt(this.element.dataset.youtubePrompt || 'YouTube URL:')
+    if (!url) return
+
+    const inserted = this.editor.chain().focus().setYoutubeVideo({ src: url.trim() }).run()
+    if (!inserted) alert(this.element.dataset.youtubeInvalid || 'This is not a YouTube video link.')
+  }
+
   setColor(event) {
     this.editor.chain().focus().setColor(event.target.value).run()
   }
@@ -145,6 +168,7 @@ export default class extends Controller {
     if (this.hasAlignCenterBtnTarget) this.toggleButtonClass(this.alignCenterBtnTarget, this.editor.isActive({ textAlign: 'center' }))
     if (this.hasBulletListBtnTarget) this.toggleButtonClass(this.bulletListBtnTarget, this.editor.isActive('bulletList'))
     if (this.hasOrderedListBtnTarget) this.toggleButtonClass(this.orderedListBtnTarget, this.editor.isActive('orderedList'))
+    if (this.hasTableControlsTarget) this.tableControlsTarget.hidden = !this.editor.isActive('table')
   }
 
   toggleButtonClass(element, isActive) {
@@ -158,38 +182,35 @@ export default class extends Controller {
     }
   }
 
-  insertImage() {
-    const input = document.createElement("input")
-    input.type = "file"
-    input.accept = "image/png,image/jpeg,image/gif,image/webp"
-    input.click()
+  // The button opens the hidden file field in the form; choosing a file uploads it.
+  insertImage() { this.imageInputTarget.click() }
 
-    input.onchange = async () => {
-      const file = input.files[0]
-      if (!file) return
+  async uploadImage() {
+    const file = this.imageInputTarget.files[0]
+    if (!file) return
 
-      const formData = new FormData()
-      formData.append("image", file)
+    const formData = new FormData()
+    formData.append("image", file)
 
-      const response = await fetch("/uploads", {
-        method: "POST",
-        headers: {
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: formData
-      })
+    const response = await fetch("/uploads", {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.content || ""
+      },
+      body: formData
+    })
+    this.imageInputTarget.value = ""
 
-      const data = await response.json()
-      if (!response.ok) {
-        alert(data.error)
-        return
-      }
-
-      this.editor
-        .chain()
-        .focus()
-        .setImage({ src: data.url })
-        .run()
+    const data = await response.json()
+    if (!response.ok) {
+      alert(data.error)
+      return
     }
+
+    this.editor
+      .chain()
+      .focus()
+      .setImage({ src: data.url })
+      .run()
   }
 }

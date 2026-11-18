@@ -41,6 +41,6 @@ class UploadedBlobsAudit
   # Editor URLs carry the blob's signed id (redirect and proxy routes alike).
   def posts_embedding(blob)
     pattern = "%#{ActiveRecord::Base.sanitize_sql_like(blob.signed_id)}%"
-    Post.where('body_html LIKE :p OR body LIKE :p', p: pattern).includes(:user).order(:id).to_a
+    Post.where('body_html LIKE :p', p: pattern).includes(:user).order(:id).to_a
   end
 end

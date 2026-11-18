@@ -10,6 +10,9 @@ application.register("autohide", AutohideController)
 import CategoryCardController from "./category_card_controller"
 application.register("category-card", CategoryCardController)
 
+import CodeHighlightController from "./code_highlight_controller"
+application.register("code-highlight", CodeHighlightController)
+
 import CookieConsentController from "./cookie_consent_controller"
 application.register("cookie-consent", CookieConsentController)
 

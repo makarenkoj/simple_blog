@@ -1,0 +1,18 @@
+# Solid Cache: Rails.cache in production lives in the `cache` database (see database.yml),
+# so it survives deploys and is shared by the web and job containers.
+default: &default
+  database: cache
+  store_options:
+    # Bounded for a small droplet: oldest entries are evicted first.
+    max_age: <%= 30.days.to_i %>
+    max_size: <%= 256.megabytes %>
+    namespace: <%= Rails.env %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
