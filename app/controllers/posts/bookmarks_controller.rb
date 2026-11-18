@@ -31,7 +31,7 @@ module Posts
     private
 
     def set_post
-      @post = Post.friendly.find(params[:post_id])
+      @post = Post.visible_to(current_user).friendly.find(params[:post_id])
     rescue ActiveRecord::RecordNotFound
       respond_to do |format|
         format.html { redirect_to posts_path, alert: t('activerecord.controllers.posts.not_found') }
