@@ -138,8 +138,9 @@ RSpec.describe 'User Edit Profile Form', type: :system do
 
   describe 'Account deletion' do
     it 'allows the user to delete their account' do
-      # Find the button first so the modal wait only covers the click, and give the native
-      # confirm() more than the default 2s to show up on slow CI runners.
+      # The cookie banner can slide over this button (the last one on the page) while it is
+      # clicked; then no confirm() appears. Dismiss it first, as a visitor would.
+      dismiss_cookie_banner
       delete_button = find_button(I18n.t('simple_form.labels.defaults.cancel'))
       accept_confirm(wait: 5) { delete_button.click }
 
