@@ -409,6 +409,7 @@ it:
     unfollow: "Smetti di seguire"
     followings: "Seguiti"
   search:
+    rate_limited: 'Troppe ricerche. Attendi un minuto e riprova.'
     search: 'Cerca...'
     search_no_results: 'Nessun risultato trovato'
     try_different_query: 'Prova una query diversa'
