@@ -62,6 +62,38 @@ RSpec.describe 'Post editor blocks', type: :system do
     expect(page).to have_no_css('.ProseMirror iframe')
   end
 
+  describe 'images in the post body' do
+    def attach_body_image(fixture)
+      find('input[data-tiptap-target="imageInput"]', visible: :all)
+        .attach_file(Rails.root.join("spec/fixtures/files/#{fixture}"), make_visible: true)
+    end
+
+    it 'uploads an image into the post body and shows it on the post page' do
+      visit new_post_path
+      fill_in 'post[title]', with: 'Post with a picture'
+      find('.ProseMirror').click
+      find('.ProseMirror').send_keys('A paragraph above the picture')
+      attach_body_image('valid_image.png')
+
+      expect(page).to have_css('.ProseMirror img[src*="/rails/active_storage/"]')
+      select I18n.t('activerecord.attributes.posts.statuses.published'), from: 'post[status]'
+      save_post
+
+      expect(Post.last.body_html).to match(%r{<img[^>]+src="[^"]*/rails/active_storage/})
+      expect(page).to have_css('.medium-prose img[src*="/rails/active_storage/"]')
+    end
+
+    it 'refuses a file that is not a web image, with the server reason' do
+      visit new_post_path
+      find('.ProseMirror').click
+
+      message = accept_alert { attach_body_image('image.svg') }
+
+      expect(message).to eq(I18n.t('attachments.editor_image.type'))
+      expect(page).to have_no_css('.ProseMirror img')
+    end
+  end
+
   it 'highlights code blocks on the post page' do
     post_record = create(:post, user: current_user, status: :published,
                                 body_html: '<p>Some code below</p><pre><code class="language-ruby">def hello = puts(1)</code></pre>')

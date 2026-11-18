@@ -1,8 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
-import { Underline } from '@tiptap/extension-underline'
-import { Link } from '@tiptap/extension-link'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Table } from '@tiptap/extension-table'
 import { TableRow } from '@tiptap/extension-table-row'
@@ -19,7 +17,7 @@ export default class extends Controller {
     "boldBtn", "italicBtn", "strikeBtn", "h2Btn", "h3Btn", "codeBtn",
     "underlineBtn", "linkBtn", 
     "alignLeftBtn", "alignCenterBtn", "bulletListBtn", "orderedListBtn",
-    "tableControls"
+    "tableControls", "imageInput"
   ]
 
   connect() {
@@ -35,13 +33,14 @@ export default class extends Controller {
           },
           listItem: {
             HTMLAttributes: { class: 'pl-1' },
-          }
-        }),
-        Underline,
-        Link.configure({
-          openOnClick: false,
-          HTMLAttributes: {
-            class: 'text-emerald-600 underline hover:text-emerald-800 transition-colors cursor-pointer',
+          },
+          // StarterKit v3 already includes Link and Underline; configure them here instead
+          // of registering them twice.
+          link: {
+            openOnClick: false,
+            HTMLAttributes: {
+              class: 'text-emerald-600 underline hover:text-emerald-800 transition-colors cursor-pointer',
+            },
           },
         }),
         TextAlign.configure({
@@ -183,38 +182,35 @@ export default class extends Controller {
     }
   }
 
-  insertImage() {
-    const input = document.createElement("input")
-    input.type = "file"
-    input.accept = "image/png,image/jpeg,image/gif,image/webp"
-    input.click()
+  // The button opens the hidden file field in the form; choosing a file uploads it.
+  insertImage() { this.imageInputTarget.click() }
 
-    input.onchange = async () => {
-      const file = input.files[0]
-      if (!file) return
+  async uploadImage() {
+    const file = this.imageInputTarget.files[0]
+    if (!file) return
 
-      const formData = new FormData()
-      formData.append("image", file)
+    const formData = new FormData()
+    formData.append("image", file)
 
-      const response = await fetch("/uploads", {
-        method: "POST",
-        headers: {
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: formData
-      })
+    const response = await fetch("/uploads", {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.content || ""
+      },
+      body: formData
+    })
+    this.imageInputTarget.value = ""
 
-      const data = await response.json()
-      if (!response.ok) {
-        alert(data.error)
-        return
-      }
-
-      this.editor
-        .chain()
-        .focus()
-        .setImage({ src: data.url })
-        .run()
+    const data = await response.json()
+    if (!response.ok) {
+      alert(data.error)
+      return
     }
+
+    this.editor
+      .chain()
+      .focus()
+      .setImage({ src: data.url })
+      .run()
   }
 }
