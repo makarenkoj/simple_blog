@@ -47,7 +47,7 @@ RSpec.describe SearchService do
         expect(results[:posts]).not_to include(other_draft)
       end
 
-      it 'finds posts by text in the body (ActionText)' do
+      it 'finds posts by text in the body' do
         post_with_body = create(:post, status: :published, title: 'Regular title', body_html: valid_body_html)
 
         service = described_class.new(query: 'unicorn', current_user: nil)
