@@ -15,6 +15,8 @@ class Post < ApplicationRecord
 
   # Everything a post card renders, variant records included (see User::AVATAR_WITH_VARIANTS).
   scope :for_cards, -> { with_attached_cover_image.includes(:categories, user: User::AVATAR_WITH_VARIANTS) }
+  # What a user may see: published posts, plus their own in any status.
+  scope :visible_to, ->(user) { user ? published.or(where(user_id: user.id)) : published }
   has_many :post_views, dependent: :destroy
 
   has_rich_text :body
