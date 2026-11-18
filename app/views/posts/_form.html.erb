@@ -149,6 +149,9 @@
 <% end %>
             </div>
             <div data-tiptap-target="editor" class="w-full h-full p-6 prose max-w-none focus:outline-none rounded-b-xl"></div>
+            <%# No name attribute: the file goes to /uploads, never with the post form. %>
+            <input type="file" accept="image/png,image/jpeg,image/gif,image/webp" hidden
+                   data-tiptap-target="imageInput" data-action="change->tiptap#uploadImage">
           </div>
         </div>
         <div class="form-section mt-4">
