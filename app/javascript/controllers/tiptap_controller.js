@@ -11,13 +11,15 @@ import { TableHeader } from '@tiptap/extension-table-header'
 import { TextStyle } from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import { Image } from '@tiptap/extension-image'
+import { Youtube } from '@tiptap/extension-youtube'
 
 export default class extends Controller {
   static targets = [
     "editor", "input", 
     "boldBtn", "italicBtn", "strikeBtn", "h2Btn", "h3Btn", "codeBtn",
     "underlineBtn", "linkBtn", 
-    "alignLeftBtn", "alignCenterBtn", "bulletListBtn", "orderedListBtn"
+    "alignLeftBtn", "alignCenterBtn", "bulletListBtn", "orderedListBtn",
+    "tableControls"
   ]
 
   connect() {
@@ -66,7 +68,15 @@ export default class extends Controller {
           },
         }),
         TextStyle,
-        Color
+        Color,
+        // youtube-nocookie.com is the only frame source the server keeps (PostBodySanitizer).
+        Youtube.configure({
+          nocookie: true,
+          controls: true,
+          width: 640,
+          height: 360,
+          HTMLAttributes: { class: 'w-full aspect-video rounded-lg my-4' },
+        })
       ],
       content: this.inputTarget.value,
       onUpdate: ({ editor }) => {
@@ -128,6 +138,20 @@ export default class extends Controller {
     }
   }
 
+  addRowAfter() { this.editor.chain().focus().addRowAfter().run() }
+  addColumnAfter() { this.editor.chain().focus().addColumnAfter().run() }
+  deleteRow() { this.editor.chain().focus().deleteRow().run() }
+  deleteColumn() { this.editor.chain().focus().deleteColumn().run() }
+  deleteTable() { this.editor.chain().focus().deleteTable().run() }
+
+  insertYoutube() {
+    const url = window.prompt(this.element.dataset.youtubePrompt || 'YouTube URL:')
+    if (!url) return
+
+    const inserted = this.editor.chain().focus().setYoutubeVideo({ src: url.trim() }).run()
+    if (!inserted) alert(this.element.dataset.youtubeInvalid || 'This is not a YouTube video link.')
+  }
+
   setColor(event) {
     this.editor.chain().focus().setColor(event.target.value).run()
   }
@@ -145,6 +169,7 @@ export default class extends Controller {
     if (this.hasAlignCenterBtnTarget) this.toggleButtonClass(this.alignCenterBtnTarget, this.editor.isActive({ textAlign: 'center' }))
     if (this.hasBulletListBtnTarget) this.toggleButtonClass(this.bulletListBtnTarget, this.editor.isActive('bulletList'))
     if (this.hasOrderedListBtnTarget) this.toggleButtonClass(this.orderedListBtnTarget, this.editor.isActive('orderedList'))
+    if (this.hasTableControlsTarget) this.tableControlsTarget.hidden = !this.editor.isActive('table')
   }
 
   toggleButtonClass(element, isActive) {
