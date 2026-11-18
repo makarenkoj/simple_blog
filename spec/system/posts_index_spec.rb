@@ -30,13 +30,17 @@ RSpec.describe 'Posts Index Page (Feed, Library, Category)', type: :system do
       end
 
       it 'displays the sidebar with popular categories and creators' do
-        visit posts_path
+        # The feed sidebar is desktop-only (hidden lg:!block); the layout's slide-in menu is the
+        # other <aside>, so pick the feed's by its width class.
+        with_window_size(1400, 1000) do
+          visit posts_path
 
-        within('aside') do
-          expect(page).to have_content(/#{I18n.t('activerecord.attributes.categories.popular')}/i)
-          expect(page).to have_content('Technology')
-          expect(page).to have_content(/#{I18n.t('activerecord.attributes.user.who_to_follow')}/i)
-          expect(page).to have_content('snail_bob')
+          within('aside.w-80') do
+            expect(page).to have_content(/#{I18n.t('activerecord.attributes.categories.popular')}/i)
+            expect(page).to have_content('Technology')
+            expect(page).to have_content(/#{I18n.t('activerecord.attributes.user.who_to_follow')}/i)
+            expect(page).to have_content('snail_bob')
+          end
         end
       end
     end

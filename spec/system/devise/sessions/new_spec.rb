@@ -7,6 +7,7 @@ RSpec.describe 'User Sign In Form', type: :system do
     driven_by(:selenium_chrome_headless)
     # driven_by(:selenium_chrome)
     visit new_user_session_path
+    dismiss_cookie_banner
   end
 
   describe 'Authentication' do

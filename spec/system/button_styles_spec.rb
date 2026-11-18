@@ -29,4 +29,26 @@ RSpec.describe 'Button styles', type: :system do
 
     expect(transparent?(background_of(find('form button[type="submit"].bg-blue-600')))).to be(false)
   end
+
+  # The closed sidebar sits just off-screen to the left; its shadow-2xl used to bleed into the
+  # page as a grey band along the left edge.
+  it 'casts no shadow from the closed sidebar' do
+    sign_in current_user
+    visit posts_path
+    sidebar = find('aside.sidebar-menu', visible: :all)
+
+    expect(page.evaluate_script('getComputedStyle(arguments[0]).boxShadow', sidebar)).to eq('none')
+  end
+
+  it 'slides the opened sidebar in with its shadow' do
+    sign_in current_user
+    with_window_size(800, 900) do # the menu button is lg:hidden
+      visit posts_path
+      find(%(button[aria-label="#{I18n.t('menu')}"])).click
+      sidebar = find('aside.sidebar-menu')
+
+      expect(page.evaluate_script('getComputedStyle(arguments[0]).boxShadow', sidebar)).not_to eq('none')
+      expect(page.evaluate_script('getComputedStyle(arguments[0]).transitionProperty', sidebar)).to include('translate')
+    end
+  end
 end

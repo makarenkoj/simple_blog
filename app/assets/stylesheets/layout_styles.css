@@ -30,8 +30,12 @@
   animation: slideDown 0.3s ease-out;
 }
 
-.sidebar-menu {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* The markup's transition-transform duration-300 animates the slide (Tailwind v4 moves it with
+   the `translate` property, which a `transition: transform` rule here would not animate).
+   While closed, the sidebar sits just off-screen; drop its shadow so it does not bleed into
+   the page as a grey band along the left edge. */
+.sidebar-menu.\-translate-x-full {
+  box-shadow: none;
 }
 
 .sidebar-overlay {
