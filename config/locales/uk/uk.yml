@@ -411,6 +411,7 @@ uk:
     unfollow: "Відписатися"
     followings: "Підписаних"
   search:
+    rate_limited: 'Забагато пошукових запитів. Зачекайте хвилину і спробуйте ще раз.'
     search: 'Пошук...'
     search_no_results: 'Нічого не знайдено'
     try_different_query: 'Спробуйте змінити запит'

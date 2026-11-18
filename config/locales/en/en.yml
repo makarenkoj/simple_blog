@@ -409,6 +409,7 @@ en:
     unfollow: "Unfollow"
     followings: "Following"
   search:
+    rate_limited: 'Too many searches. Please wait a minute and try again.'
     search: 'Search...'
     search_no_results: 'Nothing found'
     try_different_query: 'Try a different query'
