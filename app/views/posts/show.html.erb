@@ -111,20 +111,8 @@
     <% end %>
     <div class="px-6 sm:px-8 pb-16">
       <div class="prose prose-lg max-w-none medium-prose">
-        <div class="prose prose-slate max-w-none">
-          <%= sanitize @post.body_html,
-              tags: %w[
-                p br strong em u s
-                h1 h2 h3 h4 h5 h6
-                ul ol li
-                blockquote
-                pre code
-                table thead tbody tr td th
-                a img
-                span
-              ],
-              attributes: %w[href src class colspan rowspan style]
-          %>
+        <div class="prose prose-slate max-w-none" data-controller="code-highlight">
+          <%= PostBodySanitizer.call(@post.body_html) %>
         </div>
       </div>
     </div>
