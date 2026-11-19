@@ -36,9 +36,15 @@ module Api
         url_for(post.cover_image)
       end
 
+      # body_markdown is an alternative input: it is converted to HTML only when body_html is
+      # blank, so a client that sends both gets exactly its HTML (SAM1-29).
       def post_params
-        uploaded_files_only(params.require(:post).permit(:title, :body_html, :status, :cover_image, category_ids: []),
-                            :cover_image)
+        attributes = uploaded_files_only(
+          params.require(:post).permit(:title, :body_html, :status, :cover_image, category_ids: []), :cover_image
+        )
+        markdown = params.dig(:post, :body_markdown)
+        attributes[:body_html] = MarkdownToHtml.call(markdown) if attributes[:body_html].blank? && markdown.present?
+        attributes
       end
     end
   end

@@ -11,7 +11,10 @@ RSpec.describe 'Category Cards interaction', type: :system do
   end
 
   describe 'Unauthenticated user' do
-    before { visit categories_path }
+    before do
+      visit categories_path
+      dismiss_cookie_banner
+    end
 
     it 'navigates to category show page when clicking the card itself' do
       find("[data-controller='category-card']").click
@@ -34,6 +37,7 @@ RSpec.describe 'Category Cards interaction', type: :system do
     before do
       sign_in current_user
       visit categories_path
+      dismiss_cookie_banner
     end
 
     it 'subscribes but stays on the same page when clicking the subscribe button' do
