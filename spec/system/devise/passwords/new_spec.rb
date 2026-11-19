@@ -7,6 +7,7 @@ RSpec.describe 'User Forgot Password Form (Request Instructions)', type: :system
     driven_by(:selenium_chrome_headless)
     # driven_by(:selenium_chrome)
     visit new_user_password_path
+    dismiss_cookie_banner
   end
 
   describe 'Sending instructions' do

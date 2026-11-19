@@ -6,7 +6,6 @@ gem 'avo', '~> 3.29'
 gem 'aws-sdk-s3', '~> 1.213'
 gem 'babosa', '~> 2.0'
 gem 'bootsnap'
-gem 'cssbundling-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'dotenv-rails', '~> 3.2'
@@ -87,3 +86,5 @@ end
 group :production do
   gem 'rails_12factor'
 end
+
+gem 'commonmarker', '~> 2.10'

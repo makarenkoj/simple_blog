@@ -10,6 +10,7 @@ RSpec.describe 'User Registrations', type: :system do
   describe 'Sign Up Form' do
     before do
       visit new_user_registration_path
+      dismiss_cookie_banner
     end
 
     it 'allows the user to successfully register with an avatar' do

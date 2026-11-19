@@ -67,8 +67,31 @@ RSpec.describe 'Api::V1::Posts', type: :request do
       consumes 'multipart/form-data'
       produces 'application/json'
 
-      parameter name: 'post[title]', in: :formData, type: :string, required: true
-      parameter name: 'post[body_html]', in: :formData, type: :string, required: true
+      # rswag documents a multipart body only from a formData parameter that carries a `schema`;
+      # without it the generated docs listed no fields at all. The other parameters still drive
+      # the requests these specs send.
+      parameter name: 'post[title]', in: :formData, type: :string, required: true,
+                schema: {
+                  type: :object,
+                  required: ['post[title]'],
+                  properties: {
+                    'post[title]': { type: :string, minLength: 3, maxLength: 100 },
+                    'post[body_html]': {
+                      type: :string,
+                      description: 'Post body as HTML. Required unless post[body_markdown] is sent; ' \
+                                   'when both are sent, this one is used.'
+                    },
+                    'post[body_markdown]': {
+                      type: :string,
+                      description: 'Post body as GitHub-flavoured Markdown (tables, fenced code with a language). ' \
+                                   'Converted to HTML only when post[body_html] is blank; raw HTML inside is dropped.'
+                    },
+                    'post[status]': { type: :string, enum: %w[draft published archived] },
+                    'post[cover_image]': { type: :string, format: :binary, description: 'PNG, JPEG, GIF or WebP, up to 5 MB' },
+                    'post[category_ids][]': { type: :array, items: { type: :integer } }
+                  }
+                }
+      parameter name: 'post[body_html]', in: :formData, type: :string, required: false
       parameter name: 'post[status]', in: :formData, type: :string, required: false, enum: %w[draft published archived]
       parameter name: 'post[cover_image]', in: :formData, type: :file, required: false
       parameter name: 'post[category_ids][]', in: :formData, type: :array, items: { type: :integer }, required: false

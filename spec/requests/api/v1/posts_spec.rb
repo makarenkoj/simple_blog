@@ -123,4 +123,45 @@ RSpec.describe 'Api::V1::Posts', type: :request do
       end
     end
   end
+
+  # body_markdown is an alternative input: used only when body_html is blank (SAM1-29).
+  describe 'POST /api/v1/posts with body_markdown' do
+    let(:markdown) { "## From Markdown\n\nA paragraph long enough to be valid.\n\n```ruby\nputs 1\n```" }
+
+    def create_post(**body)
+      post '/api/v1/posts', params: { post: { title: 'Markdown post', status: 'published', **body } },
+                            headers: valid_headers
+      response
+    end
+
+    it 'converts body_markdown to HTML when body_html is blank' do
+      expect(create_post(body_markdown: markdown, body_html: '')).to have_http_status(:created)
+
+      body = Post.last.body_html
+      expect(body).to include('<h2>From Markdown</h2>', '<code class="language-ruby">')
+      expect(JSON.parse(response.body).dig('post', 'body_html')).to eq(body)
+    end
+
+    it 'converts body_markdown when body_html is not sent at all' do
+      expect(create_post(body_markdown: markdown)).to have_http_status(:created)
+      expect(Post.last.body_html).to include('<h2>From Markdown</h2>')
+    end
+
+    it 'keeps body_html and ignores body_markdown when both are sent' do
+      create_post(body_html: '<p>The HTML version wins here.</p>', body_markdown: markdown)
+
+      expect(Post.last.body_html).to eq('<p>The HTML version wins here.</p>')
+    end
+
+    it 'does not store raw HTML smuggled inside the Markdown' do
+      create_post(body_markdown: "Text that is long enough.\n\n<script>alert(1)</script>")
+
+      expect(Post.last.body_html).not_to include('<script')
+    end
+
+    it 'rejects a post with neither body' do
+      expect(create_post(body_markdown: '')).to have_http_status(:unprocessable_entity)
+      expect(JSON.parse(response.body)['errors']).to have_key('body_html')
+    end
+  end
 end
