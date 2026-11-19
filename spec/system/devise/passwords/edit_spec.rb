@@ -13,6 +13,7 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
   describe 'Change password' do
     before do
       visit edit_user_password_path(reset_password_token: raw_token)
+      dismiss_cookie_banner
     end
 
     it 'successfully changes the password when valid data is entered' do
@@ -57,6 +58,7 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
   describe 'Stimulus Password Visibility Controller (eyes)' do
     before do
       visit edit_user_password_path(reset_password_token: raw_token)
+      dismiss_cookie_banner
     end
 
     it 'toggles visibility for both fields independently' do
@@ -86,6 +88,7 @@ RSpec.describe 'User Password Reset (Update Password Form)', type: :system do
   describe 'Navigation links' do
     before do
       visit edit_user_password_path(reset_password_token: raw_token)
+      dismiss_cookie_banner
     end
 
     it 'performs navigation to the sign-in page' do
