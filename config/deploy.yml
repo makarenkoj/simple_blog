@@ -86,7 +86,11 @@ accessories:
   db:
     image: postgres:15
     host: 206.189.107.151
-    port: 5432
+    # Published on the host's loopback only. The app reaches Postgres over the kamal Docker
+    # network (DB_HOST=helpbooost-db); with plain `5432` the port was open to the internet
+    # (SAM1-30). Connect from outside through an SSH tunnel; see
+    # docs/runbooks/close-db-port-and-rotate-db-password.md.
+    port: "127.0.0.1:5432:5432"
     env:
       clear:
         POSTGRES_USER: helpbooost
