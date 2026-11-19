@@ -1,5 +1,8 @@
 # Закрити порт Postgres і змінити пароль бази (SAM1-30, крок 1)
 
+> Виконано 2026-11-19 (порт закрито о 11:38 UTC, пароль змінено о 12:06 UTC). Інструкцію оновлено за
+> результатами; її можна повторювати для наступних ротацій пароля (кроки 0, 1, 3).
+
 Production: droplet `206.189.107.151`, контейнер бази `helpbooost-db` (Kamal accessory `db`),
 дані на хості в `/home/deploy/helpbooost-db/data` (перезапуск контейнера їх не зачіпає).
 
@@ -27,12 +30,21 @@ git switch master && git pull          # після мерджу цього PR �
 kamal version                          # очікується 2.12.0
 mkdir -p ~/backups/simple_blog
 ```
-Для ручних команд Kamal потрібні змінні з `.kamal/secrets` (значення беруться з оточення).
-Перед `kamal accessory reboot` / `kamal deploy` задай щонайменше ці дві (пароль бази — новий після кроку 3):
-```bash
-read -rs POSTGRES_PASSWORD && export POSTGRES_PASSWORD             # пароль не потрапить в історію
-read -rs KAMAL_REGISTRY_PASSWORD && export KAMAL_REGISTRY_PASSWORD # токен GHCR (той самий, що в GitHub secrets)
-```
+Для ручних команд Kamal потрібні дві змінні з `.kamal/secrets`. GitHub не показує збережені секрети,
+тож їхні значення беруться не звідти:
+
+- **`POSTGRES_PASSWORD` — одразу новий пароль.** Postgres читає цю змінну лише при першій ініціалізації
+  бази, тому контейнер бази можна перезапустити вже з новим значенням; справжній пароль ролі зміниться
+  на кроці 3. Старий пароль не потрібен (бекап іде через локальний сокет у контейнері).
+  ```bash
+  openssl rand -hex 32        # лише hex, щоб пароль безпечно вставлявся в URL; одразу в менеджер паролів
+  read -rs POSTGRES_PASSWORD && export POSTGRES_PASSWORD     # пароль не потрапить в історію
+  ```
+- **`KAMAL_REGISTRY_PASSWORD` — власний токен GHCR.** GitHub → Settings → Developer settings → Personal access
+  tokens → Tokens (classic) → scope лише `read:packages`, термін 30 днів. Секрет у CI не чіпати.
+  ```bash
+  read -rs KAMAL_REGISTRY_PASSWORD && export KAMAL_REGISTRY_PASSWORD
+  ```
 
 ## 1. Бекап усіх баз (тільки читання)
 ```bash
@@ -58,56 +70,48 @@ timeout 3 bash -c '</dev/tcp/206.189.107.151/5432' && echo "ВІДКРИТИЙ �
 kamal server exec -q "docker ps --filter name=helpbooost-db --format '{{.Ports}}'"   # 127.0.0.1:5432->5432/tcp
 # сайт і база працюють
 curl -fsS https://helpbooost.com/up && echo " up ok"
-kamal app exec --reuse -q "bin/rails runner 'puts ActiveRecord::Base.connection.select_value(%q{SELECT 1})'"
-kamal app logs --lines 50 | grep -iE "PG::|ConnectionNotEstablished" || echo "помилок БД у логах немає"
+kamal app exec --reuse -q "bin/rails runner 'puts ActiveRecord::Base.connection.select_value(%q{SELECT 1})'"   # 1
 ```
+Очікувано: кілька помилок `PG::` у контейнері job саме в секунди перезапуску бази; Solid Queue
+перепідключається сам. Рядки `Couldn't find template for digesting` у виводі `rails runner` — шум, не помилка.
 
 ## 3. Змінити пароль бази
-Робити одразу після кроку 2: між `ALTER ROLE` і перезапуском застосунку **нові** підключення до бази
-не пройдуть (уже відкриті продовжать працювати), тож кроки 3.2–3.4 — без пауз.
+Між зміною пароля (3.2) і заміною контейнерів (3.3) **нові** підключення зі старим паролем не проходять
+(уже відкриті працюють), тому порядок такий, щоб це вікно було коротким.
 
-**3.1. Згенерувати пароль.** Тільки hex-символи, щоб пароль безпечно вставлявся в URL:
-```bash
-openssl rand -hex 32
-```
-Збережи в менеджер паролів.
+**3.1. Спочатку секрети в GitHub** (їх читає лише деплой, тож оновлювати можна заздалегідь).
+GitHub → Settings → Secrets and variables → Actions:
+- `POSTGRES_PASSWORD` → Update → новий пароль (той самий, що експортований на кроці 0).
+- Якщо є `DATABASE_URL`, `QUEUE_DATABASE_URL`, `CACHE_DATABASE_URL`, `CABLE_DATABASE_URL` — оновити й їх
+  (формат `postgres://helpbooost:<пароль>@helpbooost-db/<база>`).
+- Відкрити Actions → останній успішний run «CI/CD Pipeline» на `master` і тримати сторінку напоготові.
 
 **3.2. Змінити пароль ролі в Postgres.** Інтерактивно, щоб пароль не потрапив в історію shell і логи Kamal:
 ```bash
 kamal accessory exec db --reuse -i "psql -U helpbooost -d postgres"
 ```
-У psql:
 ```sql
 \password helpbooost
--- двічі ввести новий пароль
+-- двічі ввести новий пароль (той самий, що в GitHub)
 \q
 ```
 
-**3.3. Оновити секрети.**
-- GitHub → Settings → Secrets and variables → Actions → `POSTGRES_PASSWORD` → Update → новий пароль.
-- Якщо `DATABASE_URL`, `QUEUE_DATABASE_URL`, `CACHE_DATABASE_URL`, `CABLE_DATABASE_URL` містять пароль —
-  оновити й їх (формат `postgres://helpbooost:<пароль>@helpbooost-db/<база>`).
-- Локально (якщо деплоїш з машини): `read -rs POSTGRES_PASSWORD && export POSTGRES_PASSWORD`, і там, де ти
-  зберігаєш змінні для Kamal (менеджер паролів, `.envrc` тощо). У git пароль не додавати.
+**3.3. Одразу перезапустити тільки деплой.** На сторінці run: job деплою → **Re-run this job**
+(не «Re-run all jobs» — тести вдруге не потрібні; повторний запуск бере актуальні секрети).
+Альтернатива з машини: `kamal deploy` (потрібні всі змінні з `.kamal/secrets`, зокрема `RAILS_MASTER_KEY`).
 
-**3.4. Перезапустити застосунок з новим паролем.**
-- Через CI: GitHub → Actions → останній успішний run «CI/CD Pipeline» на `master` → Re-run all jobs
-  (повторний запуск бере актуальні секрети).
-- Або локально (з експортованими секретами): `kamal deploy`.
+Окремий `kamal accessory reboot db` після цього не потрібен: контейнер бази вже перезапущено на кроці 2
+з новим `POSTGRES_PASSWORD`.
 
-**3.5. Оновити змінну в accessory (для узгодженості).** Пароль уже змінено через `ALTER`, а `POSTGRES_PASSWORD`
-в оточенні контейнера бази ні на що не впливає після ініціалізації. Щоб не лишалось старого значення:
-```bash
-kamal accessory reboot db      # з уже експортованим новим POSTGRES_PASSWORD; короткий перезапуск бази
-```
-
-**3.6. Перевірка.**
+**3.4. Перевірка.**
 ```bash
 curl -fsS https://helpbooost.com/up && echo " up ok"
 kamal app exec --reuse -q "bin/rails runner 'puts ActiveRecord::Base.connection.select_value(%q{SELECT 1})'"
 kamal app logs --roles=job --lines 50 | grep -iE "password authentication failed|PG::" || echo "job ок"
-kamal server exec -q "docker logs --since 10m helpbooost-db 2>&1 | grep -c 'password authentication failed'"   # очікується 0
+kamal server exec -q "docker logs --since 2m helpbooost-db 2>&1 | grep -c 'password authentication failed'"   # 0
 ```
+Очікувано: десятки `password authentication failed` у логах бази **лише** у вікні між 3.2 і заміною
+контейнерів (старі web/job зі старим паролем); після заміни — 0. Якщо вони тривають — див. «Відкат».
 
 ## 4. Як тепер підключатись до бази
 - **psql на сервері:**
@@ -126,8 +130,8 @@ kamal server exec -q "docker logs --since 10m helpbooost-db 2>&1 | grep -c 'pass
   `kamal accessory logs db`. Повернути старий порт: у `config/deploy.yml` тимчасово `port: 5432`,
   `kamal accessory reboot db`.
 - **Після зміни пароля застосунок не підключається.** Найчастіше секрет не оновився. Перевір
-  `POSTGRES_PASSWORD` у GitHub і повтори деплой. Аварійно можна повернути старий пароль:
-  `\password helpbooost` у psql (крок 3.2).
+  `POSTGRES_PASSWORD` у GitHub і повтори деплой. Аварійно: `\password helpbooost` у psql (крок 3.2)
+  і ввести те значення, що зараз у GitHub secret.
 - **Втрата даних** (не повинна статися: дані в `/home/deploy/helpbooost-db/data`). Відновлення з бекапу:
   ```bash
   ssh deploy@206.189.107.151 "docker exec -i helpbooost-db psql -U helpbooost -d postgres" \
@@ -136,5 +140,5 @@ kamal server exec -q "docker logs --since 10m helpbooost-db 2>&1 | grep -c 'pass
 
 ## Після
 - Записати в SAM1-30 дату, результати перевірок, що порт закрито.
-- Наступні кроки SAM1-30: firewall (лише 22/80/443, SSH з твоїх IP), SSH key-only + fail2ban,
-  `log_connections = on` у Postgres, щоб бачити входи.
+- Видалити тимчасовий GHCR-токен або зберегти його в менеджері паролів.
+- Наступні кроки SAM1-30: SSH (`PermitRootLogin no`, fail2ban), `log_connections = on` у Postgres.
