@@ -94,6 +94,23 @@ RSpec.describe 'Post editor blocks', type: :system do
     end
   end
 
+  it 'imports a Markdown file into the editor and saves it as the post body' do
+    visit new_post_path
+    fill_in 'post[title]', with: 'Imported from Markdown'
+    find('.ProseMirror').click
+    find('input[data-tiptap-target="markdownInput"]', visible: :all)
+      .attach_file(Rails.root.join('spec/fixtures/files/post.md'), make_visible: true)
+
+    expect(page).to have_css('.ProseMirror h2', text: 'Imported heading')
+    expect(page).to have_css('.ProseMirror table td', text: 'Ruby')
+    select I18n.t('activerecord.attributes.posts.statuses.published'), from: 'post[status]'
+    save_post
+
+    body = Post.last.body_html
+    expect(body).to include('Imported heading', '<table', 'language-ruby')
+    expect(page).to have_css('pre code.hljs .hljs-built_in, pre code.hljs .hljs-string')
+  end
+
   it 'highlights code blocks on the post page' do
     post_record = create(:post, user: current_user, status: :published,
                                 body_html: '<p>Some code below</p><pre><code class="language-ruby">def hello = puts(1)</code></pre>')

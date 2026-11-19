@@ -17,7 +17,7 @@ export default class extends Controller {
     "boldBtn", "italicBtn", "strikeBtn", "h2Btn", "h3Btn", "codeBtn",
     "underlineBtn", "linkBtn", 
     "alignLeftBtn", "alignCenterBtn", "bulletListBtn", "orderedListBtn",
-    "tableControls", "imageInput"
+    "tableControls", "imageInput", "markdownInput"
   ]
 
   connect() {
@@ -180,6 +180,32 @@ export default class extends Controller {
       element.classList.remove('bg-emerald-100', 'text-emerald-700')
       element.classList.add('text-slate-700', 'hover:bg-slate-200')
     }
+  }
+
+  // Markdown import: the server converts the file (same converter as the API's body_markdown)
+  // and the HTML is inserted at the cursor for further editing.
+  importMarkdown() { this.markdownInputTarget.click() }
+
+  async insertMarkdownFile() {
+    const file = this.markdownInputTarget.files[0]
+    this.markdownInputTarget.value = ""
+    if (!file) return
+
+    const response = await fetch("/markdown_conversion", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.content || ""
+      },
+      body: JSON.stringify({ markdown: await file.text() })
+    })
+    if (!response.ok) {
+      alert(this.element.dataset.markdownFailed || "This Markdown file could not be imported.")
+      return
+    }
+
+    const { html } = await response.json()
+    this.editor.chain().focus().insertContent(html).run()
   }
 
   // The button opens the hidden file field in the form; choosing a file uploads it.

@@ -82,5 +82,6 @@ Rails.application.routes.draw do
     end
 
     resources :uploads, only: [:create]
+    resource :markdown_conversion, only: [:create]
   # end
 end

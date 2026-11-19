@@ -67,7 +67,37 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: string
+              type: object
+              required:
+              - post[title]
+              properties:
+                post[title]:
+                  type: string
+                  minLength: 3
+                  maxLength: 100
+                post[body_html]:
+                  type: string
+                  description: Post body as HTML. Required unless post[body_markdown]
+                    is sent; when both are sent, this one is used.
+                post[body_markdown]:
+                  type: string
+                  description: Post body as GitHub-flavoured Markdown (tables, fenced
+                    code with a language). Converted to HTML only when post[body_html]
+                    is blank; raw HTML inside is dropped.
+                post[status]:
+                  type: string
+                  enum:
+                  - draft
+                  - published
+                  - archived
+                post[cover_image]:
+                  type: string
+                  format: binary
+                  description: PNG, JPEG, GIF or WebP, up to 5 MB
+                post[category_ids][]:
+                  type: array
+                  items:
+                    type: integer
         required: true
 servers:
 - url: https://{defaultHost}
